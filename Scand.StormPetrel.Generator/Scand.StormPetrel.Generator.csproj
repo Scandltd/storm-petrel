@@ -1,0 +1,134 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- CAUTION: the file is mostly manually updated according to https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.cookbook.md#use-functionality-from-nuget-packages -->
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <!-- Generates a package at build -->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <!-- Do not include the generator as a lib dependency -->
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <PackageOutputPath>$(OutputPath)..\bin</PackageOutputPath>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://scand.com/products/storm-petrel-expected-baselines-rewriter</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Scandltd/storm-petrel.git</RepositoryUrl>
+        <Description>.NET Incremental Generator that creates modified copies of unit and/or integration tests to update expected baselines in original tests, automating baseline creation and accelerating test development.</Description>
+        <Title>StormPetrel Generator</Title>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <AnalysisMode>All</AnalysisMode>
+      <AnalysisLevel>latest</AnalysisLevel>
+      <EnableNETAnalyzers>true</EnableNETAnalyzers>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <PackageIcon>logo-128x128-transparent.png</PackageIcon>
+      <Authors>Scand</Authors>
+      <Company>Scand</Company>
+      <Copyright>© 2024 Scand</Copyright>
+      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+      <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+      <PackageTags>automated testing tools;unit test modification;integration test automation;baseline updating tools;incremental test generators</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <!-- Include CSharp because it is referenced by Scand.StormPetrel.Rewriter.dll -->
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="[4.10.0,)" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.1" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Serilog" Version="4.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Json" Version="8.0.4" PrivateAssets="all" GeneratePathProperty="true" />
+        <None Include="..\assets\logo-128x128-transparent.png">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
+
+        <None Include="README.md" Pack="true" PackagePath="\" />
+
+        <!-- Package the generator in the analyzer directory of the nuget package -->
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(OutputPath)\Scand.StormPetrel.Rewriter.dll" Pack="true" PackagePath="lib\$(TargetFramework)"></None>
+
+        <!-- Package the package dependencies alongside the generator assembly -->
+        <None Include="$(PKGMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGMicrosoft_Extensions_Configuration)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGMicrosoft_Extensions_Configuration_Abstractions)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGMicrosoft_Extensions_Configuration_Json)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGMicrosoft_Extensions_DependencyModel)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGMicrosoft_Extensions_Primitives)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSerilog)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSerilog_Settings_Configuration)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSerilog_Sinks_File)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_Diagnostics_DiagnosticSource)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_Text_Encodings_Web)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_Text_Json)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+
+  </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="TargetProject\GenerationBackupContext.cs" />
+      <Compile Remove="TargetProject\GenerationContext.cs" />
+      <Compile Remove="TargetProject\GenerationDumpContext.cs" />
+      <Compile Remove="TargetProject\GenerationRewriteContext.cs" />
+      <Compile Remove="TargetProject\Generator.cs" />
+      <Compile Remove="TargetProject\GeneratorBackuper.cs" />
+      <Compile Remove="TargetProject\GeneratorDumper.cs" />
+      <Compile Remove="TargetProject\GeneratorObjectDumper.cs" />
+      <Compile Remove="TargetProject\GeneratorRewriter.cs" />
+      <Compile Remove="TargetProject\GeneratorRewriter.StaticMethodInfo.cs" />
+      <Compile Remove="TargetProject\GeneratorRewriter.StaticPropertyInfo.cs" />
+      <Compile Remove="TargetProject\IGenerator.cs" />
+      <Compile Remove="TargetProject\IGeneratorBackuper.cs" />
+      <Compile Remove="TargetProject\IGeneratorDumper.cs" />
+      <Compile Remove="TargetProject\IGeneratorRewriter.cs" />
+      <Compile Remove="TargetProject\TestCaseAttributeInfo.cs" />
+      <Compile Remove="TargetProject\VariableInvocationExpressionInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="TargetProject\TestCaseAttributeInfo.cs" />
+      <EmbeddedResource Include="TargetProject\GenerationBackupContext.cs" />
+      <EmbeddedResource Include="TargetProject\GeneratorBackuper.cs" />
+      <EmbeddedResource Include="TargetProject\GenerationContext.cs" />
+      <EmbeddedResource Include="TargetProject\GenerationDumpContext.cs" />
+      <EmbeddedResource Include="TargetProject\GeneratorDumper.cs" />
+      <EmbeddedResource Include="TargetProject\GenerationRewriteContext.cs" />
+      <EmbeddedResource Include="TargetProject\GeneratorObjectDumper.cs" />
+      <EmbeddedResource Include="TargetProject\GeneratorRewriter.cs" />
+      <EmbeddedResource Include="TargetProject\Generator.cs" />
+      <EmbeddedResource Include="TargetProject\GeneratorRewriter.StaticMethodInfo.cs" />
+      <EmbeddedResource Include="TargetProject\GeneratorRewriter.StaticPropertyInfo.cs" />
+      <EmbeddedResource Include="TargetProject\IGenerator.cs" />
+      <EmbeddedResource Include="TargetProject\IGeneratorBackuper.cs" />
+      <EmbeddedResource Include="TargetProject\IGeneratorDumper.cs" />
+      <EmbeddedResource Include="TargetProject\IGeneratorRewriter.cs" />
+      <EmbeddedResource Include="TargetProject\VariableInvocationExpressionInfo.cs" />
+      <EmbeddedResource Include="TargetProject\RewriterKind.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Scand.StormPetrel.Rewriter\Scand.StormPetrel.Rewriter.csproj">
+        <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+        <IncludeAssets>Scand.StormPetrel.Rewriter.dll</IncludeAssets>
+      </ProjectReference>
+    </ItemGroup>
+
+    <Import Project="..\Scand.StormPetrel.Shared\Scand.StormPetrel.Shared.projitems" Label="Shared" />
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+      <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)..\README.md&quot; &quot;$(MSBuildThisFileDirectory)*&quot; /Y" />
+    </Target>
+    <Target Name="MakeBinDir" AfterTargets="PrepareForBuild">
+      <MakeDir Directories="$(SolutionDir)bin" Condition="'$(SolutionDir)' != '*Undefined*' and !Exists('$(SolutionDir)bin')" />
+    </Target>
+</Project>
