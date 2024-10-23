@@ -1,6 +1,6 @@
 ﻿namespace Test.Integration.NUnit
 {
-    sealed class BackupMultithreadTestHelper
+    internal static class BackupMultithreadTestHelper
     {
         public static int GetExpected(int arg)
             =>

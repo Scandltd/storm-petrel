@@ -38,5 +38,15 @@ namespace Scand.StormPetrel.Generator
             "DataRow", //MSTest
         }
         .ToImmutableHashSet();
+
+        public readonly static ImmutableHashSet<string> AttributeNamesForTestCaseSource =
+        new[]
+        {
+            "MemberData", //xUnit
+            "ClassData", //xUnit
+            "TestCaseSource", //NUnit
+            "DynamicData", //MSTest
+        }
+        .ToImmutableHashSet();
     }
 }

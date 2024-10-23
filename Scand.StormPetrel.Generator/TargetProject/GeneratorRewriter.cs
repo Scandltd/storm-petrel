@@ -37,9 +37,23 @@ namespace Scand.StormPetrel.Generator.TargetProject
                     break;
                 case RewriterKind.PropertyExpression:
                     var propertyExpressionInfo = generationContext.ExpectedVariableInvocationExpressionInfo;
-                    var staticPropertyInfo = GetStaticPropertyInfo(propertyExpressionInfo.Path);
+                    var staticPropertyInfo = GetStaticPropertyInfo(propertyExpressionInfo.Path, true);
                     filePath = staticPropertyInfo.FilePath;
                     rewriter = new DeclarationRewriter(staticPropertyInfo.PropertyPath, generationRewriteContext.Value);
+                    break;
+                case RewriterKind.EnumerableResultRewriter:
+                    var testCaseSourceInfo = generationContext.TestCaseSourceInfo;
+                    var testCaseSourcePropertyInfo = GetStaticPropertyInfo(testCaseSourceInfo.Path, false);
+                    if (testCaseSourcePropertyInfo == null)
+                    {
+                        var testCaseSourceMethodInfo = GetStaticMethodInfo(testCaseSourceInfo.Path, -1);
+                        filePath = testCaseSourceMethodInfo.FilePath;
+                    }
+                    else
+                    {
+                        filePath = testCaseSourcePropertyInfo.FilePath;
+                    }
+                    rewriter = new EnumerableResultRewriter(testCaseSourceInfo.Path, testCaseSourceInfo.RowIndex, testCaseSourceInfo.ColumnIndex, generationRewriteContext.Value);
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -63,8 +77,11 @@ namespace Scand.StormPetrel.Generator.TargetProject
             return new RewriteResult { IsRewritten = true, BackupFilePath = backupFilePath };
         }
 
-        private static StaticPropertyInfo GetStaticPropertyInfo(string[] staticPropertyPath)
+        private static StaticPropertyInfo GetStaticPropertyInfo(string[] staticPropertyPath, bool throwIfNotFound)
         {
+            staticPropertyPath = staticPropertyPath.ToArray(); //make a copy for later normalization
+            staticPropertyPath[staticPropertyPath.Length - 1] = staticPropertyPath[staticPropertyPath.Length - 1]
+                                                                    .Replace("[*]", "");
             var match = _staticPropertyInfoArray
                                 .Where(x => x.PropertyPath.SequenceEqual(staticPropertyPath))
                                 .FirstOrDefault();
@@ -78,7 +95,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                                                 : false)
                                 .FirstOrDefault();
             }
-            if (match == null)
+            if (throwIfNotFound && match == null)
             {
                 string path = string.Join(".", staticPropertyPath);
                 throw new InvalidOperationException($"Cannot find static property file path for {path}");
@@ -89,7 +106,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
         private static StaticMethodInfo GetStaticMethodInfo(string[] staticMethodPath, int methodArgsCount)
         {
             var match = _staticMethodInfoArray
-                                .Where(x => x.MethodPath.SequenceEqual(staticMethodPath) && x.MethodArgsCount == methodArgsCount)
+                                .Where(x => x.MethodPath.SequenceEqual(staticMethodPath) && (methodArgsCount < 0 || x.MethodArgsCount == methodArgsCount))
                                 .FirstOrDefault();
             if (match == null)
             {
@@ -97,7 +114,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 match = _staticMethodInfoArray
                                 .OrderByDescending(x => x.MethodPath.Length)
                                 .Where(x => x.MethodPath.Length >= staticMethodPath.Length
-                                                ? x.MethodArgsCount == methodArgsCount
+                                                ? (methodArgsCount < 0 || x.MethodArgsCount == methodArgsCount)
                                                     && x.MethodPath.Skip(x.MethodPath.Length - staticMethodPath.Length).SequenceEqual(staticMethodPath)
                                                 : false)
                                 .FirstOrDefault();

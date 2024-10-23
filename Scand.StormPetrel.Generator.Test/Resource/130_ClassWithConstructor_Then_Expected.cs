@@ -169,6 +169,7 @@ namespace Test.Integration.XUnit
         {
         }
 
+        public static int StaticMethod() => 1;
         public static (int NodeKind, int NodeIndex) StaticMethodStormPetrel() => (8917, 0);
         private class NestedClassWithConstructor
         {
@@ -193,7 +194,9 @@ namespace Test.Integration.XUnit
         {
         }
 
+        public static int StaticMethod1() => 111;
         public static (int NodeKind, int NodeIndex) StaticMethod1StormPetrel() => (8917, 0);
+        public static int StaticMethod2() => 222;
         public static (int NodeKind, int NodeIndex) StaticMethod2StormPetrel() => (8917, 0);
     }
 }

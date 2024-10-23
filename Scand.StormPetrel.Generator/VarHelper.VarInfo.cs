@@ -13,6 +13,7 @@ namespace Scand.StormPetrel.Generator
             public string[] Path { get; set; }
             public string InvocationExpression { get; set; }
             public ArgumentListSyntax InvocationExpressionArgs { get; set; }
+            public VarParameterTestCaseSourceInfo ExpectedVarParameterTestCaseSourceInfo { get; set; }
         }
     }
 }

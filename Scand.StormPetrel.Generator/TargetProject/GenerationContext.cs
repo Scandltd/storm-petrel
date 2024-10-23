@@ -14,5 +14,6 @@
         public bool IsLastVariablePair { get; set; }
         public RewriterKind RewriterKind { get; set; }
         public TestCaseAttributeInfo TestCaseAttributeInfo { get; set; }
+        public TestCaseSourceInfo TestCaseSourceInfo { get; set; }
     }
 }

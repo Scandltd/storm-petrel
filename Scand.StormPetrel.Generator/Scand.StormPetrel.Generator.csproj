@@ -92,6 +92,7 @@
       <Compile Remove="TargetProject\IGeneratorDumper.cs" />
       <Compile Remove="TargetProject\IGeneratorRewriter.cs" />
       <Compile Remove="TargetProject\TestCaseAttributeInfo.cs" />
+      <Compile Remove="TargetProject\TestCaseSourceInfo.cs" />
       <Compile Remove="TargetProject\VariableInvocationExpressionInfo.cs" />
     </ItemGroup>
 
@@ -112,6 +113,7 @@
       <EmbeddedResource Include="TargetProject\IGeneratorBackuper.cs" />
       <EmbeddedResource Include="TargetProject\IGeneratorDumper.cs" />
       <EmbeddedResource Include="TargetProject\IGeneratorRewriter.cs" />
+      <EmbeddedResource Include="TargetProject\TestCaseSourceInfo.cs" />
       <EmbeddedResource Include="TargetProject\VariableInvocationExpressionInfo.cs" />
       <EmbeddedResource Include="TargetProject\RewriterKind.cs" />
     </ItemGroup>

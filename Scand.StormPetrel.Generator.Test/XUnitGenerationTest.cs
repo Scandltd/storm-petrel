@@ -31,9 +31,11 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("130_ClassWithConstructor")]
         [InlineData("140_Attributes")]
         [InlineData("150_MultipleExpectedLastAssignmentIsMethod")]
+        [InlineData("160_MemberData")]
+        [InlineData("170_ClassData")]
         [InlineData("ExpectedInMethodTest01Data")] //performance test
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod")]
-        public async Task SeveralTestClassesInOneFileTest(string inputReplacementCodeResourceName, string? configKey = null)
+        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null)
         {
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(XUnitGenerationTest));
@@ -61,7 +63,7 @@ namespace Scand.StormPetrel.Generator.Test
             if (expectedResourceFileName != null)
             {
                 //Keep commented in git. Uncomment to overwrite baselines while development only.
-                //File.WriteAllText(@$"..\..\..\Resource\{expectedResourceFileName}", actual);
+                //await File.WriteAllTextAsync(@$"..\..\..\Resource\{expectedResourceFileName}", actual);
             }
             actual.Should().Be(expectedCode);
 

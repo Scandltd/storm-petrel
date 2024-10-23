@@ -1,6 +1,6 @@
 ﻿namespace Test.Integration.XUnit
 {
-    sealed class MultithreadTestHelper
+    internal static class MultithreadTestHelper
     {
         public static int GetExpected(int arg)
             =>

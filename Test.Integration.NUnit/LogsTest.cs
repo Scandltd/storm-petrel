@@ -11,7 +11,7 @@ namespace Test.Integration.NUnit
         public void LogTest()
         {
             LogsTestHelper.IsStormPetrelLogFileExists().Should().BeTrue();
-            BackupHelper.DeleteBackup(GetType().FullName!, backupResult => BackupHelper.IsProperlyDeleted(backupResult).Should().BeTrue());
+            BackupHelper.DeleteBackupWithResultAssertion(GetType());
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Scand.StormPetrel.Generator
         public ArgumentListSyntax ExpectedVariableInvocationExpressionArgs { get; set; }
         public int StatementIndex { get; set; }
         public VarParameterInfo ExpectedVarParameterInfo { get; set; }
+        public VarParameterTestCaseSourceInfo ExpectedVarParameterTestCaseSourceInfo { get; set; }
         public RewriterKind RewriterKind { get; set; }
     }
 }

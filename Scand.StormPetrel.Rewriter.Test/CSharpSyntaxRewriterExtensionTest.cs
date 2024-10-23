@@ -11,7 +11,7 @@ namespace Scand.StormPetrel.Rewriter.Test
 {
     public class CSharpSyntaxRewriterExtensionTest
     {
-        private static readonly string[] declarationPaths = new[] { "MyClass", "MyMethod", "foo" };
+        private static readonly string[] declarationPaths = ["MyClass", "MyMethod", "foo"];
 
         [Theory]
         [InlineData("utf8", false)]

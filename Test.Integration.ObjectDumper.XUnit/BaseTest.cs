@@ -26,7 +26,7 @@ namespace Test.Integration.ObjectDumper.XUnit
             actual.Should().BeEquivalentTo(expected);
         }
 
-        public static DumpOptions GetDumpOptions() => new()
+        public static DumpOptions DumpOptions => new()
         {
             DumpStyle = DumpStyle.CSharp,
             IndentSize = 4,

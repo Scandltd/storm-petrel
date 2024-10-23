@@ -6,6 +6,7 @@ using Scand.StormPetrel.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Scand.StormPetrel.Generator
@@ -14,6 +15,17 @@ namespace Scand.StormPetrel.Generator
     {
         private const RegexOptions RegexOptionsDefault = RegexOptions.Compiled | RegexOptions.CultureInvariant;
         private readonly (Regex ActualRegex, Regex ExpectedRegex)[] _varNameRegexPairs;
+        private static readonly Regex TypeOfRegex = new Regex(@"typeof\s*\(", RegexOptionsDefault);
+
+        #region Source Names
+        /// <summary>
+        /// For xUnit, NUnit, MSTest
+        /// </summary>
+        private static readonly string[] SourceMemberArgumentNames = new[] { "memberName", "sourceName", "dynamicDataSourceName" };
+        private static readonly string[] SourceTypeArgumentNamesForNunitMstest = new[] { "sourceType", "dynamicDataDeclaringType" };
+        private static readonly string[] SourceParameterNamesForXunitNunit = new[] { "parameters", "methodParams" };
+        #endregion
+
         public VarHelper(TestVariablePairConfig[] testVariablePairConfigs)
         {
             _varNameRegexPairs = testVariablePairConfigs
@@ -29,6 +41,15 @@ namespace Scand.StormPetrel.Generator
             var testCaseAttributeName = MethodHelper
                                             .GetTestCaseAttributeNames(method)
                                             .FirstOrDefault();
+            var testCaseSourceAttribute = MethodHelper
+                                            .GetTestCaseSourceAttribute(method);
+
+            var nonExpectedParameterInfo = method
+                                                .ParameterList
+                                                .Parameters
+                                                .Where(x => !_varNameRegexPairs.Any(y => y.ExpectedRegex.IsMatch(x.Identifier.Text)))
+                                                .Select(x => (Type: x.Type.GetText().ToString(), Name: x.Identifier.Text))
+                                                .ToArray();
 
             foreach (var statement in method
                                         .ParameterList
@@ -95,20 +116,36 @@ namespace Scand.StormPetrel.Generator
                     {
                         index--;
                         expectedVarParameterIndex++;
-                        if (!string.IsNullOrEmpty(testCaseAttributeName) && expectedRegex.IsMatch(parameter.Identifier.Text))
+                        if (expectedRegex.IsMatch(parameter.Identifier.Text))
                         {
                             regex = expectedRegex;
+                            varName = parameter.Identifier.Text;
                             varInfo = new VarInfo
                             {
-                                RewriterKind = RewriterKind.Attribute,
                                 Path = SyntaxNodeHelper.GetValuePath(method),
-                                ExpectedVarParameterInfo = new VarParameterInfo
+                            };
+                            if (!string.IsNullOrEmpty(testCaseAttributeName))
+                            {
+                                varInfo.RewriterKind = RewriterKind.Attribute;
+                                varInfo.ExpectedVarParameterInfo = new VarParameterInfo
                                 {
                                     ParameterIndex = expectedVarParameterIndex,
                                     TestCaseAttributeName = testCaseAttributeName,
-                                },
-                            };
-                            varName = parameter.Identifier.Text;
+                                };
+                            }
+                            else if (testCaseSourceAttribute != null)
+                            {
+                                GetTestCaseSourceExpressions(method, testCaseSourceAttribute, out var testCaseSourceExpression, out var testCaseSourcePathExpression);
+                                varInfo.RewriterKind = RewriterKind.EnumerableResultRewriter;
+                                varInfo.ExpectedVarParameterTestCaseSourceInfo = new VarParameterTestCaseSourceInfo
+                                {
+                                    NonExpectedParameterTypes = nonExpectedParameterInfo.Select(x => x.Type).ToArray(),
+                                    NonExpectedParameterNames = nonExpectedParameterInfo.Select(x => x.Name).ToArray(),
+                                    ParameterIndex = expectedVarParameterIndex,
+                                    TestCaseSourceExpression = testCaseSourceExpression,
+                                    TestCaseSourcePathExpression = testCaseSourcePathExpression,
+                                };
+                            }
                         }
                     }
                     if (regex != null)
@@ -181,6 +218,7 @@ namespace Scand.StormPetrel.Generator
                         ExpectedVarInvocationExpressionStormPetrel = string.Join(".", expressionPathStormPetrel),
                         ExpectedVariableInvocationExpressionArgs = expectedKeyValue.Value.InvocationExpressionArgs,
                         ExpectedVarParameterInfo = expectedKeyValue.Value.ExpectedVarParameterInfo,
+                        ExpectedVarParameterTestCaseSourceInfo = expectedKeyValue.Value.ExpectedVarParameterTestCaseSourceInfo,
                         RewriterKind = expectedKeyValue.Value.RewriterKind,
                         StatementIndex = Math.Max(expectedKeyValue.Value.StatementIndex, actualKeyValue.Value.StatementIndex),
                     });
@@ -207,6 +245,94 @@ namespace Scand.StormPetrel.Generator
                 }
                 return false;
             }
+        }
+
+        private static void GetTestCaseSourceExpressions(MethodDeclarationSyntax method, AttributeSyntax testCaseSourceAttribute, out string testCaseSourceExpression, out string testCaseSourcePathExpression)
+        {
+            var testCaseSourceExpressionSb = new StringBuilder();
+            var testCaseSourcePathExpressionSb = new StringBuilder();
+            var attributeName = testCaseSourceAttribute.Name.ToString();
+            if (attributeName == "MemberData" || attributeName == "TestCaseSource" || attributeName == "DynamicData")
+            {
+                bool isXunit = attributeName == "MemberData";
+                bool isMstest = attributeName == "DynamicData";
+                testCaseSourceExpressionSb.Append("Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(");
+                testCaseSourcePathExpressionSb.Append("Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(");
+                var args = testCaseSourceAttribute.ArgumentList.Arguments;
+                var memberTypeArg = isXunit
+                                            ? args
+                                                .Where(x => x.NameEquals != null && x.NameEquals.Name.Identifier.Text == "MemberType")
+                                                .SingleOrDefault()
+                                            : args
+                                                .Where(x => x.NameEquals == null)
+                                                .Where(x => x.NameColon == null && x.Expression != null && TypeOfRegex.IsMatch(x.Expression.ToString())
+                                                                || x.NameColon != null && SourceTypeArgumentNamesForNunitMstest.Contains(x.NameColon.Name.Identifier.Text))
+                                                .FirstOrDefault();
+                var memberTypeExpression = memberTypeArg?.Expression.ToString();
+                if (string.IsNullOrEmpty(memberTypeExpression))
+                {
+                    var classNode = method
+                                        .Ancestors()
+                                        .Cast<ClassDeclarationSyntax>()
+                                        .FirstOrDefault();
+                    if (classNode == null)
+                    {
+                        memberTypeExpression = "Member Type is not found";
+                    }
+                    else
+                    {
+                        memberTypeExpression = "typeof(" + classNode.Identifier.Text + ")";
+                    }
+                }
+                testCaseSourceExpressionSb.Append(memberTypeExpression);
+                testCaseSourcePathExpressionSb.Append(memberTypeExpression);
+                var memberNameArg = args
+                                        .Where(x => x != memberTypeArg
+                                                        && (x.NameColon == null || SourceMemberArgumentNames.Contains(x.NameColon.Name.Identifier.Text)))
+                                        .FirstOrDefault();
+                if (memberNameArg != null)
+                {
+                    testCaseSourceExpressionSb
+                        .Append(", ")
+                        .Append(memberNameArg.Expression.ToString());
+                    testCaseSourcePathExpressionSb
+                        .Append(", ")
+                        .Append(memberNameArg.Expression.ToString());
+                }
+                foreach (var arg in args.Where(x => !isMstest
+                                                        && x != memberTypeArg
+                                                        && x != memberNameArg
+                                                        && x.NameEquals == null
+                                                        && (x.NameColon == null
+                                                                || SourceParameterNamesForXunitNunit.Contains(x.NameColon.Name.Identifier.Text))))
+                {
+                    testCaseSourceExpressionSb
+                        .Append(", ")
+                        .Append(arg.Expression.GetText().ToString());
+                }
+            }
+            else if (attributeName == "ClassData")
+            {
+                var classExpression = testCaseSourceAttribute
+                                        .ArgumentList
+                                        .Arguments
+                                        .Where(x => x.NameColon == null || x.NameColon.Name.Identifier.Text == "@class")
+                                        .Select(x => x.Expression.ToString())
+                                        .FirstOrDefault();
+                if (classExpression != null)
+                {
+                    var className = TypeOfRegex.Replace(classExpression, "");
+                    className = className.Replace(")", "");
+                    testCaseSourceExpressionSb.Append("new " + className + "(");
+                    testCaseSourcePathExpressionSb
+                        .Append("Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(")
+                        .Append(classExpression);
+                }
+            }
+            testCaseSourceExpressionSb.Append(')');
+            testCaseSourcePathExpressionSb.Append(')');
+            testCaseSourceExpression = testCaseSourceExpressionSb.ToString();
+            testCaseSourcePathExpression = testCaseSourcePathExpressionSb.ToString();
         }
     }
 }

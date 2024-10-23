@@ -1,19 +1,5 @@
 [*.cs]
 
 # CA2007: Do not directly await a Task
+# Justification: by xUnit tests design
 dotnet_diagnostic.CA2007.severity = none
-
-# CA1849: Call async methods when in an async method
-dotnet_diagnostic.CA1849.severity = none
-
-# CA1002: Do not expose generic lists
-dotnet_diagnostic.CA1002.severity = none
-
-# CA1812: Avoid uninstantiated internal classes
-dotnet_diagnostic.CA1812.severity = none
-
-# CA2227: Collection properties should be read only
-dotnet_diagnostic.CA2227.severity = none
-
-# xUnit1013: Public method should be marked as test
-dotnet_diagnostic.xUnit1013.severity = none

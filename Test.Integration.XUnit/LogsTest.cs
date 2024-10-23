@@ -9,7 +9,7 @@ namespace Test.Integration.XUnit
         public void LogTest()
         {
             Shared.LogsTestHelper.IsStormPetrelLogFileExists().Should().BeTrue();
-            BackupHelper.DeleteBackup(GetType().FullName!, backupResult => BackupHelper.IsProperlyDeleted(backupResult).Should().BeTrue());
+            BackupHelper.DeleteBackupWithResultAssertion(GetType());
         }
     }
 }

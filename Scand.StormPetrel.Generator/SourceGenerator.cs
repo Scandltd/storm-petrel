@@ -58,20 +58,8 @@ namespace Scand.StormPetrel.Generator
                             var extraMethod = new InvocationExpressionHelperMethod().ToStormPetrelNode(method, cancellationToken);
                             if (extraMethod != null)
                             {
-                                var isReplaceOriginalInvocationMethod = newActualClass
-                                                                            .ChildNodes()
-                                                                            .OfType<MethodDeclarationSyntax>()
-                                                                            .All(x => !MethodHelper.GetTestAttributeNames(x).Any());
-                                if (isReplaceOriginalInvocationMethod)
-                                {
-                                    //do not keep the method for performance reasons
-                                    newActualClass = newActualClass.ReplaceNode(method, extraMethod);
-                                }
-                                else
-                                {
-                                    skipNewActualClassChildMethodCount++;
-                                    newActualClass = newActualClass.InsertNodesAfter(method, new[] { extraMethod });
-                                }
+                                skipNewActualClassChildMethodCount++;
+                                newActualClass = newActualClass.InsertNodesAfter(method, new[] { extraMethod });
                                 newActualClass = RenameChildConstructorsIfNeed(newActualClass);
                                 var newTypeName = actualClass.Identifier.Text + "StormPetrel";
                                 newActualClass = newActualClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
@@ -291,6 +279,7 @@ namespace Scand.StormPetrel.Generator
                     "GeneratorRewriter",
                     "RewriterKind",
                     "TestCaseAttributeInfo",
+                    "TestCaseSourceInfo",
                     "VariableInvocationExpressionInfo",
                 };
             foreach (var fileName in fileNames.Where(a => a != null))

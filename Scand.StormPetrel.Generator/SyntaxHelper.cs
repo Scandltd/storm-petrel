@@ -49,7 +49,8 @@ namespace Scand.StormPetrel.Generator
         public List<StatementSyntax> GetNewCodeBlock(string className, string methodName, string[] testAttributeNames, VarPairInfo info, int blockIndex, bool isLastVariablePair)
         {
             ExpressionSyntax expectedVariableInvocationExpressionInfo = null;
-            ExpressionSyntax testCaseAttributeInfo = null;
+            ExpressionSyntax testCaseInfo = null;
+            var result = new List<StatementSyntax>();
             if (info.ExpectedVarInvocationExpressionPath != null)
             {
                 expectedVariableInvocationExpressionInfo = SyntaxFactory.ObjectCreationExpression(
@@ -85,7 +86,7 @@ namespace Scand.StormPetrel.Generator
             }
             else if (info.ExpectedVarParameterInfo != null)
             {
-                testCaseAttributeInfo = SyntaxFactory.ObjectCreationExpression(
+                testCaseInfo = SyntaxFactory.ObjectCreationExpression(
                     SyntaxFactory.IdentifierName("Scand.StormPetrel.Generator.TargetProject.TestCaseAttributeInfo()"))
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
@@ -105,7 +106,58 @@ namespace Scand.StormPetrel.Generator
                         )
                     )
                 );
-                testCaseAttributeInfo = GetPropertyAssignment("TestCaseAttributeInfo", testCaseAttributeInfo);
+                testCaseInfo = GetPropertyAssignment("TestCaseAttributeInfo", testCaseInfo);
+            }
+            else if (info.ExpectedVarParameterTestCaseSourceInfo != null)
+            {
+                var types = info.ExpectedVarParameterTestCaseSourceInfo.NonExpectedParameterTypes;
+                var breakCondition = string.Join(" && ", info
+                                                            .ExpectedVarParameterTestCaseSourceInfo
+                                                            .NonExpectedParameterNames
+                                                            .Select((x, i) => x + " == (" + types[i] + ") stormPetrelRow[" + i + "]"));
+                var stormPetrelTestCaseSourceRowIndexVarName = GetBlockIndexVarName("stormPetrelTestCaseSourceRowIndex");
+                var newCode = @"
+private static void TempMethod()
+{
+    var " + stormPetrelTestCaseSourceRowIndexVarName + @" = -1;
+    foreach (var stormPetrelRow in " + info.ExpectedVarParameterTestCaseSourceInfo.TestCaseSourceExpression + @")
+    {
+        " + stormPetrelTestCaseSourceRowIndexVarName + @"++;
+        if (" + breakCondition + @")
+        {
+            break;
+        }
+    }
+}
+";
+                var syntaxTree = CSharpSyntaxTree.ParseText(newCode);
+                var rootMethod = syntaxTree
+                                    .GetCompilationUnitRoot()
+                                    .ChildNodes()
+                                    .First()
+                                    .ChildNodes()
+                                    .OfType<LocalFunctionStatementSyntax>()
+                                    .Single();
+                result.AddRange(rootMethod.Body.Statements);
+
+                testCaseInfo = SyntaxFactory.ObjectCreationExpression(
+                    SyntaxFactory.IdentifierName("Scand.StormPetrel.Generator.TargetProject.TestCaseSourceInfo()"))
+                    .WithInitializer(
+                        SyntaxFactory.InitializerExpression(
+                            SyntaxKind.ObjectInitializerExpression,
+                            SyntaxFactory.SeparatedList(new ExpressionSyntax[]
+                            {
+                                GetPropertyAssignment("ColumnIndex", SyntaxFactory.LiteralExpression(
+                                            SyntaxKind.NumericLiteralExpression,
+                                            SyntaxFactory.Literal(info.ExpectedVarParameterTestCaseSourceInfo.ParameterIndex)
+                                )),
+                                GetPropertyAssignment("RowIndex", SyntaxFactory.IdentifierName(stormPetrelTestCaseSourceRowIndexVarName)),
+                                GetPropertyAssignment("Path", SyntaxFactory.ParseExpression(info.ExpectedVarParameterTestCaseSourceInfo.TestCaseSourcePathExpression)),
+                            }
+                        )
+                    )
+                );
+                testCaseInfo = GetPropertyAssignment("TestCaseSourceInfo", testCaseInfo);
             }
             var contextCreationExpression = SyntaxFactory.ObjectCreationExpression(
                 SyntaxFactory.IdentifierName("Scand.StormPetrel.Generator.TargetProject.GenerationContext()"))
@@ -125,11 +177,11 @@ namespace Scand.StormPetrel.Generator
                             expectedVariableInvocationExpressionInfo,
                             GetPropertyAssignment("IsLastVariablePair", SyntaxFactory.IdentifierName(isLastVariablePair.ToString(CultureInfo.InvariantCulture).ToLowerInvariant())),
                             GetPropertyAssignment("RewriterKind", SyntaxFactory.IdentifierName($"{typeof(RewriterKind).FullName}.{info.RewriterKind}")),
-                            testCaseAttributeInfo,
+                            testCaseInfo,
                         }
                         .Where(a => a != null))));
 
-            var stormPetrelContextVarName = "stormPetrelContext" + (blockIndex == 0 ? "" : blockIndex.ToString(CultureInfo.InvariantCulture));
+            var stormPetrelContextVarName = GetBlockIndexVarName("stormPetrelContext");
             var variableDeclaration = SyntaxFactory.VariableDeclaration(
                     SyntaxFactory.ParseTypeName("var"),
                     SyntaxFactory.SeparatedList(new[]
@@ -139,13 +191,13 @@ namespace Scand.StormPetrel.Generator
                                         .WithInitializer(SyntaxFactory.EqualsValueClause(contextCreationExpression))
                     }));
 
-            return new List<StatementSyntax>
-                {
-                    SyntaxFactory
-                        .LocalDeclarationStatement(variableDeclaration),
-                    SyntaxFactory
-                        .ParseStatement($"((Scand.StormPetrel.Generator.TargetProject.IGenerator) {_targetProjectGeneratorExpression}).GenerateBaseline({stormPetrelContextVarName});"),
-                };
+            result.Add(SyntaxFactory
+                        .LocalDeclarationStatement(variableDeclaration));
+            result.Add(SyntaxFactory
+                        .ParseStatement($"((Scand.StormPetrel.Generator.TargetProject.IGenerator) {_targetProjectGeneratorExpression}).GenerateBaseline({stormPetrelContextVarName});"));
+            return result;
+
+            string GetBlockIndexVarName(string varName) => blockIndex == 0 ? varName : varName + blockIndex.ToString(CultureInfo.InvariantCulture);
         }
 
         private static AssignmentExpressionSyntax GetPropertyAssignment(string name, ExpressionSyntax value)

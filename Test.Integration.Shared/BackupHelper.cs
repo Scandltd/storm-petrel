@@ -1,3 +1,4 @@
+using FluentAssertions;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -12,17 +13,26 @@ namespace Test.Integration.Shared
         public static bool IsStormPetrel(string classNameOrFullName)
             => !(classNameOrFullName == null || !classNameOrFullName.EndsWith("StormPetrel", StringComparison.OrdinalIgnoreCase));
         /// <summary>
-        /// Deletes backup file if <paramref name="classFullName"/> indicates StormPetrel class.
+        /// Deletes backup file if <paramref name="classFullName"/> indicates StormPetrel class or <paramref name="doNotIgnoreOriginalClass"/> is true.
         /// </summary>
         /// <param name="classFullName"></param>
         /// <param name="onAfterGetAndDeleteFiles">Executes once per StormPetrel class. Input argument indicates did we have backup files or not</param>
+        /// <param name="fileName">File name containing input <paramref name="classFullName"/></param>
+        /// <param name="doNotIgnoreOriginalClass">Flag to not check <paramref name="classFullName"/> for StormPetrel suffix</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void DeleteBackup(string classFullName, Action<BackupHelperResult> onAfterGetAndDeleteFiles, string fileName = "")
+        public static void DeleteBackup(string classFullName, Action<BackupHelperResult> onAfterGetAndDeleteFiles, string fileName = "", bool doNotIgnoreOriginalClass = false)
         {
             // Duplicate logic of IsStormPetrel. Otherwise we have compilation error of BackupHelperStormPetrel class.
             if (classFullName == null || !classFullName.EndsWith("StormPetrel", StringComparison.OrdinalIgnoreCase))
             {
-                return;
+                if (!doNotIgnoreOriginalClass)
+                {
+                    return;
+                }
+                if (classFullName == null)
+                {
+                    classFullName = "";
+                }
             }
             lock (ClassFullNameToLock.GetOrAdd(classFullName, new object()))
             {
@@ -45,7 +55,9 @@ namespace Test.Integration.Shared
 
                 var className = classFullName.Split('.').Last();
                 int lastIndex = className.LastIndexOf("StormPetrel", StringComparison.OrdinalIgnoreCase);
-                var originalClassName = className.Substring(0, lastIndex);
+                var originalClassName = lastIndex > -1
+                                            ? className.Substring(0, lastIndex)
+                                            : className;
                 var backupFileMask = string.IsNullOrEmpty(fileName)
                                         ? $"{originalClassName}.cs.backup*"
                                         : $"{fileName}.backup*";
@@ -71,5 +83,8 @@ namespace Test.Integration.Shared
             => result == BackupHelperResult.VeryFirstCallForTheClassAndHadDeletedFile
                 || (result & BackupHelperResult.VeryFirstCallForTheClass) != BackupHelperResult.VeryFirstCallForTheClass
                     && (result & BackupHelperResult.HadDeletedFile) != BackupHelperResult.HadDeletedFile;
+
+        public static void DeleteBackupWithResultAssertion(Type type, string fileName = "", bool doNotIgnoreOriginalClass = false) =>
+            DeleteBackup(type?.FullName ?? throw new ArgumentNullException(nameof(type)), backupResult => IsProperlyDeleted(backupResult).Should().BeTrue(), fileName, doNotIgnoreOriginalClass);
     }
 }

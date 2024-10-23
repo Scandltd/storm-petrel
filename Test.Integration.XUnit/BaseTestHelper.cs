@@ -1,6 +1,6 @@
 ﻿namespace Test.Integration.XUnit
 {
-    internal sealed class BaseTestHelper
+    internal static class BaseTestHelper
     {
         public static int GetExpected() => 123;
 

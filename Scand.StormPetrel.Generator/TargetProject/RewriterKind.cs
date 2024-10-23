@@ -8,5 +8,6 @@
         MethodExpression = 3,
         PropertyExpression = 4,
         Attribute = 5,
+        EnumerableResultRewriter = 6,
     }
 }

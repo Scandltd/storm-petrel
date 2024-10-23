@@ -1,4 +1,5 @@
 [*.cs]
 
 # CA2007: Do not directly await a Task
+# Justification: by xUnit tests design
 dotnet_diagnostic.CA2007.severity = none

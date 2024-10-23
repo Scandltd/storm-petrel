@@ -1,4 +1,0 @@
-[*.cs]
-
-# CA1024: Use properties where appropriate
-dotnet_diagnostic.CA1024.severity = none

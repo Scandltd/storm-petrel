@@ -25,7 +25,7 @@ namespace Test.Integration.NUnit
             actual.Should().Be(expected);
             if (BackupHelper.IsStormPetrel(GetType().FullName!))
             {
-                BackupHelper.DeleteBackup(typeof(BackupMultithreadTestHelper).FullName! + "StormPetrel", backupResult => BackupHelper.IsProperlyDeleted(backupResult).Should().BeTrue());
+                BackupHelper.DeleteBackupWithResultAssertion(typeof(BackupMultithreadTestHelper), doNotIgnoreOriginalClass: true);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Test.Integration.NUnit
 
             //Assert
             actual.Should().Be(expected);
-            BackupHelper.DeleteBackup(GetType().FullName!, backupResult => BackupHelper.IsProperlyDeleted(backupResult).Should().BeTrue());
+            BackupHelper.DeleteBackupWithResultAssertion(GetType());
         }
 
         private static int GetExpectedValue(int arg)

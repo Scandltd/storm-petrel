@@ -18,9 +18,7 @@ namespace Test.Integration.NUnit
 
             //Assert
             actual.Should().Be(expected);
-            var fullName = GetType().FullName;
-            ArgumentNullException.ThrowIfNull(fullName);
-            BackupHelper.DeleteBackup(fullName, backupResult => BackupHelper.IsProperlyDeleted(backupResult).Should().BeTrue(), "BaseTest.cs");
+            BackupHelper.DeleteBackupWithResultAssertion(GetType(), "BaseTest.cs");
         }
     }
 

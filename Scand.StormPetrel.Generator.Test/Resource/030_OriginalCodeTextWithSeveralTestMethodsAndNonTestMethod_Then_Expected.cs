@@ -99,9 +99,19 @@ namespace Test.Integration.XUnit
 
     public static class TestedClassStormPetrel
     {
+        public static int TestedMethod1()
+        {
+            return 100;
+        }
+
         public static (int NodeKind, int NodeIndex) TestedMethod1StormPetrel()
         {
             return (8805, 0);
+        }
+
+        public static int TestedMethod2()
+        {
+            return 200;
         }
 
         public static (int NodeKind, int NodeIndex) TestedMethod2StormPetrel()

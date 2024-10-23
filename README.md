@@ -183,7 +183,13 @@ The developer should only review expected baseline changes (no manual modificati
 
 ### Use Case Variations<a name="use-case-variations"></a>
 * Expected variable expression is static property assignment. See <a href="Test.Integration.XUnit/PropertyTest.cs">PropertyTest.cs</a> for more details.
-* Expected expression is test method argument what comes from test attribute (Xunit.InlineData or other) argument value. See <a href="Test.Integration.XUnit/AttributesTest.cs">AttributesTest.cs</a> for more details.
+* Expected expression is test method argument what comes from
+
+    * Test case attribute (xUnit InlineData, NUnit TestCase, MSTest DataRow) argument value. See <a href="Test.Integration.XUnit/AttributesTest.cs">AttributesTest.cs</a> for more details.
+
+    * Test data source attribute (xUnit MemberData or ClassData, NUnit TestCaseSource, MSTest DynamicData). See <a href="Test.Integration.XUnit/TestCaseSourceMemberDataTest.cs">TestCaseSourceMemberDataTest.cs</a>, <a href="Test.Integration.XUnit/TestCaseSourceClass/TestCaseSourceClassDataTest.cs">TestCaseSourceClassDataTest.cs</a>, <a href="Test.Integration.NUnit/TestCaseSourceTest.cs">NUnit TestCaseSourceTest.cs</a>, <a href="Test.Integration.MSTest/TestCaseSourceTest.cs">MSTest TestCaseSourceTest.cs</a> for more details.
+    Known limitations:
+        * The attributes should be configured against data source methods or properties, not fields.
 
 ## Getting Started<a name="getting-started"></a>
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
