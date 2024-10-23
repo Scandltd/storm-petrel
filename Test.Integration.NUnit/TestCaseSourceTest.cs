@@ -110,7 +110,7 @@ namespace Test.Integration.NUnit
         private static IEnumerable<object[]> DataMultipleExpected =>
         [
             [1, 2, 0, "0x0"],
-            [-2, 2, -100, "0x0"],
+            [-2, 2, -100, "0x100"],
             [int.MinValue, -1, -100, "0x0"],
             [-4, -6, +50, "0x0"],
         ];
@@ -118,7 +118,7 @@ namespace Test.Integration.NUnit
         private static IEnumerable<object[]> DataYieldReturnAndMultipleExpected()
         {
             yield return [1, 2, 0, "0x0"];
-            yield return [-2, 2, -100, "0x0"];
+            yield return [-2, 2, -100, "0x100"];
             yield return [int.MinValue, -1, -100, "0x0"];
             yield return [-4, -6, +50, "0x0"];
         }
