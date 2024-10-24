@@ -1,13 +1,15 @@
-﻿namespace Scand.StormPetrel.Generator.TargetProject
+﻿namespace Scand.StormPetrel.Generator.Abstraction
 {
-    public sealed class RewriteResult
-    {
-        public bool IsRewritten { get; set; }
-        public string BackupFilePath { get; set; }
-    }
-
+    /// <summary>
+    /// Allows implementing a custom rewrite of dumped baselines in C# code, binary/text files, etc.
+    /// </summary>
     public interface IGeneratorRewriter
     {
+        /// <summary>
+        /// Rewrites dumped baselines based on input arguments.
+        /// </summary>
+        /// <param name="generationRewriteContext"></param>
+        /// <returns></returns>
         RewriteResult Rewrite(GenerationRewriteContext generationRewriteContext);
     }
 }
