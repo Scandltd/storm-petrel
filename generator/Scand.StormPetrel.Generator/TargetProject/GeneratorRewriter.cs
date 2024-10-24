@@ -1,4 +1,6 @@
-﻿using Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter;
+﻿using Scand.StormPetrel.Generator.Abstraction;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
+using Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter;
 using Scand.StormPetrel.Rewriter.Extension;
 using System;
 using System.Collections.Concurrent;
@@ -14,49 +16,60 @@ namespace Scand.StormPetrel.Generator.TargetProject
         public RewriteResult Rewrite(GenerationRewriteContext generationRewriteContext)
         {
             var generationContext = generationRewriteContext.GenerationContext;
-            var filePath = generationContext.FilePath;
+            var filePath = generationContext.MethodSharedContext.FilePath;
             AbstractRewriter rewriter = null;
-            switch (generationContext.RewriterKind)
+            var extraContext = generationContext.ExtraContext;
+            if (extraContext is InitializerContext initializerContext)
             {
-                case RewriterKind.Declaration:
-                    rewriter = new DeclarationRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value);
-                    break;
-                case RewriterKind.Assignment:
-                    rewriter = new AssignmentRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value);
-                    break;
-                case RewriterKind.Attribute:
-                    var info = generationContext.TestCaseAttributeInfo;
-                    rewriter = new AttributeRewriter(generationContext.ExpectedVariablePath, info.Name, info.Index, info.ParameterIndex, generationRewriteContext.Value);
-                    break;
-                case RewriterKind.MethodExpression:
-                    var methodExpressionInfo = generationContext.ExpectedVariableInvocationExpressionInfo;
-                    var methodsExpressionNodeInfo = methodExpressionInfo.NodeInfo;
-                    var staticMethodInfo = GetStaticMethodInfo(methodExpressionInfo.Path, methodExpressionInfo.ArgsCount);
+                switch (initializerContext.Kind)
+                {
+                    case InitializerContextKind.VariableDeclaration:
+                        rewriter = new DeclarationRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value);
+                        break;
+                    case InitializerContextKind.VariableAssignment:
+                        rewriter = new AssignmentRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Unexpected Kind = " + initializerContext.Kind);
+                }
+            }
+            else if (extraContext is AttributeContext attributeContext)
+            {
+                rewriter = new AttributeRewriter(generationContext.ExpectedVariablePath, attributeContext.Name, attributeContext.Index, attributeContext.ParameterIndex, generationRewriteContext.Value);
+            }
+            else if (extraContext is InvocationSourceContext invocationSourceContext)
+            {
+                var methodInfo = invocationSourceContext.MethodInfo;
+                if (methodInfo != null)
+                {
+                    var staticMethodInfo = GetStaticMethodInfo(invocationSourceContext.Path, methodInfo.ArgsCount);
                     filePath = staticMethodInfo.FilePath;
-                    rewriter = new ExpressionRewriter(staticMethodInfo.MethodPath, methodsExpressionNodeInfo.NodeKind, methodsExpressionNodeInfo.NodeIndex, generationRewriteContext.Value);
-                    break;
-                case RewriterKind.PropertyExpression:
-                    var propertyExpressionInfo = generationContext.ExpectedVariableInvocationExpressionInfo;
-                    var staticPropertyInfo = GetStaticPropertyInfo(propertyExpressionInfo.Path, true);
+                    rewriter = new ExpressionRewriter(staticMethodInfo.MethodPath, methodInfo.NodeKind, methodInfo.NodeIndex, generationRewriteContext.Value);
+                }
+                else
+                {
+                    var staticPropertyInfo = GetStaticPropertyInfo(invocationSourceContext.Path, true);
                     filePath = staticPropertyInfo.FilePath;
                     rewriter = new DeclarationRewriter(staticPropertyInfo.PropertyPath, generationRewriteContext.Value);
-                    break;
-                case RewriterKind.EnumerableResultRewriter:
-                    var testCaseSourceInfo = generationContext.TestCaseSourceInfo;
-                    var testCaseSourcePropertyInfo = GetStaticPropertyInfo(testCaseSourceInfo.Path, false);
-                    if (testCaseSourcePropertyInfo == null)
-                    {
-                        var testCaseSourceMethodInfo = GetStaticMethodInfo(testCaseSourceInfo.Path, -1);
-                        filePath = testCaseSourceMethodInfo.FilePath;
-                    }
-                    else
-                    {
-                        filePath = testCaseSourcePropertyInfo.FilePath;
-                    }
-                    rewriter = new EnumerableResultRewriter(testCaseSourceInfo.Path, testCaseSourceInfo.RowIndex, testCaseSourceInfo.ColumnIndex, generationRewriteContext.Value);
-                    break;
-                default:
-                    throw new InvalidOperationException();
+                }
+            }
+            else if (extraContext is TestCaseSourceContext testCaseSourceContext)
+            {
+                var testCaseSourcePropertyInfo = GetStaticPropertyInfo(testCaseSourceContext.Path, false);
+                if (testCaseSourcePropertyInfo == null)
+                {
+                    var testCaseSourceMethodInfo = GetStaticMethodInfo(testCaseSourceContext.Path, -1);
+                    filePath = testCaseSourceMethodInfo.FilePath;
+                }
+                else
+                {
+                    filePath = testCaseSourcePropertyInfo.FilePath;
+                }
+                rewriter = new EnumerableResultRewriter(testCaseSourceContext.Path, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value);
+            }
+            else
+            {
+                throw new InvalidOperationException();
             }
 
             string backupFilePath = null;

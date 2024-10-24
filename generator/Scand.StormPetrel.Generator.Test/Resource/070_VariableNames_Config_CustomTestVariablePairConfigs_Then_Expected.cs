@@ -15,15 +15,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             expected = 1;
             int actual;
             actual = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "TestAssignmentNotDeclaration",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -40,10 +41,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "TestAssignmentNotDeclaration",
                     "expected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Assignment
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             actual.Should().Be(expected);
         }
 
@@ -54,15 +58,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             expected = 1;
             int actual = -1;
             actual = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "TestBothAssignmentAndDeclaration",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -79,10 +84,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "TestBothAssignmentAndDeclaration",
                     "expected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Assignment
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             actual.Should().Be(expected);
         }
 
@@ -93,15 +101,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             expected = 1;
             int actual = -1;
             actual = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "TestWhitespacesInBothAssignmentAndDeclarationStormPetrel",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -118,10 +127,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "TestWhitespacesInBothAssignmentAndDeclarationStormPetrel",
                     "expected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Assignment
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             actual.Should().Be(expected);
         }
 
@@ -131,15 +143,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             int expectedVar = -1;
             int actualVar = -1;
             actualVar = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "DefaultRegexCaseSensitivityShouldDetectThisCase",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actualVar,
                 ActualVariablePath = new[]
                 {
@@ -156,10 +169,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "DefaultRegexCaseSensitivityShouldDetectThisCase",
                     "expectedVar"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             actualVar.Should().Be(expectedVar);
         }
 
@@ -169,15 +185,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             int varExpected = -1;
             int varActual = -1;
             varActual = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "DefaultRegexCaseSensitivityShouldDetectThisCase2",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = varActual,
                 ActualVariablePath = new[]
                 {
@@ -194,10 +211,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "DefaultRegexCaseSensitivityShouldDetectThisCase2",
                     "varExpected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             varActual.Should().Be(varExpected);
         }
 
@@ -207,15 +227,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             int varEXpected = -1;
             int varACtual = -1;
             varACtual = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = varACtual,
                 ActualVariablePath = new[]
                 {
@@ -232,10 +253,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould",
                     "varEXpected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             varACtual.Should().Be(varEXpected);
         }
 
@@ -263,15 +287,16 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             int varACtual = -1;
             int varActual = -1;
             varACtual = 2;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
                 MethodName = "MultipleVariablePairsShouldResultMultipleBaselineReplacements",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 2
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = varACtual,
                 ActualVariablePath = new[]
                 {
@@ -288,20 +313,17 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "MultipleVariablePairsShouldResultMultipleBaselineReplacements",
                     "varExpected"
                 },
-                IsLastVariablePair = false,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
-            };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            varActual = 2;
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "VariableNames",
-                MethodName = "MultipleVariablePairsShouldResultMultipleBaselineReplacements",
-                MethodTestAttributeNames = new[]
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
                 {
-                    "Fact"
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
                 },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            varActual = 2;
+            stormPetrelSharedContext.VariablePairCurrentIndex++;
+            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = varActual,
                 ActualVariablePath = new[]
                 {
@@ -318,10 +340,13 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                     "MultipleVariablePairsShouldResultMultipleBaselineReplacements",
                     "varEXpected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             varActual.Should().Be(varEXpected); //intentionally compare with varEXpected, not varExpected
             varACtual.Should().Be(varExpected);
         }

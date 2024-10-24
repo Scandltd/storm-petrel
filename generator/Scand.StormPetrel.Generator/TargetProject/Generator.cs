@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Scand.StormPetrel.Generator.Abstraction;
+using Scand.StormPetrel.Generator.Abstraction.Exceptions;
+using System;
+using System.Collections.Concurrent;
 
 namespace Scand.StormPetrel.Generator.TargetProject
 {
     public sealed class Generator : IGenerator
     {
+        private static ConcurrentDictionary<MethodContext, string> MethodContextToFirstBackupFilePath = new ConcurrentDictionary<MethodContext, string>();
         private readonly IGeneratorDumper _dumper;
         private readonly IGeneratorRewriter _rewriter;
         internal Generator()
@@ -30,8 +34,14 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 GenerationContext = generationContext,
                 Value = generationContext.Expected,
             });
+            var sharedContext = generationContext.MethodSharedContext;
+            var isLastVariablePair = sharedContext.VariablePairCurrentIndex == (sharedContext.VariablePairsCount - 1);
             if (actualDump == expectedDump)
             {
+                if (isLastVariablePair)
+                {
+                    CompleteGenerationContext(sharedContext);
+                }
                 return;
             }
             var rewriteResult = _rewriter.Rewrite(new GenerationRewriteContext()
@@ -39,14 +49,31 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 GenerationContext = generationContext,
                 Value = actualDump,
             });
-            if (!generationContext.IsLastVariablePair)
+            if (!MethodContextToFirstBackupFilePath.TryGetValue(sharedContext, out var firstBackupFilePath)
+                    || !string.IsNullOrEmpty(rewriteResult.BackupFilePath) && string.IsNullOrEmpty(firstBackupFilePath))
             {
+                if (string.IsNullOrEmpty(firstBackupFilePath))
+                {
+                    MethodContextToFirstBackupFilePath[sharedContext] = rewriteResult.BackupFilePath;
+                }
+            }
+            if (isLastVariablePair)
+            {
+                CompleteGenerationContext(sharedContext);
+            }
+        }
+
+        private static void CompleteGenerationContext(MethodContext sharedContext)
+        {
+            if (!MethodContextToFirstBackupFilePath.TryRemove(sharedContext, out var backupPath))
+            {
+                //No code rewrites, just exit
                 return;
             }
-            var message = rewriteResult.BackupFilePath == null
+            var message = string.IsNullOrEmpty(backupPath)
                             ? "StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions. Original code is NOT saved according to the configuration."
-                            : $"StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions. Original code is saved in {rewriteResult.BackupFilePath}.";
-            throw new InvalidOperationException(message);
+                            : $"StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions. Original code is saved in {backupPath}.";
+            throw new BaselineUpdatedException(message);
         }
     }
 }

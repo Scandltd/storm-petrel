@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scand.StormPetrel.Generator.Abstraction;
+using System;
 
 namespace Scand.StormPetrel.Generator.TargetProject
 {

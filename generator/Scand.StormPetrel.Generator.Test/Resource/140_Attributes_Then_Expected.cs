@@ -12,15 +12,16 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
         {
             //Act
             var actual = "one_actual";
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "AttributesTest",
                 MethodName = "TestMethod",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -36,16 +37,15 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethod"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Attribute,
-                TestCaseAttributeInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseAttributeInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
                     ParameterIndex = 1
-                }
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
@@ -58,15 +58,16 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
         {
             //Act
             var actual = "one_actual";
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "AttributesTest",
                 MethodName = "TestMethodMultipleExpected",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 2
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -82,26 +83,19 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethodMultipleExpected"
                 },
-                IsLastVariablePair = false,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Attribute,
-                TestCaseAttributeInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseAttributeInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
                     ParameterIndex = 1
-                }
-            };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            var actual2 = "two_actual";
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AttributesTest",
-                MethodName = "TestMethodMultipleExpected",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
                 },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            var actual2 = "two_actual";
+            stormPetrelSharedContext.VariablePairCurrentIndex++;
+            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual2,
                 ActualVariablePath = new[]
                 {
@@ -117,16 +111,15 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethodMultipleExpected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Attribute,
-                TestCaseAttributeInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseAttributeInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
                     ParameterIndex = 2
-                }
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             //Assert
             actual.Should().BeEquivalentTo(expected);
             actual2.Should().BeEquivalentTo(expected2);

@@ -45,5 +45,35 @@ namespace Test.Integration.XUnit
             actual.Should().BeEquivalentTo(expected);
             actualInt.Should().Be(expectedInt);
         }
+
+        [Theory]
+        //Positive int means true, negative means false.
+        //Use different int (not bool) values for each use case to distinguish them after StormPetrel rewrites.
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(2, 2, 2, -2)]
+        [InlineData(3, 3, -3, 3)]
+        [InlineData(4, 4, -4, -4)]
+        [InlineData(5, -5, 5, 5)]
+        [InlineData(6, -6, 6, -6)]
+        [InlineData(7, -7, -7, 7)]
+        [InlineData(8, -8, -8, -8)]
+        [InlineData(-9, 9, 9, 9)]
+        [InlineData(-10, 10, 10, -10)]
+        [InlineData(-11, 11, -11, 11)]
+        [InlineData(-12, 12, -12, -12)]
+        [InlineData(-13, -13, 13, 13)]
+        [InlineData(-14, -14, 14, -14)]
+        [InlineData(-15, -15, -15, 15)]
+        [InlineData(-16, -16, -16, -16)]
+        public void WhenTwoActualExpectedPairsThenGeneratorRewritesExpectedForEachFailedUseCaseTest(int actualProto1, int expected1, int actualProto2, int expected2)
+        {
+            //Act
+            var actual1 = actualProto1;
+            var actual2 = actualProto2;
+
+            //Assert
+            actual1.Should().Be(expected1);
+            actual2.Should().Be(expected2);
+        }
     }
 }

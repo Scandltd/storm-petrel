@@ -26,15 +26,16 @@ namespace Test.Integration.XUnit
             int expected = 123;
             //Act
             var actual = _argFromConstructor;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "ClassWithConstructorTest",
                 MethodName = "SomeTest",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -51,10 +52,13 @@ namespace Test.Integration.XUnit
                     "SomeTest",
                     "expected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(expected);
         }
@@ -89,15 +93,16 @@ namespace Test.Integration.XUnit
             int expected = 123;
             //Act
             var actual = 234;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "ClassWithConstructorAndTwoTestMethodsTest",
                 MethodName = "SomeTest1",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -114,10 +119,13 @@ namespace Test.Integration.XUnit
                     "SomeTest1",
                     "expected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(expected);
         }
@@ -129,15 +137,16 @@ namespace Test.Integration.XUnit
             int expected = 111;
             //Act
             var actual = 222;
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "ClassWithConstructorAndTwoTestMethodsTest",
                 MethodName = "SomeTest2",
-                MethodTestAttributeNames = new[]
-                {
-                    "Fact"
-                },
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -154,10 +163,13 @@ namespace Test.Integration.XUnit
                     "SomeTest2",
                     "expected"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.Declaration
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(expected);
         }

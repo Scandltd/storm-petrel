@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scand.StormPetrel.Generator.Abstraction;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;

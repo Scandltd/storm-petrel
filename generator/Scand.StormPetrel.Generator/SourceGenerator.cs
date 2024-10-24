@@ -2,9 +2,10 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using Serilog;
+using Scand.StormPetrel.Generator.ExtraContextInternal;
 using Scand.StormPetrel.Generator.TargetProject;
 using Scand.StormPetrel.Shared;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -82,7 +83,7 @@ namespace Scand.StormPetrel.Generator
                         var oldMethodName = i == 0
                                                 ? method.Identifier.Text
                                                 : method.Identifier.Text + "StormPetrel";
-                        var blocks = syntaxHelper.GetNewCodeBlock(actualClass.Identifier.ValueText, method.Identifier.ValueText, testAttributeNames, info, varPairInfoList.Count - i - 1, i == 0);
+                        var blocks = syntaxHelper.GetNewCodeBlock(actualClass.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count);
                         var newStatements = newMethod.Body.Statements.InsertRange(info.StatementIndex + 1, blocks);
                         newMethod = newMethod
                                         .WithBody(newMethod.Body.WithStatements(newStatements))
@@ -91,7 +92,7 @@ namespace Scand.StormPetrel.Generator
                                             .ChildNodes()
                                             .OfType<MethodDeclarationSyntax>()
                                             .Single(a => a.Identifier.Text == oldMethodName);
-                        if (info.ExpectedVarParameterInfo != null && i == 0)
+                        if (i == 0 && info.ExpectedVarExtraContextInternal is AttributeContextInternal)
                         {
                             newMethod = MethodHelper.WithStormPetrelTestCaseRelatedStuff(newMethod);
                         }

@@ -13,6 +13,14 @@ namespace Scand.StormPetrel.Generator.Test.Resource
         public void TestStormPetrel(int x, int y, int expected)
         {
             var actual = Calculator.Add(x, y);
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ClassDataTests",
+                MethodName = "Test",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in new SomeClass())
             {
@@ -23,15 +31,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             }
 
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "ClassDataTests",
-                MethodName = "Test",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
-                },
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -47,16 +48,15 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "Test"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.EnumerableResultRewriter,
-                TestCaseSourceInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseSourceInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
                     Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
-                }
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             Assert.Equal(expected, actual);
         }
 
@@ -65,6 +65,14 @@ namespace Scand.StormPetrel.Generator.Test.Resource
         public void MultipleVarsTestStormPetrel(int x, int y, int expected, string expectedString)
         {
             var actual = Calculator.Add(x, y);
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ClassDataTests",
+                MethodName = "MultipleVarsTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 2
+            };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in new SomeClass())
             {
@@ -75,15 +83,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             }
 
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "ClassDataTests",
-                MethodName = "MultipleVarsTest",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
-                },
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -99,17 +100,17 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "MultipleVarsTest"
                 },
-                IsLastVariablePair = false,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.EnumerableResultRewriter,
-                TestCaseSourceInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseSourceInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
                     Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
-                }
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             var actualString = actual.ToString();
+            stormPetrelSharedContext.VariablePairCurrentIndex++;
             var stormPetrelTestCaseSourceRowIndex1 = -1;
             foreach (var stormPetrelRow in new SomeClass())
             {
@@ -120,15 +121,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             }
 
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "ClassDataTests",
-                MethodName = "MultipleVarsTest",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
-                },
                 Actual = actualString,
                 ActualVariablePath = new[]
                 {
@@ -144,16 +138,15 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "MultipleVarsTest"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.EnumerableResultRewriter,
-                TestCaseSourceInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseSourceInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 3,
                     RowIndex = stormPetrelTestCaseSourceRowIndex1,
                     Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
-                }
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             Assert.Equal(expected, actual);
             Assert.Equal(expectedString, actualString);
         }
@@ -163,6 +156,14 @@ namespace Scand.StormPetrel.Generator.Test.Resource
         public void TypeofWhitespacesTestStormPetrel(int x, int y, int expected)
         {
             var actual = Calculator.Add(x, y);
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ClassDataTests",
+                MethodName = "TypeofWhitespacesTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in new SomeClass())
             {
@@ -173,15 +174,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             }
 
-            var stormPetrelContext = new Scand.StormPetrel.Generator.TargetProject.GenerationContext()
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "ClassDataTests",
-                MethodName = "TypeofWhitespacesTest",
-                MethodTestAttributeNames = new[]
-                {
-                    "Theory"
-                },
                 Actual = actual,
                 ActualVariablePath = new[]
                 {
@@ -197,16 +191,15 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "TypeofWhitespacesTest"
                 },
-                IsLastVariablePair = true,
-                RewriterKind = Scand.StormPetrel.Generator.TargetProject.RewriterKind.EnumerableResultRewriter,
-                TestCaseSourceInfo = new Scand.StormPetrel.Generator.TargetProject.TestCaseSourceInfo()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
                     Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
-                }
+                },
+                MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.TargetProject.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             Assert.Equal(expected, actual);
         }
     }

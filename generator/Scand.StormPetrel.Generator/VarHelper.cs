@@ -1,6 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
+using Scand.StormPetrel.Generator.ExtraContextInternal;
 using Scand.StormPetrel.Generator.TargetProject;
 using Scand.StormPetrel.Shared;
 using System;
@@ -76,7 +78,7 @@ namespace Scand.StormPetrel.Generator
                         varInfo = new VarInfo();
                         if (!CheckIsInvocationExpressionAndUpdateVarInfo(assignmentExpression.Right, varInfo))
                         {
-                            varInfo.RewriterKind = RewriterKind.Assignment;
+                            varInfo.ExtraContextInternal = NewInitializerContextInternal(InitializerContextKind.VariableAssignment);
                         }
 
                         varInfo.Path = SyntaxNodeHelper.GetValuePath(identifierNameSyntax);
@@ -99,12 +101,14 @@ namespace Scand.StormPetrel.Generator
                             else if (localVarInfo.Variable.Initializer?.Value is IdentifierNameSyntax
                                         || localVarInfo.Variable.Initializer?.Value is MemberAccessExpressionSyntax)
                             {
-                                varInfo.RewriterKind = RewriterKind.PropertyExpression;
-                                varInfo.InvocationExpression = localVarInfo.Variable.Initializer?.Value.ToString();
+                                varInfo.ExtraContextInternal = new InvocationExpressionContextInternal(localVarInfo.Variable.Initializer.Value.ToString())
+                                {
+                                    PartialExtraContext = new InvocationSourceContext(),
+                                };
                             }
                             else
                             {
-                                varInfo.RewriterKind = RewriterKind.Declaration;
+                                varInfo.ExtraContextInternal = NewInitializerContextInternal(InitializerContextKind.VariableDeclaration);
                             }
 
                             varName = localVarInfo.VarName;
@@ -126,24 +130,28 @@ namespace Scand.StormPetrel.Generator
                             };
                             if (!string.IsNullOrEmpty(testCaseAttributeName))
                             {
-                                varInfo.RewriterKind = RewriterKind.Attribute;
-                                varInfo.ExpectedVarParameterInfo = new VarParameterInfo
+                                varInfo.ExtraContextInternal = new AttributeContextInternal
                                 {
-                                    ParameterIndex = expectedVarParameterIndex,
-                                    TestCaseAttributeName = testCaseAttributeName,
+                                    PartialExtraContext = new AttributeContext
+                                    {
+                                        ParameterIndex = expectedVarParameterIndex,
+                                        Name = testCaseAttributeName,
+                                    },
                                 };
                             }
                             else if (testCaseSourceAttribute != null)
                             {
                                 GetTestCaseSourceExpressions(method, testCaseSourceAttribute, out var testCaseSourceExpression, out var testCaseSourcePathExpression);
-                                varInfo.RewriterKind = RewriterKind.EnumerableResultRewriter;
-                                varInfo.ExpectedVarParameterTestCaseSourceInfo = new VarParameterTestCaseSourceInfo
+                                varInfo.ExtraContextInternal = new TestCaseSourceContextInternal
                                 {
                                     NonExpectedParameterTypes = nonExpectedParameterInfo.Select(x => x.Type).ToArray(),
                                     NonExpectedParameterNames = nonExpectedParameterInfo.Select(x => x.Name).ToArray(),
-                                    ParameterIndex = expectedVarParameterIndex,
                                     TestCaseSourceExpression = testCaseSourceExpression,
                                     TestCaseSourcePathExpression = testCaseSourcePathExpression,
+                                    PartialExtraContext = new TestCaseSourceContext
+                                    {
+                                        ColumnIndex = expectedVarParameterIndex,
+                                    },
                                 };
                             }
                         }
@@ -172,9 +180,9 @@ namespace Scand.StormPetrel.Generator
                                             .OrderBy(a => a.Value.StatementIndex)
                                             .ToList();
                 foreach (var expectedKeyValue in expectedVarToInfo
-                                            .OrderBy(a => a.Value.ExpectedVarParameterInfo == null
-                                                            ? int.MaxValue
-                                                            : a.Value.ExpectedVarParameterInfo.ParameterIndex)
+                                            .OrderBy(a => a.Value.ExtraContextInternal is AttributeContextInternal attributeContext
+                                                            ? attributeContext.PartialExtraContext.ParameterIndex
+                                                            : int.MaxValue)
                                             .ThenBy(a => a.Value.StatementIndex))
                 {
                     var actualKeyValue = actualVarToInfoOrdered
@@ -183,44 +191,14 @@ namespace Scand.StormPetrel.Generator
                     {
                         continue;
                     }
-                    var expressionPath = expectedKeyValue.Value.InvocationExpression?.Split('.');
-                    var expressionPathStormPetrel = expressionPath?.ToArray() ?? Array.Empty<string>();
-                    if (expressionPath?.Length == 1)
-                    {
-                        var path = expectedKeyValue.Value.Path;
-                        expressionPath = path
-                                            .Take(path.Length - 2)
-                                            .Concat(Enumerable.Repeat(expressionPath[0], 1))
-                                            .ToArray();
-                    }
-
-                    if (expressionPath != null)
-                    {
-                        var methodNameIndex = expressionPath.Length - 1;
-                        //Select any method. Appropriate overload should be selected by method arguments
-                        expressionPath[methodNameIndex] = expressionPath[methodNameIndex]
-                            + (expectedKeyValue.Value.RewriterKind != RewriterKind.PropertyExpression ? "[*]" : "");
-                    }
-                    for (var i = 0; i < 2; i++)
-                    {
-                        if (expressionPathStormPetrel.Length >= (i + 1))
-                        {
-                            expressionPathStormPetrel[i] += "StormPetrel";
-                        }
-                    }
                     varPairInfo.Add(new VarPairInfo
                     {
                         ActualVarName = actualKeyValue.Key,
                         ActualVarPath = actualKeyValue.Value.Path,
                         ExpectedVarName = expectedKeyValue.Key,
                         ExpectedVarPath = expectedKeyValue.Value.Path,
-                        ExpectedVarInvocationExpressionPath = expressionPath,
-                        ExpectedVarInvocationExpressionStormPetrel = string.Join(".", expressionPathStormPetrel),
-                        ExpectedVariableInvocationExpressionArgs = expectedKeyValue.Value.InvocationExpressionArgs,
-                        ExpectedVarParameterInfo = expectedKeyValue.Value.ExpectedVarParameterInfo,
-                        ExpectedVarParameterTestCaseSourceInfo = expectedKeyValue.Value.ExpectedVarParameterTestCaseSourceInfo,
-                        RewriterKind = expectedKeyValue.Value.RewriterKind,
                         StatementIndex = Math.Max(expectedKeyValue.Value.StatementIndex, actualKeyValue.Value.StatementIndex),
+                        ExpectedVarExtraContextInternal = expectedKeyValue.Value.ExtraContextInternal,
                     });
                     actualVarToInfoOrdered.Remove(actualKeyValue);
                 }
@@ -238,14 +216,30 @@ namespace Scand.StormPetrel.Generator
                 if (expression is InvocationExpressionSyntax invocationExpression
                     && (invocationExpression.Expression.IsKind(SyntaxKind.IdentifierName) || invocationExpression.Expression.IsKind(SyntaxKind.SimpleMemberAccessExpression)))
                 {
-                    v.RewriterKind = RewriterKind.MethodExpression;
-                    v.InvocationExpression = invocationExpression.Expression.ToString();
-                    v.InvocationExpressionArgs = invocationExpression.ArgumentList;
+                    v.ExtraContextInternal = new InvocationExpressionContextInternal(invocationExpression.Expression.ToString())
+                    {
+                        MethodArgs = invocationExpression.ArgumentList,
+                        PartialExtraContext = new InvocationSourceContext()
+                        {
+                            MethodInfo = new InvocationSourceMethodInfo()
+                            {
+                                ArgsCount = invocationExpression.ArgumentList?.Arguments.Count ?? 0,
+                            },
+                        },
+                    };
                     return true;
                 }
                 return false;
             }
         }
+
+        private static InitializerContextInternal NewInitializerContextInternal(InitializerContextKind kind) => new InitializerContextInternal
+        {
+            PartialExtraContext = new InitializerContext
+            {
+                Kind = kind,
+            },
+        };
 
         private static void GetTestCaseSourceExpressions(MethodDeclarationSyntax method, AttributeSyntax testCaseSourceAttribute, out string testCaseSourceExpression, out string testCaseSourcePathExpression)
         {

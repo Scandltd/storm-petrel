@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Scand.StormPetrel.Generator.TargetProject;
+﻿using Scand.StormPetrel.Generator.ExtraContextInternal;
 
 namespace Scand.StormPetrel.Generator
 {
@@ -9,12 +8,7 @@ namespace Scand.StormPetrel.Generator
         public string[] ActualVarPath { get; set; }
         public string ExpectedVarName { get; set; }
         public string[] ExpectedVarPath { get; set; }
-        public string[] ExpectedVarInvocationExpressionPath { get; set; }
-        public string ExpectedVarInvocationExpressionStormPetrel { get; set; }
-        public ArgumentListSyntax ExpectedVariableInvocationExpressionArgs { get; set; }
         public int StatementIndex { get; set; }
-        public VarParameterInfo ExpectedVarParameterInfo { get; set; }
-        public VarParameterTestCaseSourceInfo ExpectedVarParameterTestCaseSourceInfo { get; set; }
-        public RewriterKind RewriterKind { get; set; }
+        public AbstractExtraContextInternal ExpectedVarExtraContextInternal { get; set; }
     }
 }
