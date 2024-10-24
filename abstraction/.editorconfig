@@ -1,0 +1,11 @@
+root = true
+
+[*]
+
+# New line preferences
+end_of_line = lf
+insert_final_newline = false
+
+# Spelling
+spelling_languages = en-us
+spelling_exclusion_path = .\exclusion.dic

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scand.StormPetrel.Generator.Abstraction", "Scand.StormPetrel.Generator.Abstraction\Scand.StormPetrel.Generator.Abstraction.csproj", "{CC043551-C0CD-4719-AFA4-F352B751D706}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC043551-C0CD-4719-AFA4-F352B751D706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC043551-C0CD-4719-AFA4-F352B751D706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC043551-C0CD-4719-AFA4-F352B751D706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC043551-C0CD-4719-AFA4-F352B751D706}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {74A0CB85-CD09-48BD-87AC-8CD4E4D1765A}
+	EndGlobalSection
+EndGlobal

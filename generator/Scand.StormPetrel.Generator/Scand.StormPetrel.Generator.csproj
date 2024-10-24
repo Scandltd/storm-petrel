@@ -42,6 +42,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.1" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="1.0.0" GeneratePathProperty="true" />
         <PackageReference Include="Serilog" Version="4.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" PrivateAssets="all" GeneratePathProperty="true" />
@@ -66,6 +67,7 @@
         <None Include="$(PKGMicrosoft_Extensions_Configuration_Json)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGMicrosoft_Extensions_DependencyModel)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGMicrosoft_Extensions_Primitives)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGScand_StormPetrel_Generator_Abstraction)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="true" />
         <None Include="$(PKGSerilog)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGSerilog_Settings_Configuration)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGSerilog_Sinks_File)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
@@ -76,10 +78,6 @@
   </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="TargetProject\GenerationBackupContext.cs" />
-      <Compile Remove="TargetProject\GenerationContext.cs" />
-      <Compile Remove="TargetProject\GenerationDumpContext.cs" />
-      <Compile Remove="TargetProject\GenerationRewriteContext.cs" />
       <Compile Remove="TargetProject\Generator.cs" />
       <Compile Remove="TargetProject\GeneratorBackuper.cs" />
       <Compile Remove="TargetProject\GeneratorDumper.cs" />
@@ -87,35 +85,16 @@
       <Compile Remove="TargetProject\GeneratorRewriter.cs" />
       <Compile Remove="TargetProject\GeneratorRewriter.StaticMethodInfo.cs" />
       <Compile Remove="TargetProject\GeneratorRewriter.StaticPropertyInfo.cs" />
-      <Compile Remove="TargetProject\IGenerator.cs" />
-      <Compile Remove="TargetProject\IGeneratorBackuper.cs" />
-      <Compile Remove="TargetProject\IGeneratorDumper.cs" />
-      <Compile Remove="TargetProject\IGeneratorRewriter.cs" />
-      <Compile Remove="TargetProject\TestCaseAttributeInfo.cs" />
-      <Compile Remove="TargetProject\TestCaseSourceInfo.cs" />
-      <Compile Remove="TargetProject\VariableInvocationExpressionInfo.cs" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="TargetProject\TestCaseAttributeInfo.cs" />
-      <EmbeddedResource Include="TargetProject\GenerationBackupContext.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorBackuper.cs" />
-      <EmbeddedResource Include="TargetProject\GenerationContext.cs" />
-      <EmbeddedResource Include="TargetProject\GenerationDumpContext.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorDumper.cs" />
-      <EmbeddedResource Include="TargetProject\GenerationRewriteContext.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorObjectDumper.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorRewriter.cs" />
       <EmbeddedResource Include="TargetProject\Generator.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorRewriter.StaticMethodInfo.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorRewriter.StaticPropertyInfo.cs" />
-      <EmbeddedResource Include="TargetProject\IGenerator.cs" />
-      <EmbeddedResource Include="TargetProject\IGeneratorBackuper.cs" />
-      <EmbeddedResource Include="TargetProject\IGeneratorDumper.cs" />
-      <EmbeddedResource Include="TargetProject\IGeneratorRewriter.cs" />
-      <EmbeddedResource Include="TargetProject\TestCaseSourceInfo.cs" />
-      <EmbeddedResource Include="TargetProject\VariableInvocationExpressionInfo.cs" />
-      <EmbeddedResource Include="TargetProject\RewriterKind.cs" />
     </ItemGroup>
 
     <ItemGroup>

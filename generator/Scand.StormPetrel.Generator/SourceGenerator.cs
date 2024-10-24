@@ -265,23 +265,11 @@ namespace Scand.StormPetrel.Generator
             }
             var fileNames = new[]
             {
-                    "IGenerator",
-                    "IGeneratorBackuper",
-                    "IGeneratorDumper",
-                    "IGeneratorRewriter",
-                    "GenerationBackupContext",
-                    "GenerationContext",
-                    "GenerationDumpContext",
-                    "GenerationRewriteContext",
                     "Generator",
                     "GeneratorBackuper",
                     dumperFileName,
                     "GeneratorRewriter",
-                    "RewriterKind",
-                    "TestCaseAttributeInfo",
-                    "TestCaseSourceInfo",
-                    "VariableInvocationExpressionInfo",
-                };
+            };
             foreach (var fileName in fileNames.Where(a => a != null))
             {
                 var newCode = ResourceHelper.ReadTargetProjectResource(fileName);
