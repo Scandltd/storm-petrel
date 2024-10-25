@@ -173,6 +173,19 @@ namespace Test.Integration.XUnit
             actual.Should().Be(expected);
         }
 
+        [Fact]
+        public void WhenExtensionMethodThenProjectIsCompiledSuccessfullyTest()
+        {
+            //Arrange
+            var expectedVar = "123";
+
+            //Act
+            var actualVar = TestedClass.TestedMethod().ExtensionMethodExample();
+
+            //Assert
+            actualVar.Should().Be(expectedVar);
+        }
+
         [Theory]
         [InlineData("A", 1)]
         [InlineData("B", 2)]

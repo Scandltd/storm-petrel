@@ -42,7 +42,9 @@ namespace Scand.StormPetrel.Generator
                 && !GetTestAttributeNames(method).Any()
                 && method.ReturnType != null
                 && method.ReturnType.ToString() != "void"
-                && method.ReturnType.ToString().IndexOf("Task", StringComparison.Ordinal) < 0;
+                && method.ReturnType.ToString().IndexOf("Task", StringComparison.Ordinal) < 0
+                //ignore extension methods to avoid duplicated extension method and thus target test project compilation failure
+                && method.ParameterList?.Parameters.FirstOrDefault()?.Modifiers.Any(SyntaxKind.ThisKeyword) != true;
 
 
         public static bool IsExpectedVarInvocationExpressionCandidate(PropertyDeclarationSyntax property)
