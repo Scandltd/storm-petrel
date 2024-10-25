@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Scand.StormPetrel.Generator
 {
@@ -15,11 +16,16 @@ namespace Scand.StormPetrel.Generator
     {
         private readonly string _syntaxTreeFilePath;
         private readonly string _targetProjectGeneratorExpression;
+        private readonly Regex _ignoreInvocationExpressionRegex;
         private const string StormPetrelSharedContextVarName = "stormPetrelSharedContext";
-        public SyntaxHelper(string syntaxTreeFilePath, string targetProjectGeneratorExpression)
+        public SyntaxHelper(string syntaxTreeFilePath, string targetProjectGeneratorExpression, string ignoreInvocationExpressionRegex)
         {
             _syntaxTreeFilePath = syntaxTreeFilePath;
             _targetProjectGeneratorExpression = targetProjectGeneratorExpression;
+            if (!string.IsNullOrEmpty(ignoreInvocationExpressionRegex))
+            {
+                _ignoreInvocationExpressionRegex = new Regex(ignoreInvocationExpressionRegex, RegexOptions.Compiled);
+            }
         }
         private static ExpressionSyntax GetArrayInitializer(string[] arr)
         {
@@ -62,18 +68,21 @@ namespace Scand.StormPetrel.Generator
                 ObjectCreationExpressionSyntax methodInfoExpression = null;
                 if (invocationSourceContext.PartialExtraContext.MethodInfo != null)
                 {
-                    stormPetrelMethodNodeVarName = GetBlockIndexVarName("stormPetrelMethodNode");
-                    var stormPetrelMethodNodeClause = GetStormPetrelMethodNodeClause(invocationSourceContext.InvocationExpressionStormPetrel, invocationSourceContext.MethodArgs);
-                    var stormPetrelMethodNodeVarDeclaration = SyntaxFactory.VariableDeclaration(
-                            SyntaxFactory.ParseTypeName("var"),
-                            SyntaxFactory.SeparatedList(new[]
-                            {
+                    if (_ignoreInvocationExpressionRegex == null || !_ignoreInvocationExpressionRegex.IsMatch(invocationSourceContext.InvocationExpressionStormPetrel))
+                    {
+                        stormPetrelMethodNodeVarName = GetBlockIndexVarName("stormPetrelMethodNode");
+                        var stormPetrelMethodNodeClause = GetStormPetrelMethodNodeClause(invocationSourceContext.InvocationExpressionStormPetrel, invocationSourceContext.MethodArgs);
+                        var stormPetrelMethodNodeVarDeclaration = SyntaxFactory.VariableDeclaration(
+                                SyntaxFactory.ParseTypeName("var"),
+                                SyntaxFactory.SeparatedList(new[]
+                                {
                                     SyntaxFactory
                                         .VariableDeclarator(SyntaxFactory.Identifier(stormPetrelMethodNodeVarName), null, stormPetrelMethodNodeClause)
-                            }));
+                                }));
+                        result.Add(SyntaxFactory
+                                    .LocalDeclarationStatement(stormPetrelMethodNodeVarDeclaration));
+                    }
 
-                    result.Add(SyntaxFactory
-                                .LocalDeclarationStatement(stormPetrelMethodNodeVarDeclaration));
                     methodInfoExpression = SyntaxFactory.ObjectCreationExpression(
                         SyntaxFactory.IdentifierName($"{typeof(InvocationSourceMethodInfo).FullName}()"))
                         .WithInitializer(
@@ -81,12 +90,13 @@ namespace Scand.StormPetrel.Generator
                                 SyntaxKind.ObjectInitializerExpression,
                                 SyntaxFactory.SeparatedList(new ExpressionSyntax[]
                                 {
-                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeKind), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeKind")),
-                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeIndex), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeIndex")),
+                                        stormPetrelMethodNodeVarName == null ? null : GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeKind), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeKind")),
+                                        stormPetrelMethodNodeVarName == null ? null : GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeIndex), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeIndex")),
                                         GetPropertyAssignment(nameof(InvocationSourceMethodInfo.ArgsCount), SyntaxFactory.LiteralExpression(
                                                 SyntaxKind.StringLiteralExpression,
                                                 SyntaxFactory.Literal(invocationSourceContext.PartialExtraContext.MethodInfo.ArgsCount))),
                                 }
+                                .Where(a => a != null)
                             )
                         )
                     );

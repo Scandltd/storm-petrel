@@ -9,6 +9,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
         public GeneratorConfig GeneratorConfig { get; set; } = new GeneratorConfig();
         public bool IsDisabled { get; set; }
         public string IgnoreFilePathRegex { get; set; }
+        public string IgnoreInvocationExpressionRegex { get; set; }
         public object Serilog { get; set; } = SerilogDefault;
         public TestVariablePairConfig[] TestVariablePairConfigs { get; set; } = new[]
         {

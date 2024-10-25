@@ -238,6 +238,8 @@ The file changes are applied `on the fly` and can have the following settings:
                                  // Even if set to 'false', the generator still adds classes like 'IGeneratorDumper', 'GeneratorDumper' to avoid test project compilation failures
                                  // in the case when custom classes uses them.
   "IgnoreFilePathRegex": "...",  // [optional] string, empty by default. Regular Expression to exclude certain paths from 'StormPetrel' class generation.
+  "IgnoreInvocationExpressionRegex": "...",  // [optional] string, empty by default. Regular Expression to detect invocation expressions to not execute StormPetrel rewriting for.
+                                 // The property can be utilized in the case of custom IGeneratorRewriter implementations (e.g. when expected baseline is not stored in C# code but binary file as in File Snapshot Testing approach).
   "Serilog": "...",              // [optional] Logging configuration using Serilog (https://github.com/serilog/serilog-settings-configuration?tab=readme-ov-file#serilogsettingsconfiguration--).
                                  // Defaults to logging warnings to the test project's Logs folder. Set to 'null' to disable logging.
                                  // Use the '{StormPetrelRootPath}' token to indicate the target test project root path.

@@ -33,6 +33,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("150_MultipleExpectedLastAssignmentIsMethod")]
         [InlineData("160_MemberData")]
         [InlineData("170_ClassData")]
+        [InlineData("180_IgnoreInvocationExpression", "IgnoreInvocationExpression")]
         [InlineData("ExpectedInMethodTest01Data")] //performance test
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod")]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null)
@@ -117,6 +118,10 @@ namespace Scand.StormPetrel.Generator.Test
                             ExpectedVarNameTokenRegex = "[Ee]{1}xpected",
                         },
                     ],
+                },
+                "IgnoreInvocationExpression" => new MainConfig()
+                {
+                    IgnoreInvocationExpressionRegex = "InvocationExpressionToBeIgnored",
                 },
                 _ => throw new InvalidOperationException(),
             };

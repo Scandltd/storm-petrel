@@ -27,7 +27,7 @@ namespace Scand.StormPetrel.Generator
                                                                                             : (null, true));
             var actualClassToNewClass = new Dictionary<ClassDeclarationSyntax, ClassDeclarationSyntax>();
             var varHelper = new VarHelper(config.TestVariablePairConfigs);
-            var syntaxHelper = new SyntaxHelper(syntaxTreeFilePath, config.TargetProjectGeneratorExpression);
+            var syntaxHelper = new SyntaxHelper(syntaxTreeFilePath, config.TargetProjectGeneratorExpression, config.IgnoreInvocationExpressionRegex);
             foreach (var actualClass in actualClasses)
             {
                 if (cancellationToken.IsCancellationRequested)
