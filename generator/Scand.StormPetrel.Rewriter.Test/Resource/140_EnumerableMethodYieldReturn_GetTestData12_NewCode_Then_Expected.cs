@@ -19,10 +19,10 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
             yield return new object[]
             {
                 4, 5, new List<string>()
-{
-    "1",
-    "2"
-},
+                {
+                    "1",
+                    "2"
+                },
             };
             yield return new object[] { 7, 8, 9 };
         }

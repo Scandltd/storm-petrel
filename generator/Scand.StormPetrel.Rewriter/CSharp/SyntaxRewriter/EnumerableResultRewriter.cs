@@ -118,7 +118,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             {
                 return baseVisit(node);
             }
-            var initExpression = CreateInitializeExpressionSyntax(row);
+            var maxTriviaDonor = MaxTriviaNode(row, cell, initializerExpressions.First());
+            var initExpression = CreateInitializeExpressionSyntax(maxTriviaDonor);
             initExpression = initExpression
                                 .WithLeadingTrivia(cell.GetLeadingTrivia())
                                 .WithTrailingTrivia(cell.GetTrailingTrivia());
@@ -142,18 +143,20 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             {
                 return baseVisit(node);
             }
-            var toReplace = nodeArrayElement
-                                .Where(x => !(
-                                                x.IsKind(SyntaxKind.ArrayRankSpecifier)
-                                                || x.IsKind(SyntaxKind.PredefinedType)
-                                             ))
+            var nodeArrayElementFiltered = nodeArrayElement
+                                            .Where(x => !(
+                                                            x.IsKind(SyntaxKind.ArrayRankSpecifier)
+                                                            || x.IsKind(SyntaxKind.PredefinedType)
+                                                        ));
+            var toReplace = nodeArrayElementFiltered
                                 .Skip(_resultColumnIndex)
                                 .FirstOrDefault();
             if (toReplace == null)
             {
                 return baseVisit(node);
             }
-            var initExpression = CreateInitializeExpressionSyntax(toReplace);
+            var maxTriviaDonor = MaxTriviaNode(toReplace, toReplace.Parent, nodeArrayElementFiltered.First());
+            var initExpression = CreateInitializeExpressionSyntax(maxTriviaDonor);
             initExpression = initExpression
                                 .WithLeadingTrivia(toReplace.GetLeadingTrivia())
                                 .WithTrailingTrivia(toReplace.GetTrailingTrivia());
@@ -179,5 +182,20 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 
         private static IEnumerable<SyntaxNode> GetChildNodesOfChildNodes(SyntaxNode node) =>
             node.ChildNodes().SelectMany(x => x.ChildNodes());
+
+        private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b, SyntaxNode c)
+        {
+            var max = MaxTriviaNode(a, b);
+            return MaxTriviaNode(max, c);
+        }
+
+        private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b)
+        {
+            var aLength = a.GetLeadingTrivia().FullSpan.Length;
+            var bLength = b.GetLeadingTrivia().FullSpan.Length;
+            //Might not properly work in some cases like when tabs and whitespaces are combined together.
+            //One tab typically indicates 4 (not 1) whitespaces in this case. So, we ignore this meaning here.
+            return aLength >= bLength ? a : b;
+        }
     }
 }

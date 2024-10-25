@@ -56,16 +56,19 @@ namespace Scand.StormPetrel.Generator.TargetProject
             else if (extraContext is TestCaseSourceContext testCaseSourceContext)
             {
                 var testCaseSourcePropertyInfo = GetStaticPropertyInfo(testCaseSourceContext.Path, false);
+                string[] testCaseSourcePath = null;
                 if (testCaseSourcePropertyInfo == null)
                 {
                     var testCaseSourceMethodInfo = GetStaticMethodInfo(testCaseSourceContext.Path, -1);
+                    testCaseSourcePath = testCaseSourceMethodInfo.MethodPath;
                     filePath = testCaseSourceMethodInfo.FilePath;
                 }
                 else
                 {
+                    testCaseSourcePath = testCaseSourcePropertyInfo.PropertyPath;
                     filePath = testCaseSourcePropertyInfo.FilePath;
                 }
-                rewriter = new EnumerableResultRewriter(testCaseSourceContext.Path, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value);
+                rewriter = new EnumerableResultRewriter(testCaseSourcePath, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value);
             }
             else
             {
@@ -103,10 +106,15 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 // False positive match is possible. However, we prefer it against semantic analysis.
                 match = _staticPropertyInfoArray
                                 .OrderByDescending(x => x.PropertyPath.Length)
-                                .Where(x => x.PropertyPath.Length >= staticPropertyPath.Length
-                                                ? x.PropertyPath.Skip(x.PropertyPath.Length - staticPropertyPath.Length).SequenceEqual(staticPropertyPath)
-                                                : false)
+                                .Where(x => ParentPathHasChild(x.PropertyPath, staticPropertyPath))
                                 .FirstOrDefault();
+                if (match == null)
+                {
+                    match = _staticPropertyInfoArray
+                                    .OrderBy(x => x.PropertyPath.Length)
+                                    .Where(x => ParentPathHasChild(staticPropertyPath, x.PropertyPath))
+                                    .FirstOrDefault();
+                }
             }
             if (throwIfNotFound && match == null)
             {
@@ -123,14 +131,23 @@ namespace Scand.StormPetrel.Generator.TargetProject
                                 .FirstOrDefault();
             if (match == null)
             {
+                var argsAsMethodInfo = new StaticMethodInfo
+                {
+                    MethodPath = staticMethodPath,
+                    MethodArgsCount = methodArgsCount,
+                };
                 // False positive match is possible. However, we prefer it against semantic analysis.
                 match = _staticMethodInfoArray
                                 .OrderByDescending(x => x.MethodPath.Length)
-                                .Where(x => x.MethodPath.Length >= staticMethodPath.Length
-                                                ? (methodArgsCount < 0 || x.MethodArgsCount == methodArgsCount)
-                                                    && x.MethodPath.Skip(x.MethodPath.Length - staticMethodPath.Length).SequenceEqual(staticMethodPath)
-                                                : false)
+                                .Where(x => ParentMethodHasChild(x, argsAsMethodInfo))
                                 .FirstOrDefault();
+                if (match == null)
+                {
+                    match = _staticMethodInfoArray
+                                .OrderBy(x => x.MethodPath.Length)
+                                .Where(x => ParentMethodHasChild(argsAsMethodInfo, x))
+                                .FirstOrDefault();
+                }
             }
             if (match == null)
             {
@@ -140,5 +157,15 @@ namespace Scand.StormPetrel.Generator.TargetProject
             return match;
         }
 
+        private static bool ParentMethodHasChild(StaticMethodInfo parent, StaticMethodInfo child) =>
+            parent.MethodPath.Length >= child.MethodPath.Length
+                ? (parent.MethodArgsCount < 0 || child.MethodArgsCount < 0 || parent.MethodArgsCount == child.MethodArgsCount)
+                    && parent.MethodPath.Skip(parent.MethodPath.Length - child.MethodPath.Length).SequenceEqual(child.MethodPath)
+                : false;
+
+        private static bool ParentPathHasChild(string[] parent, string[] child) =>
+            parent.Length >= child.Length
+                ? parent.Skip(parent.Length - child.Length).SequenceEqual(child)
+                : false;
     }
 }

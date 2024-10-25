@@ -18,6 +18,6 @@ public class Foo
 		    //comment
 		    "five",
 		}
-;
+		;
     }
 }

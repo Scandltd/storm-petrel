@@ -1,25 +1,30 @@
-[![Scand Storm Petrel Generator](https://raw.githubusercontent.com/Scandltd/storm-petrel/main/assets/logo-128x128-transparent.png)](https://scand.com/products/storm-petrel-expected-baselines-rewriter)
+[![Scand Storm Petrel Generator](assets/logo-128x128-transparent.png)](https://scand.com/products/storm-petrel-expected-baselines-rewriter)
 # Scand Storm Petrel Generator
 * [Overview](#overview)
 * [Primary Use Cases](#primary-use-cases)
-    * [Enabler: Auto-Generate `CalculatorTestStormPetrel.AddTestStormPetrel`](#use-case-enabler)
-    * [Overwrite `CalculatorTest.AddTest` expected baseline](#use-case-overwrite-baseline)
-    * [Overwrite `CalculatorTestTheory.AddTestGetExpected` expected baseline method](#use-case-overwrite-baseline-get-expected-method)
+    * [Enabler: Auto-Generate `CalculatorTestStormPetrel.AddTestStormPetrel`](#enabler-auto-generate-calculatorteststormpetreladdteststormpetrel)
+    * [Overwrite `CalculatorTest.AddTest` expected baseline](#overwrite-calculatortestaddtest-expected-baseline)
+    * [Overwrite `CalculatorTestTheory.AddTestGetExpected` expected baseline method](#overwrite-calculatortesttheoryaddtestgetexpected-expected-baseline-method)
     * [Use Case Variations](#use-case-variations)
+        * [Expected variable expression is static property assignment](#expected-variable-expression-is-static-property-assignment)
+        * [Expected expression is test method argument what comes from](#expected-expression-is-test-method-argument-what-comes-from)
+            * [Test case attribute](#test-case-attribute)
+            * [Test data source attribute](#test-data-source-attribute)
+        * [Snapshots of Snapshot Testing](#snapshots-of-snapshot-testing)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
 * [Supported Software](#supported-software)
-    * [Test Frameworks](#supported-test-frameworks)
-    * [.NET Versions](#supported-net-versions)
+    * [Test Frameworks](#test-frameworks)
+    * [.NET Versions](#net-versions)
 * [References](#references)
 
-## Overview<a name="overview"></a>
+## Overview
 
 .NET Incremental Generator that creates modified copies of unit and/or integration tests to update expected baselines in original tests, automating baseline creation and accelerating test development.
 
-## Primary Use Cases<a name="primary-use-cases"></a>
+## Primary Use Cases
 
-### Enabler: Auto-Generate `CalculatorTestStormPetrel.AddTestStormPetrel`<a name="use-case-enabler"></a>
+### Enabler: Auto-Generate `CalculatorTestStormPetrel.AddTestStormPetrel`
 
 ###### Given
 `Calculator` class with a bug introduced by the `buggyDelta` variable:
@@ -45,7 +50,7 @@ public class AddResult
 }
 ```
 
-And its corresponding test with an expected baseline that matches the Calculator.Add buggy behavior:
+And its corresponding test with an expected baseline that matches the `Calculator.Add` buggy behavior:
 
 ```csharp
 public class CalculatorTest
@@ -77,7 +82,7 @@ The developer configures the test project with StormPetrel.Generator as per the 
 ##### Then
 A new test method, `CalculatorTestStormPetrel.AddTestStormPetrel`, is generated. This method is a specially modified copy of the original CalculatorTest.AddTest to overwrite its expected baseline.
 
-### Overwrite `CalculatorTest.AddTest` expected baseline <a name="use-case-overwrite-baseline"></a>
+### Overwrite `CalculatorTest.AddTest` expected baseline
 ##### Given
 `CalculatorTestStormPetrel.AddTestStormPetrel` is auto-generated after enabling Storm Petrel functionality.
 ##### When
@@ -111,7 +116,7 @@ public class CalculatorTest
 ##### So that
 The developer should only review expected baseline changes (no manual modification) what typically saves development time.
 
-### Overwrite `CalculatorTestTheory.AddTestGetExpected` expected baseline method<a name="use-case-overwrite-baseline-get-expected-method"></a>
+### Overwrite `CalculatorTestTheory.AddTestGetExpected` expected baseline method
 ##### Given
 `CalculatorTestTheory.AddTest` test below with
 
@@ -181,17 +186,25 @@ private static AddResult AddTestGetExpected(int a, int b) => (a, b) switch
 ##### So that
 The developer should only review expected baseline changes (no manual modification) what typically saves development time.
 
-### Use Case Variations<a name="use-case-variations"></a>
-* Expected variable expression is static property assignment. See <a href="Test.Integration.XUnit/PropertyTest.cs">PropertyTest.cs</a> for more details.
-* Expected expression is test method argument what comes from
+### Use Case Variations
 
-    * Test case attribute (xUnit InlineData, NUnit TestCase, MSTest DataRow) argument value. See <a href="Test.Integration.XUnit/AttributesTest.cs">AttributesTest.cs</a> for more details.
+#### Expected variable expression is static property assignment
+See [PropertyTest](Test.Integration.XUnit/PropertyTest.cs) for more details.
 
-    * Test data source attribute (xUnit MemberData or ClassData, NUnit TestCaseSource, MSTest DynamicData). See <a href="Test.Integration.XUnit/TestCaseSourceMemberDataTest.cs">TestCaseSourceMemberDataTest.cs</a>, <a href="Test.Integration.XUnit/TestCaseSourceClass/TestCaseSourceClassDataTest.cs">TestCaseSourceClassDataTest.cs</a>, <a href="Test.Integration.NUnit/TestCaseSourceTest.cs">NUnit TestCaseSourceTest.cs</a>, <a href="Test.Integration.MSTest/TestCaseSourceTest.cs">MSTest TestCaseSourceTest.cs</a> for more details.
-    Known limitations:
-        * The attributes should be configured against data source methods or properties, not fields.
+#### Expected expression is test method argument what comes from
 
-## Getting Started<a name="getting-started"></a>
+##### Test case attribute
+Supported attributes are xUnit InlineData, NUnit TestCase, MSTest DataRow. See [AttributesTest](Test.Integration.XUnit/AttributesTest.cs) for more details.
+
+##### Test data source attribute
+Supported attributes are xUnit MemberData or ClassData, NUnit TestCaseSource, MSTest DynamicData. See [TestCaseSourceMemberDataTest](Test.Integration.XUnit/TestCaseSourceMemberDataTest.cs), [TestCaseSourceClassDataTest](Test.Integration.XUnit/TestCaseSourceClass/TestCaseSourceClassDataTest.cs), [NUnit TestCaseSourceTest](Test.Integration.NUnit/TestCaseSourceTest.cs), [MSTest TestCaseSourceTest](Test.Integration.MSTest/TestCaseSourceTest.cs) for more details.
+Known limitations:
+* The attributes should be configured against data source methods or properties, not fields.
+
+#### Snapshots of Snapshot Testing
+HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code. See couple examples in [SnapshotTest](Test.Integration.XUnit/SnapshotTest.cs).
+
+## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
 * Scand.StormPetrel.Generator.
 * Object to C# code dumper. Represents `actual` test instance as C# code. See `DumperExpression` in [Configuration](#configuration) for more details.
@@ -199,7 +212,7 @@ To utilize the StormPetrel tests, add the following NuGet Package references to 
     * **Option B**. [ObjectDumper.NET](https://github.com/thomasgalliker/ObjectDumper). May be referenced and configured.
     * **Option C**. Custom implementation of `IGeneratorDumper` interface. May be developed and configured.
 
-## Configuration<a name="configuration"></a>
+## Configuration
 The StormPetrel Generator introduces several interfaces and classes to the Scand.StormPetrel.Generator.TargetProject namespace of the test project. These can be utilized alongside an optional JSON file to customize the rewriting of expected baselines. Key interfaces and classes include:
 * `IGenerator`, `Generator`;
 * `IGeneratorBackuper`, `GeneratorBackuper`;
@@ -237,18 +250,18 @@ The file changes are applied `on the fly` and can have the following settings:
 }
 ```
 
-## Supported Software<a name="supported-software"></a>
+## Supported Software
 
-### Test Frameworks<a name="supported-test-frameworks"></a>
-* <a href="https://xunit.net/">xUnit</a>
-* <a href="https://nunit.org/">NUnit</a>
-* <a href="https://github.com/microsoft/testfx/">MSTest</a>
+### Test Frameworks
+* [xUnit](https://xunit.net/)
+* [NUnit](https://nunit.org/)
+* [MSTest](https://github.com/microsoft/testfx/)
 
-### .NET Versions<a name="supported-net-versions"></a>
+### .NET Versions
 * .NET Standard 2.0+
 * .NET 8.0+
 * .NET Framework 4.6.2+
 
-## References<a name="references"></a>
+## References
 
 At SCAND, we specialize in building advanced .NET solutions to help businesses develop new or modernize their legacy applications. If you need help getting started with Storm Petrel or support with implementation, we're ready to assist. Whether you're refactoring or rewriting, our team can help solve any challenges you might face. Visit our [page](https://scand.com/contact-us/) to learn more, or reach out for hands-on guidance.
