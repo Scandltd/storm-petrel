@@ -27,18 +27,33 @@ namespace Scand.StormPetrel.Generator
                 _ignoreInvocationExpressionRegex = new Regex(ignoreInvocationExpressionRegex, RegexOptions.Compiled);
             }
         }
-        private static ExpressionSyntax GetArrayInitializer(string[] arr)
+
+        private static ExpressionSyntax ToStringLiteralExpression(string s) =>
+            SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(s));
+        private static ExpressionSyntax GetArrayInitializer<T>(T[] arr, Func<T, ExpressionSyntax> func, string typeNameForEmptyArray = null)
         {
             var arrayExpression = SyntaxFactory.InitializerExpression(
                 SyntaxKind.ArrayInitializerExpression,
-                SyntaxFactory.SeparatedList<ExpressionSyntax>(
-                    arr.Select(a => SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(a)))
+                SyntaxFactory.SeparatedList(
+                    arr.Select(a => func(a))
                 )
             );
 
-            ArrayTypeSyntax arrayType = SyntaxFactory.ArrayType(
-                SyntaxFactory.OmittedTypeArgument()
-            )
+            TypeSyntax typeSyntax;
+            if (arr.Length == 0)
+            {
+                if (string.IsNullOrEmpty(typeNameForEmptyArray))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(typeNameForEmptyArray));
+                }
+                typeSyntax = SyntaxFactory.ParseTypeName(typeNameForEmptyArray);
+            }
+            else
+            {
+                typeSyntax = SyntaxFactory.OmittedTypeArgument();
+            }
+
+            ArrayTypeSyntax arrayType = SyntaxFactory.ArrayType(typeSyntax)
             .WithRankSpecifiers(
                 SyntaxFactory.SingletonList(
                     SyntaxFactory.ArrayRankSpecifier(
@@ -56,11 +71,11 @@ namespace Scand.StormPetrel.Generator
             return completeArrayCreationExpression;
         }
 
-        public List<StatementSyntax> GetNewCodeBlock(string className, string methodName, VarPairInfo info, int blockIndex, int varPairsCount)
+        public List<StatementSyntax> GetNewCodeBlock(string className, string methodName, VarPairInfo info, int blockIndex, int varPairsCount, SeparatedSyntaxList<ParameterSyntax> parameters)
         {
             ObjectCreationExpressionSyntax extraContextExpression = null;
             var result = new List<StatementSyntax>();
-            var methodContextStatement = GetMethodContextStatement(className, methodName, blockIndex, varPairsCount);
+            var methodContextStatement = GetMethodContextStatement(className, methodName, blockIndex, varPairsCount, parameters);
             result.Add(methodContextStatement);
             if (info.ExpectedVarExtraContextInternal is InvocationExpressionContextInternal invocationSourceContext)
             {
@@ -108,7 +123,7 @@ namespace Scand.StormPetrel.Generator
                             SyntaxKind.ObjectInitializerExpression,
                             SyntaxFactory.SeparatedList(new ExpressionSyntax[]
                             {
-                                GetPropertyAssignment(nameof(InvocationSourceContext.Path), GetArrayInitializer(invocationSourceContext.GetPath(info.ExpectedVarPath))),
+                                GetPropertyAssignment(nameof(InvocationSourceContext.Path), GetArrayInitializer(invocationSourceContext.GetPath(info.ExpectedVarPath), ToStringLiteralExpression)),
                                 methodInfoExpression == null
                                     ? null
                                     : GetPropertyAssignment(nameof(InvocationSourceContext.MethodInfo), methodInfoExpression),
@@ -216,9 +231,9 @@ private static void TempMethod()
                         SyntaxFactory.SeparatedList(new[]
                         {
                             (ExpressionSyntax)GetPropertyAssignment(nameof(GenerationContext.Actual), SyntaxFactory.IdentifierName(info.ActualVarName)),
-                            GetPropertyAssignment(nameof(GenerationContext.ActualVariablePath), GetArrayInitializer(info.ActualVarPath)),
+                            GetPropertyAssignment(nameof(GenerationContext.ActualVariablePath), GetArrayInitializer(info.ActualVarPath, ToStringLiteralExpression)),
                             GetPropertyAssignment(nameof(GenerationContext.Expected), SyntaxFactory.IdentifierName(info.ExpectedVarName)),
-                            GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath)),
+                            GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath, ToStringLiteralExpression)),
                             GetPropertyAssignment(nameof(GenerationContext.ExtraContext), extraContextExpression),
                             GetPropertyAssignment(nameof(GenerationContext.MethodSharedContext), SyntaxFactory.IdentifierName(StormPetrelSharedContextVarName)),
                         })));
@@ -242,10 +257,43 @@ private static void TempMethod()
             string GetBlockIndexVarName(string varName) => blockIndex == 0 ? varName : varName + blockIndex.ToString(CultureInfo.InvariantCulture);
         }
 
-        private StatementSyntax GetMethodContextStatement(string className, string methodName, int varPairIndex, int varPairsCount)
+        private StatementSyntax GetMethodContextStatement(string className, string methodName, int varPairIndex, int varPairsCount, SeparatedSyntaxList<ParameterSyntax> parameters)
         {
             if (varPairIndex == 0)
             {
+                var parametersExpression = GetArrayInitializer(parameters.ToArray(), x => SyntaxFactory.ObjectCreationExpression(
+                    SyntaxFactory.IdentifierName($"{typeof(ParameterInfo).FullName}()"))
+                    .WithInitializer(
+                        SyntaxFactory.InitializerExpression(
+                            SyntaxKind.ObjectInitializerExpression,
+                            SyntaxFactory.SeparatedList(new ExpressionSyntax[]
+                            {
+                                GetPropertyAssignment(nameof(ParameterInfo.Name), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(x.Identifier.Text))),
+                                GetPropertyAssignment(nameof(ParameterInfo.Value), SyntaxFactory.IdentifierName(x.Identifier.Text)),
+                                GetPropertyAssignment(nameof(ParameterInfo.Attributes),
+                                                        GetArrayInitializer(x.AttributeLists
+                                                                                .ToArray()
+                                                                                .SelectMany(y => y.Attributes.Where(z => z != null))
+                                                                                .ToArray(),
+                                                        y => SyntaxFactory
+                                                                .ObjectCreationExpression(SyntaxFactory.IdentifierName($"{typeof(AttributeInfo).FullName}()"))
+                                                                .WithInitializer(
+                                                                    SyntaxFactory.InitializerExpression(
+                                                                        SyntaxKind.ObjectInitializerExpression,
+                                                                        SyntaxFactory.SeparatedList(new ExpressionSyntax[]
+                                                                        {
+                                                                            GetPropertyAssignment(nameof(AttributeInfo.Name), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(y.Name.GetText().ToString()))),
+                                                                        }
+                                                                    )
+                                                                )),
+                                                        typeof(AttributeInfo).FullName)
+                                                      ),
+                            })
+                        )
+                    ),
+                    typeof(ParameterInfo).FullName
+                );
+
                 var sharedContextExpression = SyntaxFactory.ObjectCreationExpression(
                     SyntaxFactory.IdentifierName($"{typeof(MethodContext).FullName}()"))
                     .WithInitializer(
@@ -258,6 +306,7 @@ private static void TempMethod()
                                 GetPropertyAssignment(nameof(MethodContext.MethodName), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(methodName))),
                                 GetPropertyAssignment(nameof(MethodContext.VariablePairCurrentIndex), SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0))),
                                 GetPropertyAssignment(nameof(MethodContext.VariablePairsCount), SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(varPairsCount))),
+                                GetPropertyAssignment(nameof(MethodContext.Parameters), parametersExpression),
                             }
                         )
                     )

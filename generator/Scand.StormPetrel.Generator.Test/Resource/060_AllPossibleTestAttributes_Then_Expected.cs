@@ -20,7 +20,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestXUnitFact",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -69,7 +72,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestXUnitTheory",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -110,7 +116,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestNUnitTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -151,7 +160,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestNUnitTestCase",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -192,7 +204,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestNUnitTestCaseSource",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -233,7 +248,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestNUnitTheory",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -274,7 +292,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestMSTestTestMethod",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -315,7 +336,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "AllPossibleTestAttributes",
                 MethodName = "TestMSTestDataTestMethod",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {

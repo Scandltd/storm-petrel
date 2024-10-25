@@ -83,7 +83,7 @@ namespace Scand.StormPetrel.Generator
                         var oldMethodName = i == 0
                                                 ? method.Identifier.Text
                                                 : method.Identifier.Text + "StormPetrel";
-                        var blocks = syntaxHelper.GetNewCodeBlock(actualClass.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count);
+                        var blocks = syntaxHelper.GetNewCodeBlock(actualClass.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count, method.ParameterList.Parameters);
                         var newStatements = newMethod.Body.Statements.InsertRange(info.StatementIndex + 1, blocks);
                         newMethod = newMethod
                                         .WithBody(newMethod.Body.WithStatements(newStatements))

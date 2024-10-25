@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Test.Integration.XUnit
 {
@@ -74,6 +75,18 @@ namespace Test.Integration.XUnit
             //Assert
             actual1.Should().Be(expected1);
             actual2.Should().Be(expected2);
+        }
+
+        [Theory]
+        [InlineData(1, "1_incorrect")]
+        public void TestMethodWithParameterAttribute(int i, string expected, [CallerMemberName] string callerMemberName = "")
+        {
+            //Act
+            var actual = i.ToString(CultureInfo.InvariantCulture);
+
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+            callerMemberName.Should().BeEmpty();
         }
     }
 }

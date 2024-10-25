@@ -18,7 +18,10 @@ namespace Test.Integration.XUnit
                 ClassName = "IgnoreInvocationExpressionTest",
                 MethodName = "ShouldIgnoreInvocationExpressionTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -71,7 +74,10 @@ namespace Test.Integration.XUnit
                 ClassName = "IgnoreInvocationExpressionTest",
                 MethodName = "ShouldNotIgnoreInvocationExpressionDueToCaseSensitivityTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelMethodNode = InvocationExpressiontobeignoredStormPetrel();
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()

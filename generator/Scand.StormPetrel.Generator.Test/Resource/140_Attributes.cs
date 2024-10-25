@@ -31,5 +31,20 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
             actual.Should().BeEquivalentTo(expected);
             actual2.Should().BeEquivalentTo(expected2);
         }
+
+        [Theory]
+        [InlineData(1, "one")]
+        [InlineData(2, "two")]
+        [InlineData(3, "three")]
+        public void TestMethodWithParameterAttributes([CallerFilePath] int intArg,
+                                                      [Obsolete("This method is obsolete. Use NewMethod instead."), SomeNameSpace.MyCustomAttribute("Example")] string expected
+                                                      [SomeNameSpace.CallerFilePath] [CallerMemberName] string oneMoreArgWithTwoAttributes = "")
+        {
+            //Act
+            var actual = "one_actual";
+
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
     }
 }

@@ -1,6 +1,6 @@
 # FAQs
 
-## How to Test Modified Scand.StormPetrel.SourceGenerator Code?
+## How to Test Modified Scand.StormPetrel.Generator Code?
 
 * Modify and Rebuild:
     * Modify and rebuild the Scand.StormPetrel.Generator code or its components in Visual Studio.
@@ -14,4 +14,4 @@
     * Run the `Scand.StormPetrel.Generator.Test.csproj` and `Scand.StormPetrel.Rewriter.Test.csproj` tests.
 * Integration Testing Steps (excluding `Scand.StormPetrel.Generator.Test.csproj` and `Scand.StormPetrel.Rewriter.Test.csproj` tests):
     * Execute all tests suffixed with `StormPetrel` in Test Explorer. These tests should fail with a message stating `StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions...`. Optionally, use the command line `dotnet test --filter "FullyQualifiedName~StormPetrel"` or a similar approach.
-    * Execute all tests again. Ensure the tests are recompiled at this step. All tests should pass as the expected baselines should have been properly overwritten in the previous step.
+    * Execute all tests now. Ensure the tests are recompiled at this step. All tests should pass as the expected baselines should have been properly overwritten in the previous step.

@@ -32,7 +32,10 @@ namespace Test.Integration.XUnit
                 ClassName = "ClassWithConstructorTest",
                 MethodName = "SomeTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -99,7 +102,10 @@ namespace Test.Integration.XUnit
                 ClassName = "ClassWithConstructorAndTwoTestMethodsTest",
                 MethodName = "SomeTest1",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -143,7 +149,10 @@ namespace Test.Integration.XUnit
                 ClassName = "ClassWithConstructorAndTwoTestMethodsTest",
                 MethodName = "SomeTest2",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {

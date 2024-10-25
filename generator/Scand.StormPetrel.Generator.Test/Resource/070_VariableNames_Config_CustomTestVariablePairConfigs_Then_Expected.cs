@@ -21,7 +21,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "TestAssignmentNotDeclaration",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -64,7 +67,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "TestBothAssignmentAndDeclaration",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -107,7 +113,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "TestWhitespacesInBothAssignmentAndDeclarationStormPetrel",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -149,7 +158,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "DefaultRegexCaseSensitivityShouldDetectThisCase",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -191,7 +203,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "DefaultRegexCaseSensitivityShouldDetectThisCase2",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -233,7 +248,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -293,7 +311,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "VariableNames",
                 MethodName = "MultipleVariablePairsShouldResultMultipleBaselineReplacements",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 2
+                VariablePairsCount = 2,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {

@@ -21,7 +21,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "PartialTestClass",
                 MethodName = "Test1",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
@@ -68,7 +71,10 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 ClassName = "PartialTestClass",
                 MethodName = "Test2",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {

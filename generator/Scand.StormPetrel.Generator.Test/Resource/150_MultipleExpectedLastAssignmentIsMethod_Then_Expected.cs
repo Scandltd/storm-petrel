@@ -20,7 +20,10 @@ namespace Test.Integration.XUnit
                 ClassName = "UnitTest1",
                 MethodName = "Test1",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelMethodNode = GetValueStormPetrel();
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()

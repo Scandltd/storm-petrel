@@ -18,7 +18,10 @@ namespace Test.Integration.XUnit
                 ClassName = "UnitTest1",
                 MethodName = "Test1",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelMethodNode = SomeClassStormPetrel.ExpectedStormPetrel();
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -73,7 +76,10 @@ namespace Test.Integration.XUnit
                 ClassName = "UnitTest1",
                 MethodName = "WhenMethodNameOnlyThenFullPathShouldBeGeneratedInExpectedVariableInvocationExpressionPath",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelMethodNode = ExpectedStormPetrel();
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -129,7 +135,10 @@ namespace Test.Integration.XUnit
                 ClassName = "UnitTest1",
                 MethodName = "WhenMethodWithArgsThenTheArgsShouldBeTransferredToGenerationContext",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
             };
             var stormPetrelMethodNode = ExpectedStormPetrel(arg1, 1, "123", SomeType.SomeProperty, SomeType.SomeMethod());
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()

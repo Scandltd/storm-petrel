@@ -19,7 +19,34 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 ClassName = "MemberDataTests",
                 MethodName = "MemberDataProperty",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data)))
@@ -71,7 +98,34 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 ClassName = "MemberDataTests",
                 MethodName = "MemberDataWithMemberType",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeNameSpace.SomeType), nameof(Data)))
@@ -123,7 +177,34 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 ClassName = "MemberDataTests",
                 MethodName = "MemberDataWithMemberTypeNoWhitespaces",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
@@ -175,7 +256,34 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 ClassName = "MemberDataTests",
                 MethodName = "MemberDataWithMemberTypeWithSpecialWhitespaces",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
@@ -227,7 +335,34 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 ClassName = "MemberDataTests",
                 MethodName = "MemberDataWithParameters",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data), 1, "string param", new object[] { 1, 2, 3 }))
@@ -279,7 +414,34 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 ClassName = "MemberDataTests",
                 MethodName = "MemberDataWithNamedParameters",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters), 3))
