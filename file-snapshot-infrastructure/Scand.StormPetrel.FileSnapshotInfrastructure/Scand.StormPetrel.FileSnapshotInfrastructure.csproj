@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>StormPetrel File Snapshot Infrastructure</Title>
+    <Authors>Scand</Authors>
+    <Company>Scand</Company>
+    <Description>File Snapshot Infrastructure for Snapshot Testing with Scand.StormPetrel.Generator.</Description>
+    <Copyright>© 2024 Scand</Copyright>
+    <PackageProjectUrl>https://scand.com/products/storm-petrel-expected-baselines-rewriter</PackageProjectUrl>
+    <PackageIcon>logo-128x128-transparent.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Scandltd/storm-petrel.git</RepositoryUrl>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageTags>automated testing tools;unit test modification;integration test automation;baseline updating tools;incremental test generators;snapshot testing</PackageTags>
+    <PackageOutputPath>$(OutputPath)..\bin</PackageOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\assets\logo-128x128-transparent.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="[2.0.0,3.0.0)" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)..\README.md&quot; &quot;$(MSBuildThisFileDirectory)*&quot; /Y" />
+  </Target>
+
+</Project>

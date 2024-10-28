@@ -1,0 +1,4 @@
+{
+  "Value": 5, //Incorrect expected baseline
+  "ValueAsHexString": "0x5"
+}
