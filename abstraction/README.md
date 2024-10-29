@@ -6,7 +6,7 @@
 
 ## Overview
 
-Abstractions for Scand Storm Petrel Incremental Generator.
+.NET abstractions of the [Scand.StormPetrel.Generator](../generator/README.md). They can be implemented in projects such as [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md) or in custom libraries/test projects.
 
 ## Getting Started
 To create NuGet package or .NET project with abstractions custom implementation:

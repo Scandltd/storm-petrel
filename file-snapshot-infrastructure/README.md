@@ -20,7 +20,7 @@
 
 ## Overview
 
-The package implements Scand Storm Petrel Generator abstractions to rewrite expected baseline files with actual snapshots (HTML, JSON, XML, images, or other bytes). This can be utilized in Snapshot Unit Testing when snapshots are stored as individual files in the file system.
+.NET library that implements [Scand.StormPetrel.Generator.Abstraction](../abstraction/README.md) to rewrite expected baseline files with actual snapshots (HTML, JSON, XML, images, or other bytes). This can be utilized in Snapshot Unit Testing when snapshots are stored as individual files in the file system.
 
 [![Primary Use Case](assets/primary-use-case.gif)](assets/primary-use-case.gif)
 

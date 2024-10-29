@@ -22,6 +22,8 @@
 
 .NET Incremental Generator that creates modified copies of unit and/or integration tests to update expected baselines in original tests, automating baseline creation and accelerating test development.
 
+[![Primary Use Case](assets/primary-use-case.gif)](assets/primary-use-case.gif)
+
 ## Primary Use Cases
 
 ### Enabler: Auto-Generate `CalculatorTestStormPetrel.AddTestStormPetrel`
