@@ -1,4 +1,4 @@
-[![Scand Storm Petrel Generator Abstraction](https://raw.githubusercontent.com/Scandltd/storm-petrel/main/abstraction/assets/logo-128x128-transparent.png)](https://scand.com/products/storm-petrel-expected-baselines-rewriter)
+[![Scand Storm Petrel Generator Abstraction](assets/logo-128x128-transparent.png)](https://scand.com/products/storm-petrel-expected-baselines-rewriter)
 # Scand Storm Petrel Generator Abstraction
 * [Overview](#overview)
 * [Getting Started](#getting-started)
@@ -13,7 +13,7 @@ To create NuGet package or .NET project with abstractions custom implementation:
 * Reference Scand.StormPetrel.Generator.Abstraction NuGet package in .NET project.
 * Implement any or all of Scand.StormPetrel.Generator.Abstraction interfaces in the project.
 
-Then the project can be referenced in .NET test project and configured according to [Scand.StormPetrel.Generator](https://github.com/Scandltd/storm-petrel/blob/main/generator/README.md) documentation to have the customization applied.
+Then the project can be referenced in .NET test project and configured according to [Scand.StormPetrel.Generator](../generator/README.md) documentation to have the customization applied.
 
 
 ## References

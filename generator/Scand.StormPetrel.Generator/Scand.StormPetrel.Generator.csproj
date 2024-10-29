@@ -108,7 +108,7 @@
     <Import Project="..\Scand.StormPetrel.Shared\Scand.StormPetrel.Shared.projitems" Label="Shared" />
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)..\README.md&quot; &quot;$(MSBuildThisFileDirectory)*&quot; /Y" />
+      <Exec Command="&quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.bat&quot; $(MSBuildThisFileDirectory)" />
     </Target>
     <Target Name="MakeBinDir" AfterTargets="PrepareForBuild">
       <MakeDir Directories="$(SolutionDir)bin" Condition="'$(SolutionDir)' != '*Undefined*' and !Exists('$(SolutionDir)bin')" />
