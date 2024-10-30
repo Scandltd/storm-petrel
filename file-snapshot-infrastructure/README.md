@@ -16,9 +16,11 @@
         * [No Use Case Id in Test Method Parameters](#no-use-case-id-in-test-method-parameters)
 * [Getting Started](#getting-started)
 * [Supported Software](#supported-software)
+* [CHANGELOG](CHANGELOG.md)
 * [References](#references)
 
 ## Overview
+[![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.FileSnapshotInfrastructure.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure)
 
 .NET library that implements [Scand.StormPetrel.Generator.Abstraction](../abstraction/README.md) to rewrite expected baseline files with actual snapshots (HTML, JSON, XML, images, or other bytes). This can be utilized in Snapshot Unit Testing when snapshots are stored as individual files in the file system.
 
@@ -85,6 +87,8 @@ See this and other configuration examples in [DefaultConfiguration](Test.Integra
 
 ## Supported Software
 The same as in [Scand.StormPetrel.Generator](../generator/README.md#supported-software).
+
+## [CHANGELOG](CHANGELOG.md)
 
 ## References
 

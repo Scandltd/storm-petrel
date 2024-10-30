@@ -14,6 +14,8 @@
 [![Primary Use Case](generator/assets/primary-use-case.gif)](generator/assets/primary-use-case.gif)
 
 ## [Scand.StormPetrel.FileSnapshotInfrastructure](file-snapshot-infrastructure/README.md)
+[![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.FileSnapshotInfrastructure.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure)
+
 .NET library that implements [Scand.StormPetrel.Generator.Abstraction](abstraction/README.md) to rewrite expected baseline files with actual snapshots (HTML, JSON, XML, images, or other bytes). This can be utilized in Snapshot Unit Testing when snapshots are stored as individual files in the file system.
 
 ## References

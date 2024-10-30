@@ -12,7 +12,7 @@
     <PackageIcon>logo-128x128-transparent.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Scandltd/storm-petrel.git</RepositoryUrl>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>See CHANGELOG file referenced in README.</PackageReleaseNotes>
     <PackageTags>automated testing tools;unit test modification;integration test automation;baseline updating tools;incremental test generators;snapshot testing</PackageTags>
     <PackageOutputPath>$(OutputPath)..\bin</PackageOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
