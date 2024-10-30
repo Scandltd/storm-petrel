@@ -16,9 +16,12 @@
 * [Supported Software](#supported-software)
     * [Test Frameworks](#test-frameworks)
     * [.NET Versions](#net-versions)
+* [CHANGELOG](CHANGELOG.md)
+* [FAQs](#faqs)
 * [References](#references)
 
 ## Overview
+[![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.Generator.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.Generator)
 
 .NET Incremental Generator that creates modified copies of unit and/or integration tests to update expected baselines in original tests, automating baseline creation and accelerating test development.
 
@@ -265,6 +268,49 @@ The file changes are applied `on the fly` and can have the following settings:
 * .NET Standard 2.0+
 * .NET 8.0+
 * .NET Framework 4.6.2+
+
+## [CHANGELOG](CHANGELOG.md)
+
+## FAQs
+
+### Does Scand.StormPetrel help developers track incorrect expected baselines in tests?
+Developers can already track incorrect expected baselines without *Scand.StormPetrel*. They *should* manually review the changes made by *Scand.StormPetrel* to the expected baselines and decide if they are correct. This is the same approach used when *Scand.StormPetrel* is not involved.
+
+### Does Scand.StormPetrel violate Test Driven Development (TDD) practices?
+We believe it does not. Here are the corresponding TDD [steps](https://martinfowler.com/bliki/TestDrivenDevelopment.html) with comments explaining why it does not violate the practices:
+
+* **Write a test for the next bit of functionality you want to add.**\
+*Scand.StormPetrel* does *not* assist in creating test case input parameters.
+It cannot help create the expected baseline at this step because there is no actual result yet. Therefore, the expected baseline is either:
+    * A default instance
+    * A manually created instance
+* **Write the functional code until the test passes.**\
+*Scand.StormPetrel* *can* automatically update the default or manually created instance with the actual value here. The developer *should* then review the changes to decide if the test truly passes.
+
+### What is the suggested configuration of Scand.StormPetrel for typical CI/CD and development environments?
+The suggested configuration in the `appsettings.StormPetrel.json` file is:
+```jsonc
+{
+    "GeneratorConfig": {
+        "BackuperExpression": null, //No need to backup because developers typically keep backups under Git or other Version Control Systems.
+        "DumperExpression": ...,    //According to your requirements.
+        "RewriterExpression": ...   //According to your requirements.
+    },
+    "IsDisabled": false,            //Keep `true` under Git control for CI/CD to speed up test compilation and execution time.
+                                    //Keep `false` on the developer's machine, which should not be tracked by Git. StormPetrel tests are always available.
+                                    //Keep `true` on the developer's machine. Can be changed ad hoc to `false` to compile StormPetrel tests.
+    "Serilog": null                 //Avoid logging.
+}
+```
+
+### Can test project compilation fail after enabling Scand.StormPetrel? How can I avoid the failure?
+*Scand.StormPetrel* relies on code syntax, not semantics. Therefore, it cannot properly generate *StormPetrel* test methods in all cases, and test project compilation might fail. You can detect the original test file causing the failure and add it to the `"IgnoreFilePathRegex"` property in the [configuration](#configuration) to avoid the compilation error while still using *Scand.StormPetrel* for other tests.
+
+### Scand.StormPetrel constantly changes my expected baseline because the actual result has new property values (e.g., CreatedOn with the current time, auto-incremented Id, random Guid, etc.) every StormPetrel test call. How can I avoid these constant changes?
+It is likely that you also ignore the property in the test assertion; otherwise, the test would fail.
+An option is to always have a default value for the property while dumping it to C# code using *Scand.StormPetrel*.
+This can be implemented via custom configuration or the implementation of [IGeneratorDumper](../abstraction/Scand.StormPetrel.Generator.Abstraction/IGeneratorDumper).
+See an example of how this is implemented via the `GetDumpOptions` method in [Test.Integration.XUnit/Utils](Test.Integration.XUnit/Utils.cs) and configured in [Test.Integration.XUnit/appsettings.StormPetrel.json](Test.Integration.XUnit/appsettings.StormPetrel.json).
 
 ## References
 

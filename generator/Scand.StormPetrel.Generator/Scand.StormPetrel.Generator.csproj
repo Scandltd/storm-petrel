@@ -28,7 +28,7 @@
       <Company>Scand</Company>
       <Copyright>© 2024 Scand</Copyright>
       <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+      <PackageReleaseNotes>See CHANGELOG file referenced in README.</PackageReleaseNotes>
       <PackageTags>automated testing tools;unit test modification;integration test automation;baseline updating tools;incremental test generators</PackageTags>
       <Version>2.0.0</Version>
     </PropertyGroup>
