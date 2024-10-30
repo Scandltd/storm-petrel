@@ -2,6 +2,8 @@
 # Storm Petrel Expected Baselines Rewriter
 
 ## [Scand.StormPetrel.Generator.Abstraction](abstraction/README.md)
+[![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.Generator.Abstraction.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.Generator.Abstraction)
+
 .NET abstractions of the [Scand.StormPetrel.Generator](generator/README.md). They can be implemented in projects such as [Scand.StormPetrel.FileSnapshotInfrastructure](file-snapshot-infrastructure/README.md) or in custom libraries/test projects.
 
 ## [Scand.StormPetrel.Generator](generator/README.md)

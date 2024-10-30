@@ -2,19 +2,22 @@
 # Scand Storm Petrel Generator Abstraction
 * [Overview](#overview)
 * [Getting Started](#getting-started)
+* [CHANGELOG](CHANGELOG.md)
 * [References](#references)
 
 ## Overview
+[![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.Generator.Abstraction.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.Generator.Abstraction)
 
 .NET abstractions of the [Scand.StormPetrel.Generator](../generator/README.md). They can be implemented in projects such as [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md) or in custom libraries/test projects.
 
 ## Getting Started
 To create NuGet package or .NET project with abstractions custom implementation:
-* Reference Scand.StormPetrel.Generator.Abstraction NuGet package in .NET project.
+* Reference [Scand.StormPetrel.Generator.Abstraction](https://www.nuget.org/packages/Scand.StormPetrel.Generator.Abstraction) NuGet package in .NET project.
 * Implement any or all of Scand.StormPetrel.Generator.Abstraction interfaces in the project.
 
-Then the project can be referenced in .NET test project and configured according to [Scand.StormPetrel.Generator](../generator/README.md) documentation to have the customization applied.
+Then the implementation can be configured according to [Scand.StormPetrel.Generator](../generator/README.md) documentation to have the customization applied.
 
+## [CHANGELOG](CHANGELOG.md)
 
 ## References
 
