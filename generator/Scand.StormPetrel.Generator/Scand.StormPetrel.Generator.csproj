@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project InitialTargets="MakeBinDir" Sdk="Microsoft.NET.Sdk">
     <!-- CAUTION: the file is mostly manually updated according to https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.cookbook.md#use-functionality-from-nuget-packages -->
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -110,7 +110,7 @@
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
       <Exec Command="&quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.bat&quot; $(MSBuildThisFileDirectory)" />
     </Target>
-    <Target Name="MakeBinDir" AfterTargets="PrepareForBuild">
-      <MakeDir Directories="$(SolutionDir)bin" Condition="'$(SolutionDir)' != '*Undefined*' and !Exists('$(SolutionDir)bin')" />
+    <Target Name="MakeBinDir">
+      <MakeDir Directories="$(MSBuildThisFileDirectory)..\bin" />
     </Target>
 </Project>

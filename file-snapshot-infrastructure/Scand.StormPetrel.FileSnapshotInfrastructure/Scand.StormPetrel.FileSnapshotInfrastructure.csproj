@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project InitialTargets="MakeBinDir" Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -40,4 +40,7 @@
     <Exec Command="&quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.bat&quot; $(MSBuildThisFileDirectory)" />
   </Target>
 
+  <Target Name="MakeBinDir">
+    <MakeDir Directories="$(MSBuildThisFileDirectory)..\bin" />
+  </Target>
 </Project>
