@@ -212,10 +212,11 @@ HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
 * Scand.StormPetrel.Generator.
-* Object to C# code dumper. Represents `actual` test instance as C# code. See `DumperExpression` in [Configuration](#configuration) for more details.
+* Object to C# code dumper. Typically, it represents `actual` test instance as C# code. See `DumperExpression` in [Configuration](#configuration) for more details.
     * **Option A**. [VarDump](https://www.nuget.org/packages/VarDump). Must be referenced in the case of StormPetrel.Generator default configuration (no `appsettings.StormPetrel.json` file in the test project). May be additionally configured.
     * **Option B**. [ObjectDumper.NET](https://github.com/thomasgalliker/ObjectDumper). May be referenced and configured.
     * **Option C**. Custom implementation of `IGeneratorDumper` interface. May be developed and configured.
+    * **Option D**. [Scand.StormPetrel.FileSnapshotInfrastructure](https://www.nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure). Typically, it represents the `actual` test instance as a checksum and writes the instance bytes to a snapshot file in the `IGeneratorRewriter` implementation. It may be referenced and configured according to its [settings](../file-snapshot-infrastructure/README.md#getting-started).
 
 ## Configuration
 The StormPetrel Generator introduces several interfaces and classes to the Scand.StormPetrel.Generator.TargetProject namespace of the test project. These can be utilized alongside an optional JSON file to customize the rewriting of expected baselines. Key interfaces and classes include:
