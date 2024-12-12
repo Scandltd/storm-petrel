@@ -25,7 +25,7 @@ namespace Test.Integration.CustomConfiguration
             var actualFileBytesSnapshot = Calculator.GetLogo();
 
             //Assert
-            Assert.AreEqual(expectedFileBytesSnapshot, actualFileBytesSnapshot);
+            Assert.That(actualFileBytesSnapshot, Is.EqualTo(expectedFileBytesSnapshot));
         }
 
         [TestCase("2+2", 2, 2)]
@@ -39,7 +39,7 @@ namespace Test.Integration.CustomConfiguration
             var actualFileJsonSnapshot = Calculator.Add(a, b).ToJsonText();
 
             //Assert
-            Assert.AreEqual(expectedFileJsonSnapshot, actualFileJsonSnapshot);
+            Assert.That(actualFileJsonSnapshot, Is.EqualTo(expectedFileJsonSnapshot));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace Test.Integration.CustomConfiguration
 
             //Assert
             //Other stream assertion approaches (checksum or whatever) can be used here
-            Assert.AreEqual(expectedStreamSnapshot.ToByteArray(), actualStreamSnapshot.ToByteArray());
+            Assert.That(actualStreamSnapshot.ToByteArray(), Is.EqualTo(expectedStreamSnapshot.ToByteArray()));
         }
 
         [TestCase("1x1", 1, 1)]
@@ -88,7 +88,7 @@ namespace Test.Integration.CustomConfiguration
             try
             {
                 //Other stream assertion approaches (checksum or whatever) can be used here
-                Assert.AreEqual(expectedStreamSnapshot.ToByteArray(), actualStreamSnapshot.ToByteArray());
+                Assert.That(actualStreamSnapshot.ToByteArray(), Is.EqualTo(expectedStreamSnapshot.ToByteArray()));
             }
             finally
             {
@@ -107,7 +107,7 @@ namespace Test.Integration.CustomConfiguration
             var actual = ParallelismTest.ActualTextHandledInParallel;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

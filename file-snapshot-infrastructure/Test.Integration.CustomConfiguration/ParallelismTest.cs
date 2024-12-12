@@ -18,7 +18,7 @@ namespace Test.Integration.CustomConfiguration
             var actual = ActualTextHandledInParallel;
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         /// <summary>

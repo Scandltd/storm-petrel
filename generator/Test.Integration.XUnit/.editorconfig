@@ -3,3 +3,7 @@
 # CA2007: Do not directly await a Task
 # Justification: by xUnit tests design
 dotnet_diagnostic.CA2007.severity = none
+
+# CA1515: Consider making public types internal
+# Justification: We make the types public to allow test frameworks execute the tests
+dotnet_diagnostic.CA1515.severity = none

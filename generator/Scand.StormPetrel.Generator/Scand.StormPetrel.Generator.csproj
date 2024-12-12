@@ -34,22 +34,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <!-- Include CSharp because it is referenced by Scand.StormPetrel.Rewriter.dll -->
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="[4.10.0,)" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.1" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" GeneratePathProperty="true" />
-        <PackageReference Include="Serilog" Version="4.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Serilog" Version="4.2.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.Text.Json" Version="8.0.5" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.IO.Pipelines" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Encodings.Web" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Json" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <None Include="..\assets\logo-128x128-transparent.png">
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
@@ -73,6 +74,7 @@
         <None Include="$(PKGSerilog_Settings_Configuration)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGSerilog_Sinks_File)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGSystem_Diagnostics_DiagnosticSource)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_IO_Pipelines)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGSystem_Text_Encodings_Web)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(PKGSystem_Text_Json)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 
