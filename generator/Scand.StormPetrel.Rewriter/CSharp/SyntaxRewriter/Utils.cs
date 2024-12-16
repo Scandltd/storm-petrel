@@ -20,29 +20,29 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 return SyntaxFactory.SyntaxTrivia(originalTrivia.Kind(), triviaListAsString);
             });
             return expression;
+        }
 
-            SyntaxTrivia GetLeadingWhitespace(SyntaxNode syntaxNode)
+        public static SyntaxTrivia GetLeadingWhitespace(SyntaxNode syntaxNode)
+        {
+            var trivias = syntaxNode.GetLeadingTrivia().Reverse();
+            SyntaxTrivia? syntaxNodeLineLeadingWhitespace = null; // leading trivia of the same line where syntaxNode is located
+            foreach (var trivia in trivias)
             {
-                var trivias = syntaxNode.GetLeadingTrivia().Reverse();
-                SyntaxTrivia? syntaxNodeLineLeadingWhitespace = null; // leading trivia of the same line where syntaxNode is located
-                foreach (var trivia in trivias)
+                if (trivia.IsKind(SyntaxKind.EndOfLineTrivia))
                 {
-                    if (trivia.IsKind(SyntaxKind.EndOfLineTrivia))
-                    {
-                        //Another line found
-                        break;
-                    }
-                    if (trivia.IsKind(SyntaxKind.WhitespaceTrivia))
-                    {
-                        syntaxNodeLineLeadingWhitespace = trivia;
-                    }
+                    //Another line found
+                    break;
                 }
-                if (syntaxNodeLineLeadingWhitespace == null)
+                if (trivia.IsKind(SyntaxKind.WhitespaceTrivia))
                 {
-                    return SyntaxFactory.Whitespace("");
+                    syntaxNodeLineLeadingWhitespace = trivia;
                 }
-                return syntaxNodeLineLeadingWhitespace.Value;
             }
+            if (syntaxNodeLineLeadingWhitespace == null)
+            {
+                return SyntaxFactory.Whitespace("");
+            }
+            return syntaxNodeLineLeadingWhitespace.Value;
         }
     }
 }

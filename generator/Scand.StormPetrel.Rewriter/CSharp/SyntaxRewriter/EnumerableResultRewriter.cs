@@ -191,10 +191,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 
         private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b)
         {
-            var aLength = a.GetLeadingTrivia().FullSpan.Length;
-            var bLength = b.GetLeadingTrivia().FullSpan.Length;
-            //Might not properly work in some cases like when tabs and whitespaces are combined together.
-            //One tab typically indicates 4 (not 1) whitespaces in this case. So, we ignore this meaning here.
+            var aLength = Utils.GetLeadingWhitespace(a).FullSpan.Length;
+            var bLength = Utils.GetLeadingWhitespace(b).FullSpan.Length;
             return aLength >= bLength ? a : b;
         }
     }
