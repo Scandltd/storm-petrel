@@ -61,6 +61,7 @@
         <!-- Package the generator in the analyzer directory of the nuget package -->
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="$(OutputPath)\Scand.StormPetrel.Rewriter.dll" Pack="true" PackagePath="lib\$(TargetFramework)"></None>
+        <None Include="$(OutputPath)\Scand.StormPetrel.Generator.Utils.dll" Pack="true" PackagePath="lib\$(TargetFramework)"></None>
 
         <!-- Package the package dependencies alongside the generator assembly -->
         <None Include="$(PKGMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
@@ -101,6 +102,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Scand.StormPetrel.Generator.Utils\Scand.StormPetrel.Generator.Utils.csproj">
+        <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+        <IncludeAssets>Scand.StormPetrel.Generator.Utils.dll</IncludeAssets>
+      </ProjectReference>
       <ProjectReference Include="..\Scand.StormPetrel.Rewriter\Scand.StormPetrel.Rewriter.csproj">
         <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
         <IncludeAssets>Scand.StormPetrel.Rewriter.dll</IncludeAssets>

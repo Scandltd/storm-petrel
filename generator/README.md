@@ -11,6 +11,7 @@
             * [Test case attribute](#test-case-attribute)
             * [Test data source attribute](#test-data-source-attribute)
         * [Snapshots of Snapshot Testing](#snapshots-of-snapshot-testing)
+        * [Expected expression decorators](#expected-expression-decorators)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
 * [Supported Software](#supported-software)
@@ -208,6 +209,10 @@ Known limitations:
 
 #### Snapshots of Snapshot Testing
 HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code. See couple examples in [SnapshotTest](Test.Integration.XUnit/SnapshotTest.cs).
+
+#### Expected expression decorators
+Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate expressions with
+* Collection initializer.
 
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
