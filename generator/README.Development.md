@@ -1,17 +1,12 @@
 # FAQs
 
-## How to Test Modified Scand.StormPetrel.Generator Code?
+## How to test modified Scand.StormPetrel.Generator code?
 
-* Modify and Rebuild:
-    * Modify and rebuild the Scand.StormPetrel.Generator code or its components in Visual Studio.
-* Optional Steps:
-    * Close Visual Studio and terminate the VBCSCompiler.exe process.
-    * Clear the NuGet package cache by executing `clear-nuget-package-cache-from-stormpetrel.bat` or using another method. Refer to <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/reinstalling-and-updating-packages">Reinstalling and Updating Packages</a> for more details.
-    * Set `"IsDisabled": false` in <a href="Test.Integration.Performance.XUnit/appsettings.StormPetrel.json">Test.Integration.Performance.XUnit/appsettings.StormPetrel.json</a> if performance testing is required.
-* Rebuild Test Projects:
-    * Rebuild all test projects.
-* Execute Tests:
-    * Run the `Scand.StormPetrel.Generator.Test.csproj` and `Scand.StormPetrel.Rewriter.Test.csproj` tests.
-* Integration Testing Steps (excluding `Scand.StormPetrel.Generator.Test.csproj` and `Scand.StormPetrel.Rewriter.Test.csproj` tests):
-    * Execute all tests suffixed with `StormPetrel` in Test Explorer. These tests should fail with a message stating `StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions...`. Optionally, use the command line `dotnet test --filter "FullyQualifiedName~StormPetrel"` or a similar approach.
-    * Execute all tests now. Ensure the tests are recompiled at this step. All tests should pass as the expected baselines should have been properly overwritten in the previous step.
+See details and execute the `build/build.ps1` script from the repository root directory or manually repeat script steps in Visual Studio or another IDE. Optional suggestions:
+*  Use the `git clean -dfx` command to clean up the current directory from redundant output of previous builds. **CAUTION:** This command will remove ALL new files that are not yet in the Git tree.
+*  The `git clean -dfx` command might fail due to locked log files. To fix this:
+    * Find the process locking the file via Resource Monitor application:
+        *  Go to the CPU tab.
+        *  In the Associated Handles section, enter `StormPetrel` in the search input and press Enter.
+    * Right-click on the found process and select `End Process`.
+    * Repeat the `git clean -dfx` command.
