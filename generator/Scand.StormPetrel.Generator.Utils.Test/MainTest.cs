@@ -33,7 +33,8 @@ public class MainTest
     [InlineData("200_HashtableInitializer")]
     [InlineData("210_EmptyInitializer")]
     [InlineData("220_Trivia")]
-    public async Task SourceGeneratorTest(string inputReplacementCodeResourceName)
+    [InlineData("230_ImplicitObjectCreation", nameof(ImplicitObjectCreationDumperDecorator))]
+    public async Task SourceGeneratorTest(string inputReplacementCodeResourceName, string decorator = nameof(CollectionExpressionDumperDecorator))
     {
         //Arrange
         var assembly = Assembly.GetAssembly(typeof(MainTest));
@@ -46,7 +47,9 @@ public class MainTest
             .Returns(inputCode);
 
         //Act
-        var collectionExpressionDumper = new CollectionExpressionDumperDecorator(_generatorDumper);
+        IGeneratorDumper collectionExpressionDumper = decorator == nameof(CollectionExpressionDumperDecorator)
+            ? new CollectionExpressionDumperDecorator(_generatorDumper)
+            : new ImplicitObjectCreationDumperDecorator(_generatorDumper);
 
         string? actual = collectionExpressionDumper.Dump(_generationDumpContext);
 

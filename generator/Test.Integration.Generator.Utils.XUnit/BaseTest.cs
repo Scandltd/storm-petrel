@@ -8,11 +8,13 @@ namespace Test.Integration.Generator.Utils.XUnit
         [Fact]
         public void CollectionExpressionTest()
         {
-            var expected = new AddResult
+            AddResult expected = new()
             {
                 Values = new List<int>() { 5 }, //incorrect value example
                 ValueAsHexString = "0x5",
                 Hashes = Array.Empty<string>(),
+                SomeObject = new object(),
+                Result = new CalculatorResult(5)
             };
 
             //Act
@@ -32,6 +34,7 @@ namespace Test.Integration.Generator.Utils.XUnit
             {
                 Values = [result],
                 ValueAsHexString = "0x" + result.ToString("x", CultureInfo.InvariantCulture),
+                Result = new CalculatorResult(result)
             };
         }
     }
@@ -41,5 +44,12 @@ namespace Test.Integration.Generator.Utils.XUnit
         public List<int> Values { get; set; } = [];
         public string ValueAsHexString { get; set; } = string.Empty;
         public string[] Hashes { get; set; } = [];
+        public object SomeObject { get; set; } = new();
+        public CalculatorResult Result { get; set; }
+    }
+
+    internal struct CalculatorResult(int sum)
+    {
+        public int Sum { get; set; } = sum;
     }
 }
