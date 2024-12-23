@@ -300,6 +300,21 @@ namespace Test.Integration.XUnit
             actual.Should().BeEquivalentTo(expected);
         }
 
+        [Theory]
+        [InlineData(2, 0)]
+        [InlineData(2, 1)]
+        public void WhenExpectedIsFromStaticMethodViaArrowPatternMatchWithWhenCondition(int arg1, int arg2)
+        {
+            //Arrange
+            var expected = BaseTestHelper.GetExpectedClassResultArrowPatternMatchWithWhenCondition(arg1, arg2);
+
+            //Act
+            int actual = 5;
+
+            //Assert
+            actual.Should().Be(expected);
+        }
+
         private static int GetExpected() => 123;
 
         private static int GetExpectedForMultipleAssignment() => 123;

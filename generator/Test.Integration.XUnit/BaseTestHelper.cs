@@ -144,6 +144,13 @@
             _ => throw new InvalidOperationException(),
         };
 
+        public static int GetExpectedClassResultArrowPatternMatchWithWhenCondition(int arg1, int arg2) => arg1 switch
+        {
+            2 when 0 < arg2 => 4,
+            2 => 5,
+            _ => 6,
+        };
+
         #region Ignored Methods
         public static void VoidMethodToIgnore()
         {
