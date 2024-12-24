@@ -1,4 +1,15 @@
 # Change Log
+## [2.1.0] - 2024-12-24
+
+### Added
+- More references to the documentation.
+- Collection Initializer decorator for dumped expected baseline.
+- Implicit Object Creation decorator for dumped expected baseline.
+- Build scripts.
+
+### Fixed
+- Incorrect indentation if data source method has comments.
+
 ## [2.0.0] - 2024-10-30
 
 ### Added

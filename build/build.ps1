@@ -4,7 +4,8 @@ param(
     [bool]$SkipGeneratorTest = $false,                              #To build and execute the package integration tests
     [bool]$SkipGeneratorTestPerformance = $false,                   #To build and execute the package performance tests in context of the integration tests. Can be utilized for development purposes to speed up the build
     [bool]$SkipFileSnapshotInfrastructureBuild = $false,            #To build the package and execute its unit tests
-    [bool]$SkipFileSnapshotInfrastructureTest = $false              #To build and execute the package integration tests
+    [bool]$SkipFileSnapshotInfrastructureTest = $false,             #To build and execute the package integration tests
+    [string]$FSIIntegrationTestGeneratorVersion = "2.1.0"           #To execute File Snapshot Infrastructure integration tests with specific version of the generator
 )
 
 function ClearPackageCache {
@@ -106,9 +107,10 @@ if (-not $SkipAbstraction) {
 
 ClearPackageCache "scand.stormpetrel.generator"
 if (-not $SkipGeneratorBuild) {
+    RunUnitTest "generator"
+    #Build package in Release mode after unit tests
     BuildPackage "generator" "Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj"
     CopyTo "generator/bin/Scand.StormPetrel.Generator.2.*" "file-snapshot-infrastructure/bin"
-    RunUnitTest "generator"
 }
 
 if (-not $SkipGeneratorTest) {
@@ -133,11 +135,22 @@ if (-not $SkipGeneratorTest) {
 
 ClearPackageCache "scand.stormpetrel.filesnapshotinfrastructure"
 if (-not $SkipFileSnapshotInfrastructureBuild) {
-    BuildPackage "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure/Scand.StormPetrel.FileSnapshotInfrastructure.csproj"
     RunUnitTest "file-snapshot-infrastructure"
+    #Build package in Release mode after unit tests
+    BuildPackage "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure/Scand.StormPetrel.FileSnapshotInfrastructure.csproj"
 }
 
 if (-not $SkipFileSnapshotInfrastructureTest) {
+    #Update 2.0.0 Scand.StormPetrel.Generator package references in integration test projects
+    if ($FSIIntegrationTestGeneratorVersion -ne "2.0.0") {
+        $testProjectFiles = Get-ChildItem -Path "file-snapshot-infrastructure" -Recurse -File | Where-Object { $_.Name -match "^Test\.Integration\..*\.csproj`$" }
+        foreach ($projectFile in $testProjectFiles) {
+            $content = Get-Content -Path $projectFile.FullName -Raw
+            $replacement = "`${1}$FSIIntegrationTestGeneratorVersion`$3"
+            $content = $content -replace "(<PackageReference Include=\""Scand.StormPetrel.Generator\"" Version=\"")(2\.0\.0)(\"")", $replacement
+            Set-Content -Path $projectFile.FullName -Value $content
+        }
+    }
     RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
 }
 
