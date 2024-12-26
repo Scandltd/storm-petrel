@@ -235,6 +235,7 @@ Optionally `appsettings.StormPetrel.json` file (its `Build Action` should be `C#
 The file changes are applied `on the fly` and can have the following settings:
 ```jsonc
 {
+  "$schema": "https://raw.githubusercontent.com/Scandltd/storm-petrel/main/generator/assets/appsettings.StormPetrel.Schema.json", // [optional] string, path to json schema.
   "TargetProjectGeneratorExpression": "...", // [optional] string, configures the default `Generator`. An expression for the `IGenerator` instance.
   "GeneratorConfig":             // [optional] object to configure `Generator` behavior.
   {
@@ -298,6 +299,7 @@ It cannot help create the expected baseline at this step because there is no act
 The suggested configuration in the `appsettings.StormPetrel.json` file is:
 ```jsonc
 {
+    "$schema": "https://raw.githubusercontent.com/Scandltd/storm-petrel/main/generator/assets/appsettings.StormPetrel.Schema.json", //Specify the path to observe schema suggestions in IDEs.
     "GeneratorConfig": {
         "BackuperExpression": null, //No need to backup because developers typically keep backups under Git or other Version Control Systems.
         "DumperExpression": ...,    //According to your requirements.

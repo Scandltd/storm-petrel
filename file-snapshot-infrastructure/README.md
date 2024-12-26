@@ -74,6 +74,7 @@ To utilize File Snapshot Infrastructure in a test .NET project:
 * Add an `appsettings.StormPetrel.json` file with `Build Action` set to `C# analyzer additional file` according to Scand.StormPetrel.Generator [Configuration](../generator/README.md#configuration). The file should reference File Snapshot Infrastructure classes like below:
 ```jsonc
 {
+  "$schema": "https://raw.githubusercontent.com/Scandltd/storm-petrel/main/generator/assets/appsettings.StormPetrel.Schema.json", // [optional] string, path to json schema. 
   "GeneratorConfig":
   {
     "DumperExpression": "new Scand.StormPetrel.FileSnapshotInfrastructure.SnapshotDumper()", //Use SnapshotDumper to dump string/binary/stream snapshots stored in actual/expected test variables.
