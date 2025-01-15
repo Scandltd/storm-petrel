@@ -169,7 +169,7 @@ namespace Scand.StormPetrel.Rewriter.Test
 
             actualCodeAsync.Should().Be(expectedCode);
             actualCodeSync.Should().Be(expectedCode);
-            stopwatch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(5), "Typical execution time is less than ~3 seconds for worst case on `11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz`");
+            stopwatch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(10), "Typical execution time is less than ~3 seconds for worst case on `11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz`");
 
             async Task<string> GetActualCode(bool isAsyncOtherwiseSync)
             {

@@ -17,6 +17,7 @@
 * [Supported Software](#supported-software)
     * [Test Frameworks](#test-frameworks)
     * [.NET Versions](#net-versions)
+    * [Operating Systems and IDEs](#operating-systems-and-ides)
 * [CHANGELOG](CHANGELOG.md)
 * [FAQs](#faqs)
 * [References](#references)
@@ -277,6 +278,9 @@ The file changes are applied `on the fly` and can have the following settings:
 * .NET 8.0+
 * .NET Framework 4.6.2+
 
+### Operating Systems and IDEs
+* Windows, Linux. See more details about macOS and IDEs [here](#what-operating-systems-and-ides-can-i-use-to-run-stormpetrel-tests).
+
 ## [CHANGELOG](CHANGELOG.md)
 
 ## FAQs
@@ -320,6 +324,15 @@ It is likely that you also ignore the property in the test assertion; otherwise,
 An option is to always have a default value for the property while dumping it to C# code using *Scand.StormPetrel*.
 This can be implemented via custom configuration or the implementation of [IGeneratorDumper](../abstraction/Scand.StormPetrel.Generator.Abstraction/IGeneratorDumper).
 See an example of how this is implemented via the `GetDumpOptions` method in [Test.Integration.XUnit/Utils](Test.Integration.XUnit/Utils.cs) and configured in [Test.Integration.XUnit/appsettings.StormPetrel.json](Test.Integration.XUnit/appsettings.StormPetrel.json).
+
+### What Operating Systems and IDEs can I use to run StormPetrel tests?
+You can definitely use Windows or Linux with:
+* Command line tools like `dotnet test ... --filter "FullyQualifiedName~StormPetrel"`.
+* [Visual Studio](https://visualstudio.microsoft.com/) Test Explorer.
+
+You can also likely use:
+* macOS.
+* Test runners in other IDEs like [Visual Studio Code](https://code.visualstudio.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) on Windows, Linux, or macOS, if applicable.
 
 ## References
 

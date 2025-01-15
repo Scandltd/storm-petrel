@@ -37,7 +37,8 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="&quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.bat&quot; $(MSBuildThisFileDirectory)" />
+    <Exec Condition="!$([MSBuild]::IsOSUnixLike())" Command="powershell &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />
+    <Exec Condition="$([MSBuild]::IsOSUnixLike())" Command="pwsh &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />
   </Target>
 
   <Target Name="MakeBinDir">

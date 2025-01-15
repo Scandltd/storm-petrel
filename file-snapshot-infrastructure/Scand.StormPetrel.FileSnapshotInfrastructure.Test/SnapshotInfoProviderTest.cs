@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace Scand.StormPetrel.FileSnapshotInfrastructure.Test;
 public class SnapshotInfoProviderTest
 {
@@ -22,6 +24,12 @@ public class SnapshotInfoProviderTest
     [InlineData("UseCaseA", @"c:\test\obj\Debug\MyTestClass.cs.g.cs", "MyTestMethodStormPetrel", "c:\\test\\MyTestClass\\MyExpectedFolder\\MyTestMethod\\UseCaseA\\MyExpectedFile", "MyProviderWithExtraPath")]
     public void WhenProviderThenExpectedBehaviorTest(string useCaseId, string callerFilePath, string callerMemberName, string expected, string? providerId = null)
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            //Skip test for non-Windows platform
+            return;
+        }
+
         //Arrange
         SnapshotInfoProvider provider = GetProvider();
 
@@ -35,7 +43,7 @@ public class SnapshotInfoProviderTest
         {
             null => new(),
             "MyProvider" => new("<CallerFileNameWithoutExtension>.MyExpected", "MyExpected.<CallerMemberName>.<UseCaseId>"),
-            "MyProviderWithExtraPath" => new(@"<CallerFileNameWithoutExtension>\MyExpectedFolder\<CallerMemberName>\<UseCaseId>", "MyExpectedFile"),
+            "MyProviderWithExtraPath" => new($"<CallerFileNameWithoutExtension>{Path.DirectorySeparatorChar}MyExpectedFolder{Path.DirectorySeparatorChar}<CallerMemberName>{Path.DirectorySeparatorChar}<UseCaseId>", "MyExpectedFile"),
             "MyProviderUseCaseOnly" => new(@"<UseCaseId>", "<UseCaseId>"),
             _ => throw new ArgumentOutOfRangeException(nameof(providerId)),
         };

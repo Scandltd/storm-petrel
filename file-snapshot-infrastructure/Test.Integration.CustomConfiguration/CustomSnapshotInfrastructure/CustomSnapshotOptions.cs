@@ -1,4 +1,5 @@
-﻿using Scand.StormPetrel.FileSnapshotInfrastructure;
+﻿using System.IO;
+using Scand.StormPetrel.FileSnapshotInfrastructure;
 
 namespace Test.Integration.CustomConfiguration.CustomSnapshotInfrastructure
 {
@@ -11,7 +12,7 @@ namespace Test.Integration.CustomConfiguration.CustomSnapshotInfrastructure
 
         private readonly static SnapshotOptions PngWithCustomSnapshotFolderStructure = new SnapshotOptions()
         {
-            SnapshotInfoProvider = new SnapshotInfoProvider(@"<CallerFileNameWithoutExtension>.Expected\<CallerMemberName>", fileExtension: "png"),
+            SnapshotInfoProvider = new SnapshotInfoProvider($"<CallerFileNameWithoutExtension>.Expected{Path.DirectorySeparatorChar}<CallerMemberName>", fileExtension: "png"),
         };
 
         /// <summary>

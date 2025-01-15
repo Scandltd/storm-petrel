@@ -85,7 +85,9 @@ namespace Scand.StormPetrel.Generator
                             .TrimStart('/')
                             .TrimStart('\\');
             }
-            return Escape(result);
+            result = Escape(result);
+            result = result.TrimStart('/');
+            return result;
 
             string Escape(string path)
             {

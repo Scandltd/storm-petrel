@@ -8,14 +8,22 @@ param(
     [string]$FSIIntegrationTestGeneratorVersion = "2.1.0"           #To execute File Snapshot Infrastructure integration tests with specific version of the generator
 )
 
+$isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")
+
 function ClearPackageCache {
     param (
         $PackageCacheDirName
     )
 
     Write-Output "Clear package cache: $PackageCacheDirName"
-    $cachedPackagePath = "$env:USERPROFILE/.nuget/packages/$PackageCacheDirName"
+    #Select a path according to globalPackagesFolder description in https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file
+    if ($isWin) {
+        $cachedPackagePath = "$env:USERPROFILE/.nuget/packages/$PackageCacheDirName"
+    } else {
+        $cachedPackagePath = "~/.nuget/packages/$PackageCacheDirName"
+    }
     if (Test-Path -Path $cachedPackagePath -PathType Container) {
+        Write-Output "Removing $cachedPackagePath"
         Remove-Item -Path $cachedPackagePath -Recurse -Force
     }
 }
@@ -28,6 +36,10 @@ function BuildPackage {
 
     Write-Output "Build package: $PackageDirName/$PackageCsprojPath"
     dotnet build "$PackageDirName/$PackageCsprojPath" --configuration Release
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Failed building $PackageDirName/$PackageCsprojPath"
+        exit $LASTEXITCODE
+    }
 }
 
 function CopyTo {
@@ -50,7 +62,7 @@ function RunUnitTest {
     $unitTestDirectories = Get-ChildItem -Path $PackageDirName -Filter "Scand.StormPetrel.*.Test" -Directory
     foreach ($directory in $unitTestDirectories) {
         Write-Output "Executing unit tests in directory: $($directory.Name)"
-        dotnet test "$PackageDirName/$directory"
+        dotnet test $directory.FullName
         if ($LASTEXITCODE -ne 0) {
             Write-Error "$PackageDirName unit tests failed. Exiting with error."
             exit $LASTEXITCODE
@@ -98,6 +110,16 @@ function RunIntegrationTests {
     }
 }
 
+function ChangeTargetFramework {
+    param (
+        $FilePath,
+        $NewTargetFramework = "net8.0"
+    )
+    $content = Get-Content -Path $FilePath -Raw
+    $content = $content -replace "(<TargetFramework>).*?(</TargetFramework>)", "`$1$NewTargetFramework`$2"
+    Set-Content -Path $FilePath -Value $content
+}
+
 ClearPackageCache "scand.stormpetrel.generator.abstraction"
 if (-not $SkipAbstraction) {
     BuildPackage "abstraction" "Scand.StormPetrel.Generator.Abstraction/Scand.StormPetrel.Generator.Abstraction.csproj"
@@ -129,6 +151,13 @@ if (-not $SkipGeneratorTest) {
         $updatedPerformanceTestSettings = $performanceTestSettings -replace '"IsDisabled": true,', '"IsDisabled": false,'
         Set-Content -Path $performanceTestSettingsFilePath -Value $updatedPerformanceTestSettings
     }
+    #Disable .NETFramework tests on OS other than Windows
+    if (!$isWin) {
+        $content = Get-Content -Path "generator/$solutionFileName" -Raw
+        $netFrameworkProjectPattern = "(Project[^\r\n]*Test\.Integration\.NETFramework[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*CB999DAC-9870-4DFE-87D9-4F26A0B6538E[^\r\n]*[\r\n]*)"
+        $content = $content -replace $netFrameworkProjectPattern, ""
+        Set-Content -Path "generator/$solutionFileName" -Value $content
+    }
 
     RunIntegrationTests "generator" $solutionFileName
 }
@@ -141,6 +170,10 @@ if (-not $SkipFileSnapshotInfrastructureBuild) {
 }
 
 if (-not $SkipFileSnapshotInfrastructureTest) {
+    #Change NETFramework TargetFramework for Custom Configuration on OS other than Windows
+    if (!$isWin) {
+         ChangeTargetFramework "file-snapshot-infrastructure/Test.Integration.CustomConfiguration/Test.Integration.CustomConfiguration.csproj"
+    }
     #Update 2.0.0 Scand.StormPetrel.Generator package references in integration test projects
     if ($FSIIntegrationTestGeneratorVersion -ne "2.0.0") {
         $testProjectFiles = Get-ChildItem -Path "file-snapshot-infrastructure" -Recurse -File | Where-Object { $_.Name -match "^Test\.Integration\..*\.csproj`$" }

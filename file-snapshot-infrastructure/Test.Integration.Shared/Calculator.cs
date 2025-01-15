@@ -1,8 +1,7 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Runtime.Versioning;
+using SkiaSharp;
 
 namespace Test.Integration.Shared
 {
@@ -47,32 +46,37 @@ namespace Test.Integration.Shared
             }
         }
 
-#if NET8_0_OR_GREATER
-        [SupportedOSPlatform("windows")]
-#endif
         public static void GetLogoAndRepeatToStream(Stream stream, int widthRepeat = 2, int heightRepeat = 2)
         {
             var inputPath = File.Exists(LogoPath) ? LogoPath : LogoPathShared;
-            using (var inputImage = new Bitmap(inputPath))
+            using (var fileStream = File.OpenRead(inputPath))
             {
-                // Create a new bitmap with double the width of the input image
-                int newWidth = inputImage.Width * widthRepeat;
-                int newHeight = inputImage.Height * heightRepeat;
-                using (var newImage = new Bitmap(newWidth, newHeight))
+                using (var inputImage = SKBitmap.Decode(fileStream))
                 {
-                    using (var g = Graphics.FromImage(newImage))
+                    // Create a new bitmap with double the width of the input image
+                    int newWidth = inputImage.Width * widthRepeat;
+                    int newHeight = inputImage.Height * heightRepeat;
+                    using (var newImage = new SKBitmap(newWidth, newHeight))
                     {
-                        for (int x = 0; x < widthRepeat; x++)
+                        using (var canvas = new SKCanvas(newImage))
                         {
-                            for (int y = 0; y < heightRepeat; y++)
+                            canvas.Clear(SKColors.Transparent);
+
+                            for (int x = 0; x < widthRepeat; x++)
                             {
-                                g.DrawImage(inputImage, x * inputImage.Width, y * inputImage.Height);
+                                for (int y = 0; y < heightRepeat; y++)
+                                {
+                                    canvas.DrawBitmap(inputImage, x * inputImage.Width, y * inputImage.Height);
+                                }
                             }
                         }
-                    }
 
-                    // Save the new image
-                    newImage.Save(stream, ImageFormat.Png);
+                        // Save the new image
+                        using (var data = newImage.Encode(SKEncodedImageFormat.Png, 100))
+                        {
+                            data.SaveTo(stream);
+                        }
+                    }
                 }
             }
         }

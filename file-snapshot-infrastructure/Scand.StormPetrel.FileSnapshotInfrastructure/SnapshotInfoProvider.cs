@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Scand.StormPetrel.FileSnapshotInfrastructure
 {
@@ -85,6 +86,10 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
                                         : x)
                         .ToArray();
             var originalCallerDir = Path.Combine(segments);
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !Path.IsPathRooted(originalCallerDir))
+            {
+                originalCallerDir = Path.Combine("/", originalCallerDir);
+            }
             var originalCallerFileName = Path.GetFileName(truncatedFilePath);
             callerFilePath = Path.Combine(originalCallerDir, originalCallerFileName);
             return (callerFilePath, callerMemberName);

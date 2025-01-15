@@ -36,7 +36,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <!-- Include CSharp because it is referenced by Scand.StormPetrel.Rewriter.dll -->
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
@@ -115,7 +115,8 @@
     <Import Project="..\Scand.StormPetrel.Shared\Scand.StormPetrel.Shared.projitems" Label="Shared" />
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Exec Command="&quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.bat&quot; $(MSBuildThisFileDirectory)" />
+      <Exec Condition="!$([MSBuild]::IsOSUnixLike())" Command="powershell &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />
+      <Exec Condition="$([MSBuild]::IsOSUnixLike())" Command="pwsh &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />
     </Target>
     <Target Name="MakeBinDir">
       <MakeDir Directories="$(MSBuildThisFileDirectory)..\bin" />

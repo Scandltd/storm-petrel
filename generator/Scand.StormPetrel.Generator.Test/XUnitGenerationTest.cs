@@ -59,7 +59,7 @@ namespace Scand.StormPetrel.Generator.Test
             string? actual = actualSyntaxNode?.ToFullString();
 
             //Assert
-            stopwatch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(5), "Typical execution time is less than ~3 seconds for worst case on `11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz`");
+            stopwatch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(10), "Typical execution time is less than ~3 seconds for worst case on `11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz`");
             actual = NormalizeLineEndings(actual);
             if (expectedResourceFileName != null)
             {

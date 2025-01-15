@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="Scand.StormPetrel.Generator" Version="2.0.0" />
     <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.0" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.9" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
 

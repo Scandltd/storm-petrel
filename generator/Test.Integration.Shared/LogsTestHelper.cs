@@ -8,15 +8,23 @@ namespace Test.Integration.Shared
     {
         public static bool IsStormPetrelLogFileExists()
         {
-            var todaySuffix = DateTime.Today.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
-            bool logExists = File.Exists($"../../../Logs/StormPetrel-{todaySuffix}.log");
-            var todaySuffix2 = DateTime.Today.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
-            var isAfterMidnight = todaySuffix != todaySuffix2;
-            if (isAfterMidnight)
+            var today = DateTime.Today;
+            var possibleLogCreationDates = new[]
             {
-                logExists = File.Exists($"../../../Logs/StormPetrel-{todaySuffix2}.log");
+                today,
+                today.AddDays(-1), //if this method is executed after midnight while log file was created before the midnight
+            };
+            foreach (var date in possibleLogCreationDates)
+            {
+                var dateSuffix = date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"../../../Logs/StormPetrel-{dateSuffix}.log");
+                bool logExists = File.Exists(filePath);
+                if (logExists)
+                {
+                    return true;
+                }
             }
-            return logExists;
+            return false;
         }
     }
 }
