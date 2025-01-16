@@ -1,4 +1,12 @@
 # Change Log
+## [2.1.1] - 2025-01-16
+
+### Added
+- JSON Schema for appsettings.StormPetrel.json.
+
+### Fixed
+- Failures on Unix-like platforms.
+
 ## [2.1.0] - 2024-12-24
 
 ### Added
