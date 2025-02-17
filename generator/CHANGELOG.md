@@ -1,4 +1,10 @@
 # Change Log
+
+## [2.2.0] - 2025-02-17
+
+### Added
+- Support of the expected expressions inlined within assertions.
+
 ## [2.1.2] - 2025-01-20
 
 ### Fixed
