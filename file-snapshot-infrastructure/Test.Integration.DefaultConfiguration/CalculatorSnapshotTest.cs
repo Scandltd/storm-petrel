@@ -90,7 +90,7 @@ public sealed class CalculatorSnapshotTest
 
         //Assert
         //Other stream assertion approaches (checksum or whatever) can be used here
-        expectedStreamSnapshot.ToByteArray().Should().Equal(actualStreamSnapshot.ToByteArray());
+        actualStreamSnapshot.ToByteArray().Should().Equal(expectedStreamSnapshot.ToByteArray());
     }
 
     public static TheoryData<int, int, string> AddTestViaUseCaseParameterWithAttributeData =>
