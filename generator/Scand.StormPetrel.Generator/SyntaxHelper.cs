@@ -75,6 +75,7 @@ namespace Scand.StormPetrel.Generator
         {
             ObjectCreationExpressionSyntax extraContextExpression = null;
             var result = new List<StatementSyntax>();
+            ExpressionSyntax expectedExpression = null;
             var methodContextStatement = GetMethodContextStatement(className, methodName, blockIndex, varPairsCount, parameters);
             result.Add(methodContextStatement);
             if (info.ExpectedVarExtraContextInternal is InvocationExpressionContextInternal invocationSourceContext)
@@ -219,6 +220,45 @@ private static void TempMethod()
                     )
                 );
             }
+            else if (info.ExpectedVarExtraContextInternal is InvocationExpressionWithEmbeddedExpectedContextInternal embeddedExpectedContext)
+            {
+                var currentMethodInfo = embeddedExpectedContext.PartialExtraContext.MethodInfo;
+                var methodInfoExpression = SyntaxFactory.ObjectCreationExpression(
+                    SyntaxFactory.IdentifierName($"{typeof(InvocationSourceMethodInfo).FullName}()"))
+                    .WithInitializer(
+                        SyntaxFactory.InitializerExpression(
+                            SyntaxKind.ObjectInitializerExpression,
+                            SyntaxFactory.SeparatedList(new ExpressionSyntax[]
+                            {
+                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeKind), SyntaxFactory.LiteralExpression(
+                                                SyntaxKind.NumericLiteralExpression,
+                                                SyntaxFactory.Literal(currentMethodInfo.NodeKind))),
+                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeIndex), SyntaxFactory.LiteralExpression(
+                                                SyntaxKind.NumericLiteralExpression,
+                                                SyntaxFactory.Literal(currentMethodInfo.NodeIndex))),
+                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.ArgsCount), SyntaxFactory.LiteralExpression(
+                                                SyntaxKind.StringLiteralExpression,
+                                                SyntaxFactory.Literal(currentMethodInfo.ArgsCount))),
+                            }
+                        )
+                    )
+                );
+
+                expectedExpression = embeddedExpectedContext.ExpectedExpression;
+                extraContextExpression = SyntaxFactory.ObjectCreationExpression(
+                    SyntaxFactory.IdentifierName($"{typeof(InvocationSourceContext).FullName}()"))
+                    .WithInitializer(
+                        SyntaxFactory.InitializerExpression(
+                            SyntaxKind.ObjectInitializerExpression,
+                            SyntaxFactory.SeparatedList(new ExpressionSyntax[]
+                            {
+                                GetPropertyAssignment(nameof(InvocationSourceContext.Path), GetArrayInitializer(embeddedExpectedContext.PartialExtraContext.Path, ToStringLiteralExpression)),
+                                GetPropertyAssignment(nameof(InvocationSourceContext.MethodInfo), methodInfoExpression),
+                            }
+                        )
+                    )
+                );
+            }
             else
             {
                 throw new InvalidOperationException("Unexpected case");
@@ -230,13 +270,21 @@ private static void TempMethod()
                         SyntaxKind.ObjectInitializerExpression,
                         SyntaxFactory.SeparatedList(new[]
                         {
-                            (ExpressionSyntax)GetPropertyAssignment(nameof(GenerationContext.Actual), SyntaxFactory.IdentifierName(info.ActualVarName)),
+                            (ExpressionSyntax)GetPropertyAssignment(nameof(GenerationContext.Actual), info.ActualVarExpression ?? SyntaxFactory.IdentifierName(info.ActualVarName)),
                             GetPropertyAssignment(nameof(GenerationContext.ActualVariablePath), GetArrayInitializer(info.ActualVarPath, ToStringLiteralExpression)),
-                            GetPropertyAssignment(nameof(GenerationContext.Expected), SyntaxFactory.IdentifierName(info.ExpectedVarName)),
-                            GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath, ToStringLiteralExpression)),
+                            !string.IsNullOrEmpty(info.ExpectedVarName) && expectedExpression == null
+                                ? GetPropertyAssignment(nameof(GenerationContext.Expected), SyntaxFactory.IdentifierName(info.ExpectedVarName))
+                                : expectedExpression != null
+                                    ? GetPropertyAssignment(nameof(GenerationContext.Expected), expectedExpression)
+                                    : throw new InvalidOperationException("Unexpected case"),
+                            info.ExpectedVarPath != null
+                                ? GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath, ToStringLiteralExpression))
+                                : null,
                             GetPropertyAssignment(nameof(GenerationContext.ExtraContext), extraContextExpression),
                             GetPropertyAssignment(nameof(GenerationContext.MethodSharedContext), SyntaxFactory.IdentifierName(StormPetrelSharedContextVarName)),
-                        })));
+                        }
+                        .Where(x => x != null)
+                        )));
 
             var stormPetrelContextVarName = GetBlockIndexVarName("stormPetrelContext");
             var variableDeclaration = SyntaxFactory.VariableDeclaration(

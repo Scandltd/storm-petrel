@@ -4,6 +4,7 @@ using Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter;
 using Scand.StormPetrel.Rewriter.Extension;
 using System;
 using System.Collections.Concurrent;
+using System.Globalization;
 using System.Linq;
 
 namespace Scand.StormPetrel.Generator.TargetProject
@@ -42,9 +43,21 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 var methodInfo = invocationSourceContext.MethodInfo;
                 if (methodInfo != null)
                 {
-                    var staticMethodInfo = GetStaticMethodInfo(invocationSourceContext.Path, methodInfo.ArgsCount);
-                    filePath = staticMethodInfo.FilePath;
-                    rewriter = new ExpressionRewriter(staticMethodInfo.MethodPath, methodInfo.NodeKind, methodInfo.NodeIndex, generationRewriteContext.Value);
+                    string[] methodPath = null;
+                    int? methodBodyStatementIndex = null;
+                    const string prefix = "experimental-method-body-statement-index:";
+                    if (invocationSourceContext.Path[0].StartsWith(prefix, StringComparison.Ordinal))
+                    {
+                        methodPath = invocationSourceContext.Path.Skip(1).ToArray();
+                        methodBodyStatementIndex = int.Parse(invocationSourceContext.Path[0].Substring(prefix.Length), CultureInfo.InvariantCulture);
+                    }
+                    else
+                    {
+                        var staticMethodInfo = GetStaticMethodInfo(invocationSourceContext.Path, methodInfo.ArgsCount);
+                        methodPath = staticMethodInfo.MethodPath;
+                        filePath = staticMethodInfo.FilePath;
+                    }
+                    rewriter = new ExpressionRewriter(methodPath, methodInfo.NodeKind, methodInfo.NodeIndex, generationRewriteContext.Value, methodBodyStatementIndex);
                 }
                 else
                 {

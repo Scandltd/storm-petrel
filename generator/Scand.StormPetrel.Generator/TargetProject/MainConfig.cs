@@ -18,6 +18,11 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 ActualVarNameTokenRegex = "[Aa]{1}ctual",
                 ExpectedVarNameTokenRegex = "[Ee]{1}xpected",
             },
+            new TestVariablePairConfig()
+            {
+                ActualVarNameTokenRegex = "[Aa]{1}ctual",
+                ExpectedVarNameTokenRegex = null,
+            },
         };
 
         internal readonly static object SerilogDefault = new object();

@@ -68,6 +68,9 @@ namespace Scand.StormPetrel.Rewriter.Test
         [InlineData("090_ExpressionRewriter", "Foo;ReturnMethodArray#ReturnStatement:0", "file:090_ExpressionRewriter_NewCode_ReturnMethodArray", "090_ExpressionRewriter_NewCode_ReturnMethodArray_Then_Expected", nameof(ExpressionRewriter))]
         [InlineData("100_PatternMatch", "Foo;ArrowMethodWithPatternMatch#SwitchExpressionArm:0", "file:100_PatternMatch_NewCode_ArrowMethod", "100_PatternMatch_NewCode_ArrowMethod_Then_Expected", nameof(ExpressionRewriter))]
         [InlineData("100_PatternMatch", "Foo;ArrowMethodWithPatternMatch#SwitchExpressionArm:1", "file:100_PatternMatch_NewCode_ArrowMethodSwitch2", "100_PatternMatch_NewCode_ArrowMethodSwitch2_Then_Expected", nameof(ExpressionRewriter))]
+        [InlineData("105_InvocationExpressionParametersOnly", "Foo;ShouldBe123#NumericLiteralExpression:2", Const100, "105_InvocationExpressionParametersOnly_Then_Expected", nameof(ExpressionRewriter))]
+        [InlineData("105_InvocationExpressionParametersOnly", "Foo;ShouldBe123#Argument:0:1", Const100, "105_InvocationExpressionParametersOnly_Then_Expected", nameof(ExpressionRewriter))]
+        [InlineData("105_InvocationExpressionParametersOnly", "Foo;ShouldBeArgumentWithNameColon#Argument:1:0", Const100, "105_InvocationExpressionParametersOnly_ArgumentWithNameColon_Then_Expected", nameof(ExpressionRewriter))]
         [InlineData("110_Property", "Test.Integration.XUnit;UnitTest1Helper;Expected", Const100, "110_Property_NewCode_Then_Expected")]
         [InlineData("110_Property", "Test.Integration.XUnit;UnitTest1Helper;ExpectedArrow", Const100, "110_PropertyArrow_NewCode_Then_Expected")]
         [InlineData("110_Property", "Test.Integration.XUnit;UnitTest1Helper;ExpectedGetArrow", Const100, "110_PropertyGetArrow_NewCode_Then_Expected")]
@@ -206,7 +209,12 @@ namespace Scand.StormPetrel.Rewriter.Test
                 var split = declarationPathSemicolonDelimited.Split('#');
                 var split2 = split[1].Split(':');
                 var kind = Enum.Parse<SyntaxKind>(split2[0]);
-                return new(split[0].Split(';'), (int)kind, int.Parse(split2[1], CultureInfo.InvariantCulture), initializeCode);
+                int? methodBodyStatementIndex = null;
+                if (split2.Length > 2)
+                {
+                    methodBodyStatementIndex = int.Parse(split2[2], CultureInfo.InvariantCulture);
+                }
+                return new(split[0].Split(';'), (int)kind, int.Parse(split2[1], CultureInfo.InvariantCulture), initializeCode, methodBodyStatementIndex);
             }
 
             AttributeRewriter GetAttributeRewriter()

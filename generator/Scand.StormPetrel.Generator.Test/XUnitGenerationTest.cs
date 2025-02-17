@@ -34,8 +34,13 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("160_MemberData")]
         [InlineData("170_ClassData")]
         [InlineData("180_IgnoreInvocationExpression", "IgnoreInvocationExpression")]
+        [InlineData("190_AssertionNoExpectedVar_ShouldBe")]
+        [InlineData("200_AssertionNoExpectedVar_ExpectedExpressionKinds")]
         [InlineData("ExpectedInMethodTest01Data")] //performance test
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod")]
+        [InlineData("NoExpectedVarAssertTest")]
+        [InlineData("NoExpectedVarAssertThatTest")]
+        [InlineData("NoExpectedVarAssertMSTest")]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null)
         {
             //Arrange

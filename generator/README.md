@@ -12,6 +12,12 @@
             * [Test data source attribute](#test-data-source-attribute)
         * [Snapshots of Snapshot Testing](#snapshots-of-snapshot-testing)
         * [Expected expression decorators](#expected-expression-decorators)
+        * [Expected expression is inlined within an assertion](#expected-expression-is-inlined-within-an-assertion)
+            * [FluentAssertions expressions](#fluentassertions-expressions)
+            * [xUnit assertions](#xunit-assertions)
+            * [NUnit assertions](#nunit-assertions)
+            * [MSTest assertions](#mstest-assertions)
+            * [Custom assertions that replicate the signatures above](#custom-assertions-that-replicate-the-signatures-above)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
 * [Supported Software](#supported-software)
@@ -216,6 +222,35 @@ Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and th
 * Collection initializer;
 * Implicit object creation.
 
+#### Expected expression is inlined within an assertion
+
+With StormPetrel, the expected variable can be entirely omitted. Instead, you can inline expected expressions of the following kinds:
+- Anonymous object creation expressions;
+- Array creation expressions;
+- Collection expressions;
+- Implicit array creation expressions;
+- Implicit object creation expressions;
+- Literal expressions (e.g., numeric or string literals);
+- Object creation expressions;
+- Tuple expressions.
+
+Refer to the sections below for more details about supported assertions and examples of expected expressions.
+
+##### FluentAssertions expressions
+Supported expressions include `actual.Should().Be(123);`, `actual.SomePropertyOrMethodCall.Should().Be("string value");`, and `actual.Should().BeEquivalentTo(new MyClass{...});`. See more examples in [NoExpectedVarTest](Test.Integration.XUnit/NoExpectedVarTest.cs) and [NoExpectedVarExpressionKindsTest](Test.Integration.XUnit/NoExpectedVarExpressionKindsTest.cs).
+
+##### xUnit assertions
+Supported expressions include `Assert.Equal(123, actual);`, `Assert.StrictEqual("string value", actual);`, and `Assert.Equivalent("string value", actual);`. See more examples in [NoExpectedVarAssertTest](Test.Integration.XUnit/NoExpectedVarAssertTest.cs).
+
+##### NUnit assertions
+Supported expressions include `Assert.That(actual, Is.EqualTo(123));` and `Assert.That(actual, Is.EquivalentTo(new MyClass{...}));`. See more examples in [NoExpectedVarAssertThatTest](Test.Integration.NUnit/NoExpectedVarAssertThatTest.cs).
+
+##### MSTest assertions
+Supported expressions include `Assert.AreEqual(123, actual);`. See more examples in [NoExpectedVarAssertTest](Test.Integration.MSTest/NoExpectedVarAssertTest.cs).
+
+##### Custom assertions that replicate the signatures above
+You can also implement and use custom assertions. Ensure they replicate the signatures of the assertions mentioned above so that StormPetrel can detect them effectively.
+
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
 * Scand.StormPetrel.Generator.
@@ -261,6 +296,11 @@ The file changes are applied `on the fly` and can have the following settings:
     {
       "ActualVarNameTokenRegex": "[Aa]{1}ctual",     // Default configuration object. Assumes variable pair names like (expected, actual), (myExpected, myActual), (expectedOne, actualOne), (ExpectedTwo, ActualTwo), etc.
       "ExpectedVarNameTokenRegex": "[Ee]{1}xpected", // Corresponds to the `ActualVarNameTokenRegex` for pairing.
+    },
+    {
+      "ActualVarNameTokenRegex": "[Aa]{1}ctual",     // One more default configuration object.
+      "ExpectedVarNameTokenRegex": null,             // A `null` value indicates that the expected variable may be missing.
+                                                     // In such cases, StormPetrel should analyze the assertion expressions to rewrite their `expected` segments with actual values.
     }
   ]
 }

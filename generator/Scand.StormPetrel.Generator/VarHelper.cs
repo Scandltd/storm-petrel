@@ -31,12 +31,19 @@ namespace Scand.StormPetrel.Generator
         public VarHelper(TestVariablePairConfig[] testVariablePairConfigs)
         {
             _varNameRegexPairs = testVariablePairConfigs
-                                    .Select(a => (new Regex(a.ActualVarNameTokenRegex, RegexOptionsDefault), new Regex(a.ExpectedVarNameTokenRegex, RegexOptionsDefault)))
+                                    .Select(a => (new Regex(a.ActualVarNameTokenRegex, RegexOptionsDefault), string.IsNullOrEmpty(a.ExpectedVarNameTokenRegex)
+                                                                                                                ? null
+                                                                                                                : new Regex(a.ExpectedVarNameTokenRegex, RegexOptionsDefault)))
                                     .ToArray();
         }
         public List<VarPairInfo> GetVarPairs(MethodDeclarationSyntax method)
         {
+            if (method.Body == null)
+            {
+                return new List<VarPairInfo>(0);
+            }
             int index = -1;
+            int indexOfBodyStatement = -1;
             int expectedVarParameterIndex = -1;
             var regexToVarNameToStatementInfo = new Dictionary<Regex, Dictionary<string, VarInfo>>(_varNameRegexPairs.Length);
             VarInfo varInfo = null;
@@ -49,22 +56,35 @@ namespace Scand.StormPetrel.Generator
             var nonExpectedParameterInfo = method
                                                 .ParameterList
                                                 .Parameters
-                                                .Where(x => !_varNameRegexPairs.Any(y => y.ExpectedRegex.IsMatch(x.Identifier.Text)))
+                                                .Where(x => !_varNameRegexPairs.Any(y => y.ExpectedRegex?.IsMatch(x.Identifier.Text) == true))
                                                 .Select(x => (Type: x.Type.GetText().ToString(), Name: x.Identifier.Text))
                                                 .ToArray();
 
-            foreach (var statement in method
-                                        .ParameterList
-                                        .Parameters
-                                        .Cast<object>()
-                                        .Union(method.Body.Statements))
+            var expectedExpressionInfo = new ExpectedExpressionInfo();
+            foreach (var (statement, isBodyStatement) in method
+                                                            .ParameterList
+                                                            .Parameters
+                                                            .Select(x => ((object)x, false))
+                                                            .Union(method.Body.Statements.Select(x => ((object)x, true))))
             {
                 index++;
+                if (isBodyStatement)
+                {
+                    indexOfBodyStatement++;
+                }
                 foreach (var (actualRegex, expectedRegex) in _varNameRegexPairs)
                 {
                     string varName = null;
                     Regex regex = null;
-                    if (statement is ExpressionStatementSyntax expressionStatement
+                    if (expectedRegex == null)
+                    {
+                        if (isBodyStatement)
+                        {
+                            expectedExpressionInfo.TryCollectExpectedExpression(statement, method, actualRegex, index, indexOfBodyStatement);
+                        }
+                        continue;
+                    }
+                    else if (statement is ExpressionStatementSyntax expressionStatement
                                                 && expressionStatement.Expression is AssignmentExpressionSyntax assignmentExpression
                                                 && assignmentExpression.OperatorToken.ValueText == "="
                                                 && assignmentExpression.Left is IdentifierNameSyntax identifierNameSyntax)
@@ -209,7 +229,9 @@ namespace Scand.StormPetrel.Generator
                                                             .Where(b => !varPairInfo.Any(c => b.Key == c.ActualVarName || b.Key == c.ExpectedVarName))
                                                             .ToDictionary(b => b.Key, b => b.Value));
             }
-            return varPairInfo;
+            return varPairInfo
+                    .Union(expectedExpressionInfo.GetCollectedPairInfo())
+                    .ToList();
 
             bool CheckIsInvocationExpressionAndUpdateVarInfo(ExpressionSyntax expression, VarInfo v)
             {

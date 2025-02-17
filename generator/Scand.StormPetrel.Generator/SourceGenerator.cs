@@ -72,22 +72,22 @@ namespace Scand.StormPetrel.Generator
                     }
 
                     var methodOriginal = GetFirstOrDefaultMethod(actualClass, skipActualClassChildMethodCount);
-                    var varPairInfoList = methodOriginal.Body != null
-                                            ? varHelper.GetVarPairs(methodOriginal)
-                                            : new List<VarPairInfo>();
+                    var varPairInfoList = varHelper.GetVarPairs(methodOriginal);
                     var newMethod = method;
                     int i = -1;
-                    foreach (var info in varPairInfoList.OrderByDescending(a => a.StatementIndex))
+                    foreach (var info in varPairInfoList
+                                            .OrderByDescending(a => a.StatementIndex)
+                                            .ThenByDescending(a => a.StatementIndexForSubOrder))
                     {
                         i++;
                         var oldMethodName = i == 0
-                                                ? method.Identifier.Text
-                                                : method.Identifier.Text + "StormPetrel";
+                                               ? method.Identifier.Text
+                                               : method.Identifier.Text + "StormPetrel";
                         var blocks = syntaxHelper.GetNewCodeBlock(actualClass.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count, method.ParameterList.Parameters);
                         var newStatements = newMethod.Body.Statements.InsertRange(info.StatementIndex + 1, blocks);
                         newMethod = newMethod
-                                        .WithBody(newMethod.Body.WithStatements(newStatements))
-                                        .WithIdentifier(SyntaxFactory.Identifier(method.Identifier.Text + "StormPetrel"));
+                                    .WithBody(newMethod.Body.WithStatements(newStatements))
+                                    .WithIdentifier(SyntaxFactory.Identifier(method.Identifier.Text + "StormPetrel"));
                         var oldMethod = newActualClass
                                             .ChildNodes()
                                             .OfType<MethodDeclarationSyntax>()

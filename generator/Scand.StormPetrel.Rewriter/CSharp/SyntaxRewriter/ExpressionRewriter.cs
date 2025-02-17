@@ -1,9 +1,9 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 {
@@ -11,13 +11,32 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
     {
         private readonly SyntaxKind _expressionKind;
         private readonly int _expressionIndex;
-        public ExpressionRewriter(IEnumerable<string> methodPath, int expressionKind, int expressionIndex, string valueNewCode)
+        private readonly int? _methodBodyStatementIndex;
+        /// <summary>
+        /// A constructor.
+        /// </summary>
+        /// <param name="methodPath"></param>
+        /// <param name="expressionKind"></param>
+        /// <param name="expressionIndex"></param>
+        /// <param name="valueNewCode"></param>
+        /// <param name="methodBodyStatementIndex">If not null, then <paramref name="expressionIndex"/> is relative to the statement.
+        /// Applicable only when <paramref name="expressionKind"/> is <see cref="SyntaxKind.Argument"/>.</param>
+        public ExpressionRewriter(IEnumerable<string> methodPath, int expressionKind, int expressionIndex, string valueNewCode, int? methodBodyStatementIndex = null)
             : base(methodPath, valueNewCode)
         {
             _expressionKind = (SyntaxKind)expressionKind;
+            if (_expressionKind == SyntaxKind.Argument && methodBodyStatementIndex == null)
+            {
+                throw new ArgumentNullException(nameof(methodBodyStatementIndex));
+            }
+            else if (_expressionKind != SyntaxKind.Argument && methodBodyStatementIndex != null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(methodBodyStatementIndex));
+            }
             _expressionIndex = expressionIndex <= 0
                                     ? 0
                                     : expressionIndex;
+            _methodBodyStatementIndex = methodBodyStatementIndex;
         }
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
@@ -34,6 +53,16 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             SyntaxNode nodeToChange = null;
             bool isExpressionBody = false;
             var expressionIndexCurrent = -1;
+            Dictionary<StatementSyntax, (int Index, bool IsExpressionIndexReset)> methodBodyStatementToInfo = null;
+            if (_methodBodyStatementIndex.HasValue && node.Body != null)
+            {
+                methodBodyStatementToInfo = new Dictionary<StatementSyntax, (int Index, bool IsIndexReset)>();
+                int i = 0;
+                foreach (var statement in node.Body.Statements)
+                {
+                    methodBodyStatementToInfo.Add(statement, (i++, false));
+                }
+            }
             var _ = node.DescendantNodes(nd =>
             {
                 if (newNode != null || isExpressionBody)
@@ -44,10 +73,32 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 {
                     return true;
                 }
+                if (methodBodyStatementToInfo != null)
+                {
+                    (int Index, bool IsIndexReset) info = default;
+                    var statement = nd.FirstAncestorOrSelf<StatementSyntax>(x => methodBodyStatementToInfo.TryGetValue(x, out info))
+                                        ?? throw new InvalidOperationException("Cannot find body statement");
+                    if (info.Index == _methodBodyStatementIndex)
+                    {
+                        if (!info.IsIndexReset)
+                        {
+                            expressionIndexCurrent = -1;
+                            methodBodyStatementToInfo[statement] = (info.Index, true);
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
                 expressionIndexCurrent++;
                 if (expressionIndexCurrent < _expressionIndex)
                 {
                     return true;
+                }
+                else if (expressionIndexCurrent > _expressionIndex)
+                {
+                    return false;
                 }
                 nodeToChange = nd;
                 if (nd is AssignmentExpressionSyntax assignment)
@@ -78,6 +129,17 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 {
                     var newExpression = CreateInitializeExpressionSyntax(@switch);
                     newNode = @switch.WithExpression(newExpression);
+                }
+                else if (nd is ArgumentSyntax argument)
+                {
+                    var expression = CreateInitializeExpressionSyntax(argument);
+                    newNode = SyntaxFactory
+                                .Argument(expression)
+                                .WithNameColon(argument.NameColon);
+                }
+                else
+                {
+                    newNode = CreateInitializeExpressionSyntax(nd);
                 }
                 return false;
             }).Count();

@@ -387,18 +387,21 @@ namespace Test.Integration.XUnit
                 },
             };
         }
+
+        public static int ReturnInput(int input) => input;
     }
 
-    public class TestClassResult
+    public class TestClassResultBase
     {
         public string StringProperty { get; set; } = string.Empty;
-        public string? StringPropertyIgnored { get; set; }
         public string? StringNullableProperty { get; set; }
         public int IntProperty { get; set; }
+        public int IntPropertyAsMethod() => IntProperty;
         public int? IntNullableProperty { get; set; }
         public TestProperty EnumProperty { get; set; }
         public TestProperty? EnumNullableProperty { get; set; }
         public DateTime DateTimeProperty { get; set; }
+        public DateTime DateTimePropertyAsMethod() => DateTimeProperty;
         public DateTime? DateTimeNullableProperty { get; set; }
         public bool BooleanProperty { get; set; }
         public bool? BooleanNullableProperty { get; set; }
@@ -406,6 +409,11 @@ namespace Test.Integration.XUnit
         public IEnumerable<TestClassResult>? TestClassResultEnumerable { get; set; }
         public List<TestClassResult>? TestClassResultList { get; set; }
         public Dictionary<string, TestClassResult>? TestClassResultDict { get; set; }
+    }
+
+    public class TestClassResult: TestClassResultBase
+    {
+        public string? StringPropertyIgnored { get; set; }
     }
 
     [Flags]
