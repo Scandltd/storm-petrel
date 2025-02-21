@@ -16,7 +16,7 @@
         * [No Use Case Id in Test Method Parameters](#no-use-case-id-in-test-method-parameters)
 * [Getting Started](#getting-started)
 * [Supported Software](#supported-software)
-* [CHANGELOG](CHANGELOG.md)
+* [CHANGELOG](#changelog)
 * [References](#references)
 
 ## Overview
@@ -89,7 +89,9 @@ See this and other configuration examples in [DefaultConfiguration](Test.Integra
 ## Supported Software
 The same as in [Scand.StormPetrel.Generator](../generator/README.md#supported-software).
 
-## [CHANGELOG](CHANGELOG.md)
+## CHANGELOG
+
+See [CHANGELOG](CHANGELOG.md) for more details.
 
 ## References
 

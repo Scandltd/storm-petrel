@@ -24,7 +24,7 @@
     * [Test Frameworks](#test-frameworks)
     * [.NET Versions](#net-versions)
     * [Operating Systems and IDEs](#operating-systems-and-ides)
-* [CHANGELOG](CHANGELOG.md)
+* [CHANGELOG](#changelog)
 * [FAQs](#faqs)
 * [References](#references)
 
@@ -321,7 +321,9 @@ The file changes are applied `on the fly` and can have the following settings:
 ### Operating Systems and IDEs
 * Windows, Linux. See more details about macOS and IDEs [here](#what-operating-systems-and-ides-can-i-use-to-run-stormpetrel-tests).
 
-## [CHANGELOG](CHANGELOG.md)
+## CHANGELOG
+
+See [CHANGELOG](CHANGELOG.md) for more details.
 
 ## FAQs
 

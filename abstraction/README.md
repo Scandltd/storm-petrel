@@ -2,7 +2,7 @@
 # Scand Storm Petrel Generator Abstraction
 * [Overview](#overview)
 * [Getting Started](#getting-started)
-* [CHANGELOG](CHANGELOG.md)
+* [CHANGELOG](#changelog)
 * [References](#references)
 
 ## Overview
@@ -17,7 +17,9 @@ To create NuGet package or .NET project with abstractions custom implementation:
 
 Then the implementation can be configured according to [Scand.StormPetrel.Generator](../generator/README.md) documentation to have the customization applied.
 
-## [CHANGELOG](CHANGELOG.md)
+## CHANGELOG
+
+See [CHANGELOG](CHANGELOG.md) for more details.
 
 ## References
 
