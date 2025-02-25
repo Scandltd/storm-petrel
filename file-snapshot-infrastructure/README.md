@@ -6,6 +6,7 @@
         * [Default Configuration](#default-configuration)
         * [Default Configuration With Custom Options](#default-configuration-with-custom-options)
         * [Custom Configuration](#custom-configuration)
+        * [SnapshotProvider Convention](#snapshotprovider-convention)
     * [By Snapshot Read Kind](#by-snapshot-read-kind)
         * [Text](#text)
         * [Binary](#binary)
@@ -41,6 +42,13 @@ Similar to the Default Configuration, but explicitly specifies the `json` extens
 Rewrites expected baseline files as demonstrated by [CalculatorSnapshotTest](Test.Integration.CustomConfiguration/CalculatorSnapshotTest.cs) against a custom baseline file structure.
 Initial baseline files may not exist before StormPetrel auto-generated tests and their origin tests execution because the custom configuration may specify snapshot file extensions as indicated in [CustomSnapshotOptions](Test.Integration.CustomConfiguration/CustomSnapshotInfrastructure/CustomSnapshotOptions.cs).
 See other files in [CustomSnapshotInfrastructure](Test.Integration.CustomConfiguration/CustomSnapshotInfrastructure) for detailed examples of custom configurations.
+
+#### SnapshotProvider Convention
+To ensure consistency in baseline files, both default and custom configurations should adhere to the `SnapshotProvider Convention`. Specifically, both the test method body and the `SnapshotRewriter` should:
+- Use equivalent `SnapshotProvider` instances.
+- Use the same `useCaseId` value.
+
+For more details, refer to the comments in [MultipleBaselinesTest](Test.Integration.CustomConfiguration/MultipleBaselinesTest.cs) and [CustomSnapshotRewriter](Test.Integration.CustomConfiguration/CustomSnapshotInfrastructure/CustomSnapshotRewriter.cs) regarding the convention implemented in the code.
 
 ### By Snapshot Read Kind
 

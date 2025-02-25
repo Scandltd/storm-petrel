@@ -21,8 +21,17 @@ namespace Test.Integration.CustomConfiguration.CustomSnapshotInfrastructure
         /// <param name="callerName"></param>
         /// <param name="callerMemberName"></param>
         /// <returns></returns>
-        public static SnapshotOptions Get(string callerName, string callerMemberName)
+        public static SnapshotOptions Get(string callerName, string callerMemberName, CustomSnapshotKind prefferedKind)
         {
+            if (prefferedKind == CustomSnapshotKind.Png)
+            {
+                return PngWithCustomSnapshotFolderStructure;
+            }
+            else if (prefferedKind == CustomSnapshotKind.Json)
+            {
+                return JsonWithDefaultSnapshotFolderStructure;
+            }
+
             if (callerName.StartsWith(nameof(CalculatorSnapshotTest))
                 && callerMemberName.StartsWith("GetLogo"))
             {

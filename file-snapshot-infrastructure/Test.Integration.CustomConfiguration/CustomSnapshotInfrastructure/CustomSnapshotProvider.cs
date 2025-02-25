@@ -12,11 +12,11 @@ namespace Test.Integration.CustomConfiguration.CustomSnapshotInfrastructure
         /// <param name="callerFilePath"></param>
         /// <param name="callerMemberName"></param>
         /// <returns></returns>
-        public static SnapshotProvider Get([CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "")
+        public static SnapshotProvider Get([CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", CustomSnapshotKind prefferedKind = CustomSnapshotKind.None)
         {
             var callerFileNameWithoutExtension = Path.GetFileNameWithoutExtension(callerFilePath);
             //Assume callerFileNameWithoutExtension matches with caller name in the project
-            var options = CustomSnapshotOptions.Get(callerFileNameWithoutExtension, callerMemberName);
+            var options = CustomSnapshotOptions.Get(callerFileNameWithoutExtension, callerMemberName, prefferedKind);
             return new SnapshotProvider(options);
         }
     }
