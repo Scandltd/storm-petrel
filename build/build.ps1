@@ -120,6 +120,40 @@ function ChangeTargetFramework {
     Set-Content -Path $FilePath -Value $content
 }
 
+#Stops dotnet process which locks StormPetrel log files created (and locked) by Serilog while integration tests execution.
+function StopDotnetProcess {
+    if (-not (Get-Process -Name "dotnet" -ErrorAction SilentlyContinue)) {
+        Write-Host "Process 'dotnet' does not exist"
+        return
+    }
+    $processIds = @()
+    Get-Process -Name "dotnet" | foreach {
+        $processVar = $_;$_.Modules | foreach {
+            if($_.FileName -like "*StormPetrel*" -and $processIds -notcontains $processVar.id) {
+                $processIds += $processVar.id
+            }
+        }
+    }
+    foreach ($processId in $processIds) {
+        Stop-Process -Id $processId -Force
+    }
+    $counter = 10
+    foreach ($processId in $processIds) {
+        $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
+        if ($process) {
+            while ((-not $process.HasExited) -and $counter -gt 0) {
+                Write-Output "'dotnet' process is still running."
+                Start-Sleep -Seconds 1
+                $process.Refresh()
+                $counter--
+            }
+            if ($counter -eq 0) {
+                Throw "Cannot stop 'dotnet' process"
+            }
+        }
+    }
+}
+
 ClearPackageCache "scand.stormpetrel.generator.abstraction"
 if (-not $SkipAbstraction) {
     BuildPackage "abstraction" "Scand.StormPetrel.Generator.Abstraction/Scand.StormPetrel.Generator.Abstraction.csproj"
@@ -186,5 +220,7 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
     }
     RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
 }
+
+StopDotnetProcess
 
 Write-Output "Build script has been executed successfully."
