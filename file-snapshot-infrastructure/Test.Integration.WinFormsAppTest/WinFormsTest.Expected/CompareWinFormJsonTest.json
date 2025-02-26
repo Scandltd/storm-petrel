@@ -1,0 +1,277 @@
+{
+  "AcceptButton": null,
+  "AllowTransparency": false,
+  "AutoScale": false,
+  "AutoScaleBaseSize": {
+    "Width": 6,
+    "Height": 16
+  },
+  "AutoScroll": false,
+  "AutoSize": false,
+  "AutoSizeMode": 1,
+  "AutoValidate": 1,
+  "BackColor": {},
+  "FormBorderStyle": 4,
+  "CancelButton": null,
+  "ClientSize": {
+    "Width": 329,
+    "Height": 197
+  },
+  "ControlBox": true,
+  "DesktopBounds": {
+    "Location": {
+      "X": 0,
+      "Y": 0
+    },
+    "Size": {
+      "Width": 345,
+      "Height": 236
+    },
+    "X": 0,
+    "Y": 0,
+    "Width": 345,
+    "Height": 236
+  },
+  "DesktopLocation": {
+    "X": 0,
+    "Y": 0
+  },
+  "DialogResult": 0,
+  "HelpButton": false,
+  "Icon": {},
+  "IsMdiContainer": false,
+  "KeyPreview": false,
+  "Location": {
+    "X": 0,
+    "Y": 0
+  },
+  "MaximumSize": {
+    "Width": 0,
+    "Height": 0
+  },
+  "MainMenuStrip": null,
+  "Margin": {
+    "All": 3,
+    "Bottom": 3,
+    "Left": 3,
+    "Right": 3,
+    "Top": 3
+  },
+  "MinimumSize": {
+    "Width": 0,
+    "Height": 0
+  },
+  "MaximizeBox": true,
+  "MdiChildren": [],
+  "MdiChildrenMinimizedAnchorBottom": true,
+  "MdiParent": null,
+  "MinimizeBox": true,
+  "Opacity": 1,
+  "OwnedForms": [],
+  "Owner": null,
+  "RightToLeftLayout": false,
+  "ShowInTaskbar": true,
+  "ShowIcon": true,
+  "Size": {
+    "Width": 345,
+    "Height": 236
+  },
+  "SizeGripStyle": 0,
+  "StartPosition": 2,
+  "TabIndex": 0,
+  "TabStop": true,
+  "Text": "TestForm",
+  "TopLevel": true,
+  "TopMost": false,
+  "TransparencyKey": {},
+  "WindowState": 0,
+  "AutoScaleDimensions": {
+    "Width": 7,
+    "Height": 15
+  },
+  "AutoScaleMode": 1,
+  "BindingContext": [],
+  "ActiveControl": null,
+  "AutoScrollMargin": {
+    "Width": 0,
+    "Height": 0
+  },
+  "AutoScrollPosition": {
+    "X": 0,
+    "Y": 0
+  },
+  "AutoScrollMinSize": {
+    "Width": 0,
+    "Height": 0
+  },
+  "AccessibleDefaultActionDescription": null,
+  "AccessibleDescription": null,
+  "AccessibleName": null,
+  "AccessibleRole": -1,
+  "AllowDrop": false,
+  "Anchor": 5,
+  "AutoScrollOffset": {
+    "X": 0,
+    "Y": 0
+  },
+  "DataContext": null,
+  "BackgroundImage": null,
+  "BackgroundImageLayout": 1,
+  "Bounds": {
+    "Location": {
+      "X": 0,
+      "Y": 0
+    },
+    "Size": {
+      "Width": 345,
+      "Height": 236
+    },
+    "X": 0,
+    "Y": 0,
+    "Width": 345,
+    "Height": 236
+  },
+  "Capture": false,
+  "CausesValidation": true,
+  "ContextMenuStrip": null,
+  "Controls": [
+    {
+      "AutoSize": true,
+      "AutoEllipsis": false,
+      "BackgroundImage": null,
+      "BackgroundImageLayout": 1,
+      "BorderStyle": 0,
+      "FlatStyle": 2,
+      "Image": null,
+      "ImageIndex": -1,
+      "ImageKey": "",
+      "ImageList": null,
+      "ImageAlign": 32,
+      "LiveSetting": 0,
+      "ImeMode": 3,
+      "TabStop": false,
+      "TextAlign": 1,
+      "Text": "Incorrect Text",
+      "UseCompatibleTextRendering": true,
+      "UseMnemonic": true,
+      "AccessibleDefaultActionDescription": null,
+      "AccessibleDescription": null,
+      "AccessibleName": null,
+      "AccessibleRole": -1,
+      "AllowDrop": false,
+      "Anchor": 5,
+      "AutoScrollOffset": {
+        "X": 0,
+        "Y": 0
+      },
+      "DataContext": null,
+      "BackColor": {},
+      "BindingContext": [],
+      "Bounds": {
+        "Location": {
+          "X": 86,
+          "Y": 83
+        },
+        "Size": {
+          "Width": 146,
+          "Height": 29
+        },
+        "X": 86,
+        "Y": 83,
+        "Width": 146,
+        "Height": 29
+      },
+      "Capture": false,
+      "CausesValidation": true,
+      "ClientSize": {
+        "Width": 146,
+        "Height": 29
+      },
+      "ContextMenuStrip": null,
+      "Controls": [],
+      "Cursor": {
+        "Tag": null
+      },
+      "DataBindings": [],
+      "Dock": 0,
+      "Enabled": true,
+      "Font": {},
+      "ForeColor": {},
+      "Height": 29,
+      "IsAccessible": false,
+      "Left": 86,
+      "Location": {
+        "X": 86,
+        "Y": 83
+      },
+      "Margin": {
+        "All": -1,
+        "Bottom": 0,
+        "Left": 3,
+        "Right": 3,
+        "Top": 0
+      },
+      "MaximumSize": {
+        "Width": 0,
+        "Height": 0
+      },
+      "MinimumSize": {
+        "Width": 0,
+        "Height": 0
+      },
+      "Name": "lblMain",
+      "Parent": null,
+      "Region": null,
+      "RightToLeft": 0,
+      "Site": null,
+      "Size": {
+        "Width": 146,
+        "Height": 29
+      },
+      "TabIndex": 0,
+      "Tag": null,
+      "Top": 83,
+      "UseWaitCursor": false,
+      "Visible": false,
+      "Width": 146,
+      "WindowTarget": {},
+      "Padding": {
+        "All": 0,
+        "Bottom": 0,
+        "Left": 0,
+        "Right": 0,
+        "Top": 0
+      }
+    }
+  ],
+  "Cursor": {
+    "Tag": null
+  },
+  "DataBindings": [],
+  "Dock": 0,
+  "Enabled": true,
+  "Font": {},
+  "ForeColor": {},
+  "Height": 236,
+  "IsAccessible": false,
+  "Left": 0,
+  "Name": "TestForm",
+  "Parent": null,
+  "Region": null,
+  "RightToLeft": 0,
+  "Site": null,
+  "Tag": null,
+  "Top": 0,
+  "UseWaitCursor": false,
+  "Visible": false,
+  "Width": 345,
+  "WindowTarget": {},
+  "Padding": {
+    "All": 0,
+    "Bottom": 0,
+    "Left": 0,
+    "Right": 0,
+    "Top": 0
+  },
+  "ImeMode": 0
+}

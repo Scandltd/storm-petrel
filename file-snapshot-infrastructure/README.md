@@ -15,6 +15,9 @@
     * [By Test Method Use Case Id](#by-test-method-use-case-id)
         * [Use Case Id in Test Method Parameters](#use-case-id-in-test-method-parameters)
         * [No Use Case Id in Test Method Parameters](#no-use-case-id-in-test-method-parameters)
+    * [By Specific Framework](#by-specific-framework)
+        * [Windows Forms .NET](#windows-forms-net)
+        * [WPF .NET](#wpf-net)
 * [Getting Started](#getting-started)
 * [Supported Software](#supported-software)
 * [CHANGELOG](#changelog)
@@ -74,6 +77,15 @@ If a test method has `useCaseId` parameter name or a method parameter marked by 
 #### No Use Case Id in Test Method Parameters
 
 If a test method does not have `useCaseId` parameter name and no method parameter marked by [UseCaseIdAttribute](Scand.StormPetrel.FileSnapshotInfrastructure/Attributes/UseCaseIdAttribute.cs), then File Snapshot Infrastructure code treats `useCaseId` as empty in snapshot baseline file or folder names.
+
+### By Specific Framework
+Below are the most notable frameworks (though not an exhaustive list what Storm Petrel can support) and test example references for them.
+
+#### Windows Forms .NET
+See test examples in [WinFormsTest](Test.Integration.WinFormsAppTest/WinFormsTest.cs).
+
+#### WPF .NET
+See test examples in [WpfTest](Test.Integration.WpfAppTest/WpfTest.cs).
 
 ## Getting Started
 To utilize File Snapshot Infrastructure in a test .NET project:

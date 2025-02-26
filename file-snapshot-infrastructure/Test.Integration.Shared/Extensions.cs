@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Test.Integration.Shared
 {
@@ -7,7 +8,9 @@ namespace Test.Integration.Shared
     {
         private readonly static JsonSerializerOptions options = new JsonSerializerOptions()
         {
-            WriteIndented = true
+            WriteIndented = true,
+            IgnoreReadOnlyProperties = true,
+            ReferenceHandler = ReferenceHandler.IgnoreCycles
         };
         public static string ToJsonText<T>(this T obj) => JsonSerializer.Serialize(obj, options);
 

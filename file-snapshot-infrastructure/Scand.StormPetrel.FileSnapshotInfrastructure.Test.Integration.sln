@@ -11,6 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Integration.CustomConf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.DefaultConfigurationWithCustomOptions", "Test.Integration.DefaultConfigurationWithCustomOptions\Test.Integration.DefaultConfigurationWithCustomOptions.csproj", "{F1CFB768-6A62-4A69-B1B7-34C5B6231485}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.WinFormsApp", "Test.Integration.WinFormsApp\Test.Integration.WinFormsApp.csproj", "{0CC818D1-A409-41C5-A1D5-C9603F37FBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.WinFormsAppTest", "Test.Integration.WinFormsAppTest\Test.Integration.WinFormsAppTest.csproj", "{D1255A63-B3E0-4488-8D1B-C4687FE4E64D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.WpfApp", "Test.Integration.WpfApp\Test.Integration.WpfApp.csproj", "{38F13E7C-F75B-4E20-A093-88F4EF2E471E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.WpfAppTest", "Test.Integration.WpfAppTest\Test.Integration.WpfAppTest.csproj", "{12DBAA41-31DA-455A-8E42-A9B68E16114C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +37,22 @@ Global
 		{F1CFB768-6A62-4A69-B1B7-34C5B6231485}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1CFB768-6A62-4A69-B1B7-34C5B6231485}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1CFB768-6A62-4A69-B1B7-34C5B6231485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CC818D1-A409-41C5-A1D5-C9603F37FBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CC818D1-A409-41C5-A1D5-C9603F37FBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CC818D1-A409-41C5-A1D5-C9603F37FBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CC818D1-A409-41C5-A1D5-C9603F37FBDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1255A63-B3E0-4488-8D1B-C4687FE4E64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1255A63-B3E0-4488-8D1B-C4687FE4E64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1255A63-B3E0-4488-8D1B-C4687FE4E64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1255A63-B3E0-4488-8D1B-C4687FE4E64D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F13E7C-F75B-4E20-A093-88F4EF2E471E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F13E7C-F75B-4E20-A093-88F4EF2E471E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F13E7C-F75B-4E20-A093-88F4EF2E471E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F13E7C-F75B-4E20-A093-88F4EF2E471E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,9 +61,11 @@ Global
 		SolutionGuid = {75741A4E-B5C7-4B8A-BF1C-2C5EC12C97CF}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Test.Integration.Shared\Test.Integration.Shared.projitems*{12dbaa41-31da-455a-8e42-a9b68e16114c}*SharedItemsImports = 5
 		Test.Integration.Shared\Test.Integration.Shared.projitems*{5da4974c-64e7-48fa-ba7d-5a723857c5bd}*SharedItemsImports = 5
 		Test.Integration.Shared\Test.Integration.Shared.projitems*{8de08904-8c3c-40d8-b5c8-9eed143a9f58}*SharedItemsImports = 5
 		Test.Integration.Shared\Test.Integration.Shared.projitems*{b5bd8523-3418-407d-ae43-596e415941b3}*SharedItemsImports = 13
+		Test.Integration.Shared\Test.Integration.Shared.projitems*{d1255a63-b3e0-4488-8d1b-c4687fe4e64d}*SharedItemsImports = 5
 		Test.Integration.Shared\Test.Integration.Shared.projitems*{f1cfb768-6a62-4a69-b1b7-34c5b6231485}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

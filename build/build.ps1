@@ -207,6 +207,14 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
     #Change NETFramework TargetFramework for Custom Configuration on OS other than Windows
     if (!$isWin) {
          ChangeTargetFramework "file-snapshot-infrastructure/Test.Integration.CustomConfiguration/Test.Integration.CustomConfiguration.csproj"
+         $solutionFileName = "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
+         $content = Get-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Raw
+         $winformsProjectPattern = "(Project[^\r\n]*Test\.Integration\.WinFormsApp[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*0CC818D1-A409-41C5-A1D5-C9603F37FBDC[^\r\n]*[\r\n]*)"
+         $testProjectPattern = "(Project[^\r\n]*Test\.Integration\.WinFormsAppTest[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*D1255A63-B3E0-4488-8D1B-C4687FE4E64D[^\r\n]*[\r\n]*)"
+         $wpfProjectPattern = "(Project[^\r\n]*Test\.Integration\.WpfApp[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*38F13E7C-F75B-4E20-A093-88F4EF2E471E[^\r\n]*[\r\n]*)"
+         $testWpfProjectPattern = "(Project[^\r\n]*Test\.Integration\.WpfAppTest[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*12DBAA41-31DA-455A-8E42-A9B68E16114C[^\r\n]*[\r\n]*)"
+         $content = $content -replace $testProjectPattern, "" -replace $winformsProjectPattern, "" -replace $wpfProjectPattern, "" -replace $testWpfProjectPattern, ""
+         Set-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Value $content
     }
     #Update 2.0.0 Scand.StormPetrel.Generator package references in integration test projects
     if ($FSIIntegrationTestGeneratorVersion -ne "2.0.0") {

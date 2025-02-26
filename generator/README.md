@@ -18,6 +18,11 @@
             * [NUnit assertions](#nunit-assertions)
             * [MSTest assertions](#mstest-assertions)
             * [Custom assertions that replicate the signatures above](#custom-assertions-that-replicate-the-signatures-above)
+        * [Framework specific examples](#framework-specific-examples)
+            * [ASP.NET Core](#aspnet-core)
+            * [Exceptions](#exceptions)
+            * [Windows Forms .NET](#windows-forms-net)
+            * [WPF .NET](#wpf-net)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
 * [Supported Software](#supported-software)
@@ -250,6 +255,21 @@ Supported expressions include `Assert.AreEqual(123, actual);`. See more examples
 
 ##### Custom assertions that replicate the signatures above
 You can also implement and use custom assertions. Ensure they replicate the signatures of the assertions mentioned above so that StormPetrel can detect them effectively.
+
+#### Framework specific examples
+Below are the most notable frameworks (though not an exhaustive list what Storm Petrel can support) and test example references for them.
+
+##### ASP.NET Core
+See test examples in [AspNetTest](Test.Integration.WebApi.XUnit/AspNetTest.cs).
+
+##### Exceptions
+See test examples in [ExceptionTest](Test.Integration.XUnit/ExceptionTest.cs).
+
+##### Windows Forms .NET
+See test examples in [WinFormsTest](../file-snapshot-infrastructure/Test.Integration.WinFormsAppTest/WinFormsTest.cs) of [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md).
+
+##### WPF .NET
+See test examples in [WpfTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfTest.cs) of [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md).
 
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:

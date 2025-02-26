@@ -5,7 +5,7 @@ using SkiaSharp;
 
 namespace Test.Integration.Shared
 {
-    public static class Calculator
+    internal static class Calculator
     {
         private const string LogoPath = "CalculatorLogo.png";
         /// <summary>
