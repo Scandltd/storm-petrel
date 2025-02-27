@@ -135,7 +135,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                     var expression = CreateInitializeExpressionSyntax(argument);
                     newNode = SyntaxFactory
                                 .Argument(expression)
-                                .WithNameColon(argument.NameColon);
+                                .WithNameColon(argument.NameColon)
+                                .WithTriviaFrom(argument);
                 }
                 else
                 {

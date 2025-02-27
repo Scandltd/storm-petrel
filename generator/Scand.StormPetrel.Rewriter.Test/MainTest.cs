@@ -71,6 +71,7 @@ namespace Scand.StormPetrel.Rewriter.Test
         [InlineData("105_InvocationExpressionParametersOnly", "Foo;ShouldBe123#NumericLiteralExpression:2", Const100, "105_InvocationExpressionParametersOnly_Then_Expected", nameof(ExpressionRewriter))]
         [InlineData("105_InvocationExpressionParametersOnly", "Foo;ShouldBe123#Argument:0:1", Const100, "105_InvocationExpressionParametersOnly_Then_Expected", nameof(ExpressionRewriter))]
         [InlineData("105_InvocationExpressionParametersOnly", "Foo;ShouldBeArgumentWithNameColon#Argument:1:0", Const100, "105_InvocationExpressionParametersOnly_ArgumentWithNameColon_Then_Expected", nameof(ExpressionRewriter))]
+        [InlineData("106_InvocationExpressionParametersTrivia", "Foo;ShouldBeCorrectTrivia#Argument:0:0", List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_Then_Expected", nameof(ExpressionRewriter))]
         [InlineData("110_Property", "Test.Integration.XUnit;UnitTest1Helper;Expected", Const100, "110_Property_NewCode_Then_Expected")]
         [InlineData("110_Property", "Test.Integration.XUnit;UnitTest1Helper;ExpectedArrow", Const100, "110_PropertyArrow_NewCode_Then_Expected")]
         [InlineData("110_Property", "Test.Integration.XUnit;UnitTest1Helper;ExpectedGetArrow", Const100, "110_PropertyGetArrow_NewCode_Then_Expected")]
