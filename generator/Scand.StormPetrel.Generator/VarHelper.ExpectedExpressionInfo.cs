@@ -33,7 +33,8 @@ namespace Scand.StormPetrel.Generator
                 {
                     return;
                 }
-                if (!(expressionStatement.Expression is InvocationExpressionSyntax))
+                if (!(expressionStatement.Expression is InvocationExpressionSyntax)
+                        && !(expressionStatement.Expression is ConditionalAccessExpressionSyntax))
                 {
                     return;
                 }

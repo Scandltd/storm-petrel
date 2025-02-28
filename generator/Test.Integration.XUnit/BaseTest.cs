@@ -395,6 +395,7 @@ namespace Test.Integration.XUnit
     {
         public string StringProperty { get; set; } = string.Empty;
         public string? StringNullableProperty { get; set; }
+        public string? StringNullablePropertyAsMethod() => StringNullableProperty;
         public int IntProperty { get; set; }
         public int IntPropertyAsMethod() => IntProperty;
         public int? IntNullableProperty { get; set; }

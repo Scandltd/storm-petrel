@@ -43,5 +43,6 @@ namespace Test.Integration.MSTest
     {
         public int Value { get; set; }
         public string ValueAsHexString { get; set; } = string.Empty;
+        public string ValueAsHexStringAsMethod() => ValueAsHexString;
     }
 }
