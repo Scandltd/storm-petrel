@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.2.1] - 2025-03-04
+
+### Added
+- Framework specific examples to README.
+- Extended support of Collection Initializer for inlined expected expressions.
+
+### Fixed
+- Trivia for expected arguments inlined within assertions.
+- Expressions detection for null-conditional and null-forgiving operators.
+
 ## [2.2.0] - 2025-02-17
 
 ### Added
