@@ -78,6 +78,12 @@ namespace Test.Integration.XUnit
 
             //Assert
             actual.Should().BeEquivalentTo(
+            [
+                1,
+                2,
+            ]);
+            //Assert when explicit cast
+            actual.Should().BeEquivalentTo(
             (List<int>)[
                 1,
                 2,

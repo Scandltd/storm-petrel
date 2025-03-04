@@ -540,6 +540,320 @@ public class NoExpectedVarAssertTestStormPetrel
         Assert.Equal(actual: await actual.TestMethodAsync(), expected: 123);
     }
 
+    [Fact]
+    public void AssertJaggedArrayTestStormPetrel()
+    {
+        //Arrange
+        int[][] actual = [[1, 2, 3], [1, 2, 3]];
+        int[] actualOneDimensional = [1, 2];
+        int[][, ] actualMultiArray = [new int[, ]
+        {
+            {
+                1,
+                2,
+                3
+            },
+            {
+                1,
+                2,
+                3
+            }
+        }, new int[, ]
+        {
+            {
+                1,
+                2,
+                3
+            },
+            {
+                1,
+                2,
+                3
+            }
+        }
+
+        ];
+        int[][][] actual3d = [[[1], [2], [3]], [[1], [2], [3]]];
+        int[][][][] actual4d = [(int[][][])[[(int[])[1, 2]], [(int[])[1, 2]]], (int[][][])[[(int[])[1, 2]]], (int[][][])[[(int[])[1, 2]]]];
+        object[] actualObjects = [1, new DateTime(2025, 2, 4)];
+        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        {
+            FilePath = "C:\\temp\\temp.cs",
+            ClassName = "NoExpectedVarAssertTest",
+            MethodName = "AssertJaggedArrayTest",
+            VariablePairCurrentIndex = 0,
+            VariablePairsCount = 8,
+            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+            {
+            }
+        };
+        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[][])[[123, 123, 123], [123, 123, 123]],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:6",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 1,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actualOneDimensional,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[])[],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:7",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext2 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[][])[[], []],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:8",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext3 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual3d,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[])[(int[][])[[]], (int[][])[[]]],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:9",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext3);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext4 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actualMultiArray,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[])[new int[, ]
+            {
+                {
+                    123,
+                    123,
+                    123
+                },
+                {
+                    123,
+                    123,
+                    123
+                }
+            }, new int[, ]
+            {
+                {
+                    123,
+                    123,
+                    123
+                },
+                {
+                    123,
+                    123,
+                    123
+                }
+            }
+
+            ],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:10",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext4);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext5 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual3d,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[])[(int[][])[[123, 123, 123], [123, 123, 123]], (int[][])[[123, 123, 123], [123, 123, 123]]],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:11",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext5);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext6 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual4d,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[])[(int[][][])[[(int[])[3, 4]], [(int[])[3, 4]]], (int[][][])[[(int[])[3, 4]]], (int[][][])[[(int[])[3, 4]]]],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:12",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext6);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext7 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actualObjects,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarAssertTest",
+                "AssertJaggedArrayTest"
+            },
+            Expected = (object[])[123, new DateTime(2025, 12, 14)],
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:13",
+                    "NoExpectedVarAssertTest",
+                    "AssertJaggedArrayTest"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext7);
+        //Act, Assert
+        Assert.Equal(actual: actual, expected: [[123, 123, 123], [123, 123, 123]]);
+        Assert.Equal([], actualOneDimensional);
+        Assert.Equal([[], []], actual);
+        Assert.Equal([(int[][])[[]], (int[][])[[]]], actual3d);
+        Assert.Equal([new int[, ] { { 123, 123, 123 }, { 123, 123, 123 } }, new int[, ] { { 123, 123, 123 }, { 123, 123, 123 } }], actualMultiArray);
+        Assert.Equal([(int[][])[[123, 123, 123], [123, 123, 123]], (int[][])[[123, 123, 123], [123, 123, 123]]], actual3d);
+        Assert.Equal([(int[][][])[[(int[])[3, 4]], [(int[])[3, 4]]], (int[][][])[[(int[])[3, 4]]], (int[][][])[[(int[])[3, 4]]]], actual4d);
+        Assert.Equal([123, new DateTime(2025, 12, 14)], actualObjects);
+        //Assert ignored use cases
+        //All asserts below have "expected" to not fail because Storm Petrel ignores these "expected" values
+        Assert.Equal([(int[])[1, 2, 3], [1, 2, 3]], actual);
+        Assert.Equal([[1, 2, 3], (int[])[1, 2, 3]], actual);
+        Assert.Equal([[[1], [2], (int[])[3]], [[1], [2], [3]]], actual3d);
+        Assert.Equal([[[1], [2], (int[])[3]], (int[][])[[1], [2], [3]]], actual3d);
+        Assert.Equal([(int[][])[[1], [2], [3]], (int[][])[[1], (int[])[2], [3]]], actual3d);
+    }
+
 #endregion
 #region AsyncCollectionAsserts.cs
     private static async IAsyncEnumerable<int> GetActualAsIAsyncEnumerableAsync()
@@ -580,7 +894,7 @@ public class NoExpectedVarAssertTestStormPetrel
                 "NoExpectedVarAssertTest",
                 "AsyncCollectionAssertsEqualTest"
             },
-            Expected = (List<int>)[123, 123, 123],
+            Expected = (object[])[123, 123, 123],
             ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
             {
                 Path = new[]
@@ -608,7 +922,7 @@ public class NoExpectedVarAssertTestStormPetrel
                 "NoExpectedVarAssertTest",
                 "AsyncCollectionAssertsEqualTest"
             },
-            Expected = (List<int>)[123, 123, 123],
+            Expected = (object[])[123, 123, 123],
             ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
             {
                 Path = new[]
@@ -628,8 +942,8 @@ public class NoExpectedVarAssertTestStormPetrel
         };
         ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         //Assert
-        Assert.Equal((List<int>)[123, 123, 123], actual);
-        Assert.Equal(actual: actual, expected: (List<int>)[123, 123, 123]);
+        Assert.Equal([123, 123, 123], actual);
+        Assert.Equal(actual: actual, expected: [123, 123, 123]);
     }
 
 #endregion

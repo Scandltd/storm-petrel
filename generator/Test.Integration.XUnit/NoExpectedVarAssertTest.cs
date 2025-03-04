@@ -85,6 +85,44 @@ public class NoExpectedVarAssertTest
         //Act, Assert
         Assert.Equal(actual: await actual.TestMethodAsync(), expected: 123);
     }
+
+    [Fact]
+    public void AssertJaggedArrayTest()
+    {
+        //Arrange
+        int[][] actual = [[1, 2, 3], [1, 2, 3]];
+        int[] actualOneDimensional = [1, 2];
+        int[][,] actualMultiArray = [new int[,] { { 1, 2, 3 }, { 1, 2, 3 } }, new int[,] { { 1, 2, 3 }, { 1, 2, 3 } }];
+        int[][][] actual3d = [[[1], [2], [3]], [[1], [2], [3]]];
+        int[][][][] actual4d = [(int[][][])[[(int[])[1, 2]], [(int[])[1, 2]]], (int[][][])[[(int[])[1, 2]]], (int[][][])[[(int[])[1, 2]]]];
+        object[] actualObjects =
+        [
+            1,
+            new DateTime(2025, 2, 4)
+        ];
+
+        //Act, Assert
+        Assert.Equal(actual: actual, expected: [[123, 123, 123], [123, 123, 123]]);
+        Assert.Equal([], actualOneDimensional);
+        Assert.Equal([[], []], actual);
+        Assert.Equal([(int[][])[[]], (int[][])[[]]], actual3d);
+        Assert.Equal([new int[,] { { 123, 123, 123 }, { 123, 123, 123 } }, new int[,] { { 123, 123, 123 }, { 123, 123, 123 } }], actualMultiArray);
+        Assert.Equal([(int[][]) [ [ 123, 123, 123 ], [ 123, 123, 123 ] ], (int[][]) [ [ 123, 123, 123 ], [ 123, 123, 123 ] ]], actual3d);
+        Assert.Equal([(int[][][])[[(int[])[3, 4]],[(int[])[3, 4]]],(int[][][])[[(int[])[3, 4]]],(int[][][])[[(int[])[3, 4]]]], actual4d);
+        Assert.Equal(
+        [
+            123,
+            new DateTime(2025, 12, 14)
+        ], actualObjects);
+
+        //Assert ignored use cases
+        //All asserts below have "expected" to not fail because Storm Petrel ignores these "expected" values
+        Assert.Equal([(int[])[1, 2, 3], [1, 2, 3]], actual);
+        Assert.Equal([[1, 2, 3], (int[])[1, 2, 3]], actual);
+        Assert.Equal([[[1], [2], (int[])[3]], [[1], [2], [3]]], actual3d);
+        Assert.Equal([[[1], [2], (int[])[3]], (int[][])[[1], [2], [3]]], actual3d);
+        Assert.Equal([(int[][])[[1], [2], [3]], (int[][])[[1], (int[])[2], [3]]], actual3d);
+    }
     #endregion
 
     #region AsyncCollectionAsserts.cs
@@ -108,8 +146,8 @@ public class NoExpectedVarAssertTest
         var actual = list;
 
         //Assert
-        Assert.Equal((List<int>)[123, 123, 123], actual);
-        Assert.Equal(actual: actual, expected: (List<int>)[123, 123, 123]);
+        Assert.Equal([123, 123, 123], actual);
+        Assert.Equal(actual: actual, expected: [123, 123, 123]);
     }
     #endregion
 

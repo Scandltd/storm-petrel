@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarExpressionKindsTest.cs" Link="Resource\NoExpectedVarExpressionKindsTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarWithOperatorsTest.cs" Link="Resource\NoExpectedVarWithOperatorsTest.cs" />
   </ItemGroup>
 

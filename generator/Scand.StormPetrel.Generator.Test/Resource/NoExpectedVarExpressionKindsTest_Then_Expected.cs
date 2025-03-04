@@ -1,20 +1,22 @@
 using FluentAssertions;
-using System.Collections.Generic;
-using Xunit.Sdk;
 
 namespace Test.Integration.XUnit
 {
-    public class AssertionNoExpectedVarTestStormPetrel
+    public class NoExpectedVarExpressionKindsTestStormPetrel
     {
         [Fact]
         public void ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new
+            {
+                Amount = 100,
+                Message = "Hello"
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -28,13 +30,13 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTest"
                 },
                 Expected = new
                 {
-                    Amount = 108,
-                    Message = "Hello"
+                    Amount = 123,
+                    Message = "Hello incorrect"
                 },
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
@@ -42,7 +44,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -56,18 +58,18 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new { Amount = 108, Message = "Hello" });
+            actual.Should().Be(new { Amount = 123, Message = "Hello incorrect" });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenArrayCreationExpressionTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new int[6];
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -81,7 +83,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenArrayCreationExpressionTest"
                 },
                 Expected = new int[5],
@@ -91,7 +93,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -105,18 +107,22 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new int[5]);
+            actual.Should().BeEquivalentTo(new int[5]);
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new int[]
+            {
+                2,
+                3,
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -130,7 +136,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTest"
                 },
                 Expected = new int[]
@@ -144,7 +150,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -158,18 +164,18 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new int[] { 1, 2, });
+            actual.Should().BeEquivalentTo(new int[] { 1, 2, });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new int[1, 1];
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -183,7 +189,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTest"
                 },
                 Expected = new int[3, 3],
@@ -193,7 +199,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -207,18 +213,21 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new int[3, 3]);
+            actual.Should().BeEquivalentTo(new int[3, 3]);
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new int[1][]
+            {
+                [1]
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -232,7 +241,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTest"
                 },
                 Expected = new int[3][],
@@ -242,7 +251,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -256,21 +265,21 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new int[3][]);
+            actual.Should().BeEquivalentTo(new int[3][]);
         }
 
         [Fact]
-        public void ShouldDetectExpectedArgumentWhenCollectionExpressionNoCastTestStormPetrel()
+        public void ShouldDetectExpectedArgumentWhenCollectionExpressionTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            List<int> actual = [3, 4];
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentWhenCollectionExpressionNoCastTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
+                MethodName = "ShouldDetectExpectedArgumentWhenCollectionExpressionTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
+                VariablePairsCount = 2,
                 Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
                 {
                 }
@@ -281,8 +290,8 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenCollectionExpressionNoCastTest"
+                    "NoExpectedVarExpressionKindsTest",
+                    "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
                 },
                 Expected = (object[])[1, 2, ],
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
@@ -291,56 +300,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentWhenCollectionExpressionNoCastTest"
-                    },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
-                    {
-                        NodeKind = 8638,
-                        NodeIndex = 0,
-                        ArgsCount = 0
-                    }
-                },
-                MethodSharedContext = stormPetrelSharedContext
-            };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.Should().Be([1, 2, ]);
-        }
-
-        [Fact]
-        public void ShouldDetectExpectedArgumentWhenCollectionExpressionTestStormPetrel()
-        {
-            //Act
-            var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentWhenCollectionExpressionTest",
-                VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
-            };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
-            {
-                Actual = actual,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
-                },
-                Expected = (List<int>)[1, 2, ],
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
-                {
-                    Path = new[]
-                    {
-                        "experimental-method-body-statement-index:1",
-                        "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -353,19 +313,54 @@ namespace Test.Integration.XUnit
                 MethodSharedContext = stormPetrelSharedContext
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            stormPetrelSharedContext.VariablePairCurrentIndex++;
+            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+                Actual = actual,
+                ActualVariablePath = new[]
+                {
+                    "Test.Integration.XUnit",
+                    "NoExpectedVarExpressionKindsTest",
+                    "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
+                },
+                Expected = (List<int>)[1, 2, ],
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                {
+                    Path = new[]
+                    {
+                        "experimental-method-body-statement-index:2",
+                        "Test.Integration.XUnit",
+                        "NoExpectedVarExpressionKindsTest",
+                        "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
+                    },
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    {
+                        NodeKind = 8638,
+                        NodeIndex = 0,
+                        ArgsCount = 0
+                    }
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             //Assert
-            actual.Should().Be((List<int>)[1, 2, ]);
+            actual.Should().BeEquivalentTo([1, 2, ]);
+            //Assert when explicit cast
+            actual.Should().BeEquivalentTo((List<int>)[1, 2, ]);
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new[]
+            {
+                1,
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -379,7 +374,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTest"
                 },
                 Expected = new[]
@@ -396,7 +391,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -410,18 +405,30 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new[] { 1, 2, 3, 4, 5 });
+            actual.Should().BeEquivalentTo(new[] { 1, 2, 3, 4, 5 });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new[, ]
+            {
+                {
+                    1,
+                    1,
+                    1
+                },
+                {
+                    2,
+                    2,
+                    2
+                },
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -435,7 +442,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTest"
                 },
                 Expected = new[, ]
@@ -462,7 +469,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -476,67 +483,21 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new[, ] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
-        }
-
-        [Fact]
-        public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxNoCastTestStormPetrel()
-        {
-            //Act
-            var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxNoCastTest",
-                VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
-            };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
-            {
-                Actual = actual,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxNoCastTest"
-                },
-                Expected = new(),
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
-                {
-                    Path = new[]
-                    {
-                        "experimental-method-body-statement-index:1",
-                        "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxNoCastTest"
-                    },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
-                    {
-                        NodeKind = 8638,
-                        NodeIndex = 0,
-                        ArgsCount = 0
-                    }
-                },
-                MethodSharedContext = stormPetrelSharedContext
-            };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.Should().Be(new());
+            actual.Should().BeEquivalentTo(new[, ] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            TestClassResultBase actual = new()
+            {
+                StringNullableProperty = "Incorrect Test StringNullableProperty",
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -550,7 +511,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest"
                 },
                 Expected = (TestClassResultBase)new(),
@@ -560,7 +521,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -574,18 +535,21 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be((TestClassResultBase)new());
+            actual.Should().BeEquivalentTo((TestClassResultBase)new());
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            TestClassResultBase actual = new()
+            {
+                StringNullableProperty = "Incorrect Test StringNullableProperty",
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -599,10 +563,10 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest"
                 },
-                Expected = new()
+                Expected = (TestClassResultBase)new()
                 {
                     IntProperty = 0
                 },
@@ -612,7 +576,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -626,18 +590,18 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be(new() { IntProperty = 0 });
+            actual.Should().BeEquivalentTo((TestClassResultBase)new() { IntProperty = 0 });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = 100;
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -651,7 +615,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTest"
                 },
                 Expected = 123,
@@ -661,7 +625,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -682,11 +646,11 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = "Hello, World incorrect!";
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -700,7 +664,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTest"
                 },
                 Expected = "Hello, World!",
@@ -710,7 +674,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -731,11 +695,11 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = 'B';
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -749,7 +713,7 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTest"
                 },
                 Expected = 'A',
@@ -759,7 +723,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -780,11 +744,14 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new TestClassResultBase
+            {
+                StringProperty = "Test String property",
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -798,17 +765,17 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest"
                 },
-                Expected = new FooExpected(),
+                Expected = new TestClassResultBase(),
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
                     Path = new[]
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -822,18 +789,21 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo(new FooExpected());
+            actual.Should().BeEquivalentTo(new TestClassResultBase());
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new TestClassResultBase
+            {
+                StringProperty = "Test String property",
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -847,12 +817,12 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest"
                 },
-                Expected = new FooExpected()
+                Expected = new TestClassResultBase()
                 {
-                    BlaProperty = "123"
+                    StringProperty = "Incorrect Test StringNullableProperty",
                 },
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
@@ -860,7 +830,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -874,18 +844,21 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo(new FooExpected() { BlaProperty = "123" });
+            actual.Should().BeEquivalentTo(new TestClassResultBase() { StringProperty = "Incorrect Test StringNullableProperty", });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTestStormPetrel()
         {
             //Act
-            var actual = TestedClass.TestedMethod1();
+            var actual = new TestClassResultBase
+            {
+                StringProperty = "Test String property",
+            };
             var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
+                ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
@@ -899,12 +872,12 @@ namespace Test.Integration.XUnit
                 ActualVariablePath = new[]
                 {
                     "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
+                    "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest"
                 },
-                Expected = new FooExpected
+                Expected = new TestClassResult
                 {
-                    BlaProperty = "123"
+                    StringProperty = "Incorrect Test StringNullableProperty",
                 },
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
@@ -912,7 +885,7 @@ namespace Test.Integration.XUnit
                     {
                         "experimental-method-body-statement-index:1",
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
+                        "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest"
                     },
                     MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
@@ -926,7 +899,7 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo(new FooExpected { BlaProperty = "123" });
+            actual.Should().BeEquivalentTo(new TestClassResult { StringProperty = "Incorrect Test StringNullableProperty", });
         }
     }
 }

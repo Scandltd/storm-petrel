@@ -41,6 +41,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("NoExpectedVarAssertTest")]
         [InlineData("NoExpectedVarAssertThatTest")]
         [InlineData("NoExpectedVarAssertMSTest")]
+        [InlineData("NoExpectedVarExpressionKindsTest")]
         [InlineData("NoExpectedVarWithOperatorsTest")]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null)
         {
