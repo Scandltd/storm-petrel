@@ -17,6 +17,7 @@
             * [xUnit assertions](#xunit-assertions)
             * [NUnit assertions](#nunit-assertions)
             * [MSTest assertions](#mstest-assertions)
+            * [Shouldly expressions](#shouldly-expressions)
             * [Custom assertions that replicate the signatures above](#custom-assertions-that-replicate-the-signatures-above)
         * [Framework specific examples](#framework-specific-examples)
             * [ASP.NET Core](#aspnet-core)
@@ -242,7 +243,7 @@ With StormPetrel, the expected variable can be entirely omitted. Instead, you ca
 Refer to the sections below for more details about supported assertions and examples of expected expressions.
 
 ##### FluentAssertions expressions
-Supported expressions include `actual.Should().Be(123);`, `actual.SomePropertyOrMethodCall.Should().Be("string value");`, and `actual.Should().BeEquivalentTo(new MyClass{...});`. See more examples in [NoExpectedVarTest](Test.Integration.XUnit/NoExpectedVarTest.cs) and [NoExpectedVarExpressionKindsTest](Test.Integration.XUnit/NoExpectedVarExpressionKindsTest.cs).
+Supported expressions include `actual.Should().Be(123);`, `actual.SomePropertyOrMethodCall.Should().Be("string value");`, and `actual.Should().BeEquivalentTo(new MyClass{...});` according to [FluentAssertions](https://fluentassertions.com/) documentation. See more examples in [NoExpectedVarTest](Test.Integration.XUnit/NoExpectedVarTest.cs) and [NoExpectedVarExpressionKindsTest](Test.Integration.XUnit/NoExpectedVarExpressionKindsTest.cs).
 
 ##### xUnit assertions
 Supported expressions include `Assert.Equal(123, actual);`, `Assert.StrictEqual("string value", actual);`, and `Assert.Equivalent("string value", actual);`. See more examples in [NoExpectedVarAssertTest](Test.Integration.XUnit/NoExpectedVarAssertTest.cs).
@@ -252,6 +253,9 @@ Supported expressions include `Assert.That(actual, Is.EqualTo(123));` and `Asser
 
 ##### MSTest assertions
 Supported expressions include `Assert.AreEqual(123, actual);`. See more examples in [NoExpectedVarAssertTest](Test.Integration.MSTest/NoExpectedVarAssertTest.cs).
+
+##### Shouldly expressions
+Supported expressions include `actual.ShouldBe(123);` according to [Shouldly](https://docs.shouldly.org/) documentation. See more examples in [NoExpectedVarShouldlyTest](Test.Integration.XUnit/NoExpectedVarShouldlyTest.cs).
 
 ##### Custom assertions that replicate the signatures above
 You can also implement and use custom assertions. Ensure they replicate the signatures of the assertions mentioned above so that StormPetrel can detect them effectively.

@@ -1,89 +1,40 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Linq;
 
 namespace Scand.StormPetrel.Generator.AssertExpressionDetector
 {
-    internal class ShouldBeDetector : AbstractDetector
+    /// <summary>
+    /// For FluentAssertions, <see cref="https://fluentassertions.com/"/>.
+    /// </summary>
+    internal class ShouldBeDetector : ShouldBeAbstractDetector
     {
-        private static readonly string[] SupportedMethodNames = new[]
+        private static readonly string[] SupportedMethodNamesStatic = new[]
         {
             "Be",
             "BeEquivalentTo",
         };
-        private static readonly string[] SupportedArgumentNames = new[]
+        private static readonly string[] SupportedArgumentNamesStatic = new[]
         {
             "expected", //for Be
             "expectation", //for BeEquivalentTo
         };
-        public override bool IsExpectedArgument(ArgumentSyntax argument, IdentifierNameSyntax actualIdentifier, out ExpressionSyntax actualExpression)
+        protected override string[] SupportedMethodNames => SupportedMethodNamesStatic;
+        protected override string[] SupportedArgumentNames => SupportedArgumentNamesStatic;
+        protected override string GetBeIdentifier(SyntaxNode node, out ExpressionSyntax expressionBeforeShould)
         {
-            actualExpression = null;
-            if (!IsAppropriateArgumentInTheList(argument, 0, SupportedArgumentNames, out var _))
-            {
-                return false;
-            }
-            var methodStatement = argument
-                                    .Ancestors()
-                                    .OfType<ExpressionStatementSyntax>()
-                                    .FirstOrDefault();
-            if (methodStatement == null)
-            {
-                return false;
-            }
-
-            MemberAccessExpressionSyntax shouldBeMemberAccess = null;
-            var shouldBeInvocation = methodStatement
-                                        .DescendantNodes()
-                                        .FirstOrDefault(x =>
-                                            HasMemberAccess(x, out shouldBeMemberAccess)
-                                                && SupportedMethodNames.Contains(shouldBeMemberAccess.Name.Identifier.Text)
-                                                && shouldBeMemberAccess.Expression is InvocationExpressionSyntax tempShouldInvocation
-                                                && GetName(tempShouldInvocation)?.Identifier.Text == "Should");
-            if (shouldBeInvocation == null)
-            {
-                return false;
-            }
-
-            var expressionBeforeShould = shouldBeMemberAccess.Expression is InvocationExpressionSyntax shouldInvocation
-                                            ? shouldInvocation.Expression is MemberAccessExpressionSyntax memberAccess
-                                                ? memberAccess.Expression
-                                                : null
-                                            : null;
-
-            ExpressionStatementSyntax newStatement = null;
-            if (expressionBeforeShould != null)
-            {
-                newStatement = methodStatement.ReplaceNode(shouldBeInvocation, expressionBeforeShould);
-            }
-            else if (shouldBeInvocation.Parent is ConditionalAccessExpressionSyntax conditional)
-            {
-                newStatement = methodStatement.ReplaceNode(conditional, conditional.Expression);
-            }
-            if (newStatement == null)
-            {
-                return false;
-            }
-            actualExpression = newStatement
-                                .Expression
-                                .WithoutLeadingTrivia()
-                                .WithoutTrailingTrivia();
-            return true;
-        }
-
-        private static bool HasMemberAccess(SyntaxNode node, out MemberAccessExpressionSyntax memberAccess)
-        {
-            memberAccess = null;
+            expressionBeforeShould = null;
             if (node is InvocationExpressionSyntax invocation
-                    && invocation.Expression is MemberAccessExpressionSyntax tmpMemberAccess)
+                    && invocation.Expression is MemberAccessExpressionSyntax memberAccess
+                    && memberAccess.Expression is InvocationExpressionSyntax shouldInvocation
+                    && GetName(shouldInvocation)?.Identifier.Text == "Should")
             {
-                memberAccess = tmpMemberAccess;
-                return true;
+                expressionBeforeShould = shouldInvocation.Expression is MemberAccessExpressionSyntax tempMemberAccess
+                                            ? tempMemberAccess.Expression
+                                            : null;
+                return memberAccess.Name.Identifier.Text;
             }
-            return false;
+            return null;
         }
-
         private static SimpleNameSyntax GetName(InvocationExpressionSyntax invocation)
         {
             if (invocation.Expression is MemberAccessExpressionSyntax memberAccess)

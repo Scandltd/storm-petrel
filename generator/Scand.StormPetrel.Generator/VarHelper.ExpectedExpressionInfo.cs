@@ -27,7 +27,8 @@ namespace Scand.StormPetrel.Generator
                     new ShouldBeDetector(),
                     new AssertEqualDetector(),
                     new AssertThatDetector(),
-                    new AssertAreEqualDetector()
+                    new AssertAreEqualDetector(),
+                    new ShouldlyDetector()
                 };
             }
             public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int index, int indexOfBodyStatement)
