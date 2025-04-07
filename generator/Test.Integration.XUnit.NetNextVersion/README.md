@@ -1,0 +1,1 @@
+This project is a clone of the `Test.Integration.XUnit` project, specifically adapted to run the tests against **.NET 9**. The tests themselves are copied from the original `Test.Integration.XUnit` project during the execution of the `build.ps1` script.

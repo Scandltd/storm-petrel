@@ -5,9 +5,9 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "To simplify test classes", Scope = "member", Target = "~P:Test.Integration.XUnit.TestClassResultBase.TestClassResultList")]
-[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "To simplify test classes", Scope = "member", Target = "~P:Test.Integration.XUnit.TestClassResultBase.TestClassResultList")]
-[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "To simplify test classes", Scope = "member", Target = "~P:Test.Integration.XUnit.TestClassResultBase.TestClassResultDict")]
+[assembly: SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "To simplify test classes", Scope = "member", Target = "~P:Test.Integration.XUnit.TestClassResult.TestClassResultList")]
+[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "To simplify test classes", Scope = "member", Target = "~P:Test.Integration.XUnit.TestClassResult.TestClassResultList")]
+[assembly: SuppressMessage("Usage", "CA2227:Collection properties should be read only", Justification = "To simplify test classes", Scope = "member", Target = "~P:Test.Integration.XUnit.TestClassResult.TestClassResultDict")]
 [assembly: SuppressMessage("Style", "IDE0074:Use compound assignment", Justification = "We use the code in projects where compound assignment is not supported", Scope = "member", Target = "~M:Test.Integration.Shared.BackupHelper.DeleteBackup(System.String,System.Action{Test.Integration.Shared.BackupHelperResult},System.String,System.Boolean)")]
 [assembly: SuppressMessage("Style", "IDE0057:Use range operator", Justification = "We use the code in projects where range operator is not supported", Scope = "member", Target = "~M:Test.Integration.Shared.BackupHelper.DeleteBackup(System.String,System.Action{Test.Integration.Shared.BackupHelperResult},System.String,System.Boolean)")]
 [assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "We use the code in projects where target-typed new expression is not supported", Scope = "member", Target = "~F:Test.Integration.Shared.BackupHelper.ClassFullNameToLock")]

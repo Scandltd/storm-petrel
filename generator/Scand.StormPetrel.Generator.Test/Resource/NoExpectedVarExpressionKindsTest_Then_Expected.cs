@@ -490,7 +490,7 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTestStormPetrel()
         {
             //Act
-            TestClassResultBase actual = new()
+            TestClassResult actual = new()
             {
                 StringNullableProperty = "Incorrect Test StringNullableProperty",
             };
@@ -514,7 +514,7 @@ namespace Test.Integration.XUnit
                     "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest"
                 },
-                Expected = (TestClassResultBase)new(),
+                Expected = (TestClassResult)new(),
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
                     Path = new[]
@@ -535,14 +535,14 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo((TestClassResultBase)new());
+            actual.Should().BeEquivalentTo((TestClassResult)new());
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTestStormPetrel()
         {
             //Act
-            TestClassResultBase actual = new()
+            TestClassResult actual = new()
             {
                 StringNullableProperty = "Incorrect Test StringNullableProperty",
             };
@@ -566,7 +566,7 @@ namespace Test.Integration.XUnit
                     "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest"
                 },
-                Expected = (TestClassResultBase)new()
+                Expected = (TestClassResult)new()
                 {
                     IntProperty = 0
                 },
@@ -590,7 +590,7 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo((TestClassResultBase)new() { IntProperty = 0 });
+            actual.Should().BeEquivalentTo((TestClassResult)new() { IntProperty = 0 });
         }
 
         [Fact]
@@ -744,7 +744,7 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTestStormPetrel()
         {
             //Act
-            var actual = new TestClassResultBase
+            var actual = new TestClassResult
             {
                 StringProperty = "Test String property",
             };
@@ -768,7 +768,7 @@ namespace Test.Integration.XUnit
                     "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest"
                 },
-                Expected = new TestClassResultBase(),
+                Expected = new TestClassResult(),
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
                     Path = new[]
@@ -789,14 +789,14 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo(new TestClassResultBase());
+            actual.Should().BeEquivalentTo(new TestClassResult());
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTestStormPetrel()
         {
             //Act
-            var actual = new TestClassResultBase
+            var actual = new TestClassResult
             {
                 StringProperty = "Test String property",
             };
@@ -820,7 +820,7 @@ namespace Test.Integration.XUnit
                     "NoExpectedVarExpressionKindsTest",
                     "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest"
                 },
-                Expected = new TestClassResultBase()
+                Expected = new TestClassResult()
                 {
                     StringProperty = "Incorrect Test StringNullableProperty",
                 },
@@ -844,14 +844,14 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().BeEquivalentTo(new TestClassResultBase() { StringProperty = "Incorrect Test StringNullableProperty", });
+            actual.Should().BeEquivalentTo(new TestClassResult() { StringProperty = "Incorrect Test StringNullableProperty", });
         }
 
         [Fact]
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTestStormPetrel()
         {
             //Act
-            var actual = new TestClassResultBase
+            var actual = new TestClassResult
             {
                 StringProperty = "Test String property",
             };

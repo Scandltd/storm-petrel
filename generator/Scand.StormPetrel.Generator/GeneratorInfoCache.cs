@@ -23,6 +23,7 @@ namespace Scand.StormPetrel.Generator
         private static readonly ConcurrentDictionary<string, Info> ProjectRootDirToInfo = new ConcurrentDictionary<string, Info>();
 
         private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions { ReadCommentHandling = JsonCommentHandling.Skip };
+        private static readonly char[] PossiblePathSeparators = new[] { '/', '\\' };
 
         public static (MainConfig MainConfig, ILogger Logger) Get(AdditionalText configAdditionalText, string filePath, bool reinit = false)
         {
@@ -99,7 +100,9 @@ namespace Scand.StormPetrel.Generator
         {
             var rootDir = ProjectRootDirToInfo
                                 .Keys
-                                .Where(x => filePath.StartsWith(x, StringComparison.OrdinalIgnoreCase))
+                                .Where(x => filePath.StartsWith(x, StringComparison.OrdinalIgnoreCase)
+                                                && filePath.Length > x.Length
+                                                && Array.IndexOf(PossiblePathSeparators, filePath[x.Length]) > -1)
                                 .FirstOrDefault();
             return rootDir;
         }

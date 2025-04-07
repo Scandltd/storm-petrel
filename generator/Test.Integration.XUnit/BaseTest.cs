@@ -22,7 +22,7 @@ namespace Test.Integration.XUnit
         public void TestClassResultMethod()
         {
             //Arrange
-            var expected = new TestClassResult
+            var expected = new TestClassResultWithIgnorable
             {
                 StringProperty = "Test StringProperty Incorrect",
                 StringPropertyIgnored = "MUST be removed while StormPetrel test execution because the property is configured to be ignored",
@@ -81,7 +81,7 @@ namespace Test.Integration.XUnit
             };
 
             //Act
-            var actual = TestedClass.TestedClassResultMethod();
+            var actual = TestedClass.TestedClassResultMethodWithIgnorable();
 
             //Assert
             actual.Should().BeEquivalentTo(expected, config => config.Excluding(x => x.StringPropertyIgnored));
@@ -327,13 +327,15 @@ namespace Test.Integration.XUnit
             return 100;
         }
 
-        public static TestClassResult TestedClassResultMethod()
+        public static TestClassResult TestedClassResultMethod() => TestedClassResultMethod<TestClassResult>();
+
+        public static TestClassResultWithIgnorable TestedClassResultMethodWithIgnorable() => TestedClassResultMethod<TestClassResultWithIgnorable>();
+        private static T TestedClassResultMethod<T>() where T : TestClassResult, new()
         {
-            return new TestClassResult()
+            return new T()
             {
                 StringNullableProperty = "Test StringNullableProperty",
                 StringProperty = "Test StringProperty",
-                StringPropertyIgnored = "Some value. You MUST not see this text except in this code line",
                 IntProperty = 1,
                 IntNullableProperty = 3,
                 EnumProperty = TestProperty.One,
@@ -391,7 +393,7 @@ namespace Test.Integration.XUnit
         public static int ReturnInput(int input) => input;
     }
 
-    public class TestClassResultBase
+    public class TestClassResult
     {
         public string StringProperty { get; set; } = string.Empty;
         public string? StringNullableProperty { get; set; }
@@ -412,9 +414,12 @@ namespace Test.Integration.XUnit
         public Dictionary<string, TestClassResult>? TestClassResultDict { get; set; }
     }
 
-    public class TestClassResult: TestClassResultBase
+    public class TestClassResultWithIgnorable : TestClassResult
     {
-        public string? StringPropertyIgnored { get; set; }
+        /// <summary>
+        /// Always vary this property value to easily detect "ignore mechanism" failure.
+        /// </summary>
+        public string? StringPropertyIgnored { get; set; } = Guid.NewGuid().ToString();
     }
 
     [Flags]

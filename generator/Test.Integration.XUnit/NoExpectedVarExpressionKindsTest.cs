@@ -122,25 +122,25 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest()
         {
             //Act
-            TestClassResultBase actual = new()
+            TestClassResult actual = new()
             {
                 StringNullableProperty = "Incorrect Test StringNullableProperty",
             };
 
             //Assert
-            actual.Should().BeEquivalentTo((TestClassResultBase)new());
+            actual.Should().BeEquivalentTo((TestClassResult)new());
         }
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest()
         {
             //Act
-            TestClassResultBase actual = new()
+            TestClassResult actual = new()
             {
                 StringNullableProperty = "Incorrect Test StringNullableProperty",
             };
 
             //Assert
-            actual.Should().BeEquivalentTo((TestClassResultBase)new()
+            actual.Should().BeEquivalentTo((TestClassResult)new()
             {
                 IntProperty = 0
             });
@@ -178,7 +178,7 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest()
         {
             //Act
-            var actual = new TestClassResultBase
+            var actual = new TestClassResult
             {
                 StringProperty = "Test String property",
             };
@@ -187,19 +187,19 @@ namespace Test.Integration.XUnit
             actual
                 .Should()
                 .BeEquivalentTo(
-                    new TestClassResultBase());
+                    new TestClassResult());
         }
         [Fact]
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest()
         {
             //Act
-            var actual = new TestClassResultBase
+            var actual = new TestClassResult
             {
                 StringProperty = "Test String property",
             };
 
             //Assert
-            actual.Should().BeEquivalentTo(new TestClassResultBase()
+            actual.Should().BeEquivalentTo(new TestClassResult()
             {
                 StringProperty = "Incorrect Test StringNullableProperty",
             });
@@ -208,7 +208,7 @@ namespace Test.Integration.XUnit
         public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest()
         {
             //Act
-            var actual = new TestClassResultBase
+            var actual = new TestClassResult
             {
                 StringProperty = "Test String property",
             };

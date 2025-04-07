@@ -39,7 +39,7 @@ Rewrites expected baseline files as demonstrated by [CalculatorSnapshotTest](Tes
 Initial baseline files like [AddTest.json](Test.Integration.DefaultConfiguration/CalculatorSnapshotTest.Expected/AddTest.json) must exist before StormPetrel auto-generated tests and their origin tests execution because the default [appsettings.StormPetrel.json](Test.Integration.DefaultConfiguration/appsettings.StormPetrel.json) does not specify snapshot file extensions.
 
 #### Default Configuration With Custom Options
-Similar to the Default Configuration, but explicitly specifies the `json` extension and custom baseline file structure on test assembly initialization in [ModuleInitializer](Test.Integration.DefaultConfigurationWithCustomOptions/ModuleInitializer.cs). Initial baseline files may not exist before StormPetrel auto-generated tests and their origin tests execution in this case.
+Similar to the Default Configuration, but explicitly specifies the `json` extension and custom baseline file structure on test assembly initialization in [ModuleInitializer](Test.Integration.DefaultConfigurationWithCustomOptions/ModuleInitializer.cs). Initial baseline files may not exist before StormPetrel auto-generated tests and their origin tests execution in this case. The [ModuleInitializer](Test.Integration.DefaultConfigurationWithCustomOptions/ModuleInitializer.cs) also provides a multi-target configuration example (.NET 8 and .NET 9) for cases requiring distinct file snapshots per target framework.
 
 #### Custom Configuration
 Rewrites expected baseline files as demonstrated by [CalculatorSnapshotTest](Test.Integration.CustomConfiguration/CalculatorSnapshotTest.cs) against a custom baseline file structure.

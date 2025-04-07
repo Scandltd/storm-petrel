@@ -553,7 +553,7 @@ namespace Test.Integration.XUnit
                     "AssertionNoExpectedVarTest",
                     "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest"
                 },
-                Expected = (TestClassResultBase)new(),
+                Expected = (TestClassResult)new(),
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
                 {
                     Path = new[]
@@ -574,7 +574,7 @@ namespace Test.Integration.XUnit
             };
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
-            actual.Should().Be((TestClassResultBase)new());
+            actual.Should().Be((TestClassResult)new());
         }
 
         [Fact]

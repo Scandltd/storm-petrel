@@ -1,20 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.StormPetrel.json" />
-  </ItemGroup>
+  <PropertyGroup>
+    <AnalysisMode>All</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>xUnit1013</NoWarn>
+  </PropertyGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="appsettings.StormPetrel.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Test.Integration.XUnit\Utils.cs" Link="Utils.cs" />
+    <Compile Include="..\Test.Integration.XUnit\Utils.IgnoredMembersMiddleware.cs" Link="Utils.IgnoredMembersMiddleware.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,10 +33,9 @@
     <PackageReference Include="FluentAssertions" Version="8.2.0" />
     <PackageReference Include="JunitXml.TestLogger" Version="6.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.0.0" />
-    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.2" />
-    <PackageReference Include="SkiaSharp" Version="3.116.1" />
-    <PackageReference Include="System.Text.Json" Version="9.0.3" />
+    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.2.1" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="VarDump" Version="1.0.5.17" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
       <PrivateAssets>all</PrivateAssets>

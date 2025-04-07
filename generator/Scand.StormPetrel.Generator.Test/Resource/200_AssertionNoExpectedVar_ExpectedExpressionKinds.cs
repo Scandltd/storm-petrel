@@ -129,7 +129,7 @@ namespace Test.Integration.XUnit
             var actual = TestedClass.TestedMethod1();
 
             //Assert
-            actual.Should().Be((TestClassResultBase)new());
+            actual.Should().Be((TestClassResult)new());
         }
         [Fact]
         public void ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest()

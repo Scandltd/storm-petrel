@@ -39,10 +39,10 @@ public class NoExpectedVarTest
     public void ShouldBeWhenObjectCreationExpressionAndMultipleNamedArgsTest()
     {
         //Act
-        var actualVar = TestedClass.TestedClassResultMethod();
+        var actualVar = TestedClass.TestedClassResultMethodWithIgnorable();
 
         //Assert
-        actualVar.Should().BeEquivalentTo(because: "some explanation", expectation: new TestClassResult()
+        actualVar.Should().BeEquivalentTo(because: "some explanation", expectation: new TestClassResultWithIgnorable()
         {
             StringNullableProperty = "Incorrect Test StringNullableProperty",
             DateTimeProperty = DateTime.ParseExact("2024-05-20T10:05:15.0000000", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)

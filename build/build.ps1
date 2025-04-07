@@ -154,6 +154,28 @@ function StopDotnetProcess {
     }
 }
 
+function Recursively-Copy-Cs-Files {
+    param (
+        $SourceDirPath,
+        $DestinationDirPath,
+        [array]$IgnoreFileNames
+    )
+
+    Get-ChildItem -Path $SourceDirPath -Recurse -Filter *.cs |
+        Where-Object { $IgnoreFileNames -notcontains $_.Name } |
+        ForEach-Object {
+            $targetPath = $_.FullName.Replace($SourceDirPath, $DestinationDirPath)
+            if ($isWin) {
+                $targetPath = $targetPath.Replace($SourceDirPath.Replace("/", "\"), $DestinationDirPath)
+            }
+            $targetDir = Split-Path -Path $targetPath -Parent
+            if (-not (Test-Path -Path $targetDir)) {
+                New-Item -Path $targetDir -ItemType Directory -ErrorAction Stop | Out-Null
+            }
+            Copy-Item -Path $_.FullName -Destination $targetPath -ErrorAction Stop
+        }
+}
+
 ClearPackageCache "scand.stormpetrel.generator.abstraction"
 if (-not $SkipAbstraction) {
     BuildPackage "abstraction" "Scand.StormPetrel.Generator.Abstraction/Scand.StormPetrel.Generator.Abstraction.csproj"
@@ -193,6 +215,8 @@ if (-not $SkipGeneratorTest) {
         Set-Content -Path "generator/$solutionFileName" -Value $content
     }
 
+    #Copy *.cs files to execute integration tests under next version of .NET
+    Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnit.NetNextVersion" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs"
     RunIntegrationTests "generator" $solutionFileName
 }
 

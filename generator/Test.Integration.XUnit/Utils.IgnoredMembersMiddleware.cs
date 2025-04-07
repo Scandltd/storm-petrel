@@ -9,10 +9,10 @@ namespace Test.Integration.XUnit
             private readonly Dictionary<string, HashSet<string>> _typeToExcludeMemberNames = new()
             {
                 {
-                    typeof(TestClassResult).FullName ?? throw new InvalidOperationException(),
+                    "Test.Integration.XUnit.TestClassResultWithIgnorable",
                     new HashSet<string>
                     {
-                        nameof(TestClassResult.StringPropertyIgnored)
+                        "StringPropertyIgnored",
                     }
                 },
             };
