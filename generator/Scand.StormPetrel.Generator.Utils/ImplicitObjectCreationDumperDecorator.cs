@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Generator.Abstraction;
+using System.Linq;
 
 namespace Scand.StormPetrel.Generator.Utils
 {
@@ -11,22 +10,13 @@ namespace Scand.StormPetrel.Generator.Utils
     /// Decorates input <see cref="IGeneratorDumper"/> with <see cref="ImplicitObjectCreationExpressionSyntax"/> nodes
     /// where possible.
     /// </summary>
-    public sealed class ImplicitObjectCreationDumperDecorator : IGeneratorDumper
+    public sealed class ImplicitObjectCreationDumperDecorator : AbstractDumperDecorator
     {
-        private readonly IGeneratorDumper _dumper;
-
-        public ImplicitObjectCreationDumperDecorator(IGeneratorDumper dumper)
+        public ImplicitObjectCreationDumperDecorator(IGeneratorDumper dumper) : base(dumper)
         {
-            _dumper = dumper;
         }
-
-        public string Dump(GenerationDumpContext generationDumpContext)
-        {
-            string dump = _dumper.Dump(generationDumpContext);
-            var rootNode = CSharpSyntaxTree.ParseText(dump).GetRoot();
-            rootNode = DecorateByImplicitObjectCreationExpression(rootNode);
-            return rootNode.ToFullString();
-        }
+        private protected override SyntaxNode DumpImplementation(SyntaxNode node)
+            => DecorateByImplicitObjectCreationExpression(node);
 
         public static SyntaxNode DecorateByImplicitObjectCreationExpression(SyntaxNode node)
         {

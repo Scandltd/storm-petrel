@@ -12,22 +12,13 @@ namespace Scand.StormPetrel.Generator.Utils
     /// Decorates input <see cref="IGeneratorDumper"/> with <see cref="CollectionExpressionSyntax"/> nodes
     /// where possible.
     /// </summary>
-    public sealed class CollectionExpressionDumperDecorator : IGeneratorDumper
+    public sealed class CollectionExpressionDumperDecorator : AbstractDumperDecorator
     {
-        private readonly IGeneratorDumper _dumper;
-
-        public CollectionExpressionDumperDecorator(IGeneratorDumper dumper)
+        public CollectionExpressionDumperDecorator(IGeneratorDumper dumper) : base(dumper)
         {
-            _dumper = dumper;
         }
-
-        public string Dump(GenerationDumpContext generationDumpContext)
-        {
-            string dump = _dumper.Dump(generationDumpContext);
-            var rootNode = CSharpSyntaxTree.ParseText(dump).GetRoot();
-            rootNode = DecorateByCollectionExpression(rootNode);
-            return rootNode.ToFullString();
-        }
+        private protected override SyntaxNode DumpImplementation(SyntaxNode node)
+            => DecorateByCollectionExpression(node);
 
         public static IEnumerable<string> DefaultFullSupportCollections = new string[]
         {

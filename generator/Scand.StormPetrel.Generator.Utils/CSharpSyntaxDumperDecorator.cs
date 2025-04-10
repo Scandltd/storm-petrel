@@ -11,22 +11,31 @@ namespace Scand.StormPetrel.Generator.Utils
     {
         private readonly IGeneratorDumper _dumper;
         private readonly bool _applyCollectionExpression;
+        private readonly RemoveAssignmentDumperDecorator _removeAssignmentDumperDecorator;
 
         /// <summary>
         /// Creates new instance of <see cref="CSharpSyntaxDumperDecorator"/>.
         /// </summary>
         /// <param name="dumper">Input instance to be decorated.</param>
         /// <param name="decorateByCollectionExpression">Indicates should <see cref="CollectionExpressionDumperDecorator.DecorateByCollectionExpression"/> be applied or not.</param>
-        public CSharpSyntaxDumperDecorator(IGeneratorDumper dumper, bool decorateByCollectionExpression = true)
+        /// <param name="removeAssignmentDumperDecorator">An instance to apply decorations of <see cref="RemoveAssignmentDumperDecorator"/>.</param>
+        public CSharpSyntaxDumperDecorator(IGeneratorDumper dumper,
+            bool decorateByCollectionExpression = true,
+            RemoveAssignmentDumperDecorator removeAssignmentDumperDecorator = null)
         {
             _dumper = dumper;
             _applyCollectionExpression = decorateByCollectionExpression;
+            _removeAssignmentDumperDecorator = removeAssignmentDumperDecorator;
         }
 
         public string Dump(GenerationDumpContext generationDumpContext)
         {
             string dump = _dumper.Dump(generationDumpContext);
             var rootNode = CSharpSyntaxTree.ParseText(dump).GetRoot();
+            if (_removeAssignmentDumperDecorator != null)
+            {
+                rootNode = _removeAssignmentDumperDecorator.DecorateByRemoveAssignment(rootNode);
+            }
             if (_applyCollectionExpression)
             {
                 rootNode = CollectionExpressionDumperDecorator.DecorateByCollectionExpression(rootNode);

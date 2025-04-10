@@ -226,7 +226,8 @@ HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code
 #### Expected expression decorators
 Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate expressions with
 * Collection initializer;
-* Implicit object creation.
+* Implicit object creation;
+* Removal of property or field assignments.
 
 #### Expected expression is inlined within an assertion
 

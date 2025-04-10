@@ -1,7 +1,8 @@
-using System.Reflection;
 using FluentAssertions;
 using NSubstitute;
 using Scand.StormPetrel.Generator.Abstraction;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Scand.StormPetrel.Generator.Utils.Test;
 
@@ -9,6 +10,10 @@ public class MainTest
 {
     private readonly GenerationDumpContext _generationDumpContext = new() { Value = new GenerationContext() };
     private readonly IGeneratorDumper _generatorDumper = Substitute.For<IGeneratorDumper>();
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        ReadCommentHandling = JsonCommentHandling.Skip,
+    };
 
     [Theory]
     [InlineData("010_ImplicitArrayCreation")]
@@ -35,6 +40,23 @@ public class MainTest
     [InlineData("220_Trivia")]
     [InlineData("230_ImplicitObjectCreation", nameof(ImplicitObjectCreationDumperDecorator))]
     public async Task SourceGeneratorTest(string inputReplacementCodeResourceName, string decorator = nameof(CollectionExpressionDumperDecorator))
+        => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName, decorator == nameof(CollectionExpressionDumperDecorator)
+                                                                                        ? new CollectionExpressionDumperDecorator(_generatorDumper)
+                                                                                        : new ImplicitObjectCreationDumperDecorator(_generatorDumper));
+    [Theory]
+    [InlineData("240_RemoveAssignmentDumperDecorator_Base", @"{
+  ""FooClass"": [""DoubleProperty"", ""IntProperty"", ""StringProperty"", ""StringPropertyMultiline"", ""StringPropertyWithComments"", ""NestedObjectProperty"", ""DateTimeProperty"", ""TargetTypedNewObject"", ""LatestPropertyWithoutComma""],
+  ""NestedObject"": [""IntProperty"", ""StringProperty""],
+  ""MyNamespace.MySubspace.NestedObject"": [""IntProperty"", ""NestedAnonymousObjectPropertyOneMoreLevel""],
+  //For Anonymous or target-typed objects
+  """": [""IntProperty"", ""StringProperty"", ""RemovedFromAnyParent""]
+}")]
+    public async Task RemoveAssignmentDumperDecoratorTest(string inputReplacementCodeResourceName, string dictionarySerialized)
+        => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName,
+                                                    new RemoveAssignmentDumperDecorator(_generatorDumper,
+                                                        JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(dictionarySerialized, JsonOptions)));
+
+    private async Task SourceGeneratorTestImplementation(string inputReplacementCodeResourceName, IGeneratorDumper dumper)
     {
         //Arrange
         var assembly = Assembly.GetAssembly(typeof(MainTest));
@@ -47,11 +69,7 @@ public class MainTest
             .Returns(inputCode);
 
         //Act
-        IGeneratorDumper collectionExpressionDumper = decorator == nameof(CollectionExpressionDumperDecorator)
-            ? new CollectionExpressionDumperDecorator(_generatorDumper)
-            : new ImplicitObjectCreationDumperDecorator(_generatorDumper);
-
-        string? actual = collectionExpressionDumper.Dump(_generationDumpContext);
+        string? actual = dumper.Dump(_generationDumpContext);
 
         actual = NormalizeLineEndings(actual);
         if (expectedResourceFileName != null)
@@ -62,7 +80,7 @@ public class MainTest
         actual.Should().Be(expectedCode);
     }
 
-    static async Task<string> ReadResourceAsync(Assembly assembly, string resourceFileName)
+    private static async Task<string> ReadResourceAsync(Assembly assembly, string resourceFileName)
     {
         using var stream = assembly.GetManifestResourceStream(typeof(MainTest), $"Resource.{resourceFileName}");
         ArgumentNullException.ThrowIfNull(stream, nameof(stream));
