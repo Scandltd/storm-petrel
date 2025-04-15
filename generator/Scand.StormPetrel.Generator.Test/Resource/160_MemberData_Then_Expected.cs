@@ -49,13 +49,38 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data)))
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
                 {
+                    stormPetrelIsTestCaseSourceRowExist = true;
                     break;
                 }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data)))
+                {
+                    if (x == (int)stormPetrelRow[0])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (y == (int)stormPetrelRow[1])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -128,13 +153,38 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeNameSpace.SomeType), nameof(Data)))
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
                 {
+                    stormPetrelIsTestCaseSourceRowExist = true;
                     break;
                 }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeNameSpace.SomeType), nameof(Data)))
+                {
+                    if (x == (int)stormPetrelRow[0])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (y == (int)stormPetrelRow[1])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -207,13 +257,38 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
                 {
+                    stormPetrelIsTestCaseSourceRowExist = true;
                     break;
                 }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
+                {
+                    if (x == (int)stormPetrelRow[0])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (y == (int)stormPetrelRow[1])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -286,13 +361,38 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
                 {
+                    stormPetrelIsTestCaseSourceRowExist = true;
                     break;
                 }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
+                {
+                    if (x == (int)stormPetrelRow[0])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (y == (int)stormPetrelRow[1])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -365,13 +465,38 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data), 1, "string param", new object[] { 1, 2, 3 }))
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
                 {
+                    stormPetrelIsTestCaseSourceRowExist = true;
                     break;
                 }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data), 1, "string param", new object[] { 1, 2, 3 }))
+                {
+                    if (x == (int)stormPetrelRow[0])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (y == (int)stormPetrelRow[1])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -444,13 +569,38 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
             foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters), 3))
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
                 {
+                    stormPetrelIsTestCaseSourceRowExist = true;
                     break;
                 }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters), 3))
+                {
+                    if (x == (int)stormPetrelRow[0])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (y == (int)stormPetrelRow[1])
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()

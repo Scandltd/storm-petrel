@@ -159,21 +159,38 @@ namespace Scand.StormPetrel.Generator
             }
             else if (info.ExpectedVarExtraContextInternal is TestCaseSourceContextInternal testCaseSourceContext)
             {
-                var breakCondition = string.Join(" && ", testCaseSourceContext
-                                                            .NonExpectedParameterNames
-                                                            .Select((x, i) => x + " == (" + testCaseSourceContext.NonExpectedParameterTypes[i] + ") stormPetrelRow[" + i + "]"));
-                var stormPetrelTestCaseSourceRowIndexVarName = GetBlockIndexVarName("stormPetrelTestCaseSourceRowIndex");
+                var breakConditions = testCaseSourceContext
+                                        .NonExpectedParameterNames
+                                        .Select((x, i) => (Name: x, Condition: $"{x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}]"))
+                                        .ToArray();
+                var breakCondition = string.Join(" && ", breakConditions.Select(x => x.Condition));
+                var noEqualArgNames = GetBlockIndexVarName("stormPetrelNoEqualArgNames");
+                var noEqualArgNamesInit = string.Join(", ", breakConditions.Select(x => $"\"{x.Name}\""));
+                var detectNoEqualArgNamesCondition = string.Join("\n", breakConditions.Select(x => $"            if ({x.Condition}) {{ {noEqualArgNames}.Remove(\"{x.Name}\"); }}"));
+                var testCaseSourceRowIndexVarName = GetBlockIndexVarName("stormPetrelTestCaseSourceRowIndex");
+                var isTestCaseSourceRowExistVarName = GetBlockIndexVarName("stormPetrelIsTestCaseSourceRowExist");
                 var newCode = @"
 private static void TempMethod()
 {
-    var " + stormPetrelTestCaseSourceRowIndexVarName + @" = -1;
+    var " + testCaseSourceRowIndexVarName + @" = -1;
+    var " + isTestCaseSourceRowExistVarName + @" = false;
     foreach (var stormPetrelRow in " + testCaseSourceContext.TestCaseSourceExpression + @")
     {
-        " + stormPetrelTestCaseSourceRowIndexVarName + @"++;
+        " + testCaseSourceRowIndexVarName + @"++;
         if (" + breakCondition + @")
         {
+            " + isTestCaseSourceRowExistVarName + @" = true;
             break;
         }
+    }
+    if (!" + isTestCaseSourceRowExistVarName + @")
+    {
+        var " + noEqualArgNames + @" = new System.Collections.Generic.List<string>(){ "+ noEqualArgNamesInit + @" };
+        foreach (var stormPetrelRow in " + testCaseSourceContext.TestCaseSourceExpression + @")
+        {
+            " + detectNoEqualArgNamesCondition + @"
+        }
+        throw new System.InvalidOperationException(""Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '"" + string.Join(""', '"", " + noEqualArgNames + @") + ""' argument(s)."");
     }
 }
 ";
@@ -198,7 +215,7 @@ private static void TempMethod()
                                             SyntaxKind.NumericLiteralExpression,
                                             SyntaxFactory.Literal(testCaseSourceContext.PartialExtraContext.ColumnIndex)
                                 )),
-                                GetPropertyAssignment(nameof(TestCaseSourceContext.RowIndex), SyntaxFactory.IdentifierName(stormPetrelTestCaseSourceRowIndexVarName)),
+                                GetPropertyAssignment(nameof(TestCaseSourceContext.RowIndex), SyntaxFactory.IdentifierName(testCaseSourceRowIndexVarName)),
                                 GetPropertyAssignment(nameof(TestCaseSourceContext.Path), SyntaxFactory.ParseExpression(testCaseSourceContext.TestCaseSourcePathExpression)),
                             }
                         )

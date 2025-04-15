@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using System.Reflection;
 
 namespace Test.Integration.XUnit
 {
@@ -80,6 +81,40 @@ namespace Test.Integration.XUnit
             actualHexString.Should().Be(expectedHexString);
         }
 
+        [Fact]
+        public void WhenTheoryDataWithClassWithoutProperEqualityOperator()
+        {
+            //Arrange
+            var isStormPetrelTest = GetType().Name.EndsWith("StormPetrel", StringComparison.Ordinal);
+            if (!isStormPetrelTest)
+            {
+                //Nothing to assert if not StormPetrel test class
+                return;
+            }
+            var stormPetrelTestMethod = GetType()
+                                            .GetMethod("WhenTheoryDataWithClassWithoutProperEqualityOperatorThrowingTheExceptionStormPetrel");
+            ArgumentNullException.ThrowIfNull(stormPetrelTestMethod);
+            //Act
+            //Intentionally avoid "actual" name to not rewrite the baseline because we explicitely assert the message
+            var resultEx = Assert.Throws<TargetInvocationException>(() => stormPetrelTestMethod.Invoke(null, [new AddResult(), new AddResult()]));
+            //Assert
+            resultEx.InnerException.Should().BeOfType<InvalidOperationException>();
+            resultEx.InnerException.Message.Should().Be("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of 'someArgWithoutProperEqualityOperator' argument(s).");
+        }
+
+        [Theory(Skip = "The test does not correspond normal build flow. However, we have to mark the method by Theory attribute to have StormPetrel method generated")]
+#pragma warning disable xUnit1045 //Justification: Intentionally test AddResult as non-serializable
+        [MemberData(nameof(TheoryDataWithClassWithoutProperEqualityOperator))]
+#pragma warning restore xUnit1045
+        public static void WhenTheoryDataWithClassWithoutProperEqualityOperatorThrowingTheException(AddResult someArgWithoutProperEqualityOperator, AddResult expected)
+        {
+            //Arrange
+            //Act
+            var actual = someArgWithoutProperEqualityOperator; //emulate an action
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
+
         public static IEnumerable<object[]> DataMethod() =>
         [
             [1, 2, new AddResult()],
@@ -137,6 +172,12 @@ namespace Test.Integration.XUnit
             { -2, 2, 0, "0x0" },
             { int.MinValue, -1, -100, "0x0" },
             { -4, -6, +50, "0x0" },
+        };
+
+        public static TheoryData<AddResult, AddResult> TheoryDataWithClassWithoutProperEqualityOperator =>
+        new()
+        {
+            { new AddResult(), new AddResult() },
         };
     }
 }
