@@ -1,6 +1,7 @@
 using FluentAssertions;
 using NSubstitute;
 using Scand.StormPetrel.Generator.Abstraction;
+using Scand.StormPetrel.Generator.Utils.DumperDecorator;
 using System.Reflection;
 using System.Text.Json;
 
@@ -55,6 +56,55 @@ public class MainTest
         => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName,
                                                     new RemoveAssignmentDumperDecorator(_generatorDumper,
                                                         JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(dictionarySerialized, JsonOptions)));
+
+    [Theory]
+    [InlineData("250_LiteralExpressionDumperDecorator", @"{
+  ""FooClass"": [""DoubleProperty"" /*to assert no failure for double*/, ""NoCharsToEscape"", ""NoCharsToEscapeButVerbatimToken"", ""LessThanThreeCharsButDoubleQuote"", ""MoreThanTwoCharsWithDoubleQuote"", ""MultilineWithSlashNforAnyObject"", ""MultilineWithSlashR"", ""WithCommentsAndDoubleQuote""],
+  ""NestedObject"": [""MultilineWithSlashNforNestedObject"", ""MultilineWithSlashNforAnyObject""],
+  ""MyNamespace.MySubspace.NestedObject"": [""MultilineWithSlashNforFullNameNestedObject"", ""MultilineWithSlashNforAnyObject""],
+  //For Anonymous or target-typed objects
+  """": [""IntProperty"" /*to assert no failure for int*/, ""MultilineWithSlashNforAnyObject"", ""NestedObjectProperty"" /*to assert no failure for nested*/]
+}")]
+    [InlineData("255_LiteralExpressionDumperDecorator_ExtraCases", @"{
+  //For root and other strings
+  """": [""""]
+}", true, 0)]
+    [InlineData("260_LiteralExpressionDumperDecorator_RootString", @"{
+  """": [""""]
+}")]
+    [InlineData("265_LiteralExpressionDumperDecorator_RootStringUnescaped", @"{
+  """": [""""]
+}", true, 30)]
+    [InlineData("270_LiteralExpressionDumperDecorator_NumberToHex", "", false)]
+    [InlineData("275_LiteralExpressionDumperDecorator_NumberToHex_RootNumber", "", false)]
+    public async Task LiteralExpressionDumperDecoratorTest(string inputReplacementCodeResourceName, string verbatimStringConfigSerialized, bool useGetVerbatimStringDecoratingFunc = true, int maxPreservedStringLength = 2)
+        => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName,
+                                                    useGetVerbatimStringDecoratingFunc
+                                                        ? new LiteralExpressionDumperDecorator(_generatorDumper,
+                                                            JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(verbatimStringConfigSerialized, JsonOptions),
+                                                            maxPreservedStringLength)
+                                                        : new LiteralExpressionDumperDecorator(_generatorDumper, LiteralExpressionDumperDecorator.GetNumberToHexDecoratingFunc()));
+
+    [Theory]
+    [InlineData("280_CSharpSyntaxDumperDecorator", false)]
+    [InlineData("285_CSharpSyntaxDumperDecorator_NoChange", true)]
+    public async Task CSharpSyntaxDumperDecoratorTest(string inputReplacementCodeResourceName, bool skipAllDecorations)
+    {
+        //Arrange
+        CSharpSyntaxDumperDecorator decorator = skipAllDecorations
+            ? new(_generatorDumper, false)
+            : new(
+                _generatorDumper,
+                true,
+                new RemoveAssignmentDumperDecorator(_generatorDumper, new Dictionary<string, IEnumerable<string>>
+                {
+                    { "FooClass", ["ToRemove"] },
+                }),
+                new LiteralExpressionDumperDecorator(_generatorDumper, LiteralExpressionDumperDecorator.GetNumberToHexDecoratingFunc()));
+        //Act, Assert
+        await SourceGeneratorTestImplementation(inputReplacementCodeResourceName, decorator);
+
+    }
 
     private async Task SourceGeneratorTestImplementation(string inputReplacementCodeResourceName, IGeneratorDumper dumper)
     {

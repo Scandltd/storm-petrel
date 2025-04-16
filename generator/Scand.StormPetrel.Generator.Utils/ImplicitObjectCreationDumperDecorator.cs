@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Generator.Abstraction;
+using Scand.StormPetrel.Generator.Utils.DumperDecorator;
 using System.Linq;
 
 namespace Scand.StormPetrel.Generator.Utils
@@ -15,7 +16,7 @@ namespace Scand.StormPetrel.Generator.Utils
         public ImplicitObjectCreationDumperDecorator(IGeneratorDumper dumper) : base(dumper)
         {
         }
-        private protected override SyntaxNode DumpImplementation(SyntaxNode node)
+        protected override SyntaxNode DumpImplementation(SyntaxNode node)
             => DecorateByImplicitObjectCreationExpression(node);
 
         public static SyntaxNode DecorateByImplicitObjectCreationExpression(SyntaxNode node)

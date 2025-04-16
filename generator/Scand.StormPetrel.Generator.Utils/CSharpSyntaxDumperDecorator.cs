@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using Scand.StormPetrel.Generator.Abstraction;
+using Scand.StormPetrel.Generator.Utils.DumperDecorator;
 
 namespace Scand.StormPetrel.Generator.Utils
 {
@@ -12,6 +13,7 @@ namespace Scand.StormPetrel.Generator.Utils
         private readonly IGeneratorDumper _dumper;
         private readonly bool _applyCollectionExpression;
         private readonly RemoveAssignmentDumperDecorator _removeAssignmentDumperDecorator;
+        private readonly LiteralExpressionDumperDecorator _literalExpressionDumperDecorator;
 
         /// <summary>
         /// Creates new instance of <see cref="CSharpSyntaxDumperDecorator"/>.
@@ -19,13 +21,16 @@ namespace Scand.StormPetrel.Generator.Utils
         /// <param name="dumper">Input instance to be decorated.</param>
         /// <param name="decorateByCollectionExpression">Indicates should <see cref="CollectionExpressionDumperDecorator.DecorateByCollectionExpression"/> be applied or not.</param>
         /// <param name="removeAssignmentDumperDecorator">An instance to apply decorations of <see cref="RemoveAssignmentDumperDecorator"/>.</param>
+        /// <param name="literalExpressionDumperDecorator">An instance to apply decorations of <see cref="LiteralExpressionDumperDecorator"/>.</param>
         public CSharpSyntaxDumperDecorator(IGeneratorDumper dumper,
             bool decorateByCollectionExpression = true,
-            RemoveAssignmentDumperDecorator removeAssignmentDumperDecorator = null)
+            RemoveAssignmentDumperDecorator removeAssignmentDumperDecorator = null,
+            LiteralExpressionDumperDecorator literalExpressionDumperDecorator = null)
         {
             _dumper = dumper;
             _applyCollectionExpression = decorateByCollectionExpression;
             _removeAssignmentDumperDecorator = removeAssignmentDumperDecorator;
+            _literalExpressionDumperDecorator = literalExpressionDumperDecorator;
         }
 
         public string Dump(GenerationDumpContext generationDumpContext)
@@ -35,6 +40,10 @@ namespace Scand.StormPetrel.Generator.Utils
             if (_removeAssignmentDumperDecorator != null)
             {
                 rootNode = _removeAssignmentDumperDecorator.DecorateByRemoveAssignment(rootNode);
+            }
+            if (_literalExpressionDumperDecorator != null)
+            {
+                rootNode = _literalExpressionDumperDecorator.Decorate(rootNode);
             }
             if (_applyCollectionExpression)
             {

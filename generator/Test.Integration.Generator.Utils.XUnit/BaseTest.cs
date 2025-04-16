@@ -45,6 +45,8 @@ namespace Test.Integration.Generator.Utils.XUnit
             {
                 Values = [result],
                 ValueAsHexString = "0x" + result.ToString("x", CultureInfo.InvariantCulture),
+                //2 lines x 100 times repeated result
+                ValueAsVerbatimString = string.Join("\r\n", Enumerable.Repeat(string.Join(", ", Enumerable.Repeat(result, 100)), 2)),
                 Result = new()
                 {
                     Sum = result,
@@ -58,6 +60,7 @@ namespace Test.Integration.Generator.Utils.XUnit
     {
         public List<int> Values { get; set; } = [];
         public string ValueAsHexString { get; set; } = string.Empty;
+        public string ValueAsVerbatimString { get; set; } = string.Empty;
         public string[] Hashes { get; set; } = [];
         public object SomeObject { get; set; } = new();
         public CalculatorResult? Result { get; set; }

@@ -12,6 +12,10 @@
             * [Test data source attribute](#test-data-source-attribute)
         * [Snapshots of Snapshot Testing](#snapshots-of-snapshot-testing)
         * [Expected expression decorators](#expected-expression-decorators)
+            * [Collection initializer](#collection-initializer)
+            * [Implicit object creation](#implicit-object-creation)
+            * [Removal of property or field assignments](#removal-of-property-or-field-assignments)
+            * [Verbatim strings or custom literal values](#verbatim-strings-or-custom-literal-values)
         * [Expected expression is inlined within an assertion](#expected-expression-is-inlined-within-an-assertion)
             * [FluentAssertions expressions](#fluentassertions-expressions)
             * [xUnit assertions](#xunit-assertions)
@@ -224,10 +228,19 @@ Known limitations:
 HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code. See couple examples in [SnapshotTest](Test.Integration.XUnit/SnapshotTest.cs).
 
 #### Expected expression decorators
-Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate expressions with
-* Collection initializer;
-* Implicit object creation;
-* Removal of property or field assignments.
+Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate the expressions.
+
+##### Collection initializer
+Replaces C# syntax nodes (e.g., array creation) with collection expressions.
+
+##### Implicit object creation
+Replaces C# constructor calls with implicit object creation syntax.
+
+##### Removal of property or field assignments
+Removes property of field assignments according to the configuration.
+
+##### Verbatim strings or custom literal values
+Replaces regular strings with verbatim strings, regular literal values with custom literal values (e.g., regular numbers with hex numbers) according to the configuration.
 
 #### Expected expression is inlined within an assertion
 
