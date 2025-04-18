@@ -33,7 +33,7 @@
     <PackageReference Include="FluentAssertions" Version="8.2.0" />
     <PackageReference Include="JunitXml.TestLogger" Version="6.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.2.1" />
+    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.3.0" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="VarDump" Version="1.0.5.17" />
     <PackageReference Include="xunit" Version="2.9.3" />

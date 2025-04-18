@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.3.0] - 2025-04-21
+
+### Added
+- `Shouldly` assertion framework support.
+- An exception if TheoryData test parameters lack a proper equality operator.
+- RemoveAssignmentDumperDecorator.
+- LiteralExpressionDumperDecorator.
+
+### Fixed
+- Settings caching issue.
+- Compilation error when static method is wrapped by `#region`.
+
 ## [2.2.1] - 2025-03-04
 
 ### Added
