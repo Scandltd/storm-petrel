@@ -44,6 +44,12 @@ namespace Test.Integration.XUnit
             actual.Should().Be(expected);
         }
 
+        #region A region with couple methods
+        private static object ExpectedInRegion() => new object();
+        private static object StaticButNotExpectedMethodInRegion() => new object();
+        private object NotStaticMethodInRegion() => new object();
+        #region
+
         private static object Expected() => new object();
         private static object StaticButNotExpectedMethod() => new object();
         private object NotStaticMethod() => new object();

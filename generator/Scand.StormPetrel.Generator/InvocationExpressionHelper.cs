@@ -61,7 +61,9 @@ namespace Scand.StormPetrel.Generator
 
             if (nodeToNewNode.Count != 0)
             {
-                var newSyntaxNode = syntaxNode.ReplaceNodes(nodeToNewNode.Keys, (x, y) => nodeToNewNode[x]);
+                var newSyntaxNode = syntaxNode
+                                        .ReplaceNodes(nodeToNewNode.Keys, (x, y) => nodeToNewNode[x])
+                                        .WithoutTrivia();
                 return AdjustNewNode(newSyntaxNode, newName);
             }
 

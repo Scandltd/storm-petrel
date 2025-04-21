@@ -132,6 +132,14 @@ namespace Test.Integration.XUnit
             [-4, -6, +50],
         }.Take(count);
 
+        #region Test Region
+        /// <summary>
+        /// Test comment
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static IEnumerable<object[]> DataMethodWithArgsForNamedParameters(int arg1, string arg2) =>
         new object[][]
         {
@@ -141,6 +149,10 @@ namespace Test.Integration.XUnit
             [-4, -6, +50],
         }.Take(arg1 + (arg2?.Length ?? throw new ArgumentNullException(nameof(arg2))));
 
+        /// <summary>
+        /// Test comment
+        /// Multiline
+        /// </summary>
         public static IEnumerable<object[]> DataProperty =>
         [
             [1, 2, 0],
@@ -148,6 +160,7 @@ namespace Test.Integration.XUnit
             [int.MinValue, -1, -100],
             [-4, -6, +50],
         ];
+        #endregion
 
         public static IEnumerable<object[]> DataMultipleExpected =>
         [

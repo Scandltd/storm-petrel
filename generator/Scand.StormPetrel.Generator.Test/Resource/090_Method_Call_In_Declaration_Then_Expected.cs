@@ -181,6 +181,13 @@ namespace Test.Integration.XUnit
             actual.Should().Be(expected);
         }
 
+#region A region with couple methods
+        private static object ExpectedInRegion() => new object ();
+        private static (int NodeKind, int NodeIndex) ExpectedInRegionStormPetrel() => (8917, 0);
+        private static object StaticButNotExpectedMethodInRegion() => new object ();
+        private static (int NodeKind, int NodeIndex) StaticButNotExpectedMethodInRegionStormPetrel() => (8917, 0);
+        private object NotStaticMethodInRegion() => new object ();
+#region
         private static object Expected() => new object ();
         private static (int NodeKind, int NodeIndex) ExpectedStormPetrel() => (8917, 0);
         private static object StaticButNotExpectedMethod() => new object ();

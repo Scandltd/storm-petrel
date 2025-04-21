@@ -52,6 +52,58 @@ namespace Test.Integration.XUnit
             return (8805, 2);
         }
 
+#region A region with static methods
+        /// <summary>
+        /// A comment
+        /// </summary>
+        /// <returns></returns>
+        private static Foo ExpectedReturnOnlyInRegion()
+        {
+            return new Foo();
+        }
+
+        private static (int NodeKind, int NodeIndex) ExpectedReturnOnlyInRegionStormPetrel()
+        {
+            return (8805, 0);
+        }
+
+        /// <summary>
+        /// One more comment
+        /// </summary>
+        /// <param name = "arg"></param>
+        /// <returns></returns>
+        /// <exception cref = "System.InvalidOperationException"></exception>
+        private static Foo ExpectedWithCoupleReturnsInRegion(string arg)
+        {
+            switch (arg)
+            {
+                case "case1":
+                    return new Foo(1);
+                case "case2":
+                    return new Foo(2);
+                default:
+                    throw new System.InvalidOperationException();
+            }
+
+            return new Foo();
+        }
+
+        private static (int NodeKind, int NodeIndex) ExpectedWithCoupleReturnsInRegionStormPetrel(string arg)
+        {
+            switch (arg)
+            {
+                case "case1":
+                    return (8805, 0);
+                case "case2":
+                    return (8805, 1);
+                default:
+                    throw new System.InvalidOperationException();
+            }
+
+            return (8805, 2);
+        }
+
+#endregion
 #region Ignored Methods
         public static void VoidMethodToIgnore()
         {

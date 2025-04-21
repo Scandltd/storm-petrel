@@ -44,6 +44,9 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("NoExpectedVarExpressionKindsTest")]
         [InlineData("NoExpectedVarWithOperatorsTest")]
         [InlineData("NoExpectedVarShouldlyTest")]
+        [InlineData("Utils")]
+        [InlineData("Utils.IgnoredMembersMiddleware")]
+        [InlineData("Utils.OtherMethods")]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null)
         {
             //Arrange
@@ -52,7 +55,8 @@ namespace Scand.StormPetrel.Generator.Test
             var inputCode = await ReadResourceAsync(assembly, $"{inputReplacementCodeResourceName}.cs");
             string? expectedCode = null;
             string? expectedResourceFileName = null;
-            if (inputReplacementCodeResourceName != "020_NoTestClasses")
+            if (inputReplacementCodeResourceName != "020_NoTestClasses"
+                && inputReplacementCodeResourceName != "Utils.IgnoredMembersMiddleware")
             {
                 var configKeyPostfix = string.IsNullOrEmpty(configKey) ? "" : $"Config_{configKey}_";
                 expectedResourceFileName = $"{inputReplacementCodeResourceName}_{configKeyPostfix}Then_Expected.cs";
