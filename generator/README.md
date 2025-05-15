@@ -30,6 +30,8 @@
             * [WPF .NET](#wpf-net)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
+    * [Optional JSON File](#optional-json-file)
+    * [Optional Environment Variable](#optional-environment-variable)
 * [Supported Software](#supported-software)
     * [Test Frameworks](#test-frameworks)
     * [.NET Versions](#net-versions)
@@ -287,7 +289,9 @@ See test examples in [ExceptionTest](Test.Integration.XUnit/ExceptionTest.cs).
 See test examples in [WinFormsTest](../file-snapshot-infrastructure/Test.Integration.WinFormsAppTest/WinFormsTest.cs) of [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md).
 
 ##### WPF .NET
-See test examples in [WpfTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfTest.cs) of [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md).
+See examples in [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md) tests:
+* [WpfTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfTest.cs) for regular xUnit attributes, but more complex test implementation.
+* [WpfCustomAttributeTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) for additional configuration of [Xunit.StaFact](https://www.nuget.org/packages/Xunit.StaFact) NuGet package attributes, but simpler test implementation.
 
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
@@ -299,6 +303,9 @@ To utilize the StormPetrel tests, add the following NuGet Package references to 
     * **Option D**. [Scand.StormPetrel.FileSnapshotInfrastructure](https://www.nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure). Typically, it represents the `actual` test instance as a checksum and writes the instance bytes to a snapshot file in the `IGeneratorRewriter` implementation. It may be referenced and configured according to its [settings](../file-snapshot-infrastructure/README.md#getting-started).
 
 ## Configuration
+
+### Optional JSON File
+
 The StormPetrel Generator introduces several interfaces and classes to the Scand.StormPetrel.Generator.TargetProject namespace of the test project. These can be utilized alongside an optional JSON file to customize the rewriting of expected baselines. Key interfaces and classes include:
 * `IGenerator`, `Generator`;
 * `IGeneratorBackuper`, `GeneratorBackuper`;
@@ -343,6 +350,26 @@ The file changes are applied `on the fly` and can have the following settings:
   ]
 }
 ```
+
+### Optional Environment Variable
+
+To enable custom test attribute support in Scand.StormPetrel.Generator, you may set the `SCAND_STORM_PETREL_GENERATOR_CONFIG` environment variable. This JSON configuration will be read via `Environment.GetEnvironmentVariable()`  during incremental generation. Configuration format:
+```jsonc
+{
+    "CustomTestAttributes": [                       // Optional array of custom test attribute configurations
+        {
+            "TestFrameworkKindName": "XUnit",       // Required: "XUnit", "NUnit", or "MSTest" (case-insensitive)
+            "FullName": "Xunit.UIFactAttribute",    // Required: Full namespace-qualified attribute name (case-sensitive)
+            "KindName":"Test",                      // Required: "Test", "TestCase", or "TestCaseSource" (case-insensitive)
+            "XUnitTestCaseSourceKindName": "..."    // Required for xUnit TestCaseSource: "MemberData" or "ClassData"
+        }
+    ]
+}
+```
+Configure the variable at process, user or machine level. IDE and/or incremental generator dotnet processes restart may be required to apply the configuration change.
+See:
+* Process-level configuration example in [build.ps1](../build/build.ps1).
+* Custom attributes examples in [MSTest CustomAttributeTest](Test.Integration.MSTest/CustomAttributes/CustomAttributeTest.cs), [NUnit CustomAttributeTest](Test.Integration.NUnit/CustomAttributes/CustomAttributeTest.cs), [XUnit CustomAttributeTest](Test.Integration.XUnit/CustomAttributes/CustomAttributeTest.cs), [WpfCustomAttributeTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) tests and related custom attribute implementation files.
 
 ## Supported Software
 

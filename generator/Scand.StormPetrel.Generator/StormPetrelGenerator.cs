@@ -1,9 +1,9 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Scand.StormPetrel.Generator.TargetProject;
 using Serilog;
 using Serilog.Core;
-using Scand.StormPetrel.Generator.TargetProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,7 +120,7 @@ namespace Scand.StormPetrel.Generator
                     }
                     return false;
                 },
-                transform: (syntaxContext , cancellationToken) =>
+                transform: (syntaxContext, cancellationToken) =>
                 {
                     var semanticModel = syntaxContext.SemanticModel;
                     var type = (ITypeSymbol)semanticModel.GetDeclaredSymbol(syntaxContext.Node.Parent, cancellationToken);
@@ -199,7 +199,8 @@ namespace Scand.StormPetrel.Generator
                 {
                     //Add "StormPetrel" classes for methods which can be called from test methods
                     syntaxContext.AddSource($"{filePath}.g.cs", sourceText);
-                };
+                }
+                ;
             });
         }
     }

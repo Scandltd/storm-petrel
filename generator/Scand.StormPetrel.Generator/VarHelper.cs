@@ -268,10 +268,12 @@ namespace Scand.StormPetrel.Generator
             var testCaseSourceExpressionSb = new StringBuilder();
             var testCaseSourcePathExpressionSb = new StringBuilder();
             var attributeName = testCaseSourceAttribute.Name.ToString();
-            if (attributeName == "MemberData" || attributeName == "TestCaseSource" || attributeName == "DynamicData")
+            if (SupportedMethodInfo.IsXUnitNonClassDataAttributeForTestCaseSource(attributeName)
+                || SupportedMethodInfo.IsNUnitAttributeForTestCaseSource(attributeName)
+                || SupportedMethodInfo.MSTestAttributeForTestCaseSource(attributeName))
             {
-                bool isXunit = attributeName == "MemberData";
-                bool isMstest = attributeName == "DynamicData";
+                bool isXunit = SupportedMethodInfo.IsXUnitNonClassDataAttributeForTestCaseSource(attributeName);
+                bool isMstest = SupportedMethodInfo.MSTestAttributeForTestCaseSource(attributeName);
                 testCaseSourceExpressionSb.Append("Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(");
                 testCaseSourcePathExpressionSb.Append("Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(");
                 var args = testCaseSourceAttribute.ArgumentList.Arguments;
@@ -327,7 +329,7 @@ namespace Scand.StormPetrel.Generator
                         .Append(arg.Expression.GetText().ToString());
                 }
             }
-            else if (attributeName == "ClassData")
+            else if (SupportedMethodInfo.IsXUnitClassDataAttributeForTestCaseSource(attributeName))
             {
                 var classExpression = testCaseSourceAttribute
                                         .ArgumentList

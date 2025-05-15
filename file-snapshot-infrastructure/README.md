@@ -85,7 +85,9 @@ Below are the most notable frameworks (though not an exhaustive list what Storm 
 See test examples in [WinFormsTest](Test.Integration.WinFormsAppTest/WinFormsTest.cs).
 
 #### WPF .NET
-See test examples in [WpfTest](Test.Integration.WpfAppTest/WpfTest.cs).
+See test examples in
+* [WpfTest](Test.Integration.WpfAppTest/WpfTest.cs) for regular xUnit attributes, but more complex test implementation.
+* [WpfCustomAttributeTest](Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) for additional configuration of [Xunit.StaFact](https://www.nuget.org/packages/Xunit.StaFact) NuGet package attributes, but simpler test implementation.
 
 ## Getting Started
 To utilize File Snapshot Infrastructure in a test .NET project:

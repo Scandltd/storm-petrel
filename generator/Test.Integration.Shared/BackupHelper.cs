@@ -61,7 +61,7 @@ namespace Test.Integration.Shared
                 var backupFileMask = string.IsNullOrEmpty(fileName)
                                         ? $"{originalClassName}.cs.backup*"
                                         : $"{fileName}.backup*";
-                var backupFiles = Directory.GetFiles(rootDirectory, backupFileMask, SearchOption.TopDirectoryOnly);
+                var backupFiles = Directory.GetFiles(rootDirectory, backupFileMask, SearchOption.AllDirectories);
                 foreach (var file in backupFiles)
                 {
                     File.Delete(file);

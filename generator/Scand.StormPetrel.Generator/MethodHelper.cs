@@ -19,9 +19,10 @@ namespace Scand.StormPetrel.Generator
         public static IEnumerable<string> GetTestAttributeNames(MethodDeclarationSyntax method)
             => GetAttributes(method, x => SupportedMethodInfo.AttributeNames.Contains(x.Name.ToString()))
                 .Select(x => x.Name.ToString());
+
         public static IEnumerable<string> GetTestCaseAttributeNames(MethodDeclarationSyntax method)
             => GetAttributes(method, x => SupportedMethodInfo.AttributeNamesForTestCase.Contains(x.Name.ToString()))
-                .Select(x => x.Name.ToString());
+                 .Select(x => x.Name.ToString());
 
         public static AttributeSyntax GetTestCaseSourceAttribute(MethodDeclarationSyntax method)
             => GetAttributes(method, x => SupportedMethodInfo.AttributeNamesForTestCaseSource.Contains(x.Name.ToString()))

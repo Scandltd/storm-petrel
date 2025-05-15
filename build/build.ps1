@@ -10,6 +10,9 @@ param(
 
 $isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")
 
+#Use XUNIT, TEST, MEMBERDATA upper-case values to ensure case-insensitivity of TestFrameworkKindName, KindName, XUnitTestCaseSourceKindName properties
+$env:SCAND_STORM_PETREL_GENERATOR_CONFIG = '{"CustomTestAttributes":[{"TestFrameworkKindName":"XUnit","FullName":"Xunit.UIFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.UITheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomTheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomInlineDataAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomMemberDataAttribute","KindName":"TestCaseSource","XUnitTestCaseSourceKindName":"MEMBERDATA"},{"TestFrameworkKindName":"XUNIT","FullName":"Xunit.CustomClassDataAttribute","KindName":"TestCaseSource","XUnitTestCaseSourceKindName":"ClassData"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestAttribute","KindName":"Test"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestCaseAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestCaseSourceAttribute","KindName":"TestCaseSource"},{"TestFrameworkKindName":"MSTest","FullName":"MSTest.CustomTestMethodAttribute","KindName":"TEST"},{"TestFrameworkKindName":"MSTest","FullName":"MSTest.CustomDataRowAttribute","KindName":"TestCase"}]}'
+
 function ClearPackageCache {
     param (
         $PackageCacheDirName
