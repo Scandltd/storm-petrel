@@ -21,9 +21,7 @@ namespace Test.Integration.XUnit.TestCaseSourceClass
         }
 
         [Theory]
-#pragma warning disable xUnit1045 //Justification: Intentionally test AddResult as non-serializable
         [ClassData(typeof(TestCaseSourceClassTheoryData))]
-#pragma warning restore xUnit1045
         public void WhenClassTheoryDataThenItIsUpdated(int x, int y, AddResult expected)
         {
             var actual = Calculator.Add(x, y);
@@ -31,9 +29,7 @@ namespace Test.Integration.XUnit.TestCaseSourceClass
         }
 
         [Theory]
-#pragma warning disable xUnit1045 //Justification: Intentionally test AddResult as non-serializable
         [ClassData(typeof(TestCaseSourceClassTheoryTupleData))]
-#pragma warning restore xUnit1045
         public void WhenClassTheoryTupleDataThenItIsUpdated(int x, int y, AddResult expected)
         {
             var actual = Calculator.Add(x, y);

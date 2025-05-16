@@ -103,14 +103,29 @@ namespace Test.Integration.XUnit
         }
 
         [Theory(Skip = "The test does not correspond normal build flow. However, we have to mark the method by Theory attribute to have StormPetrel method generated")]
-#pragma warning disable xUnit1045 //Justification: Intentionally test AddResult as non-serializable
         [MemberData(nameof(TheoryDataWithClassWithoutProperEqualityOperator))]
-#pragma warning restore xUnit1045
         public static void WhenTheoryDataWithClassWithoutProperEqualityOperatorThrowingTheException(AddResult someArgWithoutProperEqualityOperator, AddResult expected)
         {
             //Arrange
             //Act
             var actual = someArgWithoutProperEqualityOperator; //emulate an action
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        /// <summary>
+        /// An example when use case input data (<see cref="AddResult"/> in our case) do not have equality (==) operator overload.
+        /// Use <see cref="TestCaseSourceUseCase{T}"/> where <see cref="TestCaseSourceUseCase{T}.Name"/> is only used in the equality operator.
+        /// </summary>
+        /// <param name="useCase"></param>
+        /// <param name="expected"></param>
+        [Theory]
+        [MemberData(nameof(TheoryDataWithTestCaseEqualityOperator))]
+        public static void WhenTheoryDataWithTestCaseEqualityOperator(TestCaseSourceUseCase<AddResult> useCase, AddResult expected)
+        {
+            //Arrange
+            //Act
+            var actual = useCase?.Input1; //emulate an action
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
@@ -191,6 +206,31 @@ namespace Test.Integration.XUnit
         new()
         {
             { new AddResult(), new AddResult() },
+        };
+
+        public static TheoryData<TestCaseSourceUseCase<AddResult>, AddResult> TheoryDataWithTestCaseEqualityOperator =>
+        new()
+        {
+            {
+                new TestCaseSourceUseCase<AddResult>("2+2", new AddResult
+                {
+                    Value = 4,
+                    ValueAsHexString = "0x4",
+                }),
+                new AddResult
+                {
+                    Value = 5, //keep incorrect to have original test failed
+                    ValueAsHexString = "0x5",
+                }
+            },
+            {
+                new TestCaseSourceUseCase<AddResult>("5-1", new AddResult
+                {
+                    Value = 4,
+                    ValueAsHexString = "0x4",
+                }),
+                new AddResult() //keep incorrect (default properties) to have original test failed
+            },
         };
     }
 }
