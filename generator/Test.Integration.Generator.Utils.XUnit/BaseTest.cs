@@ -41,6 +41,7 @@ namespace Test.Integration.Generator.Utils.XUnit
         public static AddResult Add(int a, int b)
         {
             var result = a + b;
+            var doubleResult = 2 * result;
             return new AddResult
             {
                 Values = [result],
@@ -51,9 +52,14 @@ namespace Test.Integration.Generator.Utils.XUnit
                 {
                     Sum = result,
                 },
-                ResultStruct = new CalculatorResultStruct(result)
+                ResultStruct = new CalculatorResultStruct(result),
+                ValueDate = new DateTime(2000 + result, ToMonth(result), ToDayInMonth(result)),
+                DoubleValueDate = new DateTime(2000 + doubleResult, ToMonth(doubleResult), ToDayInMonth(doubleResult)),
             };
         }
+
+        private static int ToMonth(int v) => (v % 12) == 0 ? 12 : (v % 12);
+        private static int ToDayInMonth(int v) => (v % 28) == 0 ? 28 : (v % 28);
     }
 
     internal sealed class AddResult
@@ -70,6 +76,8 @@ namespace Test.Integration.Generator.Utils.XUnit
         /// </summary>
         public string? StringPropertyIgnored { get; set; } = Guid.NewGuid().ToString();
         public Guid GuidPropertyIgnoredForAllTypes { get; set; } = Guid.NewGuid();
+        public DateTime ValueDate { get; set; }
+        public DateTime DoubleValueDate { get; set; }
     }
 
     internal sealed class CalculatorResult()

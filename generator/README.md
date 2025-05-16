@@ -230,7 +230,11 @@ Known limitations:
 HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code. See couple examples in [SnapshotTest](Test.Integration.XUnit/SnapshotTest.cs).
 
 #### Expected expression decorators
-Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate the expressions.
+Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate the expressions. The example includes:
+* [CustomDumperDecorator](Test.Integration.Generator.Utils.XUnit/CustomDumperDecorator.cs). Replaces `DateTime.ParseExact(...)` with `new DateTime(...)` or a constant value.
+* [DumperFactory](Test.Integration.Generator.Utils.XUnit/DumperFactory.cs). Combines implementations of `IGeneratorDumper` to have custom C# representations of expected baselines. It demonstrates how to remove redundant assignments and apply constant expressions, verbatim strings, implicit object creation, collection expressions and other C# syntax decorations to the baselines.
+
+Built-in decorators include
 
 ##### Collection initializer
 Replaces C# syntax nodes (e.g., array creation) with collection expressions.

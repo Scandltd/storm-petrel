@@ -1,6 +1,9 @@
-﻿using Scand.StormPetrel.Generator.Abstraction;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Scand.StormPetrel.Generator.Abstraction;
 using Scand.StormPetrel.Generator.Utils;
 using Scand.StormPetrel.Generator.Utils.DumperDecorator;
+using System.Globalization;
 using Test.Integration.Generator.Utils.XUnit;
 
 internal static class DumperFactory
@@ -9,19 +12,52 @@ internal static class DumperFactory
         new ImplicitObjectCreationDumperDecorator(
             new CollectionExpressionDumperDecorator(
                 new LiteralExpressionDumperDecorator(
-                    new RemoveAssignmentDumperDecorator(dumper, new Dictionary<string, IEnumerable<string>>
-                    {
+                    new CustomDumperDecorator(
+                        new RemoveAssignmentDumperDecorator(dumper, new Dictionary<string, IEnumerable<string>>
                         {
-                            "" /*means 'all types'*/, [nameof(AddResult.GuidPropertyIgnoredForAllTypes)]
-                        },
-                        {
-                            nameof(AddResult), [nameof(AddResult.StringPropertyIgnored)]
-                        },
-                    }),
-                    LiteralExpressionDumperDecorator.GetVerbatimStringDecoratingFunc(new Dictionary<string, IEnumerable<string>>
-                    {
-                        {
-                            nameof(AddResult), [nameof(AddResult.ValueAsVerbatimString)]
-                        },
-                    }))));
+                            {
+                                "" /*means 'all types'*/, [nameof(AddResult.GuidPropertyIgnoredForAllTypes)]
+                            },
+                            {
+                                nameof(AddResult), [nameof(AddResult.StringPropertyIgnored)]
+                            },
+                        })),
+                    GetLiteralExpressionDecoratingFunc())));
+
+    /// <summary>
+    /// Decorates literal expressions with constants of <see cref="Constants"/> if possible.
+    /// </summary>
+    /// <returns></returns>
+    private static Func<LiteralExpressionDumpContext, SyntaxNode> GetLiteralExpressionDecoratingFunc()
+    {
+        var verbatimStringDecoratingFunc = LiteralExpressionDumperDecorator.GetVerbatimStringDecoratingFunc(new Dictionary<string, IEnumerable<string>>
+        {
+            {
+                nameof(AddResult), [nameof(AddResult.ValueAsVerbatimString)]
+            },
+        });
+
+        return context =>
+        {
+            string constantName = "";
+            if (context.TokenText == Constants.IntFour.ToString(CultureInfo.InvariantCulture))
+            {
+                constantName = nameof(Constants.IntFour);
+            }
+            else if (context.TokenValueText == Constants.StringFourHex)
+            {
+                constantName = nameof(Constants.StringFourHex);
+            }
+            if (!string.IsNullOrEmpty(constantName))
+            {
+                return SyntaxFactory
+                        .MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            SyntaxFactory.IdentifierName("Constants"),
+                            SyntaxFactory.IdentifierName(constantName))
+                        .WithTriviaFrom(context.OriginalLiteralExpression);
+            }
+            return verbatimStringDecoratingFunc(context);
+        };
+    }
 }

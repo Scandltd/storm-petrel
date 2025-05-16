@@ -16,6 +16,14 @@
     <NoWarn>xUnit1013</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsNotAsErrors>CS8669</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningsNotAsErrors>CS8669</WarningsNotAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="appsettings.StormPetrel.json" />
   </ItemGroup>
