@@ -4,7 +4,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Scand.StormPetrel.Generator.ExtraContextInternal;
 using Scand.StormPetrel.Generator.TargetProject;
-using Scand.StormPetrel.Shared;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,37 +14,54 @@ using System.Threading;
 
 namespace Scand.StormPetrel.Generator
 {
-    internal class SourceGenerator
+    internal partial class SourceGenerator
     {
         public static SourceText CreateNewSourceAsSourceText(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, ILogger logger, CancellationToken cancellationToken)
             => CreateNewSource(syntaxTreeFilePath, syntaxTree, config, logger, cancellationToken)?.GetText(Encoding.UTF8);
         public static SyntaxNode CreateNewSource(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, ILogger logger, CancellationToken cancellationToken)
         {
+            var collector = new TestInfoCollector();
+            var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
+            if (!collector.IsTestMethodCollected)
+            {
+                return null;
+            }
+            return newSource;
+        }
+        public static (SyntaxNode, IEnumerable<(string[] Path, int ParametersCount)> MethodInfo, IEnumerable<string[]> PropertyPaths) CreateNewSourceForStaticStuff(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, ILogger logger, CancellationToken cancellationToken)
+        {
+            var collector = new StaticInfoCollector();
+            var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
+            if (collector.IsTestMethodCollected)
+            {
+                newSource = null;
+            }
+            return (newSource, collector.CollectedMethodInfo, collector.CollectedPropertyPaths);
+        }
+        private static SyntaxNode CreateNewSourceImplementation(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, AbstractInfoCollector infoCollector, ILogger logger, CancellationToken cancellationToken)
+        {
             var syntaxTreeRoot = syntaxTree.GetRoot(CancellationToken.None);
-            var actualClasses = MethodHelper.GetDescendantNodesOptimized(syntaxTreeRoot, a => a is ClassDeclarationSyntax c
+            var classes = MethodHelper.GetDescendantNodesOptimized(syntaxTreeRoot, a => a is ClassDeclarationSyntax c
                                                                                             ? (c, false)
                                                                                             : (null, true));
-            var actualClassToNewClass = new Dictionary<ClassDeclarationSyntax, ClassDeclarationSyntax>();
+            SyntaxNode newRoot;
             var varHelper = new VarHelper(config.TestVariablePairConfigs);
             var syntaxHelper = new SyntaxHelper(syntaxTreeFilePath, config.TargetProjectGeneratorExpression, config.IgnoreInvocationExpressionRegex);
-            foreach (var actualClass in actualClasses)
+            newRoot = syntaxTreeRoot.ReplaceNodes(classes, (_, @class) =>
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    return null;
-                }
-                int skipActualClassChildMethodCount = -1;
-                int skipNewActualClassChildMethodCount = -1;
-                var newActualClass = actualClass;
+                infoCollector.CollectClassDeclaration(@class);
+                int skipClassChildMethodCount = -1;
+                int skipNewClassChildMethodCount = -1;
+                var newClass = @class;
                 do
                 {
                     if (cancellationToken.IsCancellationRequested)
                     {
-                        return null;
+                        return @class;
                     }
-                    skipActualClassChildMethodCount++;
-                    skipNewActualClassChildMethodCount++;
-                    var method = GetFirstOrDefaultMethod(newActualClass, skipNewActualClassChildMethodCount);
+                    skipClassChildMethodCount++;
+                    skipNewClassChildMethodCount++;
+                    var method = GetFirstOrDefaultMethod(newClass, skipNewClassChildMethodCount);
                     if (method == null)
                     {
                         break;
@@ -56,22 +72,28 @@ namespace Scand.StormPetrel.Generator
                         var isExpectedVarInvocationExpressionCandidate = MethodHelper.IsExpectedVarInvocationExpressionCandidate(method);
                         if (isExpectedVarInvocationExpressionCandidate)
                         {
+                            var original = GetFirstOrDefaultMethod(@class, skipClassChildMethodCount);
+                            infoCollector.CollectExpectedVarInvocationExpressionCandidate(original);
                             var extraMethod = new InvocationExpressionHelperMethod().ToStormPetrelNode(method, cancellationToken);
                             if (extraMethod != null)
                             {
-                                skipNewActualClassChildMethodCount++;
-                                newActualClass = newActualClass.InsertNodesAfter(method, new[] { extraMethod });
-                                newActualClass = RenameChildConstructorsIfNeed(newActualClass);
-                                var newTypeName = actualClass.Identifier.Text + "StormPetrel";
-                                newActualClass = newActualClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
-                                actualClassToNewClass[actualClass] = newActualClass;
+                                skipNewClassChildMethodCount++;
+                                newClass = newClass.InsertNodesAfter(method, new[] { extraMethod });
+                                newClass = RenameChildConstructorsIfNeed(newClass);
+                                var newTypeName = @class.Identifier.Text + "StormPetrel";
+                                newClass = newClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
                             }
                         }
                         logger.Information("No test attributes for {MethodName} method, isExpectedVarInvocationExpressionCandidate={isExpectedVarInvocationExpressionCandidate}", method.Identifier.Text, isExpectedVarInvocationExpressionCandidate);
                         continue;
                     }
-
-                    var methodOriginal = GetFirstOrDefaultMethod(actualClass, skipActualClassChildMethodCount);
+                    infoCollector.IsTestMethodCollected = true;
+                    if (!infoCollector.NeedStormPetrelTestMethods)
+                    {
+                        //for performance reasons
+                        continue;
+                    }
+                    var methodOriginal = GetFirstOrDefaultMethod(@class, skipClassChildMethodCount);
                     var varPairInfoList = varHelper.GetVarPairs(methodOriginal);
                     var newMethod = method;
                     int i = -1;
@@ -81,14 +103,14 @@ namespace Scand.StormPetrel.Generator
                     {
                         i++;
                         var oldMethodName = i == 0
-                                               ? method.Identifier.Text
-                                               : method.Identifier.Text + "StormPetrel";
-                        var blocks = syntaxHelper.GetNewCodeBlock(actualClass.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count, method.ParameterList.Parameters);
+                                                ? method.Identifier.Text
+                                                : method.Identifier.Text + "StormPetrel";
+                        var blocks = syntaxHelper.GetNewCodeBlock(@class.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count, method.ParameterList.Parameters);
                         var newStatements = newMethod.Body.Statements.InsertRange(info.StatementIndex + 1, blocks);
                         newMethod = newMethod
                                     .WithBody(newMethod.Body.WithStatements(newStatements))
                                     .WithIdentifier(SyntaxFactory.Identifier(method.Identifier.Text + "StormPetrel"));
-                        var oldMethod = newActualClass
+                        var oldMethod = newClass
                                             .ChildNodes()
                                             .OfType<MethodDeclarationSyntax>()
                                             .Single(a => a.Identifier.Text == oldMethodName);
@@ -96,33 +118,19 @@ namespace Scand.StormPetrel.Generator
                         {
                             newMethod = MethodHelper.WithStormPetrelTestCaseRelatedStuff(newMethod);
                         }
-                        newActualClass = newActualClass.ReplaceNode(oldMethod, newMethod);
-                        newActualClass = RenameChildConstructorsIfNeed(newActualClass);
-                        var newTypeName = actualClass.Identifier.Text + "StormPetrel";
-                        newActualClass = newActualClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
-                        actualClassToNewClass[actualClass] = newActualClass;
+                        newClass = newClass.ReplaceNode(oldMethod, newMethod);
+                        newClass = RenameChildConstructorsIfNeed(newClass);
+                        var newTypeName = @class.Identifier.Text + "StormPetrel";
+                        newClass = newClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
                     }
                     logger.Information("Test variable pairs count for {MethodName}: {Count}", method.Identifier.Text, varPairInfoList.Count);
                 }
                 while (true);
-            }
-            if (actualClassToNewClass.Count == 0)
+                return newClass;
+            });
+            if (newRoot == syntaxTreeRoot)
             {
                 logger.Information("No classes to replace in `{syntaxTreeFilePath}`", syntaxTreeFilePath);
-                return null;
-            }
-
-            SyntaxNode newRoot;
-            try
-            {
-                newRoot = syntaxTreeRoot.ReplaceNodes(actualClassToNewClass.Keys, (x, y) =>
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    return actualClassToNewClass[x];
-                });
-            }
-            catch (OperationCanceledException)
-            {
                 return null;
             }
 
@@ -190,25 +198,21 @@ namespace Scand.StormPetrel.Generator
             }
         }
 
-        public static string GetStaticPropertyInfoCode(IEnumerable<(PropertyDeclarationSyntax Property, string FilePath)> propertiesInfo, CancellationToken cancellationToken)
+        public static string GetStaticPropertyInfoCode(IEnumerable<(string[] PropertyPath, string FilePath)> propertiesInfo, CancellationToken cancellationToken)
         {
             var newCode = ResourceHelper.ReadTargetProjectResource(ResourceHelper.StaticPropertyInfoResourceFileName);
             var sb = new StringBuilder();
             sb.AppendLine(propertiesInfo.Any() ? "new[]" : "new StaticPropertyInfo[]");
             sb.AppendLine("{");
-            foreach (var (property, filePath) in propertiesInfo)
+            foreach (var (propertyPath, filePath) in propertiesInfo)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
                     break;
                 }
-                var propertyPathStr = SyntaxNodeHelper.GetValuePath(property);
-                var propertyNameSegment = propertyPathStr[propertyPathStr.Length - 1];
-
-                propertyPathStr[propertyPathStr.Length - 1] = propertyNameSegment;
                 sb.AppendLine("    new StaticPropertyInfo()");
                 sb.AppendLine("    {");
-                sb.AppendLine(@"        PropertyPath = new[] {""" + string.Join(@""", """, propertyPathStr) + @"""},");
+                sb.AppendLine(@"        PropertyPath = new[] {""" + string.Join(@""", """, propertyPath) + @"""},");
                 sb.AppendLine(@"        FilePath = @""" + filePath + @"""");
                 sb.AppendLine("    },");
             }
@@ -218,19 +222,19 @@ namespace Scand.StormPetrel.Generator
             return newCode;
         }
 
-        public static string GetStaticMethodInfoCode(IEnumerable<(MethodDeclarationSyntax Method, bool MethodClassHasTestMethod, string FilePath)> methodsInfo, CancellationToken cancellationToken)
+        public static string GetStaticMethodInfoCode(IEnumerable<(string[] MethodPath, int MethodParametersCount, string FilePath)> methodsInfo, CancellationToken cancellationToken)
         {
             var newCode = ResourceHelper.ReadTargetProjectResource(ResourceHelper.StaticMethodInfoResourceFileName);
             var sb = new StringBuilder();
             sb.AppendLine(methodsInfo.Any() ? "new[]" : "new StaticMethodInfo[]");
             sb.AppendLine("{");
-            foreach (var (method, _, filePath) in methodsInfo)
+            foreach (var (methodPath, methodParametersCount, filePath) in methodsInfo)
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
                     break;
                 }
-                var methodPathStr = SyntaxNodeHelper.GetValuePath(method);
+                var methodPathStr = methodPath.ToArray(); //copy to modify
                 var methodNameSegment = methodPathStr[methodPathStr.Length - 1];
                 if (methodNameSegment.IndexOf('[') > -1)
                 {
@@ -241,7 +245,7 @@ namespace Scand.StormPetrel.Generator
                 sb.AppendLine("    new StaticMethodInfo()");
                 sb.AppendLine("    {");
                 sb.AppendLine(@"        MethodPath = new[] {""" + string.Join(@""", """, methodPathStr) + @"""},");
-                sb.AppendLine(@"        MethodArgsCount = " + method.ParameterList.Parameters.Count + @",");
+                sb.AppendLine(@"        MethodArgsCount = " + methodParametersCount + @",");
                 sb.AppendLine(@"        FilePath = @""" + filePath + @"""");
                 sb.AppendLine("    },");
             }

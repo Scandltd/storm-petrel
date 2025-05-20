@@ -1,18 +1,20 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 using Scand.StormPetrel.Generator.TargetProject;
 using Serilog;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace Scand.StormPetrel.Generator
 {
     [Generator]
-    public sealed class StormPetrelGenerator : IIncrementalGenerator
+    public sealed partial class StormPetrelGenerator : IIncrementalGenerator
     {
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -150,27 +152,26 @@ namespace Scand.StormPetrel.Generator
                 }
                 bool isConfigNullOrDisabled = config == null || config.IsDisabled;
                 var invocationInfo = isConfigNullOrDisabled
-                                        ? Enumerable.Empty<(IEnumerable<MethodDeclarationSyntax> Methods, IEnumerable<PropertyDeclarationSyntax> Properties, bool ClassHasTestMethod, string FilePath)>()
+                                        ? Enumerable.Empty<(SyntaxNode NewSource, IEnumerable<(string[] Path, int ParametersCount)> MethodInfo, IEnumerable<string[]> PropertyPaths, string FilePath)>()
                                         : combined
                                             .SyntaxTrees
                                             .Distinct()
-                                            .AsParallel()
                                             .Where(a => config == null || !config.IsMatchToIgnoreFilePathRegex(a.FilePath))
+                                            .AsParallel()
                                             .Select(a =>
                                             {
-                                                var (methods, properties) = MethodHelper
-                                                                                .GetExpectedVarInvocationExpressions(a.GetRoot(), out var hasTestMethod);
-                                                return (Methods: methods, Properties: properties, ClassHasTestMethod: hasTestMethod, a.FilePath);
+                                                var (newSource, methodInfo, propertyPaths) = SourceGenerator.CreateNewSourceForStaticStuff(a.FilePath, a, config, logger, syntaxContext.CancellationToken);
+                                                return (NewSource: newSource, MethodInfo: methodInfo, PropertyPaths: propertyPaths, a.FilePath);
                                             })
                                             .AsSequential();
 
                 var methodsInfo = invocationInfo
-                                    .SelectMany(a => a.Methods.Select(b => (Methods: b, a.ClassHasTestMethod, a.FilePath)));
+                                    .SelectMany(a => a.MethodInfo.Select(b => (MethodPath: b.Path, MethodParametersCount: b.ParametersCount, a.FilePath)));
                 var newMethodsCode = SourceGenerator.GetStaticMethodInfoCode(methodsInfo, syntaxContext.CancellationToken);
                 syntaxContext.AddSource($"Scand.StormPetrel.Generator.TargetProject.{ResourceHelper.StaticMethodInfoResourceFileName}.g.cs", newMethodsCode);
 
                 var propertiesInfo = invocationInfo
-                                        .SelectMany(a => a.Properties.Select(b => (Properties: b, a.FilePath)));
+                                        .SelectMany(a => a.PropertyPaths.Select(b => (Properties: b, a.FilePath)));
                 var newPropertiesCode = SourceGenerator.GetStaticPropertyInfoCode(propertiesInfo, syntaxContext.CancellationToken);
                 syntaxContext.AddSource($"Scand.StormPetrel.Generator.TargetProject.{ResourceHelper.StaticPropertyInfoResourceFileName}.g.cs", newPropertiesCode);
 
@@ -179,33 +180,14 @@ namespace Scand.StormPetrel.Generator
                     return;
                 }
 
-                var filesInfo = methodsInfo
-                                    .GroupBy(a => a.FilePath)
-                                    .AsParallel()
-                                    .Select(filePathGroup =>
-                                    {
-                                        var (method, methodClassHasTestMethod, _) = filePathGroup.First();
-                                        if (methodClassHasTestMethod)
-                                        {
-                                            //Files with test methods are already taken into account in another place
-                                            return (null, null);
-                                        }
-                                        var newSource = SourceGenerator.CreateNewSourceAsSourceText(filePathGroup.Key, method.SyntaxTree, config, logger, syntaxContext.CancellationToken);
-                                        if (newSource != null)
-                                        {
-                                            var filePath = GeneratorInfoCache.ToSourcePath(combined.AdditionalText?.Path, filePathGroup.Key);
-                                            return (FilePath: filePath, NewSourceText: newSource);
-                                        }
-                                        return (null, null);
-                                    })
-                                    .Where(a => a.FilePath != null && a.NewSourceText != null)
-                                    .AsSequential();
-                foreach (var (filePath, sourceText) in filesInfo)
+                var info = invocationInfo
+                            .Where(a => a.NewSource != null); //Files with test methods are already taken into account in another place
+                foreach (var (newSource, _, _, filePath) in info)
                 {
+                    var sourcePath = GeneratorInfoCache.ToSourcePath(combined.AdditionalText?.Path, filePath);
                     //Add "StormPetrel" classes for methods which can be called from test methods
-                    syntaxContext.AddSource($"{filePath}.g.cs", sourceText);
+                    syntaxContext.AddSource($"{sourcePath}.g.cs", newSource.GetText(Encoding.UTF8));
                 }
-                ;
             });
         }
     }

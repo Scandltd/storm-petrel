@@ -53,26 +53,12 @@ namespace Scand.StormPetrel.Generator
                 && property.Type != null
                 && property.Type.ToString().IndexOf("Task", StringComparison.Ordinal) < 0;
 
-        public static (IEnumerable<MethodDeclarationSyntax> Methods, IEnumerable<PropertyDeclarationSyntax> Properties) GetExpectedVarInvocationExpressions(SyntaxNode root, out bool hasTestMethod)
+        public static IEnumerable<PropertyDeclarationSyntax> GetExpectedVarPropertyInvocationExpressions(SyntaxNode root)
         {
             var nodes = new List<CSharpSyntaxNode>();
-            var hasTestMethodLocal = false;
             GetDescendantNodesOptimized(root, nodes, node =>
             {
-                if (node is MethodDeclarationSyntax m)
-                {
-                    var hasTestAttributes = GetTestAttributeNames(m).Any();
-                    if (hasTestAttributes)
-                    {
-                        hasTestMethodLocal = true;
-                    }
-                    if (IsExpectedVarInvocationExpressionCandidate(m))
-                    {
-                        return (m, false);
-                    }
-                    return (null, false);
-                }
-                else if (node is PropertyDeclarationSyntax p)
+                if (node is PropertyDeclarationSyntax p)
                 {
                     if (IsExpectedVarInvocationExpressionCandidate(p))
                     {
@@ -82,8 +68,7 @@ namespace Scand.StormPetrel.Generator
                 }
                 return (null, true);
             }, false);
-            hasTestMethod = hasTestMethodLocal;
-            return (FilterAndCast<CSharpSyntaxNode, MethodDeclarationSyntax>(nodes), FilterAndCast<CSharpSyntaxNode, PropertyDeclarationSyntax>(nodes));
+            return nodes.Cast<PropertyDeclarationSyntax>();
         }
 
         public static List<T> GetDescendantNodesOptimized<T>(SyntaxNode root, Func<SyntaxNode, (T Converted, bool DescendIntoChildren)> nodeConverter, bool stopOnFirstConverted = false) where T : SyntaxNode
@@ -113,10 +98,6 @@ namespace Scand.StormPetrel.Generator
                 return descendIntoChildren;
             }).Count();
         }
-
-        private static IEnumerable<T> FilterAndCast<TBase, T>(IEnumerable<TBase> values)
-            => values.Where(x => x is T).Cast<T>();
-
         public static MethodDeclarationSyntax WithStormPetrelTestCaseRelatedStuff(MethodDeclarationSyntax method)
         {
             var newMethod = method;

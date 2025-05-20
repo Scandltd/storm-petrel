@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Test.Integration.XUnit
 {
-    public class TestCaseSourceMemberDataTest
+    public partial class TestCaseSourceMemberDataTest
     {
 #pragma warning disable xUnit1042 //Justification: Intentionally test MemberData
         [Theory]
@@ -128,6 +128,28 @@ namespace Test.Integration.XUnit
             var actual = useCase?.Input1; //emulate an action
             //Assert
             actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Theory]
+        [MemberData(nameof(MemberDataInPartialFile))]
+        public void WhenMemberDataInPartialFileThenExpectedIsUpdated(int x, int y, string expectedHexString)
+        {
+            //Arrange
+            //Act
+            var actualHexString = Calculator.Add(x, y).ValueAsHexString;
+            //Assert
+            actualHexString.Should().Be(expectedHexString);
+        }
+
+        [Theory]
+        [MemberData(nameof(MemberDataPropertyInPartialFile))]
+        public void WhenMemberDataPropertyInPartialFileThenExpectedIsUpdated(int x, int y, string expectedHexString)
+        {
+            //Arrange
+            //Act
+            var actualHexString = Calculator.Add(x, y).ValueAsHexString;
+            //Assert
+            actualHexString.Should().Be(expectedHexString);
         }
 
         public static IEnumerable<object[]> DataMethod() =>

@@ -5,6 +5,7 @@ using Serilog;
 using Scand.StormPetrel.Generator.TargetProject;
 using System.Diagnostics;
 using System.Reflection;
+using Microsoft.CodeAnalysis;
 
 namespace Scand.StormPetrel.Generator.Test
 {
@@ -25,7 +26,9 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("080_MultipleExpectedVarAssignments")]
         [InlineData("090_Method_Call_In_Declaration")]
         [InlineData("100_ClassWithoutTestMethods")]
+        [InlineData("100_ClassWithoutTestMethods", null, true)]
         [InlineData("110_PatternMatch")]
+        [InlineData("110_PatternMatch", null, true)]
         [InlineData("120_Property")]
         [InlineData("120_PropertyFromAnotherClass")]
         [InlineData("130_ClassWithConstructor")]
@@ -37,43 +40,66 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("190_AssertionNoExpectedVar_ShouldBe")]
         [InlineData("200_AssertionNoExpectedVar_ExpectedExpressionKinds")]
         [InlineData("ExpectedInMethodTest01Data")] //performance test
+        [InlineData("ExpectedInMethodTest01Data", null, true)]
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod")]
+        [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod", true)]
         [InlineData("NoExpectedVarAssertTest")]
         [InlineData("NoExpectedVarAssertThatTest")]
         [InlineData("NoExpectedVarAssertMSTest")]
         [InlineData("NoExpectedVarExpressionKindsTest")]
         [InlineData("NoExpectedVarWithOperatorsTest")]
         [InlineData("NoExpectedVarShouldlyTest")]
+        [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile")]
+        [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile", null, true)]
         [InlineData("Utils")]
+        [InlineData("Utils", null, true)]
         [InlineData("Utils.IgnoredMembersMiddleware")]
         [InlineData("Utils.OtherMethods")]
-        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null)
+        [InlineData("Utils.OtherMethods", null, true)]
+        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false)
         {
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(XUnitGenerationTest));
             ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
             var inputCode = await ReadResourceAsync(assembly, $"{inputReplacementCodeResourceName}.cs");
-            string? expectedCode = null;
-            string? expectedResourceFileName = null;
-            if (inputReplacementCodeResourceName != "020_NoTestClasses"
-                && inputReplacementCodeResourceName != "Utils.IgnoredMembersMiddleware")
+            ArgumentNullException.ThrowIfNull(inputCode);
+            var postfixes = new List<string>();
+            if (!string.IsNullOrEmpty(configKey))
             {
-                var configKeyPostfix = string.IsNullOrEmpty(configKey) ? "" : $"Config_{configKey}_";
-                expectedResourceFileName = $"{inputReplacementCodeResourceName}_{configKeyPostfix}Then_Expected.cs";
-                expectedCode = await ReadResourceAsync(assembly, expectedResourceFileName);
+                postfixes.Add($"Config_{configKey}");
             }
+            if (isStaticStuffUseCase)
+            {
+                postfixes.Add("StaticStuff");
+            }
+            var postfix = string.Join("_", postfixes);
+            if (!string.IsNullOrEmpty(postfix))
+            {
+                postfix += "_";
+            }
+            var expectedResourceFileName = $"{inputReplacementCodeResourceName}_{postfix}Then_Expected.cs";
+            var expectedCode = await ReadResourceAsync(assembly, expectedResourceFileName);
             var tempFilePath = @"C:\temp\temp.cs";
 
             //Act
             var stopwatch = Stopwatch.StartNew();
-            var actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfig(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+            SyntaxNode? actualSyntaxNode;
+            if (isStaticStuffUseCase)
+            {
+                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfig(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                actualSyntaxNode = tempNode;
+            }
+            else
+            {
+                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfig(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+            }
             stopwatch.Stop();
             string? actual = actualSyntaxNode?.ToFullString();
 
             //Assert
             stopwatch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(10), "Typical execution time is less than ~3 seconds for worst case on `11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz`");
             actual = NormalizeLineEndings(actual);
-            if (expectedResourceFileName != null)
+            if (expectedCode != null)
             {
                 //Keep commented in git. Uncomment to overwrite baselines while development only.
                 //await File.WriteAllTextAsync(@$"..\..\..\Resource\{expectedResourceFileName}", actual);
@@ -139,10 +165,13 @@ namespace Scand.StormPetrel.Generator.Test
             };
         }
 
-        static async Task<string> ReadResourceAsync(Assembly assembly, string resourceFileName)
+        static async Task<string?> ReadResourceAsync(Assembly assembly, string resourceFileName)
         {
             using var stream = assembly.GetManifestResourceStream(typeof(XUnitGenerationTest), $"Resource.{resourceFileName}");
-            ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+            if (stream == null)
+            {
+                return null;
+            }
             using var streamReader = new StreamReader(stream);
             return await streamReader.ReadToEndAsync();
         }
