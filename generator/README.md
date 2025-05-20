@@ -379,6 +379,8 @@ See:
 
 ### Test Frameworks
 * [xUnit](https://xunit.net/)
+    * **For v2 and v3**: See [Test.Integration.XUnit.csproj](Test.Integration.XUnit/Test.Integration.XUnit.csproj) for examples.
+    * **v3-specific**: See [Test.Integration.XUnitV3.csproj](Test.Integration.XUnitV3/Test.Integration.XUnitV3.csproj).
 * [NUnit](https://nunit.org/)
 * [MSTest](https://github.com/microsoft/testfx/)
 

@@ -220,6 +220,14 @@ if (-not $SkipGeneratorTest) {
 
     #Copy *.cs files to execute integration tests under next version of .NET
     Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnit.NetNextVersion" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs"
+    #Copy *.cs files to execute integration tests under XUnit v3
+    Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnitV3" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs", "CustomInlineDataAttribute.cs", "CustomMemberDataAttribute.cs"
+    #Update the signature of MemberData attribute for XUnit v3
+    $testFileName = "generator/Test.Integration.XUnitV3/TestCaseSourceMemberDataTest.cs"
+    $testsContent = Get-Content -Path $testFileName -Raw
+    $testsContent = $testsContent -replace "parameters:", "arguments:"
+    Set-Content -Path $testFileName -Value $testsContent
+    
     RunIntegrationTests "generator" $solutionFileName
 }
 

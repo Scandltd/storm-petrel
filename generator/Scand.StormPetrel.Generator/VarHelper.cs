@@ -25,7 +25,7 @@ namespace Scand.StormPetrel.Generator
         /// </summary>
         private static readonly string[] SourceMemberArgumentNames = new[] { "memberName", "sourceName", "dynamicDataSourceName" };
         private static readonly string[] SourceTypeArgumentNamesForNunitMstest = new[] { "sourceType", "dynamicDataDeclaringType" };
-        private static readonly string[] SourceParameterNamesForXunitNunit = new[] { "parameters", "methodParams" };
+        private static readonly string[] SourceParameterNamesForXunitNunit = new[] { "parameters", "methodParams", "arguments" };
         #endregion
 
         public VarHelper(TestVariablePairConfig[] testVariablePairConfigs)

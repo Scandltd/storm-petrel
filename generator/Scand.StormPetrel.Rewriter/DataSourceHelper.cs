@@ -7,7 +7,7 @@ namespace Scand.StormPetrel.Rewriter
 {
     public static class DataSourceHelper
     {
-        public static IEnumerable<object[]> Enumerate(Type dataSourceType, string dataSourceMemberName, params object[] memberParameters)
+        public static IEnumerable<object> Enumerate(Type dataSourceType, string dataSourceMemberName, params object[] memberParameters)
         {
             if (dataSourceType == null)
             {
@@ -29,9 +29,36 @@ namespace Scand.StormPetrel.Rewriter
                 {
                     result = ((FieldInfo)member).GetValue(null);
                 }
-                return result as IEnumerable<object[]>;
+                return result as IEnumerable<object>;
             }
             return null;
+        }
+
+        public static IEnumerable<object[]> ConvertToStormPetrelRows(IEnumerable<object> rows)
+        {
+            var stormPetrelRows = Enumerable.Select(rows, row =>
+            {
+                if (row is object[] tempRow)
+                {
+                    return tempRow;
+                }
+                //Now parse xUnit v3 format
+                var propertyInfo = row.GetType().GetProperty("Data");
+                var rowValue = propertyInfo?.GetValue(row);
+                if (rowValue == null)
+                {
+                    throw new InvalidOperationException("Cannot get a value from test case source row.");
+                }
+                //xUnit v3 tuple fields
+                var fields = rowValue.GetType().GetFields().OrderBy(x => x.Name).ToArray();
+                var convertedRow = new object[fields.Length];
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    convertedRow[i] = fields[i].GetValue(rowValue);
+                }
+                return convertedRow;
+            });
+            return stormPetrelRows;
         }
 
         public static string[] GetPath(Type type, string memberName) =>

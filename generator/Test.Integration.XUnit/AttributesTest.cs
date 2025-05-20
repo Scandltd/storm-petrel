@@ -9,7 +9,8 @@ namespace Test.Integration.XUnit
         [Theory]
         [InlineData(1, "1_incorrect")]
         [InlineData(2, "2")]
-        [InlineData(3, "3_incorrect")]
+        [InlineData(3, "3_incorrect", Skip = "For example of skipped use case")]
+        [InlineData(4, "4_incorrect")]
         public void TestMethod(int i, string expected)
         {
             //Act

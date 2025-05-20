@@ -50,7 +50,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data)))
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data)));
+            foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
@@ -67,7 +68,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "x",
                     "y"
                 };
-                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data)))
+                foreach (var stormPetrelRow in stormPetrelRows)
                 {
                     if (x == (int)stormPetrelRow[0])
                     {
@@ -154,7 +155,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeNameSpace.SomeType), nameof(Data)))
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeNameSpace.SomeType), nameof(Data)));
+            foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
@@ -171,7 +173,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "x",
                     "y"
                 };
-                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeNameSpace.SomeType), nameof(Data)))
+                foreach (var stormPetrelRow in stormPetrelRows)
                 {
                     if (x == (int)stormPetrelRow[0])
                     {
@@ -258,7 +260,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)));
+            foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
@@ -275,7 +278,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "x",
                     "y"
                 };
-                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
+                foreach (var stormPetrelRow in stormPetrelRows)
                 {
                     if (x == (int)stormPetrelRow[0])
                     {
@@ -362,7 +365,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)));
+            foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
@@ -379,7 +383,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "x",
                     "y"
                 };
-                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(Data)))
+                foreach (var stormPetrelRow in stormPetrelRows)
                 {
                     if (x == (int)stormPetrelRow[0])
                     {
@@ -466,7 +470,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data), 1, "string param", new object[] { 1, 2, 3 }))
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data), 1, "string param", new object[] { 1, 2, 3 }));
+            foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
@@ -483,7 +488,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "x",
                     "y"
                 };
-                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(Data), 1, "string param", new object[] { 1, 2, 3 }))
+                foreach (var stormPetrelRow in stormPetrelRows)
                 {
                     if (x == (int)stormPetrelRow[0])
                     {
@@ -570,7 +575,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters), 3))
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters), 3));
+            foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
                 if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
@@ -587,7 +593,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "x",
                     "y"
                 };
-                foreach (var stormPetrelRow in Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters), 3))
+                foreach (var stormPetrelRow in stormPetrelRows)
                 {
                     if (x == (int)stormPetrelRow[0])
                     {
