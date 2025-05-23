@@ -1,0 +1,13 @@
+[*.cs]
+
+# xUnit1042: The member referenced by the MemberData attribute returns untyped data rows
+# Justification: To intentionally test the use cases
+dotnet_diagnostic.xUnit1042.severity = none
+
+# xUnit1047: Avoid using TheoryDataRow arguments that might not be serializable
+# Justification: To avoid IXunitSerializable or whatever additional implementation to simplify the tests
+dotnet_diagnostic.xUnit1047.severity = none
+
+# IDE0300: Simplify collection initialization
+# Justification: To intentionally test the use cases
+dotnet_diagnostic.IDE0300.severity = none

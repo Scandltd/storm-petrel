@@ -42,10 +42,10 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
             yield return (-2, 2, /*a comment*/ new AddResult());
             yield return (int.MinValue, -1, new AddResult());
             yield return (-4, -6, new List<string>()
-{
-    "1",
-    "2"
-});
+            {
+                "1",
+                "2"
+            });
         }
     }
 }

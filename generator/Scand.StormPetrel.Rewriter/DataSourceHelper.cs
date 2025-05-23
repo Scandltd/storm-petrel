@@ -49,6 +49,10 @@ namespace Scand.StormPetrel.Rewriter
                 {
                     throw new InvalidOperationException("Cannot get a value from test case source row.");
                 }
+                if (rowValue is object[] rowValueAsArray)
+                {
+                    return rowValueAsArray;
+                }
                 //xUnit v3 tuple fields
                 var fields = rowValue.GetType().GetFields().OrderBy(x => x.Name).ToArray();
                 var convertedRow = new object[fields.Length];

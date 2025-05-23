@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.Performance.XUnit\ExpectedInlineInstance\ExpectedInlineInstanceTest01.cs" Link="Resource\ExpectedInlineInstanceTest01.cs" />
+    <EmbeddedResource Include="..\Test.Integration.XUnitV3\TheoryContractTest.cs" Link="Resource\160_TheoryContractTest.cs" />
   </ItemGroup>
 
   <ItemGroup>

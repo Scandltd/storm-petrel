@@ -158,6 +158,10 @@ namespace Scand.StormPetrel.Rewriter.Test
         [InlineData("150_EnumerableMethodTheoryDataComments", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryDataWithRegions" }, 1, 2, List2ElementsMultiline, "150_EnumerableMethodTheoryDataComments_TheoryDataWithRegions12_NewCode_Then_Expected")]
         [InlineData("150_EnumerableMethodTheoryDataComments", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryDataWithRegions" }, 3, 2, List2ElementsMultiline, "150_EnumerableMethodTheoryDataComments_TheoryDataWithRegions32_NewCode_Then_Expected")]
         [InlineData("150_EnumerableMethodTheoryDataComments", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryDataWithRegions" }, 4, 0, List2ElementsMultiline, "150_EnumerableMethodTheoryDataComments_TheoryDataWithRegions40_NewCode_Then_Expected")]
+        [InlineData("160_TheoryContractTest", new[] { "TheoryContractTest", "TheoryDataRowArray" }, 0, 0, Const123, "160_TheoryContractTest_TheoryDataRowIsArray_Then_Expected")]
+        [InlineData("160_TheoryContractTest", new[] { "TheoryContractTest", "TheoryDataRowImplicitArray" }, 1, 2, Const123, "160_TheoryContractTest_TheoryDataRowImplicitArray_Then_Expected")]
+        [InlineData("160_TheoryContractTest", new[] { "TheoryContractTest", "TheoryDataRowMethodYieldReturn" }, 0, 1, Const123, "160_TheoryContractTest_MethodYieldReturnTheoryDataRow_Then_Expected")]
+        [InlineData("160_TheoryContractTest", new[] { "TheoryContractTest", "TheoryDataRowImplicitObjectArray" }, 0, 1, List2ElementsMultiline, "160_TheoryContractTest_TheoryDataRowImplicitObjectArray_Then_Expected")]
         public async Task EnumerableResultRewriterTest(string inputCodeResourceName, string[] methodPath, int resultRowIndex, int resultColumnIndex, string initializeCode, string expectedResourceFileName)
             => await RewriteTestImplementation(
                         async () => new EnumerableResultRewriter(methodPath, resultRowIndex, resultColumnIndex, await ResourceOrSelfAsync(initializeCode)),

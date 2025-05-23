@@ -140,10 +140,10 @@ new()
 {
     -2,
 new List<string>()
-{
-    "1",
-    "2"
-},
+    {
+        "1",
+        "2"
+    },
     100
 },
     { int.MinValue, -1, int.MaxValue },

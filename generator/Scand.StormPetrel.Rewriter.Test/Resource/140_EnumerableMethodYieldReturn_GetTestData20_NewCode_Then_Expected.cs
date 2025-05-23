@@ -21,10 +21,10 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 4, 5, 6,
             };
             yield return new object[] { new List<string>()
-{
-    "1",
-    "2"
-}, 8, 9 };
+            {
+                "1",
+                "2"
+            }, 8, 9 };
         }
 
         public static IEnumerable<object[]> GetTestDataPropertyGetExplicit
