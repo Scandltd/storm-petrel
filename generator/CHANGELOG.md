@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.4.0] - 2025-05-23
+
+### Added
+- Custom test attributes support.
+- xUnit v3 support.
+- Partial test classes support.
+
+### Documentation: added
+- xUnit theory data example with test case equality operator.
+- Examples of decorating baselines with constants and DateTime constructors.
+- `Scand.StormPetrel.Extension` Visual Studio extension references.
+
 ## [2.3.0] - 2025-04-21
 
 ### Added

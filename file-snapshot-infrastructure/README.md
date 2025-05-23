@@ -91,9 +91,13 @@ See test examples in
 
 ## Getting Started
 To utilize File Snapshot Infrastructure in a test .NET project:
-* Add the [Scand.StormPetrel.Generator](https://nuget.org/packages/Scand.StormPetrel.Generator) NuGet package to the project.
-* Add the [Scand.StormPetrel.FileSnapshotInfrastructure](https://nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure) NuGet package to the project.
-* Add an `appsettings.StormPetrel.json` file with `Build Action` set to `C# analyzer additional file` according to Scand.StormPetrel.Generator [Configuration](../generator/README.md#configuration). The file should reference File Snapshot Infrastructure classes like below:
+
+* Use [Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=ScandDevteam.Scand-StormPetrel-Extension) with `Scand.StormPetrel.FileSnapshotInfrastructure` value in `Dumper Expression` field.
+
+* Alternative: Manually install packages and configure settings:
+    * Add the [Scand.StormPetrel.Generator](https://nuget.org/packages/Scand.StormPetrel.Generator) NuGet package to the project.
+    * Add the [Scand.StormPetrel.FileSnapshotInfrastructure](https://nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure) NuGet package to the project.
+    * Add an `appsettings.StormPetrel.json` file with `Build Action` set to `C# analyzer additional file` according to Scand.StormPetrel.Generator [Configuration](../generator/README.md#configuration). The file should reference File Snapshot Infrastructure classes like below:
 ```jsonc
 {
   "$schema": "https://raw.githubusercontent.com/Scandltd/storm-petrel/main/generator/assets/appsettings.StormPetrel.Schema.json", // [optional] string, path to json schema. 

@@ -30,6 +30,7 @@
             * [WPF .NET](#wpf-net)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
+    * [Optional Visual Studio Extension](#optional-visual-studio-extension)
     * [Optional JSON File](#optional-json-file)
     * [Optional Environment Variable](#optional-environment-variable)
 * [Supported Software](#supported-software)
@@ -307,6 +308,12 @@ To utilize the StormPetrel tests, add the following NuGet Package references to 
     * **Option D**. [Scand.StormPetrel.FileSnapshotInfrastructure](https://www.nuget.org/packages/Scand.StormPetrel.FileSnapshotInfrastructure). Typically, it represents the `actual` test instance as a checksum and writes the instance bytes to a snapshot file in the `IGeneratorRewriter` implementation. It may be referenced and configured according to its [settings](../file-snapshot-infrastructure/README.md#getting-started).
 
 ## Configuration
+
+### Optional Visual Studio Extension
+
+Use [Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=ScandDevteam.Scand-StormPetrel-Extension) for configuring Storm Petrel. It provides a UI to set up test project settings (adds necessary NuGet packages and `appsettings.StormPetrel.json` file to the project), enabling automatic rewriting of expected baselines.
+
+**Alternative:** Manually install packages and configure settings.
 
 ### Optional JSON File
 

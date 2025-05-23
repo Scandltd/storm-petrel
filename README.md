@@ -1,6 +1,12 @@
 [![Scand Storm Petrel Expected Baselines Rewriter](generator/assets/logo-128x128-transparent.png)](https://scand.com/products/storm-petrel-expected-baselines-rewriter)
 # Storm Petrel Expected Baselines Rewriter
 
+## Scand.StormPetrel.Extension
+
+[Visual Studio extension](https://marketplace.visualstudio.com/items?itemName=ScandDevteam.Scand-StormPetrel-Extension) for configuring Scand Storm Petrel. Provides a UI to set up test project settings, enabling automatic rewriting of expected baselines according to StormPetrel's [use cases](generator/README.md#use-case-variations).
+
+**Alternative:** Manually install NuGet packages and setup settings according to the [configuration](generator/README.md#configuration).
+
 ## [Scand.StormPetrel.Generator.Abstraction](abstraction/README.md)
 [![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.Generator.Abstraction.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.Generator.Abstraction)
 
