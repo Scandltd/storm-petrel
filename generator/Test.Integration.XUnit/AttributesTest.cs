@@ -89,5 +89,22 @@ namespace Test.Integration.XUnit
             actual.Should().BeEquivalentTo(expected);
             callerMemberName.Should().BeEmpty();
         }
+
+        [Theory]
+        [InlineData(1, "1_incorrect")]
+        [InlineData(2, "incorrect_2")]
+        public void TestMethodWithTwoExpectedVar(int i, string expected)
+        {
+            //Arrange
+            int expectedLength = 11;
+
+            //Act
+            var actual = i.ToString(CultureInfo.InvariantCulture);
+            var actualLength = actual.Length;
+
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+            actualLength.Should().Be(expectedLength);
+        }
     }
 }

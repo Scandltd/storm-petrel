@@ -97,6 +97,7 @@ namespace Scand.StormPetrel.Generator
                     var varPairInfoList = varHelper.GetVarPairs(methodOriginal);
                     var newMethod = method;
                     int i = -1;
+                    bool addStormPetrelUseCaseIndex = varPairInfoList.Any(x => x.ExpectedVarExtraContextInternal is AttributeContextInternal);
                     foreach (var info in varPairInfoList
                                             .OrderByDescending(a => a.StatementIndex)
                                             .ThenByDescending(a => a.StatementIndexForSubOrder))
@@ -114,9 +115,10 @@ namespace Scand.StormPetrel.Generator
                                             .ChildNodes()
                                             .OfType<MethodDeclarationSyntax>()
                                             .Single(a => a.Identifier.Text == oldMethodName);
-                        if (i == 0 && info.ExpectedVarExtraContextInternal is AttributeContextInternal)
+                        if (addStormPetrelUseCaseIndex)
                         {
                             newMethod = MethodHelper.WithStormPetrelTestCaseRelatedStuff(newMethod);
+                            addStormPetrelUseCaseIndex = false;
                         }
                         newClass = newClass.ReplaceNode(oldMethod, newMethod);
                         newClass = RenameChildConstructorsIfNeed(newClass);

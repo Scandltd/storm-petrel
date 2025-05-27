@@ -1,3 +1,4 @@
+using System.Globalization;
 using FluentAssertions;
 
 namespace Scand.StormPetrel.Rewriter.Test.Resource
@@ -262,6 +263,100 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Theory]
+        [InlineData(0, 1, "1_incorrect")]
+        [InlineData(1, 2, "incorrect_2")]
+        public void TestMethodWithTwoExpectedVarStormPetrel(int stormPetrelUseCaseIndex, int i, string expected)
+        {
+            //Arrange
+            int expectedLength = 11;
+            //Act
+            var actual = i.ToString(CultureInfo.InvariantCulture);
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "AttributesTest",
+                MethodName = "TestMethodWithTwoExpectedVar",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 2,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "i",
+                        Value = i,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+                Actual = actual,
+                ActualVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Rewriter.Test.Resource",
+                    "AttributesTest",
+                    "TestMethodWithTwoExpectedVar",
+                    "actual"
+                },
+                Expected = expected,
+                ExpectedVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Rewriter.Test.Resource",
+                    "AttributesTest",
+                    "TestMethodWithTwoExpectedVar"
+                },
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+                {
+                    Index = stormPetrelUseCaseIndex,
+                    Name = "InlineData",
+                    ParameterIndex = 1
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            var actualLength = actual.Length;
+            stormPetrelSharedContext.VariablePairCurrentIndex++;
+            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+                Actual = actualLength,
+                ActualVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Rewriter.Test.Resource",
+                    "AttributesTest",
+                    "TestMethodWithTwoExpectedVar",
+                    "actualLength"
+                },
+                Expected = expectedLength,
+                ExpectedVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Rewriter.Test.Resource",
+                    "AttributesTest",
+                    "TestMethodWithTwoExpectedVar",
+                    "expectedLength"
+                },
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+            actualLength.Should().Be(expectedLength);
         }
     }
 }
