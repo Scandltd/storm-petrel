@@ -23,11 +23,13 @@
             * [MSTest assertions](#mstest-assertions)
             * [Shouldly expressions](#shouldly-expressions)
             * [Custom assertions that replicate the signatures above](#custom-assertions-that-replicate-the-signatures-above)
-        * [Framework specific examples](#framework-specific-examples)
+        * [Framework and library specific examples](#framework-and-library-specific-examples)
             * [ASP.NET Core](#aspnet-core)
             * [Exceptions](#exceptions)
             * [Windows Forms .NET](#windows-forms-net)
             * [WPF .NET](#wpf-net)
+            * [AutoFixture](#autofixture)
+            * [Other examples](#other-examples)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
     * [Optional Visual Studio Extension](#optional-visual-studio-extension)
@@ -281,8 +283,7 @@ Supported expressions include `actual.ShouldBe(123);` according to [Shouldly](ht
 ##### Custom assertions that replicate the signatures above
 You can also implement and use custom assertions. Ensure they replicate the signatures of the assertions mentioned above so that StormPetrel can detect them effectively.
 
-#### Framework specific examples
-Below are the most notable frameworks (though not an exhaustive list what Storm Petrel can support) and test example references for them.
+#### Framework and library specific examples
 
 ##### ASP.NET Core
 See test examples in [AspNetTest](Test.Integration.WebApi.XUnit/AspNetTest.cs).
@@ -297,6 +298,19 @@ See test examples in [WinFormsTest](../file-snapshot-infrastructure/Test.Integra
 See examples in [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-infrastructure/README.md) tests:
 * [WpfTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfTest.cs) for regular xUnit attributes, but more complex test implementation.
 * [WpfCustomAttributeTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) for additional configuration of [Xunit.StaFact](https://www.nuget.org/packages/Xunit.StaFact) NuGet package attributes, but simpler test implementation.
+
+##### AutoFixture
+See [AutoFixtureTest](Test.Integration.XUnit/AutoFixtureTest.cs) for [AutoFixture](https://github.com/AutoFixture/AutoFixture) examples. Find `AutoFixture.Xunit2.InlineAutoDataAttribute` in the [build](../build/build.ps1) script to see AutoFixture attributes configuration example for the environment variable what can be configured at process, user or machine level.
+
+##### Other examples
+The preceding sections highlight key test examples. While not exhaustive, Storm Petrel can also provide compatibility for the following frameworks/libraries in a similar manner:
+* [Aspose](https://www.aspose.com/).
+* [Avalonia UIs](https://avaloniaui.net/).
+* [Blazor Components](https://docs.microsoft.com/en-us/aspnet/core/blazor/#components).
+* [FreeSpire.PDF](https://www.e-iceblue.com/Introduce/free-pdf-component.html).
+* [iText](https://itextpdf.com/) (aka iTextSharp).
+* [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json).
+* [Syncfusion Essential Document Processing](https://help.syncfusion.com/document-processing/introduction).
 
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
@@ -386,8 +400,8 @@ See:
 
 ### Test Frameworks
 * [xUnit](https://xunit.net/)
-    * **For v2 and v3**: See [Test.Integration.XUnit.csproj](Test.Integration.XUnit/Test.Integration.XUnit.csproj) for examples.
-    * **v3-specific**: See [Test.Integration.XUnitV3.csproj](Test.Integration.XUnitV3/Test.Integration.XUnitV3.csproj).
+    * **For v2 and v3**: See [Test.Integration.XUnit](Test.Integration.XUnit) for examples.
+    * **v3-specific**: See [Test.Integration.XUnitV3](Test.Integration.XUnitV3).
 * [NUnit](https://nunit.org/)
 * [MSTest](https://github.com/microsoft/testfx/)
 

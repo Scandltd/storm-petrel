@@ -32,10 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="AutoFixture.Xunit3" />
     <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture.Xunit3" Version="4.19.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
