@@ -29,6 +29,7 @@
             * [Windows Forms .NET](#windows-forms-net)
             * [WPF .NET](#wpf-net)
             * [AutoFixture](#autofixture)
+            * [Playwright](#playwright)
             * [Other examples](#other-examples)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
@@ -302,6 +303,9 @@ See examples in [Scand.StormPetrel.FileSnapshotInfrastructure](../file-snapshot-
 ##### AutoFixture
 See [AutoFixtureTest](Test.Integration.XUnit/AutoFixtureTest.cs) for [AutoFixture](https://github.com/AutoFixture/AutoFixture) examples. Find `AutoFixture.Xunit2.InlineAutoDataAttribute` in the [build](../build/build.ps1) script to see AutoFixture attributes configuration example for the environment variable what can be configured at process, user or machine level.
 
+##### Playwright
+See [PlaywrightTest](../file-snapshot-infrastructure/Test.Integration.PlaywrightTest) for [Playwright](https://playwright.dev/) test project configuration and examples. This project also showcases the Storm Petrel setup, enabling both traditional tests and file snapshot tests within the same project and even the same test class.
+
 ##### Other examples
 The preceding sections highlight key test examples. While not exhaustive, Storm Petrel can also provide compatibility for the following frameworks/libraries in a similar manner:
 * [Aspose](https://www.aspose.com/).
@@ -310,6 +314,8 @@ The preceding sections highlight key test examples. While not exhaustive, Storm 
 * [FreeSpire.PDF](https://www.e-iceblue.com/Introduce/free-pdf-component.html).
 * [iText](https://itextpdf.com/) (aka iTextSharp).
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json).
+* [Puppeteer Sharp](https://github.com/hardkoded/puppeteer-sharp).
+* [Selenium](https://www.selenium.dev/).
 * [Syncfusion Essential Document Processing](https://help.syncfusion.com/document-processing/introduction).
 
 ## Getting Started

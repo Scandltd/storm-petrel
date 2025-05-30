@@ -1,0 +1,5 @@
+﻿[*.cs]
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+# Justification: ConfigureAwait is not need in the tests
+dotnet_diagnostic.CA2007.severity = none

@@ -69,19 +69,24 @@ public class MainTest
   //For root and other strings
   """": [""""]
 }", true, 0)]
+    [InlineData("255_LiteralExpressionDumperDecorator_ExtraCases", null, true, 0)]
     [InlineData("260_LiteralExpressionDumperDecorator_RootString", @"{
   """": [""""]
 }")]
+    [InlineData("260_LiteralExpressionDumperDecorator_RootString", null)]
     [InlineData("265_LiteralExpressionDumperDecorator_RootStringUnescaped", @"{
   """": [""""]
 }", true, 30)]
+    [InlineData("265_LiteralExpressionDumperDecorator_RootStringUnescaped", null, true, 30)]
     [InlineData("270_LiteralExpressionDumperDecorator_NumberToHex", "", false)]
     [InlineData("275_LiteralExpressionDumperDecorator_NumberToHex_RootNumber", "", false)]
-    public async Task LiteralExpressionDumperDecoratorTest(string inputReplacementCodeResourceName, string verbatimStringConfigSerialized, bool useGetVerbatimStringDecoratingFunc = true, int maxPreservedStringLength = 2)
+    public async Task LiteralExpressionDumperDecoratorTest(string inputReplacementCodeResourceName, string? verbatimStringConfigSerialized, bool useGetVerbatimStringDecoratingFunc = true, int maxPreservedStringLength = 2)
         => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName,
                                                     useGetVerbatimStringDecoratingFunc
                                                         ? new LiteralExpressionDumperDecorator(_generatorDumper,
-                                                            JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(verbatimStringConfigSerialized, JsonOptions),
+                                                            verbatimStringConfigSerialized != null
+                                                                ? JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(verbatimStringConfigSerialized, JsonOptions)
+                                                                : null,
                                                             maxPreservedStringLength)
                                                         : new LiteralExpressionDumperDecorator(_generatorDumper, LiteralExpressionDumperDecorator.GetNumberToHexDecoratingFunc()));
 

@@ -251,15 +251,13 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
          $content = $content -replace $testProjectPattern, "" -replace $winformsProjectPattern, "" -replace $wpfProjectPattern, "" -replace $testWpfProjectPattern, ""
          Set-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Value $content
     }
-    #Update 2.0.0 Scand.StormPetrel.Generator package references in integration test projects
-    if ($FSIIntegrationTestGeneratorVersion -ne "2.0.0") {
-        $testProjectFiles = Get-ChildItem -Path "file-snapshot-infrastructure" -Recurse -File | Where-Object { $_.Name -match "^Test\.Integration\..*\.csproj`$" }
-        foreach ($projectFile in $testProjectFiles) {
-            $content = Get-Content -Path $projectFile.FullName -Raw
-            $replacement = "`${1}$FSIIntegrationTestGeneratorVersion`$3"
-            $content = $content -replace "(<PackageReference Include=\""Scand.StormPetrel.Generator\"" Version=\"")(2\.0\.0)(\"")", $replacement
-            Set-Content -Path $projectFile.FullName -Value $content
-        }
+    #Update Scand.StormPetrel.Generator package references in integration test projects
+    $testProjectFiles = Get-ChildItem -Path "file-snapshot-infrastructure" -Recurse -File | Where-Object { $_.Name -match "^Test\.Integration\..*\.csproj`$" }
+    foreach ($projectFile in $testProjectFiles) {
+        $content = Get-Content -Path $projectFile.FullName -Raw
+        $replacement = "`${1}$FSIIntegrationTestGeneratorVersion`$3"
+        $content = $content -replace "(<PackageReference Include=\""Scand.StormPetrel.Generator\"" Version=\"")([0-9\.]*)(\"")", $replacement
+        Set-Content -Path $projectFile.FullName -Value $content
     }
     RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
 }

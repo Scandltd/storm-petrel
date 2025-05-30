@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Scand.StormPetrel.FileSnapshotInfrastructure;
-using System.Xml.Linq;
 using Test.Integration.WpfApp;
 
 namespace Test.Integration.WpfAppTest;
@@ -16,12 +15,6 @@ public class WpfCustomAttributeTest
     [UIFact]
     public static void StaFactCompareWindowTest()
     {
-        //Do not call the property in real test projects. Use Scand.StormPetrel.Generator package version greater than "2.3.0" instead.
-        if (IsStormPetrelDevelopmentRepositoryWithUnsupportedCustomAttributes)
-        {
-            return;
-        }
-
         //Arrange
         var expectedFileBytesSnapshot = SnapshotProvider.ReadAllBytes();
 
@@ -38,12 +31,6 @@ public class WpfCustomAttributeTest
     [InlineData("600x800", 600, 800)]
     public void CompareWindowSizeTest(string useCaseId, int height, int width)
     {
-        //Do not call the property in real test projects. Use Scand.StormPetrel.Generator package version greater than "2.3.0" instead.
-        if (IsStormPetrelDevelopmentRepositoryWithUnsupportedCustomAttributes)
-        {
-            return;
-        }
-
         //Arrange
         var expectedFileBytesSnapshot = SnapshotProvider.ReadAllBytes(useCaseId);
 
@@ -57,25 +44,5 @@ public class WpfCustomAttributeTest
 
         //Assert
         actualFileBytesSnapshot.Should().BeEquivalentTo(expectedFileBytesSnapshot);
-    }
-
-    /// <summary>
-    /// Do not call the property in real test projects. Use Scand.StormPetrel.Generator package version greater than "2.3.0" instead.
-    /// </summary>
-    private static bool IsStormPetrelDevelopmentRepositoryWithUnsupportedCustomAttributes
-        => GetStormPetrelNuGetPackageVersion() <= new Version("2.3.0");
-
-    private static Version GetStormPetrelNuGetPackageVersion()
-    {
-        string? projectDir = Directory.GetParent(AppContext.BaseDirectory)?.Parent?.Parent?.Parent?.FullName;
-        ArgumentNullException.ThrowIfNull(projectDir);
-        string csprojPath = Path.Combine(projectDir, "Test.Integration.WpfAppTest.csproj");
-        var xml = XDocument.Load(csprojPath);
-        var packageRef = xml
-                            .Descendants("PackageReference")
-                            .Single(x => x.Attribute("Include")?.Value == "Scand.StormPetrel.Generator");
-        var version = packageRef?.Attribute("Version")?.Value;
-        ArgumentNullException.ThrowIfNull(version);
-        return new Version(version);
     }
 }

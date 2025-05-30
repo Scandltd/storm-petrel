@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.WpfApp", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.WpfAppTest", "Test.Integration.WpfAppTest\Test.Integration.WpfAppTest.csproj", "{12DBAA41-31DA-455A-8E42-A9B68E16114C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.PlaywrightTest", "Test.Integration.PlaywrightTest\Test.Integration.PlaywrightTest.csproj", "{F1CD1915-935D-4FB3-9C85-21034105FBEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12DBAA41-31DA-455A-8E42-A9B68E16114C}.Release|Any CPU.Build.0 = Release|Any CPU
+                {F1CD1915-935D-4FB3-9C85-21034105FBEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {F1CD1915-935D-4FB3-9C85-21034105FBEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {F1CD1915-935D-4FB3-9C85-21034105FBEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {F1CD1915-935D-4FB3-9C85-21034105FBEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

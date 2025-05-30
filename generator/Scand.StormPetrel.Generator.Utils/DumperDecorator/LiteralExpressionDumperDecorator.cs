@@ -50,11 +50,12 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         /// </summary>
         /// <param name="typeNameToVerbatimStringPropertyNames">A dictionary where:
         /// - Key is object constructor token. Use empty string for anonymous or target-typed objects or any constructor token or root expression;
-        /// - Value is a list of assigment (e.g. property or field) names to apply verbatim string decoration. Use empty string to decorate any assignment in context of the key.</param>
-        /// <param name="maxPreservedStringLength"></param>
+        /// - Value is a list of assigment (e.g. property or field) names to apply verbatim string decoration. Use empty string to decorate any assignment in context of the key.
+        /// Use `null` to decorate any string longer than <paramref name="maxPreservedStringLength"/>.</param>
+        /// <param name="maxPreservedStringLength">Max length of strings where verbatim token is not applied to.</param>
         /// <returns>New function returning new <see cref="SyntaxNode"/> or <see cref="null"/> if verbatim text token is not applicable.</returns>
         public static Func<LiteralExpressionDumpContext, SyntaxNode> GetVerbatimStringDecoratingFunc(
-                                                                        Dictionary<string, IEnumerable<string>> typeNameToVerbatimStringPropertyNames,
+                                                                        Dictionary<string, IEnumerable<string>> typeNameToVerbatimStringPropertyNames = null,
                                                                         int maxPreservedStringLength = MaxPreservedStringLength)
         {
             return (LiteralExpressionDumpContext context) =>
@@ -68,7 +69,8 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
                 {
                     return null;
                 }
-                if (context.FirstAncestorName != null
+                if (typeNameToVerbatimStringPropertyNames == null
+                    || context.FirstAncestorName != null
                         && typeNameToVerbatimStringPropertyNames.TryGetValue(context.FirstAncestorName, out var verbatimStringPropertyNames)
                             && (verbatimStringPropertyNames.Contains("") || verbatimStringPropertyNames.Contains(context.AssignmentLeftName))
                     || typeNameToVerbatimStringPropertyNames.TryGetValue("", out var verbatimStringPropertyNamesDefault)

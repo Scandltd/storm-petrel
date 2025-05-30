@@ -18,9 +18,11 @@
     * [By Specific Framework](#by-specific-framework)
         * [Windows Forms .NET](#windows-forms-net)
         * [WPF .NET](#wpf-net)
+        * [Playwright](#playwright)
 * [Getting Started](#getting-started)
 * [Supported Software](#supported-software)
 * [CHANGELOG](#changelog)
+* [Test Dependencies](#test-dependencies)
 * [References](#references)
 
 ## Overview
@@ -89,6 +91,9 @@ See test examples in
 * [WpfTest](Test.Integration.WpfAppTest/WpfTest.cs) for regular xUnit attributes, but more complex test implementation.
 * [WpfCustomAttributeTest](Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) for additional configuration of [Xunit.StaFact](https://www.nuget.org/packages/Xunit.StaFact) NuGet package attributes, but simpler test implementation.
 
+#### Playwright
+See [PlaywrightTest](Test.Integration.PlaywrightTest) for [Playwright](https://playwright.dev/) test project configuration and examples. This project also showcases the Storm Petrel setup, enabling both traditional tests and file snapshot tests within the same project and even the same test class.
+
 ## Getting Started
 To utilize File Snapshot Infrastructure in a test .NET project:
 
@@ -118,6 +123,10 @@ The same as in [Scand.StormPetrel.Generator](../generator/README.md#supported-so
 ## CHANGELOG
 
 See [CHANGELOG](CHANGELOG.md) for more details.
+
+## Test Dependencies
+The test suite uses [Codeuctivity.ImageSharpCompare](https://www.nuget.org/packages/Codeuctivity.ImageSharpCompare), licensed under [Apache 2.0](https://licenses.nuget.org/Apache-2.0).
+This does not affect the license of the main project.
 
 ## References
 
