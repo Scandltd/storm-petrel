@@ -400,7 +400,7 @@ To enable custom test attribute support in Scand.StormPetrel.Generator, you may 
 Configure the variable at process, user or machine level. IDE and/or incremental generator dotnet processes restart may be required to apply the configuration change.
 See:
 * Process-level configuration example in [build.ps1](../build/build.ps1).
-* Custom attributes examples in [MSTest CustomAttributeTest](Test.Integration.MSTest/CustomAttributes/CustomAttributeTest.cs), [NUnit CustomAttributeTest](Test.Integration.NUnit/CustomAttributes/CustomAttributeTest.cs), [XUnit CustomAttributeTest](Test.Integration.XUnit/CustomAttributes/CustomAttributeTest.cs), [WpfCustomAttributeTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) tests and related custom attribute implementation files.
+* Custom attributes examples in [MSTest CustomAttributeTest](Test.Integration.MSTest/CustomAttributes/CustomAttributeTest.cs), [NUnit CustomAttributeTest](Test.Integration.NUnit/CustomAttributes/CustomAttributeTest.cs), [XUnit CustomAttributeTest](Test.Integration.XUnit/CustomAttributes/CustomAttributeTest.cs), [RetryTest](Test.Integration.XUnit/RetryTest.cs), [WpfCustomAttributeTest](../file-snapshot-infrastructure/Test.Integration.WpfAppTest/WpfCustomAttributeTest.cs) tests and related custom attribute implementation files.
 
 ## Supported Software
 

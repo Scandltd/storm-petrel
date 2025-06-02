@@ -54,4 +54,7 @@
 
   <Import Project="..\Test.Integration.Shared\Test.Integration.Shared.projitems" Label="Shared" />
 
+  <PropertyGroup>
+    <DefineConstants>IS_XUNIT_V3</DefineConstants>
+  </PropertyGroup>
 </Project>
