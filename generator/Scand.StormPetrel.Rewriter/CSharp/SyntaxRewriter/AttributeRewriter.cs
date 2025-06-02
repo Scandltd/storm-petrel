@@ -73,7 +73,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                             .Arguments
                             .Skip(_attributeParameterIndex)
                             .First();
-            var newArg = SyntaxFactory.AttributeArgument(CreateInitializeExpressionSyntax(arg));
+            var attributeParent = (AttributeListSyntax)attribute.Parent; //returns `[InlineData(...)]` when the attribute is `InlineData(...)`
+            var newArg = SyntaxFactory.AttributeArgument(CreateInitializeExpressionSyntax(attributeParent));
             bool isMissedDefaultWithTrivia = arg.HasLeadingTrivia;
             if (isMissedDefaultWithTrivia)
             {

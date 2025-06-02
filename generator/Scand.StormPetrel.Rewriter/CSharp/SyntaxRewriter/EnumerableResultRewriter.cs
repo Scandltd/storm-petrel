@@ -224,8 +224,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 
         private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b)
         {
-            var aLength = Utils.GetLeadingWhitespace(a).FullSpan.Length;
-            var bLength = Utils.GetLeadingWhitespace(b).FullSpan.Length;
+            var aLength = Utils.GetLeadingWhitespaceLength(a);
+            var bLength = Utils.GetLeadingWhitespaceLength(b);
             return aLength >= bLength ? a : b;
         }
     }

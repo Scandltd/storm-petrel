@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 public class Foo
 {
@@ -17,10 +17,10 @@ public class Foo
     {
         //Assert
         actual.Should().Be(  new List<string>()
-                                {
-                                    "102",
-                                    "103"
-                                });
+        {
+            "1",
+            "2"
+        });
     }
 
     public void ShouldBeTriviaFromArgumentAndLongestTriviaFromAncestors()

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 {
@@ -132,7 +132,41 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 }
                 else if (nd is ArgumentSyntax argument)
                 {
-                    var expression = CreateInitializeExpressionSyntax(argument);
+                    var topAncestor = nd;
+                    foreach (var ancestor in nd.Ancestors())
+                    {
+                        if (ancestor.Parent == node || ancestor.Parent == node.Body || ancestor == node.ExpressionBody)
+                        {
+                            //stop on method statement
+                            break;
+                        }
+                        topAncestor = ancestor;
+                    }
+                    var triviaSources = topAncestor
+                                            .DescendantNodesAndTokens()
+                                            .Where(x =>
+                                            {
+                                                var isArgument = x.AsNode()?.IsKind(SyntaxKind.Argument) == true;
+                                                if (isArgument)
+                                                {
+                                                    return false;
+                                                }
+                                                var isArgumentDescendant = x.Parent.AncestorsAndSelf().Any(y => y.IsKind(SyntaxKind.Argument));
+                                                return !isArgumentDescendant;
+                                            });
+                    var maxTrivia = Utils.GetLeadingWhitespace(argument);
+                    var maxTriviaLength = Utils.GetLeadingWhitespaceLength(maxTrivia);
+                    foreach (var triviaSource in triviaSources)
+                    {
+                        var trivia = Utils.GetLeadingWhitespace(triviaSource);
+                        var triviaLength = Utils.GetLeadingWhitespaceLength(trivia);
+                        if (triviaLength > maxTriviaLength)
+                        {
+                            maxTrivia = trivia;
+                            maxTriviaLength = triviaLength;
+                        }
+                    }
+                    var expression = CreateInitializeExpressionSyntax(maxTrivia);
                     newNode = SyntaxFactory
                                 .Argument(expression)
                                 .WithNameColon(argument.NameColon)

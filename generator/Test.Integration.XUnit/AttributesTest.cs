@@ -57,9 +57,8 @@ namespace Test.Integration.XUnit
         [InlineData(4, 4, -4, -4)]
         [InlineData(5, -5, 5, 5)]
         [InlineData(6, -6, 6, -6)]
-        [InlineData(7, -7, -7, 7)]
-        [InlineData(8, -8, -8, -8)]
-        [InlineData(-9, 9, 9, 9)]
+        [InlineData(7, -7, -7, 7), InlineData(8, -8, -8, -8),
+            InlineData(-9, 9, 9, 9)] //couple attributes within the same attribute list
         [InlineData(-10, 10, 10, -10)]
         [InlineData(-11, 11, -11, 11)]
         [InlineData(-12, 12, -12, -12)]
@@ -105,6 +104,21 @@ namespace Test.Integration.XUnit
             //Assert
             actual.Should().BeEquivalentTo(expected);
             actualLength.Should().Be(expectedLength);
+        }
+
+        [Theory]
+        [InlineData(1, new[]
+        {
+            "1_incorrect"
+        })]
+        [InlineData(2, new[] { "incorrect_2" })]
+        public void InlineDataWithMultilineExpected(int i, string[] expected)
+        {
+            //Arrange
+            //Act
+            string[] actual = [ i.ToString(CultureInfo.InvariantCulture) ]; //emulate method being tested call
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

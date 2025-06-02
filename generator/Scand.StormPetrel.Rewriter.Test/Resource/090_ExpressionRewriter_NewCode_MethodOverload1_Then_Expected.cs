@@ -37,7 +37,11 @@ public class Foo
 
     public int[] Bla(string arg1)
     {
-        int[] localVar = new List<string>() { };
+        int[] localVar = new List<string>()
+        {
+            "1",
+            "2"
+        };
 
         localVar = new int[]
         {

@@ -27,6 +27,9 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         private protected ExpressionSyntax CreateInitializeExpressionSyntax(SyntaxNode leadingTriviaDonor)
             => Utils.CreateInitializeExpressionSyntax(_valueNewCode, leadingTriviaDonor);
 
+        private protected ExpressionSyntax CreateInitializeExpressionSyntax(SyntaxTrivia leadingTrivia)
+            => Utils.CreateInitializeExpressionSyntax(_valueNewCode, leadingTrivia);
+
         private protected bool IsMatchWithValuePath(CSharpSyntaxNode node)
             => SyntaxNodeHelper.IsMatchWithValuePath(node, _valuePath);
 

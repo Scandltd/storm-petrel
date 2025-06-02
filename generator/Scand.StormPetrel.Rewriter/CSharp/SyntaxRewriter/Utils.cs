@@ -7,9 +7,12 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 {
     internal static class Utils
     {
+        private static SyntaxTrivia EmptyTrivia = SyntaxFactory.Whitespace("");
+
         public static ExpressionSyntax CreateInitializeExpressionSyntax(string initializeCode, SyntaxNode leadingTriviaDonor)
+            => CreateInitializeExpressionSyntax(initializeCode, GetLeadingWhitespace(leadingTriviaDonor));
+        public static ExpressionSyntax CreateInitializeExpressionSyntax(string initializeCode, SyntaxTrivia leadingWhitespace)
         {
-            var leadingWhitespace = GetLeadingWhitespace(leadingTriviaDonor);
             ExpressionSyntax expression = SyntaxFactory.ParseExpression(initializeCode);
             var eolTrivias = expression
                                 .DescendantTrivia()
@@ -23,10 +26,22 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         }
 
         public static SyntaxTrivia GetLeadingWhitespace(SyntaxNode syntaxNode)
+            => GetLeadingWhitespaceImplementation(syntaxNode.GetLeadingTrivia());
+
+        public static SyntaxTrivia GetLeadingWhitespace(SyntaxNodeOrToken nodeOrToken)
+            => GetLeadingWhitespaceImplementation(nodeOrToken.GetLeadingTrivia());
+
+        public static int GetLeadingWhitespaceLength(SyntaxNode syntaxNode)
+            => GetLeadingWhitespaceLength(GetLeadingWhitespace(syntaxNode));
+
+        public static int GetLeadingWhitespaceLength(SyntaxTrivia trivia)
+            => trivia.FullSpan.Length;
+
+        private static SyntaxTrivia GetLeadingWhitespaceImplementation(SyntaxTriviaList trivias)
         {
-            var trivias = syntaxNode.GetLeadingTrivia().Reverse();
+            var triviasReversed = trivias.Reverse();
             SyntaxTrivia? syntaxNodeLineLeadingWhitespace = null; // leading trivia of the same line where syntaxNode is located
-            foreach (var trivia in trivias)
+            foreach (var trivia in triviasReversed)
             {
                 if (trivia.IsKind(SyntaxKind.EndOfLineTrivia))
                 {
@@ -40,7 +55,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             }
             if (syntaxNodeLineLeadingWhitespace == null)
             {
-                return SyntaxFactory.Whitespace("");
+                return EmptyTrivia;
             }
             return syntaxNodeLineLeadingWhitespace.Value;
         }

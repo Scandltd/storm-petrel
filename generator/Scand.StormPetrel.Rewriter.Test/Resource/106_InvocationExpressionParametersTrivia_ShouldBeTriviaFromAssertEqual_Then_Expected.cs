@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 public class Foo
 {
@@ -63,10 +63,10 @@ public class Foo
         //Assert
         Assert
             .Equal(new List<string>()
-                            {
-                                "102",
-                                "103"
-                            }, actual
+            {
+                "1",
+                "2"
+            }, actual
                                 .ToList()); //ignore `.ToList()` trivia
     }
 

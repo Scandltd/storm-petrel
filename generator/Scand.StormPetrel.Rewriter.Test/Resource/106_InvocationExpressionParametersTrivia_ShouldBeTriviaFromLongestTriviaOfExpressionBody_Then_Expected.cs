@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 public class Foo
 {
@@ -92,10 +92,10 @@ public class Foo
         actual
                 .Should() //This trivia should be used
             .Be(new List<string>()
-                            {
-                                "102",
-                                "103"
-                            },
+                {
+                    "1",
+                    "2"
+                },
                                 [//This array trivia should be ignored
                                     "Longest trivia in argument"
                                 ]);
