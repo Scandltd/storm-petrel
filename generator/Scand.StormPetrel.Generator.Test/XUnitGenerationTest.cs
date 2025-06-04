@@ -33,6 +33,8 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("120_PropertyFromAnotherClass")]
         [InlineData("130_ClassWithConstructor")]
         [InlineData("140_Attributes")]
+        [InlineData("140_Attributes", "MultipleTestVariablePairConfigs")]
+        [InlineData("140_Attributes", "MultipleTestVariablePairConfigsReverseOrder")]
         [InlineData("150_MultipleExpectedLastAssignmentIsMethod")]
         [InlineData("160_MemberData")]
         [InlineData("170_ClassData")]

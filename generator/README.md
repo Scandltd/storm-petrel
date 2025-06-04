@@ -31,6 +31,7 @@
             * [AutoFixture](#autofixture)
             * [Playwright](#playwright)
             * [Other examples](#other-examples)
+        * [Actual value is built via mocks or callbacks or other algorithms](#actual-value-is-built-via-mocks-or-callbacks-or-other-algorithms)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
     * [Optional Visual Studio Extension](#optional-visual-studio-extension)
@@ -317,6 +318,19 @@ The preceding sections highlight key test examples. While not exhaustive, Storm 
 * [Puppeteer Sharp](https://github.com/hardkoded/puppeteer-sharp).
 * [Selenium](https://www.selenium.dev/).
 * [Syncfusion Essential Document Processing](https://help.syncfusion.com/document-processing/introduction).
+
+#### Actual value is built via mocks or callbacks or other algorithms
+Storm Petrel injects baseline update logic **immediately after** the last `actual` or `expected` value assignment.
+
+When actual values are generated via:
+* Mocks (e.g., Moq/NSubstitute)
+* Callbacks
+* Complex algorithms
+
+The baseline rewriting behavior may require test adjustments for reliable updates.
+See [BuildActualTest](Test.Integration.XUnit/BuildActualTest.cs) for:
+* ✅ Working patterns for baseline updates
+* ⚠️ Edge cases requiring modifications
 
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:

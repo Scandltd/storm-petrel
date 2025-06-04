@@ -31,7 +31,7 @@ namespace Scand.StormPetrel.Generator
                     new ShouldlyDetector()
                 };
             }
-            public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int index, int indexOfBodyStatement)
+            public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int indexOfBodyStatement)
             {
                 if (!(statement is ExpressionStatementSyntax expressionStatement))
                 {
@@ -100,7 +100,7 @@ namespace Scand.StormPetrel.Generator
                     ActualVarName = actualIdentifier.Identifier.Text,
                     ActualVarExpression = actualExpression,
                     ActualVarPath = SyntaxNodeHelper.GetValuePath(method),
-                    StatementIndexForSubOrder = index - 1,
+                    StatementIndexForSubOrder = indexOfBodyStatement - 1,
                     ExpectedVarExtraContextInternal = new InvocationExpressionWithEmbeddedExpectedContextInternal
                     {
                         ExpectedExpression = expectedExpression,
