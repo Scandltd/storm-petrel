@@ -22,7 +22,6 @@
 * [Getting Started](#getting-started)
 * [Supported Software](#supported-software)
 * [CHANGELOG](#changelog)
-* [Test Dependencies](#test-dependencies)
 * [References](#references)
 
 ## Overview
@@ -123,10 +122,6 @@ The same as in [Scand.StormPetrel.Generator](../generator/README.md#supported-so
 ## CHANGELOG
 
 See [CHANGELOG](CHANGELOG.md) for more details.
-
-## Test Dependencies
-The test suite uses [Codeuctivity.ImageSharpCompare](https://www.nuget.org/packages/Codeuctivity.ImageSharpCompare), licensed under [Apache 2.0](https://licenses.nuget.org/Apache-2.0).
-This does not affect the license of the main project.
 
 ## References
 

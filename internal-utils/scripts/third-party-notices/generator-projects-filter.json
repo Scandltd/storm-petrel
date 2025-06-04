@@ -1,0 +1,14 @@
+[
+    "Test.csproj",
+    "Test.Integration.Generator.Utils.XUnit.csproj",
+    "Test.Integration.MSTest.csproj",
+    "Test.Integration.NETFramework.NUnit.csproj",
+    "Test.Integration.NUnit.csproj",
+    "Test.Integration.ObjectDumper.XUnit.csproj",
+    "Test.Integration.Performance.XUnit.csproj",
+    "Test.Integration.WebApi.XUnit.csproj",
+    "Test.Integration.WebApi.csproj",
+    "Test.Integration.XUnit.NetNextVersion.csproj",
+    "Test.Integration.XUnit.csproj",
+    "Test.Integration.XUnitV3.csproj"
+]

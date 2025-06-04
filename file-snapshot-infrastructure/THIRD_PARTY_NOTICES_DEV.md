@@ -1,0 +1,19 @@
+ | Reference                      | Version  | License Type | License                                                       | 
+ | ------------------------------ | -------- | ------------ | ------------------------------------------------------------- | 
+ | Codeuctivity.ImageSharpCompare | 4.1.325  | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | coverlet.collector             | 6.0.4    | MIT          | https://licenses.nuget.org/MIT                                | 
+ | FluentAssertions               | 8.3.0    | LICENSE      | https://www.nuget.org/packages/FluentAssertions/8.3.0/License | 
+ | JunitXml.TestLogger            | 6.1.0    | MIT          | https://licenses.nuget.org/MIT                                | 
+ | Microsoft.NET.Test.Sdk         | 17.14.1  | MIT          | https://licenses.nuget.org/MIT                                | 
+ | Microsoft.Playwright.Xunit     | 1.52.0   | MIT          | https://licenses.nuget.org/MIT                                | 
+ | NUnit                          | 4.3.2    | MIT          | https://licenses.nuget.org/MIT                                | 
+ | NUnit3TestAdapter              | 5.0.0    | MIT          | https://licenses.nuget.org/MIT                                | 
+ | ObjectDumper.NET               | 4.3.2    | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | SkiaSharp                      | 3.119.0  | MIT          | https://licenses.nuget.org/MIT                                | 
+ | SkiaSharp.NativeAssets.Linux   | 3.119.0  | MIT          | https://licenses.nuget.org/MIT                                | 
+ | System.Text.Json               | 9.0.5    | MIT          | https://licenses.nuget.org/MIT                                | 
+ | VarDump                        | 1.0.5.18 | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | xunit                          | 2.9.3    | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | xunit.runner.visualstudio      | 3.1.0    | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | Xunit.StaFact                  | 2.1.7    | MS-PL        | https://licenses.nuget.org/MS-PL                              | 
+ | xunit.v3                       | 2.0.2    | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 

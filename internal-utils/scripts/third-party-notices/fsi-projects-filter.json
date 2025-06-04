@@ -1,0 +1,11 @@
+[
+    "Test.csproj",
+    "Test.Integration.CustomConfiguration.csproj",
+    "Test.Integration.DefaultConfiguration.csproj",
+    "Test.Integration.DefaultConfigurationWithCustomOptions.csproj",
+    "Test.Integration.PlaywrightTest.csproj",
+    "Test.Integration.WinFormsApp.csproj",
+    "Test.Integration.WinFormsAppTest.csproj",
+    "Test.Integration.WpfApp.csproj",
+    "Test.Integration.WpfAppTest.csproj"
+]
