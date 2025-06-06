@@ -1,5 +1,20 @@
 # Change Log
 
+## [2.4.1] - 2025-06-06
+
+### Added
+- Overload of `Scand.StormPetrel.Generator.Utils.DumperDecorator.LiteralExpressionDumperDecorator.GetVerbatimStringDecoratingFunc`.
+
+### Fixed
+- Failure when expected variables are both in method attribute and body.
+- Indents for multi-line expected baselines for attributes and assert expressions.
+- Attributes rewriting for the case of multiple non-empty `TestVariablePairConfigs` elements.
+
+### Documentation: added
+- Test examples for AutoFixture, Playwright, xUnit test retry.
+- Test examples when actual value is built via mocks or callbacks or other algorithms.
+- Third-party notices.
+
 ## [2.4.0] - 2025-05-23
 
 ### Added
