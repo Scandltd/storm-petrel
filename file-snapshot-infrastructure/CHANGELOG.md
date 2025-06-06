@@ -1,4 +1,13 @@
 # Change Log
+## [2.0.3] - 2025-06-06
+
+### Documentation: added
+- SnapshotProvider Convention.
+- Test examples for Playwright, WinForms, and WPF.
+- Test examples for multiple target frameworks including .NET 9.
+- Scand StormPetrel Visual Studio Extension references.
+- Third-party notices.
+
 ## [2.0.2] - 2025-01-20
 
 ### Fixed

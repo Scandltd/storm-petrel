@@ -28,7 +28,7 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="8.3.0" />
     <PackageReference Include="Scand.StormPetrel.Generator" Version="2.0.0" />
-    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.2" />
+    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="SkiaSharp" Version="3.119.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
