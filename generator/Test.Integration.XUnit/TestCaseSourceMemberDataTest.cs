@@ -18,10 +18,15 @@ namespace Test.Integration.XUnit
         [MemberData(nameof(DataMethodWithArgs), 3)]
         public void WhenMemberDataMethodWithArgsThenItIsUpdated(int x, int y, int expected)
         {
-            var actual = Calculator.Add(x, y).Value;
-            actual.Should().Be(expected);
+            //Assert Storm Petrel
             var lastUseCase = DataMethodWithArgs(int.MaxValue).Last();
-            lastUseCase[2].Should().Be(50, "Last use case should not be modified according to MemberData arguments");
+            lastUseCase[2].Should().Be(50, "Last use case should not be modified by Strom Petrel according to MemberData arguments");
+
+            //Arrange, Act
+            var actual = Calculator.Add(x, y).Value;
+
+            //Assert
+            actual.Should().Be(expected);
         }
 
         [Theory]
@@ -30,8 +35,6 @@ namespace Test.Integration.XUnit
         {
             var actual = Calculator.Add(x, y).Value;
             actual.Should().Be(expected);
-            var lastUseCase = DataMethodWithArgs(int.MaxValue).Last();
-            lastUseCase[2].Should().Be(50, "Last use case should not be modified according to MemberData arguments");
         }
 
         [Theory]

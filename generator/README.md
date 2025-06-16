@@ -384,13 +384,12 @@ The file changes are applied `on the fly` and can have the following settings:
                                  // Use the '{StormPetrelRootPath}' token to indicate the target test project root path.
   "TestVariablePairConfigs": [   // [optional] array of objects. Configures naming pairs for actual/expected variables to generate correct expected baselines.
     {
-      "ActualVarNameTokenRegex": "[Aa]{1}ctual",     // Default configuration object. Assumes variable pair names like (expected, actual), (myExpected, myActual), (expectedOne, actualOne), (ExpectedTwo, ActualTwo), etc.
+      "ActualVarNameTokenRegex": "[Aa]{1}ctual",     // Default configuration object for actual-expected variable pairs. Assumes pair names like (expected, actual), (myExpected, myActual), (expectedOne, actualOne), (ExpectedTwo, ActualTwo), etc.
       "ExpectedVarNameTokenRegex": "[Ee]{1}xpected", // Corresponds to the `ActualVarNameTokenRegex` for pairing.
     },
-    {
-      "ActualVarNameTokenRegex": "[Aa]{1}ctual",     // One more default configuration object.
-      "ExpectedVarNameTokenRegex": null,             // A `null` value indicates that the expected variable may be missing.
-                                                     // In such cases, StormPetrel should analyze the assertion expressions to rewrite their `expected` segments with actual values.
+    {                                                // Default configuration object for 'Expected expression is inlined within an assertion' cases.
+      "ActualVarNameTokenRegex": null,               // `"ActualVarNameTokenRegex": null` means any actual expression. Specify a regex to have more specific match of actual expressions if necessary.
+      "ExpectedVarNameTokenRegex": null,             // `"ExpectedVarNameTokenRegex": null` indicates that Storm Petrel should analyze assertion expressions according to 'Expected expression is inlined within an assertion' cases.
     }
   ]
 }

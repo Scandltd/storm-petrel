@@ -58,6 +58,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("Utils.IgnoredMembersMiddleware")]
         [InlineData("Utils.OtherMethods")]
         [InlineData("Utils.OtherMethods", null, true)]
+        [InlineData("210_SpecificActualVarName", "OnlyActualVarNameTokenRegex")]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false)
         {
             //Arrange
@@ -162,6 +163,17 @@ namespace Scand.StormPetrel.Generator.Test
                 "IgnoreInvocationExpression" => new MainConfig()
                 {
                     IgnoreInvocationExpressionRegex = "InvocationExpressionToBeIgnored",
+                },
+                "OnlyActualVarNameTokenRegex" => new MainConfig()
+                { 
+                    TestVariablePairConfigs =
+                    [
+                        new TestVariablePairConfig()
+                        { 
+                            ActualVarNameTokenRegex = "[Ss]{1}pecificActualVarName",
+                            ExpectedVarNameTokenRegex = null
+                        }
+                    ]
                 },
                 _ => throw new InvalidOperationException(),
             };

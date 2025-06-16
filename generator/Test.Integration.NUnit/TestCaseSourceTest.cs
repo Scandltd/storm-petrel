@@ -19,10 +19,15 @@ namespace Test.Integration.NUnit
         [TestCaseSource(sourceName: nameof(DataMethodWithArgs), new object[] { 3 })]
         public void WhenMemberDataMethodWithArgsThenItIsUpdated(int x, int y, int expected)
         {
-            var actual = Calculator.Add(x, y).Value;
-            actual.Should().Be(expected);
+            //Assert Storm Petrel
             var lastUseCase = DataMethodWithArgs(int.MaxValue).Last();
             lastUseCase[2].Should().Be(50, "Last use case should not be modified according to MemberData arguments");
+
+            //Arrange, Act
+            var actual = Calculator.Add(x, y).Value;
+
+            //Assert
+            actual.Should().Be(expected);
             BackupHelper.DeleteBackupWithResultAssertion(GetType());
         }
 
@@ -31,8 +36,6 @@ namespace Test.Integration.NUnit
         {
             var actual = Calculator.Add(x, y).Value;
             actual.Should().Be(expected);
-            var lastUseCase = DataMethodWithArgs(int.MaxValue).Last();
-            lastUseCase[2].Should().Be(50, "Last use case should not be modified according to MemberData arguments");
             BackupHelper.DeleteBackupWithResultAssertion(GetType());
         }
 

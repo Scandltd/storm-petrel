@@ -31,9 +31,12 @@ namespace Scand.StormPetrel.Generator
         public VarHelper(TestVariablePairConfig[] testVariablePairConfigs)
         {
             _varNameRegexPairs = testVariablePairConfigs
-                                    .Select(a => (new Regex(a.ActualVarNameTokenRegex, RegexOptionsDefault), string.IsNullOrEmpty(a.ExpectedVarNameTokenRegex)
-                                                                                                                ? null
-                                                                                                                : new Regex(a.ExpectedVarNameTokenRegex, RegexOptionsDefault)))
+                                    .Select(a => (string.IsNullOrEmpty(a.ActualVarNameTokenRegex)
+                                                      ? null
+                                                      : new Regex(a.ActualVarNameTokenRegex, RegexOptionsDefault),
+                                                  string.IsNullOrEmpty(a.ExpectedVarNameTokenRegex)
+                                                      ? null
+                                                      : new Regex(a.ExpectedVarNameTokenRegex, RegexOptionsDefault)))
                                     .ToArray();
         }
         public List<VarPairInfo> GetVarPairs(MethodDeclarationSyntax method)
@@ -105,7 +108,9 @@ namespace Scand.StormPetrel.Generator
             var varPairInfo = new List<VarPairInfo>();
             foreach (var (actualRegex, expectedRegex) in _varNameRegexPairs)
             {
-                if (!regexToVarNameToStatementInfo.TryGetValue(actualRegex, out var actualVarToInfo)
+                if (actualRegex == null
+                        || expectedRegex == null
+                        || !regexToVarNameToStatementInfo.TryGetValue(actualRegex, out var actualVarToInfo)
                         || !regexToVarNameToStatementInfo.TryGetValue(expectedRegex, out var expectedVarToInfo))
                 {
                     continue;

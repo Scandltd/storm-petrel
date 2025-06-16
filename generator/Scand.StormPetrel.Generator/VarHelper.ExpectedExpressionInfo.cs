@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
 using Scand.StormPetrel.Generator.AssertExpressionDetector;
 using Scand.StormPetrel.Generator.ExtraContextInternal;
 using Scand.StormPetrel.Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Scand.StormPetrel.Generator
 {
@@ -42,35 +42,18 @@ namespace Scand.StormPetrel.Generator
                 {
                     return;
                 }
-                IdentifierNameSyntax actualIdentifier = null;
                 ExpressionSyntax actualExpression = null;
                 ArgumentSyntax argument = null;
                 ExpressionSyntax expectedExpression = null;
                 var argumentToIndex = new Dictionary<ArgumentSyntax, int>();
                 int argumentNodeLatestIndex = -1;
                 var _ = expressionStatement
-                            .DescendantNodes(nd =>
-                            {
-                                if (nd is ArgumentSyntax tmpArgument)
-                                {
-                                    argumentToIndex.Add(tmpArgument, ++argumentNodeLatestIndex);
-                                }
-                                if (nd is IdentifierNameSyntax identifier && actualRegex.IsMatch(identifier.Identifier.Text))
-                                {
-                                    actualIdentifier = identifier;
-                                }
-                                return true;
-                            })
-                            .Count();
-                if (actualIdentifier == null)
-                {
-                    return;
-                }
-                var __ = expressionStatement
                            .DescendantNodes(nd =>
                            {
                                if (nd is ArgumentSyntax tmpArgument)
                                {
+                                   argumentToIndex.Add(tmpArgument, ++argumentNodeLatestIndex);
+
                                    if (actualExpression == null)
                                    {
                                        var e = tmpArgument.Expression;
@@ -78,12 +61,20 @@ namespace Scand.StormPetrel.Generator
                                        var isExpressionOk = IsSupportedExpression(e)
                                                                || e is CastExpressionSyntax castExpression && IsSupportedExpression(castExpression.Expression)
                                                                || IsSupportedCollectionExpression(e, out arrayRankSpecifierCount);
-                                       if (isExpressionOk && _expectedExpressionDetectors.Any(x => x.IsExpectedArgument(tmpArgument, actualIdentifier, out actualExpression)))
+                                       if (isExpressionOk && _expectedExpressionDetectors.Any(x => x.IsExpectedArgument(tmpArgument, out actualExpression)))
                                        {
-                                           argument = tmpArgument;
-                                           expectedExpression = arrayRankSpecifierCount <= 0
-                                                                    ? argument.Expression
-                                                                    : GetExpectedExpression(e, arrayRankSpecifierCount);
+                                           var actualExpressionFullString = actualExpression.ToFullString();
+                                           if (actualRegex != null && !actualRegex.IsMatch(actualExpressionFullString))
+                                           {
+                                               actualExpression = null;
+                                           }
+                                           else
+                                           {
+                                               argument = tmpArgument;
+                                               expectedExpression = arrayRankSpecifierCount <= 0
+                                                                        ? argument.Expression
+                                                                        : GetExpectedExpression(e, arrayRankSpecifierCount);
+                                           }
                                            return false;
                                        }
                                    }
@@ -97,7 +88,6 @@ namespace Scand.StormPetrel.Generator
                 }
                 _varPairInfoCollected.Add(new VarPairInfo
                 {
-                    ActualVarName = actualIdentifier.Identifier.Text,
                     ActualVarExpression = actualExpression,
                     ActualVarPath = SyntaxNodeHelper.GetValuePath(method),
                     StatementIndexForSubOrder = indexOfBodyStatement - 1,

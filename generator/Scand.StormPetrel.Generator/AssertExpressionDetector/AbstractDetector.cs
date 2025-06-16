@@ -5,7 +5,7 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
 {
     internal abstract class AbstractDetector
     {
-        public abstract bool IsExpectedArgument(ArgumentSyntax argument, IdentifierNameSyntax actualIdentifier, out ExpressionSyntax actualExpression);
+        public abstract bool IsExpectedArgument(ArgumentSyntax argument, out ExpressionSyntax actualExpression);
         protected virtual bool IsAppropriateArgumentInTheList(ArgumentSyntax argument, int argumentIndex, string[] supportedArgumentNames, out ArgumentListSyntax argumentList)
         {
             argumentList = null;

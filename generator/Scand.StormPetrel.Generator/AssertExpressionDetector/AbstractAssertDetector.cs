@@ -10,7 +10,7 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
         protected abstract string[] SupportedMethodNames { get; }
         protected abstract int ActualArgumentIndex { get; }
         protected abstract int ExpectedArgumentIndex { get; }
-        public override bool IsExpectedArgument(ArgumentSyntax argument, IdentifierNameSyntax actualIdentifier, out ExpressionSyntax actualExpression)
+        public override bool IsExpectedArgument(ArgumentSyntax argument, out ExpressionSyntax actualExpression)
         {
             actualExpression = null;
             var parent = argument.Parent;
@@ -30,18 +30,12 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
                     var actualCandidate = arguments
                                             .FirstOrDefault(a => a.NameColon?.Name?.Identifier.Text == "actual")
                                                 ?? arguments[ActualArgumentIndex];
-                    var isActual = actualCandidate
-                                        .DescendantNodes()
-                                        .OfType<IdentifierNameSyntax>()
-                                        .Any(x => x.Identifier.Text == actualIdentifier.Identifier.Text);
-                    if (isActual)
-                    {
-                        actualExpression = actualCandidate
-                                            .Expression
-                                            .WithoutLeadingTrivia()
-                                            .WithoutTrailingTrivia();
-                        return true;
-                    }
+
+                    actualExpression = actualCandidate
+                                        .Expression
+                                        .WithoutLeadingTrivia()
+                                        .WithoutTrailingTrivia();
+                    return true;
                 }
 
                 parent = parent.Parent;

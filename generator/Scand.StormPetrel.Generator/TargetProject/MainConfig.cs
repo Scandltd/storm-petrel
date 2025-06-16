@@ -20,7 +20,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
             },
             new TestVariablePairConfig()
             {
-                ActualVarNameTokenRegex = "[Aa]{1}ctual",
+                ActualVarNameTokenRegex = null,
                 ExpectedVarNameTokenRegex = null,
             },
         };

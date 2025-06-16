@@ -9,7 +9,7 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
     {
         protected abstract string[] SupportedMethodNames { get; }
         protected abstract string[] SupportedArgumentNames { get; }
-        public override bool IsExpectedArgument(ArgumentSyntax argument, IdentifierNameSyntax actualIdentifier, out ExpressionSyntax actualExpression)
+        public override bool IsExpectedArgument(ArgumentSyntax argument, out ExpressionSyntax actualExpression)
         {
             actualExpression = null;
             if (!IsAppropriateArgumentInTheList(argument, 0, SupportedArgumentNames, out var _))
