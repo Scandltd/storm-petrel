@@ -31,14 +31,25 @@ namespace Scand.StormPetrel.Generator
                     new ShouldlyDetector()
                 };
             }
+
+            private static bool IsSupportedStatementExpression(ExpressionSyntax statementExpression) =>
+                statementExpression is InvocationExpressionSyntax
+                    || statementExpression is ConditionalAccessExpressionSyntax;
+
             public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int indexOfBodyStatement)
             {
-                if (!(statement is ExpressionStatementSyntax expressionStatement))
+                SyntaxNode expressionStatement;
+                if (statement is ExpressionStatementSyntax expression
+                        && IsSupportedStatementExpression(expression.Expression))
                 {
-                    return;
+                    expressionStatement = expression;
                 }
-                if (!(expressionStatement.Expression is InvocationExpressionSyntax)
-                        && !(expressionStatement.Expression is ConditionalAccessExpressionSyntax))
+                else if (statement is ArrowExpressionClauseSyntax arrowExpressionStatement
+                            && IsSupportedStatementExpression(arrowExpressionStatement.Expression))
+                {
+                    expressionStatement = arrowExpressionStatement;
+                }
+                else
                 {
                     return;
                 }

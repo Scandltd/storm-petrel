@@ -107,10 +107,24 @@ namespace Scand.StormPetrel.Generator
                                                 ? method.Identifier.Text
                                                 : method.Identifier.Text + "StormPetrel";
                         var blocks = syntaxHelper.GetNewCodeBlock(@class.Identifier.ValueText, method.Identifier.ValueText, info, varPairInfoList.Count - i - 1, varPairInfoList.Count, method.ParameterList.Parameters);
-                        var newStatements = newMethod.Body.Statements.InsertRange(info.StatementIndex + 1, blocks);
+
+                        if (method.Body != null)
+                        {
+                            var newStatements = newMethod.Body.Statements.InsertRange(info.StatementIndex + 1, blocks);
+                            newMethod = newMethod
+                                            .WithBody(newMethod.Body.WithStatements(newStatements));
+                        }
+                        else
+                        {
+                            //Ignore newMethod return type because it is void or Task. Do not support other types because it is extremely rare scenario.
+                            blocks.Add(SyntaxFactory.ExpressionStatement(method.ExpressionBody.Expression));
+                            newMethod = newMethod
+                                            .WithExpressionBody(null)
+                                            .WithSemicolonToken(SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken))
+                                            .WithBody(SyntaxFactory.Block(SyntaxFactory.List(blocks)));
+                        }
                         newMethod = newMethod
-                                    .WithBody(newMethod.Body.WithStatements(newStatements))
-                                    .WithIdentifier(SyntaxFactory.Identifier(method.Identifier.Text + "StormPetrel"));
+                                        .WithIdentifier(SyntaxFactory.Identifier(method.Identifier.Text + "StormPetrel"));
                         var oldMethod = newClass
                                             .ChildNodes()
                                             .OfType<MethodDeclarationSyntax>()

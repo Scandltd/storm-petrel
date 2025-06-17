@@ -268,7 +268,7 @@ With StormPetrel, the expected variable can be entirely omitted. Instead, you ca
 Refer to the sections below for more details about supported assertions and examples of expected expressions.
 
 ##### FluentAssertions expressions
-Supported expressions include `actual.Should().Be(123);`, `actual.SomePropertyOrMethodCall.Should().Be("string value");`, and `actual.Should().BeEquivalentTo(new MyClass{...});` according to [FluentAssertions](https://fluentassertions.com/) documentation. See more examples in [NoExpectedVarTest](Test.Integration.XUnit/NoExpectedVarTest.cs) and [NoExpectedVarExpressionKindsTest](Test.Integration.XUnit/NoExpectedVarExpressionKindsTest.cs).
+Supported expressions include `actual.Should().Be(123);`, `actual.SomePropertyOrMethodCall.Should().Be("string value");`, and `actual.Should().BeEquivalentTo(new MyClass{...});` according to [FluentAssertions](https://fluentassertions.com/) documentation. See more examples in [NoExpectedVarTest](Test.Integration.XUnit/NoExpectedVarTest.cs), [NoExpectedVarExpressionKindsTest](Test.Integration.XUnit/NoExpectedVarExpressionKindsTest.cs), and [NoActualAndNoExpectedVarTest](Test.Integration.XUnit/NoActualAndNoExpectedVarTest.cs).
 
 ##### xUnit assertions
 Supported expressions include `Assert.Equal(123, actual);`, `Assert.StrictEqual("string value", actual);`, and `Assert.Equivalent("string value", actual);`. See more examples in [NoExpectedVarAssertTest](Test.Integration.XUnit/NoExpectedVarAssertTest.cs).

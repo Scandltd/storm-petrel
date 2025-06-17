@@ -327,6 +327,11 @@ namespace Test.Integration.XUnit
             return 100;
         }
 
+        public static Task<int> ResultMethodAsync()
+        {
+            return Task.FromResult(100);
+        }
+
         public static TestClassResult TestedClassResultMethod() => TestedClassResultMethod<TestClassResult>();
 
         public static TestClassResultWithIgnorable TestedClassResultMethodWithIgnorable() => TestedClassResultMethod<TestClassResultWithIgnorable>();

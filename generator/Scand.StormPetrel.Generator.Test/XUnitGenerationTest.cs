@@ -51,6 +51,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("NoExpectedVarExpressionKindsTest")]
         [InlineData("NoExpectedVarWithOperatorsTest")]
         [InlineData("NoExpectedVarShouldlyTest")]
+        [InlineData("NoActualAndNoExpectedVarTest")]
         [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile")]
         [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile", null, true)]
         [InlineData("Utils")]

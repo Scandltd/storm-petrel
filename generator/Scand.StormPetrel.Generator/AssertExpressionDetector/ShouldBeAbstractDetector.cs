@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
             }
             var methodStatement = argument
                                     .Ancestors()
-                                    .OfType<ExpressionStatementSyntax>()
+                                    .Where(x => x.IsKind(SyntaxKind.ExpressionStatement) || x.IsKind(SyntaxKind.ArrowExpressionClause))
                                     .FirstOrDefault();
             if (methodStatement == null)
             {
@@ -34,7 +35,7 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
                 return false;
             }
 
-            ExpressionStatementSyntax newStatement = null;
+            SyntaxNode newStatement = null;
             if (expressionBeforeShould != null)
             {
                 newStatement = methodStatement.ReplaceNode(shouldBeInvocation, expressionBeforeShould);
@@ -47,8 +48,20 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
             {
                 return false;
             }
-            actualExpression = newStatement
-                                .Expression
+
+            if (newStatement is ArrowExpressionClauseSyntax arrowExpressionStatement)
+            {
+                actualExpression = arrowExpressionStatement.Expression;
+            }
+            else if (newStatement is ExpressionStatementSyntax expressionStatement)
+            {
+                actualExpression = expressionStatement.Expression;
+            }
+            else
+            {
+                throw new InvalidOperationException($"This case should not be possible due to {nameof(methodStatement)} kind filtering above");
+            }
+            actualExpression = actualExpression
                                 .WithoutLeadingTrivia()
                                 .WithoutTrailingTrivia();
             return true;

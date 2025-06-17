@@ -41,19 +41,30 @@ namespace Scand.StormPetrel.Generator
         }
         public List<VarPairInfo> GetVarPairs(MethodDeclarationSyntax method)
         {
-            if (method.Body == null)
+            IEnumerable<object> bodyStatements = null;
+            if (method.Body != null)
+            {
+                bodyStatements = method.Body.Statements.Select(x => x);
+            }
+            else if (method.ExpressionBody != null)
+            {
+                bodyStatements = new[] { method.ExpressionBody };
+            }
+            else
             {
                 return new List<VarPairInfo>(0);
             }
+
+            var statements = method
+                            .ParameterList
+                            .Parameters
+                            .Select(x => (object)x)
+                            .Union(bodyStatements);
             int indexOfBodyStatement = -1;
             int expectedVarParameterIndex = -1;
             var regexToVarNameToStatementInfo = new Dictionary<Regex, Dictionary<string, VarInfo>>(_varNameRegexPairs.Length);
             var expectedExpressionInfo = new ExpectedExpressionInfo();
-            foreach (var statement in method
-                                        .ParameterList
-                                        .Parameters
-                                        .Select(x => (object)x)
-                                        .Union(method.Body.Statements.Select(x => x)))
+            foreach (var statement in statements)
             {
                 var isBodyStatement = !(statement is ParameterSyntax);
                 if (isBodyStatement)

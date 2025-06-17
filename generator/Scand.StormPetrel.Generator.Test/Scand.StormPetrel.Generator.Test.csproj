@@ -22,27 +22,13 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\TestCaseSourceMemberDataTest.MemberDataInPartialFile.cs" Link="Resource\TestCaseSourceMemberDataTest.MemberDataInPartialFile.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\Utils.cs" Link="Resource\Utils.cs" />
     <EmbeddedResource Include="..\Test.Integration.XUnit\Utils.IgnoredMembersMiddleware.cs" Link="Resource\Utils.IgnoredMembersMiddleware.cs" />
     <EmbeddedResource Include="..\Test.Integration.XUnit\Utils.OtherMethods.cs" Link="Resource\Utils.OtherMethods.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarExpressionKindsTest.cs" Link="Resource\NoExpectedVarExpressionKindsTest.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarWithOperatorsTest.cs" Link="Resource\NoExpectedVarWithOperatorsTest.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarShouldlyTest.cs" Link="Resource\NoExpectedVarShouldlyTest.cs" />
-  </ItemGroup>	
-	
-  <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarShouldlyTest.cs" Link="Resource\NoExpectedVarShouldlyTest.cs" />
+    <EmbeddedResource Include="..\Test.Integration.XUnit\NoActualAndNoExpectedVarTest.cs" Link="Resource\NoActualAndNoExpectedVarTest.cs" />
     <EmbeddedResource Include="..\Test.Integration.Performance.XUnit\ExpectedInMethod\ExpectedInMethodTest01Data.cs" Link="Resource\ExpectedInMethodTest01Data.cs" />
     <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarAssertTest.cs" Link="Resource\NoExpectedVarAssertTest.cs" />
     <EmbeddedResource Include="..\Test.Integration.NUnit\NoExpectedVarAssertThatTest.cs" Link="Resource\NoExpectedVarAssertThatTest.cs" />
