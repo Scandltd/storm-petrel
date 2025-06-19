@@ -259,10 +259,13 @@ With StormPetrel, the expected variable can be entirely omitted. Instead, you ca
 - Anonymous object creation expressions;
 - Array creation expressions;
 - Collection expressions;
+- Default expressions (e.g., default, default(int));
 - Implicit array creation expressions;
 - Implicit object creation expressions;
+- Interpolated string expressions;
 - Literal expressions (e.g., numeric or string literals);
 - Object creation expressions;
+- Prefix unary expressions (e.g., -1, !false);
 - Tuple expressions.
 
 Refer to the sections below for more details about supported assertions and examples of expected expressions.

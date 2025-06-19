@@ -149,7 +149,10 @@ namespace Scand.StormPetrel.Generator
                     || e is ImplicitObjectCreationExpressionSyntax
                     || e is LiteralExpressionSyntax
                     || e is ObjectCreationExpressionSyntax
+                    || e is PrefixUnaryExpressionSyntax
+                    || e is InterpolatedStringExpressionSyntax
                     || e is TupleExpressionSyntax
+                    || e is DefaultExpressionSyntax
                     ;
 
             #region Collection Initializer Handling

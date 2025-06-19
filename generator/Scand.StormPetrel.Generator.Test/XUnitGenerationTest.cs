@@ -60,6 +60,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("Utils.OtherMethods")]
         [InlineData("Utils.OtherMethods", null, true)]
         [InlineData("210_SpecificActualVarName", "OnlyActualVarNameTokenRegex")]
+        [InlineData("SyntaxTokenTest")]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false)
         {
             //Arrange
