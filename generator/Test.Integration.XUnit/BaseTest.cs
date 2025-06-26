@@ -174,6 +174,15 @@ namespace Test.Integration.XUnit
         }
 
         [Fact]
+        public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect()
+        {
+            int varEXpected = -1;
+            int varACtual = -1;
+            varACtual = 2;
+            varACtual.Should().Be(varEXpected);
+        }
+
+        [Fact]
         public void WhenExtensionMethodThenProjectIsCompiledSuccessfullyTest()
         {
             //Arrange

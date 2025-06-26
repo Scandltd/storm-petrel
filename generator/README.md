@@ -255,7 +255,7 @@ Replaces regular strings with verbatim strings, regular literal values with cust
 
 #### Expected expression is inlined within an assertion
 
-With StormPetrel, the expected variable can be entirely omitted. Instead, you can inline expected expressions of the following kinds:
+StormPetrel allows you to omit the expected variable entirely or use values that do not match the expected variable regex pattern. Instead, you can directly inline expected expressions of the following kinds:
 - Anonymous object creation expressions;
 - Array creation expressions;
 - Collection expressions;
@@ -266,7 +266,8 @@ With StormPetrel, the expected variable can be entirely omitted. Instead, you ca
 - Literal expressions (e.g., numeric or string literals);
 - Object creation expressions;
 - Prefix unary expressions (e.g., -1, !false);
-- Tuple expressions.
+- Tuple expressions;
+- Non-Regex Variables: local variables or test method arguments that bypass the expected variable regex check. See examples in [NoMatchToExpectedVarRegexTest](Test.Integration.XUnit/NoMatchToExpectedVarRegexTest.cs).
 
 Refer to the sections below for more details about supported assertions and examples of expected expressions.
 

@@ -1242,7 +1242,7 @@ public class NoExpectedVarAssertTestStormPetrel
     //Do not support this case till an explicit request
 #endregion
     [Fact]
-    public void AssertEqualWhithInvocationExpressionTest()
+    public void AssertEqualWithInvocationExpressionTest()
     {
         //Act
         var actual = TestedClass.TestedMethod();

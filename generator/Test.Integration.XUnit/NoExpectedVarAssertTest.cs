@@ -224,7 +224,7 @@ public class NoExpectedVarAssertTest
     #endregion
 
     [Fact]
-    public void AssertEqualWhithInvocationExpressionTest()
+    public void AssertEqualWithInvocationExpressionTest()
     {
         //Act
         var actual = TestedClass.TestedMethod();

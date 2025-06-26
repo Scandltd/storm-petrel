@@ -38,6 +38,14 @@ namespace Scand.StormPetrel.Generator.AssertExpressionDetector
             SyntaxNode newStatement = null;
             if (expressionBeforeShould != null)
             {
+                var isBeforeShouldArg = expressionBeforeShould
+                                            .DescendantNodes()
+                                            .OfType<ArgumentSyntax>()
+                                            .Any(x => x == argument);
+                if (isBeforeShouldArg)
+                {
+                    return false;
+                }
                 newStatement = methodStatement.ReplaceNode(shouldBeInvocation, expressionBeforeShould);
             }
             else if (shouldBeInvocation.Parent is ConditionalAccessExpressionSyntax conditional)

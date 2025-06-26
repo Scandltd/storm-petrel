@@ -101,7 +101,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
         }
 
         [Fact]
-        public void TestWhitespacesInBothAssignmentAndDeclarationStormPetrelStormPetrel()
+        public void TestWhitespacesInBothAssignmentAndDeclarationStormPetrel()
         {
             int expected = -1;
             expected = 1;
@@ -111,7 +111,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
-                MethodName = "TestWhitespacesInBothAssignmentAndDeclarationStormPetrel",
+                MethodName = "TestWhitespacesInBothAssignmentAndDeclaration",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
                 Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
@@ -125,7 +125,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 {
                     "Scand.StormPetrel.Generator.Test.Resources",
                     "VariableNames",
-                    "TestWhitespacesInBothAssignmentAndDeclarationStormPetrel",
+                    "TestWhitespacesInBothAssignmentAndDeclaration",
                     "actual"
                 },
                 Expected = expected,
@@ -133,7 +133,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 {
                     "Scand.StormPetrel.Generator.Test.Resources",
                     "VariableNames",
-                    "TestWhitespacesInBothAssignmentAndDeclarationStormPetrel",
+                    "TestWhitespacesInBothAssignmentAndDeclaration",
                     "expected"
                 },
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
@@ -237,7 +237,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
         }
 
         [Fact]
-        public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShouldStormPetrel()
+        public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetectStormPetrel()
         {
             int varEXpected = -1;
             int varACtual = -1;
@@ -246,7 +246,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "VariableNames",
-                MethodName = "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould",
+                MethodName = "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1,
                 Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
@@ -260,7 +260,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 {
                     "Scand.StormPetrel.Generator.Test.Resources",
                     "VariableNames",
-                    "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould",
+                    "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect",
                     "varACtual"
                 },
                 Expected = varEXpected,
@@ -268,7 +268,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
                 {
                     "Scand.StormPetrel.Generator.Test.Resources",
                     "VariableNames",
-                    "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould",
+                    "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect",
                     "varEXpected"
                 },
                 ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
@@ -370,6 +370,15 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             varActual.Should().Be(varEXpected); //intentionally compare with varEXpected, not varExpected
             varACtual.Should().Be(varExpected);
+        }
+
+        [Fact]
+        public void DefaultRegexCaseSensitivityShouldNotDetectThisCase()
+        {
+            int varExp = -1;
+            int varAct = -1;
+            varActual = 2;
+            varAct.CustomShould().Be(varExp);
         }
     }
 }

@@ -7,6 +7,7 @@ using Scand.StormPetrel.Generator.ExtraContextInternal;
 using Scand.StormPetrel.Shared;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -36,7 +37,7 @@ namespace Scand.StormPetrel.Generator
                 statementExpression is InvocationExpressionSyntax
                     || statementExpression is ConditionalAccessExpressionSyntax;
 
-            public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int indexOfBodyStatement)
+            public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int indexOfBodyStatement, ImmutableHashSet<string> expectedVarNamesToSkip)
             {
                 SyntaxNode expressionStatement;
                 if (statement is ExpressionStatementSyntax expression
@@ -69,8 +70,8 @@ namespace Scand.StormPetrel.Generator
                                    {
                                        var e = tmpArgument.Expression;
                                        int arrayRankSpecifierCount = 0;
-                                       var isExpressionOk = IsSupportedExpression(e)
-                                                               || e is CastExpressionSyntax castExpression && IsSupportedExpression(castExpression.Expression)
+                                       var isExpressionOk = IsSupportedExpression(e, expectedVarNamesToSkip)
+                                                               || e is CastExpressionSyntax castExpression && IsSupportedExpression(castExpression.Expression, expectedVarNamesToSkip)
                                                                || IsSupportedCollectionExpression(e, out arrayRankSpecifierCount);
                                        if (isExpressionOk && _expectedExpressionDetectors.Any(x => x.IsExpectedArgument(tmpArgument, out actualExpression)))
                                        {
@@ -142,8 +143,9 @@ namespace Scand.StormPetrel.Generator
             /// </summary>
             /// <param name="e"></param>
             /// <returns></returns>
-            private static bool IsSupportedExpression(ExpressionSyntax e)
+            private static bool IsSupportedExpression(ExpressionSyntax e, ImmutableHashSet<string> expectedVarNamesToSkip)
                 => e is AnonymousObjectCreationExpressionSyntax
+                    || e is IdentifierNameSyntax identifierSyntax && !expectedVarNamesToSkip.Contains(identifierSyntax.Identifier.Text)
                     || e is ArrayCreationExpressionSyntax
                     || e is ImplicitArrayCreationExpressionSyntax
                     || e is ImplicitObjectCreationExpressionSyntax

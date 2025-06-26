@@ -27,7 +27,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             actual.Should().Be(expected);
         }
         [Fact]
-        public void TestWhitespacesInBothAssignmentAndDeclarationStormPetrel()
+        public void TestWhitespacesInBothAssignmentAndDeclaration()
         {
             int 	expected = -1;
             	expected  =	1;
@@ -52,7 +52,7 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             varActual.Should().Be(varExpected);
         }
         [Fact]
-        public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButCustomShould()
+        public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect()
         {
             int varEXpected = -1;
             int varACtual = -1;
@@ -84,6 +84,14 @@ namespace Scand.StormPetrel.Generator.Test.Resources
             varActual = 2;
             varActual.Should().Be(varEXpected); //intentionally compare with varEXpected, not varExpected
             varACtual.Should().Be(varExpected);
+        }
+        [Fact]
+        public void DefaultRegexCaseSensitivityShouldNotDetectThisCase()
+        {
+            int varExp = -1;
+            int varAct = -1;
+            varActual = 2;
+            varAct.CustomShould().Be(varExp);
         }
     }
 }

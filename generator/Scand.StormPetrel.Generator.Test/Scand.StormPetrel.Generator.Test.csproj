@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.XUnit\NoMatchToExpectedVarRegexTest.cs" Link="Resource\NoMatchToExpectedVarRegexTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\SyntaxTokenTest.cs" Link="Resource\SyntaxTokenTest.cs" />
   </ItemGroup>
 

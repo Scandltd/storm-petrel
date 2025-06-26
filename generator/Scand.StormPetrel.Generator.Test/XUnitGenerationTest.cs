@@ -52,6 +52,9 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("NoExpectedVarWithOperatorsTest")]
         [InlineData("NoExpectedVarShouldlyTest")]
         [InlineData("NoActualAndNoExpectedVarTest")]
+        [InlineData("NoActualAndNoExpectedVarTest", "DefaultConfigsReverseOrder")]
+        [InlineData("NoMatchToExpectedVarRegexTest")]
+        [InlineData("NoMatchToExpectedVarRegexTest", "DefaultConfigsReverseOrder")]
         [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile")]
         [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile", null, true)]
         [InlineData("Utils")]
@@ -176,6 +179,14 @@ namespace Scand.StormPetrel.Generator.Test
                             ExpectedVarNameTokenRegex = null
                         }
                     ]
+                },
+                "DefaultConfigsReverseOrder" => new MainConfig()
+                {
+                    TestVariablePairConfigs = [..
+                                                new MainConfig()
+                                                    .TestVariablePairConfigs
+                                                    .Reverse()
+                                              ],
                 },
                 _ => throw new InvalidOperationException(),
             };

@@ -7,6 +7,7 @@ using Scand.StormPetrel.Generator.TargetProject;
 using Scand.StormPetrel.Shared;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -60,61 +61,47 @@ namespace Scand.StormPetrel.Generator
                             .Parameters
                             .Select(x => (object)x)
                             .Union(bodyStatements);
-            int indexOfBodyStatement = -1;
-            int expectedVarParameterIndex = -1;
             var regexToVarNameToStatementInfo = new Dictionary<Regex, Dictionary<string, VarInfo>>(_varNameRegexPairs.Length);
             var expectedExpressionInfo = new ExpectedExpressionInfo();
-            foreach (var statement in statements)
+
+            CollectVarPairs(method, statements, _varNameRegexPairs, regexToVarNameToStatementInfo, expectedExpressionInfo, null);
+            var collectedVarPairInfo = expectedExpressionInfo.GetCollectedPairInfo();
+            //We may have more expected identifiers among collected expected expressions
+            var expectedIdentifierToInfo = collectedVarPairInfo
+                                                .Select(x => (Identifier: string.IsNullOrEmpty(x.ExpectedVarName)
+                                                                            && x.ExpectedVarExtraContextInternal is InvocationExpressionWithEmbeddedExpectedContextInternal contextInternal
+                                                                            && contextInternal.ExpectedExpression is IdentifierNameSyntax identifier
+                                                                            ? identifier.Identifier.Text
+                                                                            : null,
+                                                                VarPairInfo: x))
+                                                .Where(x => x.Identifier != null)
+                                                .ToDictionary(x => x.Identifier, x => (x.VarPairInfo, IsVisited: false));
+            if (expectedIdentifierToInfo.Keys.Count != 0)
             {
-                var isBodyStatement = !(statement is ParameterSyntax);
-                if (isBodyStatement)
+                var noActualRegex = new Regex("^$", RegexOptionsDefault);
+                var extendedRegexPairs = expectedIdentifierToInfo
+                                            .Keys
+                                            .Select(x => (noActualRegex, new Regex($@"\b{x}\b", RegexOptionsDefault)))
+                                            .ToArray();
+                CollectVarPairs(method, statements, extendedRegexPairs, regexToVarNameToStatementInfo, expectedExpressionInfo, (varName, varInfo) =>
                 {
-                    indexOfBodyStatement++;
-                }
-                else
-                {
-                    expectedVarParameterIndex++;
-                }
-                foreach (var (actualRegex, expectedRegex) in _varNameRegexPairs)
-                {
-                    string varName = null;
-                    VarInfo varInfo = null;
-                    Regex regex = null;
-                    if (expectedRegex == null)
-                    {
-                        if (isBodyStatement)
-                        {
-                            expectedExpressionInfo.TryCollectExpectedExpression(statement, method, actualRegex, indexOfBodyStatement);
-                        }
-                        continue;
-                    }
-                    else if (TryParseAsExpressionStatement(statement, out varInfo, out varName))
-                    {
-                        regex = actualRegex.IsMatch(varName)
-                                    ? actualRegex
-                                    : expectedRegex.IsMatch(varName)
-                                        ? expectedRegex
-                                        : null;
-                    }
-                    else if (TryParseAsLocalDeclarationStatement(statement, actualRegex, expectedRegex, out varInfo, out varName, out regex))
-                    {
-                        //No additional logic, all stuff is done in the condition call
-                    }
-                    else if (TryParseAsParameter(statement, method, expectedRegex, expectedVarParameterIndex, out varInfo, out varName))
-                    {
-                        regex = expectedRegex;
-                    }
-                    if (regex != null)
-                    {
-                        if (!regexToVarNameToStatementInfo.TryGetValue(regex, out var dict))
-                        {
-                            dict = new Dictionary<string, VarInfo>();
-                            regexToVarNameToStatementInfo.Add(regex, dict);
-                        }
-                        varInfo.StatementIndex = indexOfBodyStatement;
-                        dict[varName] = varInfo;
-                    }
-                }
+                    var info = expectedIdentifierToInfo[varName];
+                    var pairInfo = info.VarPairInfo;
+                    expectedIdentifierToInfo[varName] = (pairInfo, IsVisited: true);
+                    pairInfo.ExpectedVarName = varName;
+                    pairInfo.ExpectedVarExtraContextInternal = varInfo.ExtraContextInternal;
+                    pairInfo.ExpectedVarPath = varInfo.Path;
+                    //Preserve below properties to have them calculated by ExpectedExpressionInfo.GetCollectedPairInfo:
+                    //pairInfo.StatementIndex, pairInfo.StatementIndexForSubOrder
+                });
+                var nonVisited = expectedIdentifierToInfo
+                                    .Values
+                                    .Where(x => !x.IsVisited)
+                                    .Select(x => x.VarPairInfo)
+                                    .ToImmutableHashSet();
+                collectedVarPairInfo = collectedVarPairInfo
+                                        .Where(x => !nonVisited.Contains(x))
+                                        .ToList();
             }
             var varPairInfo = new List<VarPairInfo>();
             foreach (var (actualRegex, expectedRegex) in _varNameRegexPairs)
@@ -160,9 +147,73 @@ namespace Scand.StormPetrel.Generator
                                                             .ToDictionary(b => b.Key, b => b.Value));
             }
             return varPairInfo
-                    .Union(expectedExpressionInfo.GetCollectedPairInfo())
+                    .Union(collectedVarPairInfo)
                     .ToList();
         }
+
+        private void CollectVarPairs(MethodDeclarationSyntax method,
+            IEnumerable<object> statements, (Regex ActualRegex, Regex ExpectedRegex)[] varNameRegexPairs,
+            Dictionary<Regex, Dictionary<string, VarInfo>> regexToVarNameToStatementInfo, ExpectedExpressionInfo expectedExpressionInfo,
+            Action<string, VarInfo> newVarNameInfoHandler)
+        {
+            int indexOfBodyStatement = -1;
+            int expectedVarParameterIndex = -1;
+            foreach (var statement in statements)
+            {
+                var isBodyStatement = !(statement is ParameterSyntax);
+                if (isBodyStatement)
+                {
+                    indexOfBodyStatement++;
+                }
+                else
+                {
+                    expectedVarParameterIndex++;
+                }
+                foreach (var (actualRegex, expectedRegex) in varNameRegexPairs)
+                {
+                    string varName = null;
+                    VarInfo varInfo = null;
+                    Regex regex = null;
+                    if (expectedRegex == null)
+                    {
+                        if (isBodyStatement)
+                        {
+                            var expectedVarNamesToSkip = regexToVarNameToStatementInfo.Values.SelectMany(x => x.Keys).ToImmutableHashSet();
+                            expectedExpressionInfo.TryCollectExpectedExpression(statement, method, actualRegex, indexOfBodyStatement, expectedVarNamesToSkip);
+                        }
+                        continue;
+                    }
+                    else if (TryParseAsExpressionStatement(statement, out varInfo, out varName))
+                    {
+                        regex = actualRegex.IsMatch(varName)
+                                    ? actualRegex
+                                    : expectedRegex.IsMatch(varName)
+                                        ? expectedRegex
+                                        : null;
+                    }
+                    else if (TryParseAsLocalDeclarationStatement(statement, actualRegex, expectedRegex, out varInfo, out varName, out regex))
+                    {
+                        //No additional logic, all stuff is done in the condition call
+                    }
+                    else if (TryParseAsParameter(statement, method, expectedRegex, expectedVarParameterIndex, out varInfo, out varName))
+                    {
+                        regex = expectedRegex;
+                    }
+                    if (regex != null)
+                    {
+                        if (!regexToVarNameToStatementInfo.TryGetValue(regex, out var dict))
+                        {
+                            dict = new Dictionary<string, VarInfo>();
+                            regexToVarNameToStatementInfo.Add(regex, dict);
+                        }
+                        varInfo.StatementIndex = indexOfBodyStatement;
+                        dict[varName] = varInfo;
+                        newVarNameInfoHandler?.Invoke(varName, varInfo);
+                    }
+                }
+            }
+        }
+
         private static bool CheckIsInvocationExpressionAndUpdateVarInfo(ExpressionSyntax expression, VarInfo v)
         {
             if (expression is InvocationExpressionSyntax invocationExpression
