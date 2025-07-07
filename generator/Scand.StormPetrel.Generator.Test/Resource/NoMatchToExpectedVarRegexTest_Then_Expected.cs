@@ -324,4 +324,78 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
         Assert.Equal(exp, act);
         Assert.Equal(expAsString, actAsString);
     }
+
+    [Fact]
+    public void WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTestStormPetrel()
+    {
+        //Arrange
+        var expected = 123;
+        var expectedString = "123";
+        //Act
+        var actual = TestedClass.TestedMethod();
+        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        {
+            FilePath = "C:\\temp\\temp.cs",
+            ClassName = "NoMatchToExpectedVarRegexTest",
+            MethodName = "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
+            VariablePairCurrentIndex = 0,
+            VariablePairsCount = 2,
+            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+            {
+            }
+        };
+        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual,
+            ActualVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
+                "actual"
+            },
+            Expected = expected,
+            ExpectedVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
+                "expected"
+            },
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            {
+                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        var actualString = actual.ToString(CultureInfo.InvariantCulture);
+        stormPetrelSharedContext.VariablePairCurrentIndex++;
+        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actualString,
+            ActualVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
+                "actualString"
+            },
+            Expected = expectedString,
+            ExpectedVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
+                "expectedString"
+            },
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            {
+                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        TestedClass.TestedClassResultMethod(); //One more code line to indicate more difference in unit tests for different configurations
+        //Assert
+        Assert.Equal(expected, actual);
+        //Use ToUpperInvariant to distinguish (expectedString, actualString) and (expectedString, actualString.ToUpperInvariant()) pairs in unit tests for different configurations
+        Assert.Equal(expectedString, actualString.ToUpperInvariant());
+    }
 }

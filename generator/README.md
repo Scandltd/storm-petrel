@@ -387,7 +387,7 @@ The file changes are applied `on the fly` and can have the following settings:
   "Serilog": "...",              // [optional] Logging configuration using Serilog (https://github.com/serilog/serilog-settings-configuration?tab=readme-ov-file#serilogsettingsconfiguration--).
                                  // Defaults to logging warnings to the test project's Logs folder. Set to 'null' to disable logging.
                                  // Use the '{StormPetrelRootPath}' token to indicate the target test project root path.
-  "TestVariablePairConfigs": [   // [optional] array of objects. Configures naming pairs for actual/expected variables to generate correct expected baselines.
+  "TestVariablePairConfigs": [   // [optional] array of objects. Configures naming pairs for actual/expected variables/expressions to generate correct expected baselines.
     {
       "ActualVarNameTokenRegex": "[Aa]{1}ctual",     // Default configuration object for actual-expected variable pairs. Assumes pair names like (expected, actual), (myExpected, myActual), (expectedOne, actualOne), (ExpectedTwo, ActualTwo), etc.
       "ExpectedVarNameTokenRegex": "[Ee]{1}xpected", // Corresponds to the `ActualVarNameTokenRegex` for pairing.
@@ -396,6 +396,9 @@ The file changes are applied `on the fly` and can have the following settings:
       "ActualVarNameTokenRegex": null,               // `"ActualVarNameTokenRegex": null` means any actual expression. Specify a regex to have more specific match of actual expressions if necessary.
       "ExpectedVarNameTokenRegex": null,             // `"ExpectedVarNameTokenRegex": null` indicates that Storm Petrel should analyze assertion expressions according to 'Expected expression is inlined within an assertion' cases.
     }
+    // "TestVariablePairConfigs" elements order matters. For example, it detects `(expectedString, actualString)` pair (not `(expectedString, actualString.ToUpperInvariant())`)
+    // in a test containing `Assert.Equal(expectedString, actualString.ToUpperInvariant());` assertion what simultaneously corresponds to both default configuration elements above.
+    // Explicitly change the elements order in your file to prevail `(expectedString, actualString.ToUpperInvariant())` over `(expectedString, actualString)` if need.
   ]
 }
 ```

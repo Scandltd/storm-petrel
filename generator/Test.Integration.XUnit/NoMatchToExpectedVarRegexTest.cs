@@ -57,4 +57,19 @@ public class NoMatchToExpectedVarRegexTest
         Assert.Equal(exp, act);
         Assert.Equal(expAsString, actAsString);
     }
+    [Fact]
+    public void WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest()
+    {
+        //Arrange
+        var expected = 123;
+        var expectedString = "123";
+        //Act
+        var actual = TestedClass.TestedMethod();
+        var actualString = actual.ToString(CultureInfo.InvariantCulture);
+        TestedClass.TestedClassResultMethod(); //One more code line to indicate more difference in unit tests for different configurations
+        //Assert
+        Assert.Equal(expected, actual);
+        //Use ToUpperInvariant to distinguish (expectedString, actualString) and (expectedString, actualString.ToUpperInvariant()) pairs in unit tests for different configurations
+        Assert.Equal(expectedString, actualString.ToUpperInvariant());
+    }
 }
