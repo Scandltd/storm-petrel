@@ -15,12 +15,12 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.StormPetrel.json" />
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <AdditionalFiles Include="appsettings.StormPetrel.Debug.json" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="appsettings.StormPetrel.json" />
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <AdditionalFiles Include="appsettings.StormPetrel.Release.json" />
   </ItemGroup>
 
   <ItemGroup>

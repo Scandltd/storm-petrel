@@ -362,6 +362,7 @@ The StormPetrel Generator introduces several interfaces and classes to the Scand
 * `IGeneratorRewriter`, `GeneratorRewriter`.
 
 Optionally `appsettings.StormPetrel.json` file (its `Build Action` should be `C# analyzer additional file`) can be added to a test project to configure Storm Petrel functionality.
+The file name should match `StormPetrel` regex pattern and can be conditionally applied for Debug, Release, or other build configurations as demonstrated in [Test.Integration.ObjectDumper.XUnit](Test.Integration.ObjectDumper.XUnit/Test.Integration.ObjectDumper.XUnit.csproj). Very first file is used in the case of multiple matches.
 The file changes are applied `on the fly` and can have the following settings:
 ```jsonc
 {
@@ -472,6 +473,11 @@ The suggested configuration in the `appsettings.StormPetrel.json` file is:
     "Serilog": null                 //Avoid logging.
 }
 ```
+An alternative is to have conditionally applied `appsettings.StormPetrel.Debug.json` and `appsettings.StormPetrel.Release.json` files. The only suggested files difference is:
+* `"IsDisabled": false` for Debug version to have StormPetrel tests always available while development.
+* `"IsDisabled": true` for Release version to not have StormPetrel tests in CI/CD processes.
+
+See conditionally applied file example in [Test.Integration.ObjectDumper.XUnit](Test.Integration.ObjectDumper.XUnit/Test.Integration.ObjectDumper.XUnit.csproj).
 
 ### Can test project compilation fail after enabling Scand.StormPetrel? How can I avoid the failure?
 *Scand.StormPetrel* relies on code syntax, not semantics. Therefore, it cannot properly generate *StormPetrel* test methods in all cases, and test project compilation might fail. You can detect the original test file causing the failure and add it to the `"IgnoreFilePathRegex"` property in the [configuration](#configuration) to avoid the compilation error while still using *Scand.StormPetrel* for other tests.

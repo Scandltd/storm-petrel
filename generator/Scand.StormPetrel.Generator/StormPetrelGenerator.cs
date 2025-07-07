@@ -1,14 +1,15 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 using Scand.StormPetrel.Generator.TargetProject;
 using Serilog;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace Scand.StormPetrel.Generator
@@ -20,9 +21,13 @@ namespace Scand.StormPetrel.Generator
         {
             var jsonConfigFile = context
                                     .AdditionalTextsProvider
-                                    .Where(file => file.Path.EndsWith("appsettings.StormPetrel.json", StringComparison.OrdinalIgnoreCase))
+                                    .Where(file =>
+                                    {
+                                        var fileName = Path.GetFileName(file.Path);
+                                        return Regex.IsMatch(fileName, "StormPetrel", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                                    })
                                     .Collect()
-                                    .Select((a, _) => a.FirstOrDefault());
+                                    .Select((a, _) => a.OrderBy(b => b.Path, StringComparer.Ordinal).FirstOrDefault());
 
             IncrementalValuesProvider<SyntaxTree> syntaxProvider = default;
             foreach (var attributeFullName in SupportedMethodInfo.AttributeFullNames)

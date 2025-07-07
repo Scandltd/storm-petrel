@@ -64,6 +64,9 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("Utils.OtherMethods", null, true)]
         [InlineData("210_SpecificActualVarName", "OnlyActualVarNameTokenRegex")]
         [InlineData("SyntaxTokenTest")]
+        [InlineData("IgnoreCommon", null, true)]
+        [InlineData("IgnoreInDebug", null, true)]
+        [InlineData("IgnoreInRelease", null, true)]
         public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false)
         {
             //Arrange
@@ -71,6 +74,11 @@ namespace Scand.StormPetrel.Generator.Test
             ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
             var inputCode = await ReadResourceAsync(assembly, $"{inputReplacementCodeResourceName}.cs");
             ArgumentNullException.ThrowIfNull(inputCode);
+            if (inputReplacementCodeResourceName == "IgnoreInDebug")
+            {
+                //Avoid conditions
+                inputCode = inputCode.Replace("#", "//#", StringComparison.Ordinal);
+            }
             var postfixes = new List<string>();
             if (!string.IsNullOrEmpty(configKey))
             {
