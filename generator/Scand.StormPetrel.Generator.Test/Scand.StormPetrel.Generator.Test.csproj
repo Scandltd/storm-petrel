@@ -45,6 +45,7 @@
     <EmbeddedResource Include="..\Test.Integration.XUnit\NoActualAndNoExpectedVarTest.cs" Link="Resource\NoActualAndNoExpectedVarTest.cs" />
     <EmbeddedResource Include="..\Test.Integration.Performance.XUnit\ExpectedInMethod\ExpectedInMethodTest01Data.cs" Link="Resource\ExpectedInMethodTest01Data.cs" />
     <EmbeddedResource Include="..\Test.Integration.XUnit\NoExpectedVarAssertTest.cs" Link="Resource\NoExpectedVarAssertTest.cs" />
+    <EmbeddedResource Include="..\Test.Integration.XUnit\RefStructTest.cs" Link="Resource\RefStructTest.cs" />
     <EmbeddedResource Include="..\Test.Integration.NUnit\NoExpectedVarAssertThatTest.cs" Link="Resource\NoExpectedVarAssertThatTest.cs" />
     <EmbeddedResource Include="..\Test.Integration.MSTest\NoExpectedVarAssertTest.cs" Link="Resource\NoExpectedVarAssertMSTest.cs" />
   </ItemGroup>

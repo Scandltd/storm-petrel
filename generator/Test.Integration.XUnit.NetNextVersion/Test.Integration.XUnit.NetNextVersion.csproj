@@ -13,7 +13,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>xUnit1013</NoWarn>
+    <NoWarn>xUnit1013;CA1861</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -64,6 +64,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("Utils.OtherMethods", null, true)]
         [InlineData("210_SpecificActualVarName", "OnlyActualVarNameTokenRegex")]
         [InlineData("SyntaxTokenTest")]
+        [InlineData("RefStructTest")]
         [InlineData("IgnoreCommon", null, true)]
         [InlineData("IgnoreInDebug", null, true)]
         [InlineData("IgnoreInRelease", null, true)]

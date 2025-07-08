@@ -56,5 +56,6 @@
 
   <PropertyGroup>
     <DefineConstants>IS_XUNIT_V3</DefineConstants>
+    <NoWarn>1701;1702;CA1861</NoWarn>
   </PropertyGroup>
 </Project>

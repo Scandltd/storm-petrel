@@ -32,6 +32,7 @@
             * [Playwright](#playwright)
             * [Other examples](#other-examples)
         * [Actual value is built via mocks or callbacks or other algorithms](#actual-value-is-built-via-mocks-or-callbacks-or-other-algorithms)
+        * [Ref struct types support](#ref-struct-types-support)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
     * [Optional Visual Studio Extension](#optional-visual-studio-extension)
@@ -335,6 +336,21 @@ The baseline rewriting behavior may require test adjustments for reliable update
 See [BuildActualTest](Test.Integration.XUnit/BuildActualTest.cs) for:
 * ✅ Working patterns for baseline updates
 * ⚠️ Edge cases requiring modifications
+
+#### Ref struct types support
+Storm Petrel provides **partial support** for `ref struct` types (e.g., `Span<T>`, `ReadOnlySpan<T>`, UTF-8 string literals).
+
+##### **Supported Scenarios**
+1. **Actual Value as `ref struct` with Conversion**:
+   * Use methods like `ToArray()`, `Encoding.UTF8.GetString()`, or other methods to convert `ref struct` values to regular types (e.g., arrays or strings) for assertions.
+2. **Expected Value as Regular Type**:
+   * The *expected* value must be a non-`ref struct` (e.g., `string`, `T[]`).
+
+See [RefStructTest](Test.Integration.XUnit/RefStructTest.cs) for examples.
+
+##### **Unsupported Scenarios**  
+* **Direct `ref struct` Assertions**. **Reason**: Storm Petrel and Dump Libraries API limitations against `ref struct` types.
+See [RefStructTest.Unsupported](Test.Integration.XUnit/RefStructTest.Unsupported.cs) for examples and more explanations.
 
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
