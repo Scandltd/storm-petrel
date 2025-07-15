@@ -5,7 +5,7 @@ param(
     [bool]$SkipGeneratorTestPerformance = $false,                   #To build and execute the package performance tests in context of the integration tests. Can be utilized for development purposes to speed up the build
     [bool]$SkipFileSnapshotInfrastructureBuild = $false,            #To build the package and execute its unit tests
     [bool]$SkipFileSnapshotInfrastructureTest = $false,             #To build and execute the package integration tests
-    [string]$FSIIntegrationTestGeneratorVersion = "2.4.1"           #To execute File Snapshot Infrastructure integration tests with specific version of the generator
+    [string]$FSIIntegrationTestGeneratorVersion = "2.5.0"           #To execute File Snapshot Infrastructure integration tests with specific version of the generator
 )
 
 $isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")

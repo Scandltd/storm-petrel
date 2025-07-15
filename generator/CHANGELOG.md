@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.5.0] - 2025-07-15
+
+### Added
+- Any actual expression support in 'Expected expression is inlined within an assertion' cases.
+- Arrow test methods support.
+- Interpolated strings, prefix unary expressions, and default expressions kinds support in inline expected expressions.
+- Expected variables support for 'Expected expression is inlined within an assertion' cases.
+- App setting file conditional include support.
+
+### Documentation: added
+- Test examples with async/await.
+- Ref structure types partial support description and examples.
+
 ## [2.4.1] - 2025-06-06
 
 ### Added
