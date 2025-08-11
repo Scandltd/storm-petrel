@@ -26,7 +26,7 @@
       <PackageIcon>logo-128x128-transparent.png</PackageIcon>
       <Authors>Scand</Authors>
       <Company>Scand</Company>
-      <Copyright>© 2024 Scand</Copyright>
+      <Copyright>© 2024–2025 Scand</Copyright>
       <PackageLicenseExpression>MIT</PackageLicenseExpression>
       <PackageReleaseNotes>See CHANGELOG file referenced in README.</PackageReleaseNotes>
       <PackageTags>automated testing tools;unit test modification;integration test automation;baseline updating tools;incremental test generators</PackageTags>

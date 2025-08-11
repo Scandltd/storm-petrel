@@ -7,7 +7,7 @@
     <Authors>Scand</Authors>
     <Company>Scand</Company>
     <Description>File Snapshot Infrastructure for Snapshot Testing with Scand.StormPetrel.Generator.</Description>
-    <Copyright>© 2024 Scand</Copyright>
+    <Copyright>© 2024–2025 Scand</Copyright>
     <PackageProjectUrl>https://scand.com/products/storm-petrel-expected-baselines-rewriter</PackageProjectUrl>
     <PackageIcon>logo-128x128-transparent.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>

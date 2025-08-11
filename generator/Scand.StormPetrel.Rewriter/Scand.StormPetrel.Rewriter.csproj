@@ -10,6 +10,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Copyright>© 2024–2025 Scand</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

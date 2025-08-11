@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Copyright>© 2024–2025 Scand</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
