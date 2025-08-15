@@ -244,6 +244,138 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
         TestedClass.ReturnInput(100).Should().Be(exp2);
     }
 
+    [Theory]
+    [InlineData(0, 2, 2, 5)]
+    [InlineData(1, -2, -2, 123)]
+    public void ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTestStormPetrel(int stormPetrelUseCaseIndex, int a, int b, int expected)
+    {
+        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        {
+            FilePath = "C:\\temp\\temp.cs",
+            ClassName = "NoMatchToExpectedVarRegexTest",
+            MethodName = "ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTest",
+            VariablePairCurrentIndex = 0,
+            VariablePairsCount = 1,
+            Parameters = new[]
+            {
+                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                {
+                    Name = "a",
+                    Value = a,
+                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                    {
+                    }
+                },
+                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                {
+                    Name = "b",
+                    Value = b,
+                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                    {
+                    }
+                },
+                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                {
+                    Name = "expected",
+                    Value = expected,
+                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                    {
+                    }
+                }
+            }
+        };
+        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = Calculator.Add(a, b).Value,
+            ActualVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTest"
+            },
+            Expected = expected,
+            ExpectedVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTest"
+            },
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            {
+                Index = stormPetrelUseCaseIndex,
+                Name = "InlineData",
+                ParameterIndex = 2
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        Assert.Equal(expected, Calculator.Add(a, b).Value);
+    }
+
+    [Theory]
+    [InlineData(0, 2, 2, 5)]
+    [InlineData(1, -2, -2, 123)]
+    public void ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTestStormPetrel(int stormPetrelUseCaseIndex, int a, int b, int exp /*does not match the regex*/)
+    {
+        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        {
+            FilePath = "C:\\temp\\temp.cs",
+            ClassName = "NoMatchToExpectedVarRegexTest",
+            MethodName = "ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTest",
+            VariablePairCurrentIndex = 0,
+            VariablePairsCount = 1,
+            Parameters = new[]
+            {
+                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                {
+                    Name = "a",
+                    Value = a,
+                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                    {
+                    }
+                },
+                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                {
+                    Name = "b",
+                    Value = b,
+                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                    {
+                    }
+                },
+                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                {
+                    Name = "exp",
+                    Value = exp,
+                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                    {
+                    }
+                }
+            }
+        };
+        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = Calculator.Add(a, b).Value,
+            ActualVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTest"
+            },
+            Expected = exp,
+            ExpectedVariablePath = new[]
+            {
+                "NoMatchToExpectedVarRegexTest",
+                "ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTest"
+            },
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            {
+                Index = stormPetrelUseCaseIndex,
+                Name = "InlineData",
+                ParameterIndex = 2
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        Assert.Equal(exp, Calculator.Add(a, b).Value);
+    }
+
     /// <summary>
     /// Use actual value to not fail build procedure.
     /// </summary>

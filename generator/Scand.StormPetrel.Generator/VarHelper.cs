@@ -95,6 +95,14 @@ namespace Scand.StormPetrel.Generator
                                         .Where(x => !nonVisited.Contains(x))
                                         .ToList();
             }
+            List<VarPairInfo> varPairInfo = ToVarPairs(regexToVarNameToStatementInfo);
+            return varPairInfo
+                    .Union(collectedVarPairInfo)
+                    .ToList();
+        }
+
+        private List<VarPairInfo> ToVarPairs(Dictionary<Regex, Dictionary<string, VarInfo>> regexToVarNameToStatementInfo)
+        {
             var varPairInfo = new List<VarPairInfo>();
             foreach (var (actualRegex, expectedRegex) in _varNameRegexPairs)
             {
@@ -138,9 +146,7 @@ namespace Scand.StormPetrel.Generator
                                                             .Where(b => !varPairInfo.Any(c => b.Key == c.ActualVarName || b.Key == c.ExpectedVarName))
                                                             .ToDictionary(b => b.Key, b => b.Value));
             }
-            return varPairInfo
-                    .Union(collectedVarPairInfo)
-                    .ToList();
+            return varPairInfo;
         }
 
         private void CollectVarPairs(MethodDeclarationSyntax method,
@@ -170,7 +176,10 @@ namespace Scand.StormPetrel.Generator
                     {
                         if (isBodyStatement)
                         {
-                            var expectedVarNamesToSkip = regexToVarNameToStatementInfo.Values.SelectMany(x => x.Keys).ToImmutableHashSet();
+                            var varPairs = ToVarPairs(regexToVarNameToStatementInfo);
+                            var expectedVarNamesToSkip = varPairs
+                                                            .Select(x => x.ExpectedVarName)
+                                                            .ToImmutableHashSet();
                             expectedExpressionInfo.TryCollectExpectedExpression(statement, method, actualRegex, indexOfBodyStatement, expectedVarNamesToSkip);
                         }
                         continue;

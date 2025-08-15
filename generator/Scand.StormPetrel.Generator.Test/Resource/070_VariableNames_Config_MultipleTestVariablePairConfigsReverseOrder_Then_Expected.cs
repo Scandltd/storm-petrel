@@ -290,7 +290,15 @@ namespace Scand.StormPetrel.Generator.Test.Resources
         }
 
         [Fact]
-        public void WhenNoActualVariableThenNoChanges()
+        public void WhenNoActualVariableAndNonStandardAssertThenShouldNotDetect()
+        {
+            int expected = 1;
+            int actl = 2; //var name does not match regex
+            actl.ShouldNonStandard().Be(expected);
+        }
+
+        [Fact]
+        public void WhenNoActualVariableAndStandardAssertThenShouldDetect()
         {
             int expected = 1;
             int actl = 2; //var name does not match regex

@@ -289,10 +289,53 @@ namespace Scand.StormPetrel.Generator.Test.Resources
         }
 
         [Fact]
-        public void WhenNoActualVariableThenNoChanges()
+        public void WhenNoActualVariableAndNonStandardAssertThenShouldNotDetect()
         {
             int expected = 1;
             int actl = 2; //var name does not match regex
+            actl.ShouldNonStandard().Be(expected);
+        }
+
+        [Fact]
+        public void WhenNoActualVariableAndStandardAssertThenShouldDetectStormPetrel()
+        {
+            int expected = 1;
+            int actl = 2; //var name does not match regex
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "VariableNames",
+                MethodName = "WhenNoActualVariableAndStandardAssertThenShouldDetect",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1,
+                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+                {
+                }
+            };
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+                Actual = actl,
+                ActualVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Generator.Test.Resources",
+                    "VariableNames",
+                    "WhenNoActualVariableAndStandardAssertThenShouldDetect"
+                },
+                Expected = expected,
+                ExpectedVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Generator.Test.Resources",
+                    "VariableNames",
+                    "WhenNoActualVariableAndStandardAssertThenShouldDetect",
+                    "expected"
+                },
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                {
+                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             actl.Should().Be(expected);
         }
 

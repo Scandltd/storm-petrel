@@ -30,6 +30,18 @@ public class NoMatchToExpectedVarRegexTest
         TestedClass.ReturnInput(100).Should().Be(exp2);
     }
 
+    [Theory]
+    [InlineData(2, 2, 5)]
+    [InlineData(-2, -2, 123)]
+    public void ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTest(int a, int b, int expected) =>
+        Assert.Equal(expected, Calculator.Add(a, b).Value);
+
+    [Theory]
+    [InlineData(2, 2, 5)]
+    [InlineData(-2, -2, 123)]
+    public void ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTest(int a, int b, int exp /*does not match the regex*/) =>
+        Assert.Equal(exp, Calculator.Add(a, b).Value);
+
     /// <summary>
     /// Use actual value to not fail build procedure.
     /// </summary>
