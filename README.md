@@ -30,6 +30,13 @@
 - [Baseline Testing: What It Is, Why It Matters, and the Best Free Tools to Get Started](https://scand.com/company/blog/baseline-testing-importance-and-tools/)
 - [Snapshot Testing in .NET with Scand Storm Petrel](https://scand.com/company/blog/snapshot-testing-in-net-with-scand-storm-petrel/)
 - [Unit Testing with C# and .NET: The Complete Guide](https://medium.com/@scand.com/unit-testing-with-c-and-net-the-complete-guide-273e960ead75)
+- [Snapshot testing in .NET with Storm Petrel](https://medium.com/@scand.com/snapshot-testing-in-net-with-storm-petrel-cb057272e6d6)
+- [Автоматизация тестирования в .NET с Storm Petrel](https://vc.ru/id2769570/2038717-avtomatizatsiya-testirovaniya-v-dotnet-s-storm-petrel)
+- [How I Simplified Testing in .NET via Storm Petrel](https://dev.to/scand/how-i-simplified-testing-in-net-via-storm-petrel-3emm)
+
+## Feedback
+We’d love to hear your feedback! Please leave a review of Storm Petrel on G2: [Leave a review on G2](https://www.g2.com/products/storm-petrel-expected-baselines-rewriter/reviews).
+
 
 ## References
 
