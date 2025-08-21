@@ -1,0 +1,21 @@
+ | Reference                                      | Version | License Type    | License                                                              | 
+ | ---------------------------------------------- | ------- | --------------- | -------------------------------------------------------------------- | 
+ | coverlet.collector                             | 6.0.4   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | coverlet.collector                             | 6.0.0   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | FluentAssertions                               | 8.3.0   | LICENSE         | https://www.nuget.org/packages/FluentAssertions/8.3.0/License        | 
+ | FluentAssertions.Analyzers                     | 0.34.1  | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | Microsoft.CodeAnalysis.CSharp.Analyzer.Testing | 1.1.2   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | Microsoft.NET.Test.Sdk                         | 17.14.1 | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | Microsoft.NET.Test.Sdk                         | 17.8.0  | LICENSE_MIT.txt | https://www.nuget.org/packages/Microsoft.NET.Test.Sdk/17.8.0/License | 
+ | MSTest.TestAdapter                             | 3.9.1   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | MSTest.TestFramework                           | 2.2.5   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | MSTest.TestFramework                           | 3.9.1   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | NUnit                                          | 3.13.2  | LICENSE.txt     | https://www.nuget.org/packages/NUnit/3.13.2/License                  | 
+ | NUnit                                          | 4.4.0   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | System.Text.Json                               | 9.0.5   | MIT             | https://licenses.nuget.org/MIT                                       | 
+ | VarDump                                        | 1.0.6   | Apache-2.0      | https://licenses.nuget.org/Apache-2.0                                | 
+ | xunit                                          | 2.9.3   | Apache-2.0      | https://licenses.nuget.org/Apache-2.0                                | 
+ | xunit                                          | 2.5.3   | Apache-2.0      | https://licenses.nuget.org/Apache-2.0                                | 
+ | xunit.runner.visualstudio                      | 3.1.1   | Apache-2.0      | https://licenses.nuget.org/Apache-2.0                                | 
+ | xunit.runner.visualstudio                      | 2.5.3   | Apache-2.0      | https://licenses.nuget.org/Apache-2.0                                | 
+ | xunit.runner.visualstudio                      | 3.1.0   | Apache-2.0      | https://licenses.nuget.org/Apache-2.0                                | 

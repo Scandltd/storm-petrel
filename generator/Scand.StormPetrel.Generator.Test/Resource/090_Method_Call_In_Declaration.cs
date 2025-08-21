@@ -53,5 +53,6 @@ namespace Test.Integration.XUnit
         private static object Expected() => new object();
         private static object StaticButNotExpectedMethod() => new object();
         private object NotStaticMethod() => new object();
+        private static object ExpectedThrows() => throw new System.NotImplementedException();
     }
 }

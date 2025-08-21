@@ -1,5 +1,6 @@
 [
     "Scand.StormPetrel.Generator",
     "Scand.StormPetrel.Generator.Abstraction",
+    "Scand.StormPetrel.Generator.Analyzer",
     "Scand.StormPetrel.FileSnapshotInfrastructure"
 ]

@@ -1,0 +1,5 @@
+[
+    "Scand.StormPetrel.Generator.Analyzer.csproj",
+    "Scand.StormPetrel.Generator.Common.csproj",
+    "Scand.StormPetrel.Rewriter.csproj"
+]

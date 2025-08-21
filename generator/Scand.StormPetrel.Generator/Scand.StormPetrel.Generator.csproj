@@ -59,6 +59,7 @@
 
         <!-- Package the generator in the analyzer directory of the nuget package -->
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(OutputPath)\Scand.StormPetrel.Generator.Common.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" ></None>
         <None Include="$(OutputPath)\Scand.StormPetrel.Rewriter.dll" Pack="true" PackagePath="lib\$(TargetFramework)"></None>
         <None Include="$(OutputPath)\Scand.StormPetrel.Generator.Utils.dll" Pack="true" PackagePath="lib\$(TargetFramework)"></None>
 
@@ -101,6 +102,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Scand.StormPetrel.Generator.Common\Scand.StormPetrel.Generator.Common.csproj">
+            <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+            <IncludeAssets>Scand.StormPetrel.Generator.Common.dll</IncludeAssets>
+        </ProjectReference>
       <ProjectReference Include="..\Scand.StormPetrel.Generator.Utils\Scand.StormPetrel.Generator.Utils.csproj">
         <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
         <IncludeAssets>Scand.StormPetrel.Generator.Utils.dll</IncludeAssets>
@@ -110,8 +115,6 @@
         <IncludeAssets>Scand.StormPetrel.Rewriter.dll</IncludeAssets>
       </ProjectReference>
     </ItemGroup>
-
-    <Import Project="..\Scand.StormPetrel.Shared\Scand.StormPetrel.Shared.projitems" Label="Shared" />
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
       <Exec Condition="!$([MSBuild]::IsOSUnixLike())" Command="powershell &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />

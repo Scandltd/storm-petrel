@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <!--
+        This ignores the following warning:
+        "NU1701: Package 'packageId' was restored using 'TargetFrameworkA' instead the project target framework 'TargetFrameworkB'. This package may not be fully compatible with your project."
+        It does not seem an issue because the tests are passed both on Windows 10 and Ubuntu 22.04.5 LTS.
+    -->
+      <NoWarn>$(NoWarn);NU1701</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.Analyzer\IsTestDataSourceMethodSuitableForBaselineUpdateAnalyzerClassDataTest.cs" Link="Resource\IsTestDataSourceMethodSuitableForBaselineUpdateAnalyzerClassDataTest.cs" />
+    <EmbeddedResource Include="..\Test.Integration.Analyzer\TestCaseSourceClassData.cs" Link="Resource\TestCaseSourceClassData.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.Analyzer\TestDataSource.cs" Link="Resource\TestDataSource.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.Analyzer\IsTestDataSourceMethodSuitableForBaselineUpdateAnalyzerTest.cs" Link="Resource\IsTestDataSourceMethodSuitableForBaselineUpdateAnalyzerTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="8.3.0" />
+    <PackageReference Include="FluentAssertions.Analyzers" Version="0.34.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.5" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.5" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scand.StormPetrel.Generator.Analyzer\Scand.StormPetrel.Generator.Analyzer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

@@ -1,5 +1,4 @@
-﻿using Scand.StormPetrel.Generator.TargetProject;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 
 namespace Scand.StormPetrel.Generator
@@ -11,7 +10,7 @@ namespace Scand.StormPetrel.Generator
         public static string ReadTargetProjectResource(string resourceClassName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream(typeof(GeneratorConfig), $"{resourceClassName}.cs"))
+            using (var stream = assembly.GetManifestResourceStream(typeof(StormPetrelGenerator), $"TargetProject.{resourceClassName}.cs"))
             using (var streamReader = new StreamReader(stream))
             {
                 return streamReader.ReadToEnd();

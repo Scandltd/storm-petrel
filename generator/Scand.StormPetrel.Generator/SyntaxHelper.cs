@@ -3,7 +3,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Generator.Abstraction;
 using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
-using Scand.StormPetrel.Generator.ExtraContextInternal;
+using Scand.StormPetrel.Generator.Common;
+using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,14 +19,11 @@ namespace Scand.StormPetrel.Generator
         private readonly string _targetProjectGeneratorExpression;
         private readonly Regex _ignoreInvocationExpressionRegex;
         private const string StormPetrelSharedContextVarName = "stormPetrelSharedContext";
-        public SyntaxHelper(string syntaxTreeFilePath, string targetProjectGeneratorExpression, string ignoreInvocationExpressionRegex)
+        public SyntaxHelper(string syntaxTreeFilePath, string targetProjectGeneratorExpression, Regex ignoreInvocationExpressionRegex)
         {
             _syntaxTreeFilePath = syntaxTreeFilePath;
             _targetProjectGeneratorExpression = targetProjectGeneratorExpression;
-            if (!string.IsNullOrEmpty(ignoreInvocationExpressionRegex))
-            {
-                _ignoreInvocationExpressionRegex = new Regex(ignoreInvocationExpressionRegex, RegexOptions.Compiled);
-            }
+            _ignoreInvocationExpressionRegex = ignoreInvocationExpressionRegex;
         }
 
         private static ExpressionSyntax ToStringLiteralExpression(string s) =>

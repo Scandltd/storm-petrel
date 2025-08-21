@@ -82,21 +82,27 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), node.ChildNodes(), base.VisitTupleExpression);
 
         public override SyntaxNode VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node) =>
-            VisitImplementation(node, GetChilds(node), base.VisitImplicitObjectCreationExpression);
+            VisitImplementation(node, GetObjectChilds(node), base.VisitImplicitObjectCreationExpression);
 
         public override SyntaxNode VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
-         => VisitImplementation(node, GetChilds(node), base.VisitObjectCreationExpression);
+         => VisitImplementation(node, GetObjectChilds(node), base.VisitObjectCreationExpression);
 
-        private static IEnumerable<SyntaxNode> GetChilds(ImplicitObjectCreationExpressionSyntax node)
-            => GetChilds(node?.ArgumentList, node?.Initializer?.Expressions);
+        private static IEnumerable<SyntaxNode> GetObjectChilds(ImplicitObjectCreationExpressionSyntax node)
+            => GetObjectChilds(node?.ArgumentList, node?.Initializer?.Expressions);
 
-        private static IEnumerable<SyntaxNode> GetChilds(ObjectCreationExpressionSyntax node)
-            => GetChilds(node?.ArgumentList, node?.Initializer?.Expressions);
+        private static IEnumerable<SyntaxNode> GetObjectChilds(ObjectCreationExpressionSyntax node)
+            => GetObjectChilds(node?.ArgumentList, node?.Initializer?.Expressions);
 
-        private static IEnumerable<SyntaxNode> GetChilds(ArgumentListSyntax argumentList, SeparatedSyntaxList<ExpressionSyntax>? expressions)
-            => argumentList?.Arguments.Count > 0 == true
-                ? argumentList.Arguments
-                : expressions ?? Enumerable.Empty<SyntaxNode>();
+        private static IEnumerable<SyntaxNode> GetObjectChilds(ArgumentListSyntax argumentList, SeparatedSyntaxList<ExpressionSyntax>? expressions)
+        {
+            if (argumentList?.Ancestors().Any(x => x is ThrowExpressionSyntax || x is ThrowStatementSyntax) == true)
+            {
+                return Enumerable.Empty<SyntaxNode>();
+            }
+            return argumentList?.Arguments.Count > 0 == true
+                    ? argumentList.Arguments
+                    : expressions ?? Enumerable.Empty<SyntaxNode>();
+        }
 
         private SyntaxNode VisitImplementation<T>(T node, IEnumerable<SyntaxNode> rows, Func<T, SyntaxNode> baseVisit)
             where T : SyntaxNode
@@ -161,7 +167,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             IEnumerable<SyntaxNode> cells = null;
             if (row is BaseObjectCreationExpressionSyntax baseObjectCreation)
             {
-                cells = GetChilds(baseObjectCreation.ArgumentList, baseObjectCreation.Initializer?.Expressions);
+                cells = GetObjectChilds(baseObjectCreation.ArgumentList, baseObjectCreation.Initializer?.Expressions);
             }
             else if (row is ArrayCreationExpressionSyntax || row is ImplicitArrayCreationExpressionSyntax)
             {
@@ -169,11 +175,11 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             }
             else if (row is ImplicitObjectCreationExpressionSyntax implicitObjectCreation)
             {
-                cells = GetChilds(implicitObjectCreation);
+                cells = GetObjectChilds(implicitObjectCreation);
             }
             else if (row is ObjectCreationExpressionSyntax objectCreation)
             {
-                cells = GetChilds(objectCreation);
+                cells = GetObjectChilds(objectCreation);
             }
             else if (row is ExpressionElementSyntax expression)
             {
@@ -188,7 +194,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 }
                 else if (e is BaseObjectCreationExpressionSyntax expressionBaseObjectCreation)
                 {
-                    cells = GetChilds(expressionBaseObjectCreation.ArgumentList, expressionBaseObjectCreation.Initializer?.Expressions);
+                    cells = GetObjectChilds(expressionBaseObjectCreation.ArgumentList, expressionBaseObjectCreation.Initializer?.Expressions);
                 }
                 else if (e is ImplicitArrayCreationExpressionSyntax implicitArray)
                 {

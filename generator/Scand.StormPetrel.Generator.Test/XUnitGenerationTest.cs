@@ -2,7 +2,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.CSharp;
 using NSubstitute;
 using Serilog;
-using Scand.StormPetrel.Generator.TargetProject;
+using Scand.StormPetrel.Generator.Common.TargetProject;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.CodeAnalysis;
@@ -103,12 +103,12 @@ namespace Scand.StormPetrel.Generator.Test
             SyntaxNode? actualSyntaxNode;
             if (isStaticStuffUseCase)
             {
-                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfig(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
                 actualSyntaxNode = tempNode;
             }
             else
             {
-                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfig(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
             }
             stopwatch.Stop();
             string? actual = actualSyntaxNode?.ToFullString();
@@ -122,6 +122,8 @@ namespace Scand.StormPetrel.Generator.Test
                 //await File.WriteAllTextAsync(@$"..\..\..\Resource\{expectedResourceFileName}", actual);
             }
             actual.Should().Be(expectedCode);
+
+            static MainConfigParsed GetConfigParsed(string? key) => MainConfigParsed.ParseConfig(GetConfig(key), out _);
 
             static MainConfig GetConfig(string? key) => key switch
             {

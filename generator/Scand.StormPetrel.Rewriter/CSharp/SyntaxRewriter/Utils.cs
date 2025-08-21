@@ -7,7 +7,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 {
     internal static class Utils
     {
-        private static SyntaxTrivia EmptyTrivia = SyntaxFactory.Whitespace("");
+        private static readonly SyntaxTrivia EmptyTrivia = SyntaxFactory.Whitespace("");
 
         public static ExpressionSyntax CreateInitializeExpressionSyntax(string initializeCode, SyntaxNode leadingTriviaDonor)
             => CreateInitializeExpressionSyntax(initializeCode, GetLeadingWhitespace(leadingTriviaDonor));

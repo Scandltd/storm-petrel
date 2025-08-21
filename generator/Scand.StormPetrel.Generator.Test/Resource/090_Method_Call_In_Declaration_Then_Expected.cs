@@ -193,5 +193,6 @@ namespace Test.Integration.XUnit
         private static object StaticButNotExpectedMethod() => new object ();
         private static (int NodeKind, int NodeIndex) StaticButNotExpectedMethodStormPetrel() => (8917, 0);
         private object NotStaticMethod() => new object ();
+        private static object ExpectedThrows() => throw new System.NotImplementedException();
     }
 }

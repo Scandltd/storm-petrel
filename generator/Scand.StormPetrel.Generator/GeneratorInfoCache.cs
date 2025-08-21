@@ -1,16 +1,14 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
+using Scand.StormPetrel.Generator.Common.TargetProject;
 using Serilog;
 using Serilog.Core;
 using Serilog.Settings.Configuration;
-using Scand.StormPetrel.Generator.TargetProject;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Threading;
 
 namespace Scand.StormPetrel.Generator
 {
@@ -20,12 +18,9 @@ namespace Scand.StormPetrel.Generator
         /// Cache implementation according to `a host with multiple loaded projects may share the same generator instance across multiple projects` [1].
         /// [1] <see cref="https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.md#pipeline-based-execution"/>
         /// </summary>
-        private static readonly ConcurrentDictionary<string, Info> ProjectRootDirToInfo = new ConcurrentDictionary<string, Info>();
-
-        private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions { ReadCommentHandling = JsonCommentHandling.Skip };
+        private static readonly ConcurrentDictionary<string, (MainConfigParsed MainConfig, ILogger Logger)> ProjectRootDirToInfo = new ConcurrentDictionary<string, (MainConfigParsed MainConfig, ILogger Logger)>();
         private static readonly char[] PossiblePathSeparators = new[] { '/', '\\' };
-
-        public static (MainConfig MainConfig, ILogger Logger) Get(AdditionalText configAdditionalText, string filePath, bool reinit = false)
+        public static (MainConfigParsed MainConfig, ILogger Logger) Get(AdditionalText configAdditionalText, string filePath, bool reinit = false)
         {
             if (configAdditionalText != null)
             {
@@ -37,7 +32,7 @@ namespace Scand.StormPetrel.Generator
                 throw new ArgumentNullException(nameof(filePath));
             }
             var projectRootDir = GetProjectRootFromCache(filePath);
-            Info info = null;
+            (MainConfigParsed MainConfig, ILogger Logger) info = default;
             if (projectRootDir == null)
             {
                 projectRootDir = GetProjectRootFromFileSystem(filePath);
@@ -47,16 +42,24 @@ namespace Scand.StormPetrel.Generator
                 info = ProjectRootDirToInfo[projectRootDir];
             }
 
-            if (!reinit && info != null)
+            if (!reinit && info != default)
             {
-                return (info.MainConfig, info.Logger);
+                return info;
             }
 
-            var infoNew = GetNew(configAdditionalText, projectRootDir);
+            var mainConfig = MainConfig.GetNew(configAdditionalText, out var jsonContent, out var isJsonException, out _);
+            var logger = Logger.None;
+            if (jsonContent != null)
+            {
+                var pathEscaped = projectRootDir.Replace(@"\", @"\\"); //no other json escapes because a path is safe for json
+                jsonContent = jsonContent.Replace(MainConfig.StormPetrelRootPath, pathEscaped);
+                logger = NewLogger(jsonContent);
+                logger.Warning("New logger has been created, project root path: {ProjectRootPath}; is json exception and thus default config is used: {isJsonException}", projectRootDir, isJsonException);
+            }
+            var infoNew = (mainConfig, logger);
             infoNew = ProjectRootDirToInfo.AddOrUpdate(projectRootDir, _ => infoNew, (_, _unused) => infoNew);
-            return (infoNew.MainConfig, infoNew.Logger);
+            return infoNew;
         }
-
         public static string ToSourcePath(string configPath, string filePath)
         {
             string rootDir = null;
@@ -95,18 +98,13 @@ namespace Scand.StormPetrel.Generator
                 return path.Replace(":", "");
             }
         }
-
-        private static string GetProjectRootFromCache(string filePath)
-        {
-            var rootDir = ProjectRootDirToInfo
-                                .Keys
-                                .Where(x => filePath.StartsWith(x, StringComparison.OrdinalIgnoreCase)
-                                                && filePath.Length > x.Length
-                                                && Array.IndexOf(PossiblePathSeparators, filePath[x.Length]) > -1)
-                                .FirstOrDefault();
-            return rootDir;
-        }
-
+        private static string GetProjectRootFromCache(string filePath) =>
+            ProjectRootDirToInfo
+                .Keys
+                .Where(x => filePath.StartsWith(x, StringComparison.OrdinalIgnoreCase)
+                                && filePath.Length > x.Length
+                                && Array.IndexOf(PossiblePathSeparators, filePath[x.Length]) > -1)
+                .FirstOrDefault();
         private static string GetProjectRootFromFileSystem(string filePath)
         {
             string currentLevelPath = filePath;
@@ -131,78 +129,29 @@ namespace Scand.StormPetrel.Generator
             }
             while (true);
         }
-
-        private static Info GetNew(AdditionalText configAdditionalText, string projectRootDir)
+        private static Logger NewLogger(string jsonContent)
         {
-            MainConfig config;
-            ILogger logger = Logger.None;
-            var jsonContent = configAdditionalText == null
-                                ? MainConfig.DefaultJson
-                                : configAdditionalText.GetText(CancellationToken.None)?.ToString();
-            bool isJsonException = false;
-            if (jsonContent != null)
+            using (var jsonStream = new MemoryStream(2 * jsonContent.Length))
             {
-                jsonContent = ReplaceJsonTokens(jsonContent);
-            }
-            try
-            {
-                config = JsonSerializer.Deserialize<MainConfig>(jsonContent, JsonOptions);
-            }
-            catch (JsonException)
-            {
-                // json can be not well formed, use default
-                jsonContent = ReplaceJsonTokens(MainConfig.DefaultJson);
-                config = JsonSerializer.Deserialize<MainConfig>(jsonContent);
-                isJsonException = true;
-            }
-
-            if (config.Serilog == MainConfig.SerilogDefault)
-            {
-                jsonContent = ReplaceJsonTokens(MainConfig.DefaultJson);
-            }
-            else if (config.Serilog == null)
-            {
-                jsonContent = null;
-            }
-            config.Serilog = null; // we only need it to detect Serilog configuration. So, clear it now.
-
-            if (jsonContent != null)
-            {
-                using (var jsonStream = new MemoryStream(2 * jsonContent.Length))
+                using (var sw = new StreamWriter(jsonStream, Encoding.UTF8))
                 {
-                    using (var sw = new StreamWriter(jsonStream, Encoding.UTF8))
-                    {
-                        sw.Write(jsonContent);
-                        sw.Flush();
-                        jsonStream.Position = 0;
+                    sw.Write(jsonContent);
+                    sw.Flush();
+                    jsonStream.Position = 0;
 
-                        var configuration = new ConfigurationBuilder()
-                                                    .AddJsonStream(jsonStream)
-                                                    .Build();
+                    var configuration = new ConfigurationBuilder()
+                                                .AddJsonStream(jsonStream)
+                                                .Build();
 
-                        // Follow suggestion from `No Serilog:Using configuration section is defined and no Serilog assemblies were found...`
-                        // exception message which appears if we don't have `options` variable
-                        var options = new ConfigurationReaderOptions(typeof(Serilog.Sinks.File.FileSink).Assembly);
-                        logger = new LoggerConfiguration()
-                                        .ReadFrom
-                                        .Configuration(configuration, options)
-                                        .CreateLogger();
-                        logger.Warning("New logger has been created, project root path: {ProjectRootPath}; is json exception and thus default config is used: {isJsonException}", projectRootDir, isJsonException);
-                    }
+                    // Follow suggestion from `No Serilog:Using configuration section is defined and no Serilog assemblies were found...`
+                    // exception message which appears if we don't have `options` variable
+                    var options = new ConfigurationReaderOptions(typeof(Serilog.Sinks.File.FileSink).Assembly);
+                    var logger = new LoggerConfiguration()
+                                    .ReadFrom
+                                    .Configuration(configuration, options)
+                                    .CreateLogger();
+                    return logger;
                 }
-            }
-
-            return new Info()
-            {
-                Logger = logger,
-                MainConfig = config,
-            };
-
-            string ReplaceJsonTokens(string jsonContentVar)
-            {
-                var pathEscaped = projectRootDir.Replace(@"\", @"\\"); //no other json escapes because a path is safe for json
-                jsonContentVar = jsonContentVar.Replace(MainConfig.StormPetrelRootPath, pathEscaped);
-                return jsonContentVar;
             }
         }
     }

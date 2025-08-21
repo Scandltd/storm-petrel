@@ -1,0 +1,85 @@
+﻿<Project InitialTargets="MakeBinDir" Sdk="Microsoft.NET.Sdk">
+    <!-- CAUTION: the file is mostly manually updated according to https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.cookbook.md#use-functionality-from-nuget-packages -->
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <!-- Generates a package at build -->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <!-- Do not include the generator as a lib dependency -->
+        <!--
+      This ignores the following warning:
+      "NU5128: some target frameworks declared in the dependencies group of the nuspec and the lib/ref folder do not
+      have exact matches in the other location. [...] Add lib or ref assemblies for the netstandard2.0 target framework."
+      This happens because the package only includes an analyzer, and no binaries to reference at runtime at all.
+    -->
+        <NoWarn>$(NoWarn);NU5128</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <PackageOutputPath>$(OutputPath)..\bin</PackageOutputPath>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://scand.com/products/storm-petrel-expected-baselines-rewriter</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Scandltd/storm-petrel.git</RepositoryUrl>
+        <Description>Analyzers for .NET test projects to ensure their code and configuration are compatible with Scand Storm Petrel's expected baseline updates.</Description>
+        <Title>StormPetrel Analyzers</Title>
+    </PropertyGroup>
+    <PropertyGroup>
+      <AnalysisMode>All</AnalysisMode>
+      <AnalysisLevel>latest</AnalysisLevel>
+      <EnableNETAnalyzers>true</EnableNETAnalyzers>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <PackageIcon>logo-128x128-transparent.png</PackageIcon>
+      <Authors>Scand</Authors>
+      <Company>Scand</Company>
+      <Copyright>© 2025 Scand</Copyright>
+      <PackageLicenseExpression>MIT</PackageLicenseExpression>
+      <PackageReleaseNotes>See CHANGELOG file referenced in README.</PackageReleaseNotes>
+      <PackageTags>automated testing tools;unit test modification;integration test automation;baseline updating tools;incremental test generators</PackageTags>
+      <Version>1.0.0</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.5" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+        <None Include="..\assets\logo-128x128-transparent.png">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
+        <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.IO.Pipelines" Version="9.0.5" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Encodings.Web" Version="9.0.5" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Json" Version="9.0.5" PrivateAssets="all" GeneratePathProperty="true" />
+
+        <None Include="README.md" Pack="true" PackagePath="\" />
+
+        <!-- Package the generator in the analyzer directory of the nuget package -->
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(OutputPath)\Scand.StormPetrel.Generator.Common.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"></None>
+        <None Include="$(OutputPath)\Scand.StormPetrel.Rewriter.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"></None>
+        <!-- Package the package dependencies alongside the generator assembly -->
+        <None Include="$(PKGMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGScand_StormPetrel_Generator_Abstraction)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_IO_Pipelines)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_Text_Encodings_Web)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(PKGSystem_Text_Json)\lib\netstandard2.0\*.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\generator\Scand.StormPetrel.Rewriter\Scand.StormPetrel.Rewriter.csproj">
+            <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+            <IncludeAssets>Scand.StormPetrel.Rewriter.dll</IncludeAssets>
+        </ProjectReference>
+        <ProjectReference Include="..\..\generator\Scand.StormPetrel.Generator.Common\Scand.StormPetrel.Generator.Common.csproj">
+            <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+            <IncludeAssets>Scand.StormPetrel.Generator.Common.dll</IncludeAssets>
+        </ProjectReference>
+    </ItemGroup>
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+      <Exec Condition="!$([MSBuild]::IsOSUnixLike())" Command="powershell &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />
+      <Exec Condition="$([MSBuild]::IsOSUnixLike())" Command="pwsh &quot;$(MSBuildThisFileDirectory)..\..\internal-utils\scripts\copy-and-adjust-readme.ps1&quot; $(MSBuildThisFileDirectory)" />
+    </Target>
+    <Target Name="MakeBinDir">
+      <MakeDir Directories="$(MSBuildThisFileDirectory)..\bin" />
+    </Target>
+</Project>

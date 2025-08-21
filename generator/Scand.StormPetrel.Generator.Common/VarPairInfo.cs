@@ -1,0 +1,17 @@
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
+
+namespace Scand.StormPetrel.Generator.Common
+{
+    internal class VarPairInfo
+    {
+        public string ActualVarName { get; set; }
+        public ExpressionSyntax ActualVarExpression { get; set; }
+        public string[] ActualVarPath { get; set; }
+        public string ExpectedVarName { get; set; }
+        public string[] ExpectedVarPath { get; set; }
+        public int StatementIndex { get; set; }
+        public int StatementIndexForSubOrder { get; set; }
+        public AbstractExtraContextInternal ExpectedVarExtraContextInternal { get; set; }
+    }
+}

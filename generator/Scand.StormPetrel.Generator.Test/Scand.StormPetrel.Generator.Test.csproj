@@ -74,6 +74,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Scand.StormPetrel.Generator.Common\Scand.StormPetrel.Generator.Common.csproj" />
     <ProjectReference Include="..\Scand.StormPetrel.Generator\Scand.StormPetrel.Generator.csproj" />
   </ItemGroup>
 

@@ -35,6 +35,8 @@ Create-Default "file-snapshot-infrastructure/THIRD_PARTY_NOTICES.md"
 Create-Default "file-snapshot-infrastructure/THIRD_PARTY_NOTICES_DEV.md"
 Create-Default "generator/THIRD_PARTY_NOTICES.md"
 Create-Default "generator/THIRD_PARTY_NOTICES_DEV.md"
+Create-Default "generator-analyzer/THIRD_PARTY_NOTICES.md"
+Create-Default "generator-analyzer/THIRD_PARTY_NOTICES_DEV.md"
 
 dotnet-project-licenses --input abstraction/Scand.StormPetrel.Generator.Abstraction.sln --unique --md --packages-filter internal-utils/scripts/third-party-notices/packages-filter.json --output-directory abstraction --outfile THIRD_PARTY_NOTICES.md
 
@@ -47,3 +49,7 @@ dotnet-project-licenses --input file-snapshot-infrastructure/Scand.StormPetrel.F
 dotnet-project-licenses --input generator/Scand.StormPetrel.sln --unique --md --projects-filter internal-utils/scripts/third-party-notices/generator-projects-filter.json --packages-filter internal-utils/scripts/third-party-notices/packages-filter.json --output-directory generator --outfile THIRD_PARTY_NOTICES.md
 
 dotnet-project-licenses --input generator/Scand.StormPetrel.sln --unique --md --projects-filter internal-utils/scripts/third-party-notices/generator-projects-filter-dev.json --packages-filter internal-utils/scripts/third-party-notices/packages-filter.json --output-directory generator --outfile THIRD_PARTY_NOTICES_DEV.md
+
+dotnet-project-licenses --input generator-analyzer/Scand.StormPetrel.Generator.Analyzer.sln --unique --md --projects-filter internal-utils/scripts/third-party-notices/generator-analyzer-projects-filter.json --packages-filter internal-utils/scripts/third-party-notices/packages-filter.json --output-directory generator-analyzer --outfile THIRD_PARTY_NOTICES.md
+
+dotnet-project-licenses --input generator-analyzer/Scand.StormPetrel.Generator.Analyzer.sln --unique --md --projects-filter internal-utils/scripts/third-party-notices/generator-analyzer-projects-filter-dev.json --packages-filter internal-utils/scripts/third-party-notices/packages-filter.json --output-directory generator-analyzer --outfile THIRD_PARTY_NOTICES_DEV.md

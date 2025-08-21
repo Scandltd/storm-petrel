@@ -5,7 +5,9 @@ param(
     [bool]$SkipGeneratorTestPerformance = $false,                   #To build and execute the package performance tests in context of the integration tests. Can be utilized for development purposes to speed up the build
     [bool]$SkipFileSnapshotInfrastructureBuild = $false,            #To build the package and execute its unit tests
     [bool]$SkipFileSnapshotInfrastructureTest = $false,             #To build and execute the package integration tests
-    [string]$FSIIntegrationTestGeneratorVersion = "2.5.0"           #To execute File Snapshot Infrastructure integration tests with specific version of the generator
+    [string]$FSIIntegrationTestGeneratorVersion = "2.5.0",          #To execute File Snapshot Infrastructure integration tests with specific version of the generator
+    [bool]$SkipAnalyzerBuild = $false,                              #To build the package and execute its unit tests
+    [bool]$SkipAnalyzerTest = $false                                #To build and execute the package integration tests
 )
 
 $isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")
@@ -184,6 +186,7 @@ if (-not $SkipAbstraction) {
     BuildPackage "abstraction" "Scand.StormPetrel.Generator.Abstraction/Scand.StormPetrel.Generator.Abstraction.csproj"
     CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "generator/bin"
     CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "file-snapshot-infrastructure/bin"
+    CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "generator-analyzer/bin"
 }
 
 ClearPackageCache "scand.stormpetrel.generator"
@@ -192,6 +195,7 @@ if (-not $SkipGeneratorBuild) {
     #Build package in Release mode after unit tests
     BuildPackage "generator" "Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj"
     CopyTo "generator/bin/Scand.StormPetrel.Generator.2.*" "file-snapshot-infrastructure/bin"
+    CopyTo "generator/bin/Scand.StormPetrel.Generator.2.*" "generator-analyzer/bin"
 }
 
 if (-not $SkipGeneratorTest) {
@@ -260,6 +264,64 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
         Set-Content -Path $projectFile.FullName -Value $content
     }
     RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
+}
+
+ClearPackageCache "scand.stormpetrel.generator.analyzer"
+if (-not $SkipAnalyzerBuild) {
+    RunUnitTest "generator-analyzer"
+    #Build package in Release mode after unit tests
+    BuildPackage "generator-analyzer" "Scand.StormPetrel.Generator.Analyzer/Scand.StormPetrel.Generator.Analyzer.csproj"
+}
+
+if (-not $SkipAnalyzerTest) {
+    $matchToCount = @{
+        "warning SCANDSP1000" = 1
+        "SCANDSP1000" = 1                    #Total SCANDSP1000 matches
+        "SCANDSP1002" = 1                    #Total SCANDSP1002 matches
+        "warning SCANDSP1003: Regex is invalid: \(invalid regex 1" = 2
+        "warning SCANDSP1003: Regex is invalid: \(invalid regex 2" = 2
+        "SCANDSP1003" = 4                    #Total SCANDSP1003 matches
+        "warning SCANDSP2000: Storm Petrel cannot detect baselines to update in 'WhenTestIsNotSuitableForUpdatesThenWarningTest' test method" = 2
+        "warning SCANDSP2000: Storm Petrel cannot detect baselines to update in 'WhenTestWithVariablesIsNotSuitableForUpdatesThenWarningTest' test method" = 2
+        "SCANDSP2000" = 4                    #Total SCANDSP2000 matches
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'AttributeListDataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'DataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'TestCaseSourceClassDataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'TestDataSourceDataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'MsTestDataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'MsTestDataSourceDataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'NUnitDataMethod'" = 1
+        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'NUnitDataSourceDataMethod'" = 1
+        "SCANDSP3000" = 8                    #Total SCANDSP3000 matches
+    }
+    
+   
+    dotnet build "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.sln" 2>&1 | Select-Object -Unique | ForEach-Object {
+        $line = $_
+        Write-Output $line
+        $matchToCount.Keys.Clone() | ForEach-Object {
+            $key = $_
+            if ($line -match $key) {
+                $matchToCount[$key]--
+            }
+        }
+    }
+    
+    $hasError = $false
+    foreach ($key in $matchToCount.Keys) {
+        if ($matchToCount[$key] -ne 0) {
+            $hasError = $true
+            Write-Warning "Wrong match count left: (Key: $key, Value: $($matchToCount[$key]))"
+        }
+    }
+    
+    if ($hasError) {
+        Write-Error "Some patterns do not match. See more details above."
+        exit 1
+    }
+    else {
+        Write-Output "All expected patterns were detected"
+    }
 }
 
 StopDotnetProcess

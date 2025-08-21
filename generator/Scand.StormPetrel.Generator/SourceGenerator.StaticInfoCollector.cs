@@ -1,5 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Scand.StormPetrel.Shared;
+using Scand.StormPetrel.Generator.Common;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,12 +21,12 @@ namespace Scand.StormPetrel.Generator
             public override void CollectClassDeclaration(ClassDeclarationSyntax classDeclaration)
             {
                 var properties = MethodHelper.GetExpectedVarPropertyInvocationExpressions(classDeclaration);
-                CollectedPropertyPaths.AddRange(properties.Select(x => SyntaxNodeHelper.GetValuePath(x)));
+                CollectedPropertyPaths.AddRange(properties.Select(x => SyntaxNodeHelperCommon.GetValuePath(x)));
             }
 
             public override void CollectExpectedVarInvocationExpressionCandidate(MethodDeclarationSyntax methodDeclaration)
             {
-                CollectedMethodInfo.Add((SyntaxNodeHelper.GetValuePath(methodDeclaration), methodDeclaration.ParameterList.Parameters.Count));
+                CollectedMethodInfo.Add((SyntaxNodeHelperCommon.GetValuePath(methodDeclaration), methodDeclaration.ParameterList.Parameters.Count));
             }
         }
     }

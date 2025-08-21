@@ -44,11 +44,8 @@ namespace Scand.StormPetrel.Rewriter
                 }
                 //Now parse xUnit v3 format
                 var propertyInfo = row.GetType().GetProperty("Data");
-                var rowValue = propertyInfo?.GetValue(row);
-                if (rowValue == null)
-                {
-                    throw new InvalidOperationException("Cannot get a value from test case source row.");
-                }
+                var rowValue = (propertyInfo?.GetValue(row))
+                                ?? throw new InvalidOperationException("Cannot get a value from test case source row.");
                 if (rowValue is object[] rowValueAsArray)
                 {
                     return rowValueAsArray;
@@ -69,11 +66,11 @@ namespace Scand.StormPetrel.Rewriter
             GetPathImplementation(type, x => x.Name == memberName);
 
         public static string[] GetEnumerableStaticMemberPath(Type type) =>
-            GetPathImplementation(type, x => IsEnumerableStaticMember(x, MemberTypes.Property)) //check properties first to filter out "get_PropertyName" methods
-                ?? GetPathImplementation(type, x => IsEnumerableStaticMember(x, MemberTypes.Field))
-                ?? GetPathImplementation(type, x => IsEnumerableStaticMember(x, MemberTypes.Method));
+            GetPathImplementation(type, x => IsEnumerableMember(x, MemberTypes.Property)) //check properties first to filter out "get_PropertyName" methods
+                ?? GetPathImplementation(type, x => IsEnumerableMember(x, MemberTypes.Field))
+                ?? GetPathImplementation(type, x => IsEnumerableMember(x, MemberTypes.Method));
 
-        private static bool IsEnumerableStaticMember(MemberInfo member, MemberTypes memberType) =>
+        private static bool IsEnumerableMember(MemberInfo member, MemberTypes memberType) =>
             member.MemberType == memberType && typeof(System.Collections.IEnumerable).IsAssignableFrom(GetReturnType(member));
 
         private static Type GetReturnType(MemberInfo member)

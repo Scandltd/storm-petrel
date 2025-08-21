@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Scand.StormPetrel.Generator.TargetProject;
+using Scand.StormPetrel.Generator.Common.TargetProject;
 
 namespace Scand.StormPetrel.Generator.Test
 {
@@ -29,9 +29,11 @@ namespace Scand.StormPetrel.Generator.Test
             {
                 IgnoreFilePathRegex = regex,
             };
+            var configParsed = MainConfigParsed.ParseConfig(config, out _);
+
 
             //Act
-            var actual = config.IsMatchToIgnoreFilePathRegex(path);
+            var actual = configParsed.IsMatchToIgnoreFilePathRegex(path);
 
             //Assert
             actual.Should().Be(expected);

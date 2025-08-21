@@ -2,8 +2,9 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using Scand.StormPetrel.Generator.ExtraContextInternal;
-using Scand.StormPetrel.Generator.TargetProject;
+using Scand.StormPetrel.Generator.Common;
+using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
+using Scand.StormPetrel.Generator.Common.TargetProject;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace Scand.StormPetrel.Generator
 {
     internal partial class SourceGenerator
     {
-        public static SourceText CreateNewSourceAsSourceText(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, ILogger logger, CancellationToken cancellationToken)
+        public static SourceText CreateNewSourceAsSourceText(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
             => CreateNewSource(syntaxTreeFilePath, syntaxTree, config, logger, cancellationToken)?.GetText(Encoding.UTF8);
-        public static SyntaxNode CreateNewSource(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, ILogger logger, CancellationToken cancellationToken)
+        public static SyntaxNode CreateNewSource(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
         {
             var collector = new TestInfoCollector();
             var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
@@ -28,7 +29,7 @@ namespace Scand.StormPetrel.Generator
             }
             return newSource;
         }
-        public static (SyntaxNode, IEnumerable<(string[] Path, int ParametersCount)> MethodInfo, IEnumerable<string[]> PropertyPaths) CreateNewSourceForStaticStuff(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, ILogger logger, CancellationToken cancellationToken)
+        public static (SyntaxNode, IEnumerable<(string[] Path, int ParametersCount)> MethodInfo, IEnumerable<string[]> PropertyPaths) CreateNewSourceForStaticStuff(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
         {
             var collector = new StaticInfoCollector();
             var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
@@ -38,7 +39,7 @@ namespace Scand.StormPetrel.Generator
             }
             return (newSource, collector.CollectedMethodInfo, collector.CollectedPropertyPaths);
         }
-        private static SyntaxNode CreateNewSourceImplementation(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfig config, AbstractInfoCollector infoCollector, ILogger logger, CancellationToken cancellationToken)
+        private static SyntaxNode CreateNewSourceImplementation(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, AbstractInfoCollector infoCollector, ILogger logger, CancellationToken cancellationToken)
         {
             var syntaxTreeRoot = syntaxTree.GetRoot(CancellationToken.None);
             var classes = MethodHelper.GetDescendantNodesOptimized(syntaxTreeRoot, a => a is ClassDeclarationSyntax c
@@ -66,10 +67,10 @@ namespace Scand.StormPetrel.Generator
                     {
                         break;
                     }
-                    var testAttributeNames = MethodHelper.GetTestAttributeNames(method).ToArray();
-                    if (testAttributeNames.Length == 0)
+                    var hasTestAttributeNames = MethodHelperCommon.GetTestAttributeNames(method).Any();
+                    if (!hasTestAttributeNames)
                     {
-                        var isExpectedVarInvocationExpressionCandidate = MethodHelper.IsExpectedVarInvocationExpressionCandidate(method);
+                        var isExpectedVarInvocationExpressionCandidate = MethodHelperCommon.IsExpectedVarInvocationExpressionCandidate(method);
                         if (isExpectedVarInvocationExpressionCandidate)
                         {
                             var original = GetFirstOrDefaultMethod(@class, skipClassChildMethodCount);
@@ -160,25 +161,20 @@ namespace Scand.StormPetrel.Generator
                     ? @class //no need to rename, already renamed
                     : @class.ReplaceNodes(@class.ChildNodes().OfType<ConstructorDeclarationSyntax>(), (x, _) => x.WithIdentifier(SyntaxFactory.Identifier(x.Identifier.Text + "StormPetrel")));
 
-            SyntaxNode CandidateToRemove(SyntaxNode x)
-            {
-                return x is ClassDeclarationSyntax
-                        || x is EnumDeclarationSyntax
-                        || x is StructDeclarationSyntax
-                        || x is RecordDeclarationSyntax
-                        || x is InterfaceDeclarationSyntax
-                        ? x
-                        : null;
-            }
+            SyntaxNode CandidateToRemove(SyntaxNode x) =>
+                x is ClassDeclarationSyntax
+                    || x is EnumDeclarationSyntax
+                    || x is StructDeclarationSyntax
+                    || x is RecordDeclarationSyntax
+                    || x is InterfaceDeclarationSyntax
+                    ? x
+                    : null;
 
-            MethodDeclarationSyntax GetFirstOrDefaultMethod(ClassDeclarationSyntax classDeclarationSyntax, int skipCount)
-            {
-                return classDeclarationSyntax
-                            .ChildNodes()
-                            .OfType<MethodDeclarationSyntax>()
-                            .Skip(skipCount)
-                            .FirstOrDefault();
-            }
+            MethodDeclarationSyntax GetFirstOrDefaultMethod(ClassDeclarationSyntax classDeclarationSyntax, int skipCount) =>
+                MethodHelperCommon
+                    .GetMethods(classDeclarationSyntax)
+                    .Skip(skipCount)
+                    .FirstOrDefault();
 
             SyntaxNode[] GetNodesToRemove()
             {

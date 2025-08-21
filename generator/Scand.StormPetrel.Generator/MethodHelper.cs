@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Scand.StormPetrel.Generator.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,49 +11,6 @@ namespace Scand.StormPetrel.Generator
     internal class MethodHelper
     {
         public const string StormPetrelUseCaseIndexParameterName = "stormPetrelUseCaseIndex";
-        private static bool IsStatic(MethodDeclarationSyntax method)
-            => method.Modifiers.Any(x => x.IsKind(SyntaxKind.StaticKeyword));
-
-        private static bool IsStatic(PropertyDeclarationSyntax property)
-            => property.Modifiers.Any(x => x.IsKind(SyntaxKind.StaticKeyword));
-
-        public static IEnumerable<string> GetTestAttributeNames(MethodDeclarationSyntax method)
-            => GetAttributes(method, x => SupportedMethodInfo.AttributeNames.Contains(x.Name.ToString()))
-                .Select(x => x.Name.ToString());
-
-        public static IEnumerable<string> GetTestCaseAttributeNames(MethodDeclarationSyntax method)
-            => GetAttributes(method, x => SupportedMethodInfo.AttributeNamesForTestCase.Contains(x.Name.ToString()))
-                 .Select(x => x.Name.ToString());
-
-        public static AttributeSyntax GetTestCaseSourceAttribute(MethodDeclarationSyntax method)
-            => GetAttributes(method, x => SupportedMethodInfo.AttributeNamesForTestCaseSource.Contains(x.Name.ToString()))
-                .FirstOrDefault();
-
-        private static IEnumerable<AttributeSyntax> GetAttributes(MethodDeclarationSyntax method, Func<AttributeSyntax, bool> predicate)
-            => GetAttributePairs(method.AttributeLists, predicate)
-                .Select(x => x.Attribute);
-
-        private static IEnumerable<(AttributeListSyntax AttributeList, AttributeSyntax Attribute)> GetAttributePairs(SyntaxList<AttributeListSyntax> attributeList, Func<AttributeSyntax, bool> predicate) =>
-            attributeList
-                .SelectMany(a => a.Attributes
-                                    .Where(b => predicate(b))
-                                    .Select(b => (a, b)));
-
-        public static bool IsExpectedVarInvocationExpressionCandidate(MethodDeclarationSyntax method)
-            => IsStatic(method)
-                && !GetTestAttributeNames(method).Any()
-                && method.ReturnType != null
-                && method.ReturnType.ToString() != "void"
-                && method.ReturnType.ToString().IndexOf("Task", StringComparison.Ordinal) < 0
-                //ignore extension methods to avoid duplicated extension method and thus target test project compilation failure
-                && method.ParameterList?.Parameters.FirstOrDefault()?.Modifiers.Any(SyntaxKind.ThisKeyword) != true;
-
-
-        public static bool IsExpectedVarInvocationExpressionCandidate(PropertyDeclarationSyntax property)
-            => IsStatic(property)
-                && property.Type != null
-                && property.Type.ToString().IndexOf("Task", StringComparison.Ordinal) < 0;
-
         public static IEnumerable<PropertyDeclarationSyntax> GetExpectedVarPropertyInvocationExpressions(SyntaxNode root)
         {
             var nodes = new List<CSharpSyntaxNode>();
@@ -60,7 +18,7 @@ namespace Scand.StormPetrel.Generator
             {
                 if (node is PropertyDeclarationSyntax p)
                 {
-                    if (IsExpectedVarInvocationExpressionCandidate(p))
+                    if (MethodHelperCommon.IsExpectedVarInvocationExpressionCandidate(p))
                     {
                         return (p, false);
                     }
@@ -118,7 +76,8 @@ namespace Scand.StormPetrel.Generator
             do
             {
                 i++;
-                var (attributeList, attribute) = GetAttributePairs(newAttributes, x => SupportedMethodInfo.AttributeNamesForTestCase.Contains(x.Name.ToString()))
+                var (attributeList, attribute) = MethodHelperCommon
+                                                    .GetAttributePairs(newAttributes, x => SupportedMethodInfo.Instance.AttributeNamesForTestCase.Contains(x.Name.ToString()))
                                                     .Skip(i)
                                                     .FirstOrDefault();
 

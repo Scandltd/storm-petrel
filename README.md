@@ -24,6 +24,11 @@
 
 .NET library that implements [Scand.StormPetrel.Generator.Abstraction](abstraction/README.md) to rewrite expected baseline files with actual snapshots (HTML, JSON, XML, images, or other bytes). This can be utilized in Snapshot Unit Testing when snapshots are stored as individual files in the file system.
 
+## [Scand.StormPetrel.Generator.Analyzer](generator-analyzer/README.md)
+[![NuGet Version](http://img.shields.io/nuget/v/Scand.StormPetrel.Generator.Analyzer.svg?style=flat)](https://www.nuget.org/packages/Scand.StormPetrel.Generator.Analyzer)
+
+Analyzers for .NET test projects to ensure their code and configuration are compatible with [Scand Storm Petrel's](generator/README.md) expected baseline updates.
+
 ## Media
 ### Blogs
 

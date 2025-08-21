@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.Analyzer", "Test.Integration.Analyzer\Test.Integration.Analyzer.csproj", "{5A4B9D01-E4C8-49FC-9F8A-A0BB602CEDD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration.AnalyzerWithStormPetrel", "Test.Integration.AnalyzerWithStormPetrel\Test.Integration.AnalyzerWithStormPetrel.csproj", "{6EA410B4-36DB-4F1F-9E8C-9730C4E62F75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A4B9D01-E4C8-49FC-9F8A-A0BB602CEDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A4B9D01-E4C8-49FC-9F8A-A0BB602CEDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A4B9D01-E4C8-49FC-9F8A-A0BB602CEDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A4B9D01-E4C8-49FC-9F8A-A0BB602CEDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA410B4-36DB-4F1F-9E8C-9730C4E62F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA410B4-36DB-4F1F-9E8C-9730C4E62F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA410B4-36DB-4F1F-9E8C-9730C4E62F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA410B4-36DB-4F1F-9E8C-9730C4E62F75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D7B3D95-6386-460E-92D5-4F8C42D82505}
+	EndGlobalSection
+EndGlobal
