@@ -295,8 +295,9 @@ if (-not $SkipAnalyzerTest) {
         "SCANDSP3000" = 8                    #Total SCANDSP3000 matches
     }
     
-   
-    dotnet build "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.sln" 2>&1 | Select-Object -Unique | ForEach-Object {
+
+    $analyzerIngetrationTestSlnPath = "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.sln"
+    dotnet build $analyzerIngetrationTestSlnPath 2>&1 | Select-Object -Unique | ForEach-Object {
         $line = $_
         Write-Output $line
         $matchToCount.Keys.Clone() | ForEach-Object {
@@ -305,6 +306,11 @@ if (-not $SkipAnalyzerTest) {
                 $matchToCount[$key]--
             }
         }
+    }
+   
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Failed building $analyzerIngetrationTestSlnPath"
+        exit $LASTEXITCODE
     }
     
     $hasError = $false

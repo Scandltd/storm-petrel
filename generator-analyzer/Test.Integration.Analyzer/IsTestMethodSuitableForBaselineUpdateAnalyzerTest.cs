@@ -1,4 +1,5 @@
 namespace Test.Integration.Analyzer;
+using Assert = Xunit.Assert;
 
 public class IsTestMethodSuitableForBaselineUpdateAnalyzerTest
 {
