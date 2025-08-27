@@ -23,6 +23,8 @@
   <ItemGroup>
     <Compile Include="..\Test.Integration.XUnit\Utils.cs" Link="Utils.cs" />
     <Compile Include="..\Test.Integration.XUnit\Utils.IgnoredMembersMiddleware.cs" Link="Utils.IgnoredMembersMiddleware.cs" />
+    <Compile Include="..\Test.Integration.Included\IncludedTest.cs" Link="Included/IncludedTest.cs" />
+    <Compile Include="..\Test.Integration.Included\IncludedDataSource.cs" Link="Included/IncludedDataSource.cs" />
   </ItemGroup>
 
   <ItemGroup>

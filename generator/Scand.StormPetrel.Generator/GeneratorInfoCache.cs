@@ -63,6 +63,10 @@ namespace Scand.StormPetrel.Generator
         public static string ToSourcePath(string configPath, string filePath)
         {
             string rootDir = null;
+            filePath = filePath
+                .Replace($"{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}", $"{Path.DirectorySeparatorChar}StormPetrelDotDot{Path.DirectorySeparatorChar}")
+                .Replace($"{Path.DirectorySeparatorChar}.{Path.DirectorySeparatorChar}", $"{Path.DirectorySeparatorChar}StormPetrelDot{Path.DirectorySeparatorChar}");
+            
             if (!string.IsNullOrEmpty(configPath))
             {
                 rootDir = GetProjectRootFromCache(configPath);
@@ -74,29 +78,31 @@ namespace Scand.StormPetrel.Generator
             var result = filePath;
             if (!string.IsNullOrEmpty(rootDir))
             {
+                var filePathSegments = filePath.Split(Path.DirectorySeparatorChar);
+                var rootDirSegments = rootDir.Split(Path.DirectorySeparatorChar);
                 int startIndex = 0;
-                int minLength = Math.Min(rootDir.Length, filePath.Length);
+                int minLength = Math.Min(filePathSegments.Length, rootDirSegments.Length);
+
                 for (int i = 0; i < minLength; i++)
                 {
-                    if (rootDir[i] != filePath[i])
+                    if (rootDirSegments[i] == filePathSegments[i])
+                    {
+                        startIndex++;
+                    }
+                    else
                     {
                         break;
                     }
-                    startIndex++;
                 }
-                result = filePath
-                            .Substring(startIndex)
-                            .TrimStart('/')
-                            .TrimStart('\\');
-            }
-            result = Escape(result);
-            result = result.TrimStart('/');
-            return result;
 
-            string Escape(string path)
-            {
-                return path.Replace(":", "");
+                result = string.Join($"{Path.DirectorySeparatorChar}", filePathSegments.Skip(startIndex));
             }
+
+            result = result
+                        .Replace($"{Path.VolumeSeparatorChar}", "")
+                        .TrimStart(Path.DirectorySeparatorChar);
+
+            return result;
         }
         private static string GetProjectRootFromCache(string filePath) =>
             ProjectRootDirToInfo
