@@ -258,6 +258,7 @@ namespace Scand.StormPetrel.Generator.Common
         {
             var testCaseSourceExpressionSb = new StringBuilder();
             var testCaseSourcePathExpressionSb = new StringBuilder();
+
             var attributeName = testCaseSourceAttribute.Name.ToString();
             var kind = SupportedMethodInfo.GetTestCaseSourceKind(attributeName);
             if (kind != TestCaseSourceKind.XUnitClassData)
@@ -449,6 +450,17 @@ namespace Scand.StormPetrel.Generator.Common
                             NonExpectedParameterNames = nonExpectedParameterInfo.Select(x => x.Name).ToArray(),
                             TestCaseSourceExpression = testCaseSourceExpression,
                             TestCaseSourcePathExpression = testCaseSourcePathExpression,
+                            TestMethodParameterDefaultValues = method
+                                                                .ParameterList
+                                                                .Parameters
+                                                                .Select(x => (Default: x.Default?.Value?.ToFullString(), x.Type))
+                                                                .Select(x => x.Default == null
+                                                                                //`default` produces `null` value out of a context what is incompatible with value types.
+                                                                                //Thus use `default(int)` against `default` for int and other value/reference types.
+                                                                                || x.Default == "default"
+                                                                                ? $"default({x.Type.WithoutTrivia().ToFullString()})"
+                                                                                : x.Default)
+                                                                .ToArray(),
                             PartialExtraContext = new TestCaseSourceContext
                             {
                                 ColumnIndex = expectedVarParameterIndex,

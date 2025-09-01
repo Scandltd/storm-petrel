@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter.CellProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
     {
         private readonly int _resultRowIndex;
         private readonly int _resultColumnIndex;
+        private readonly string[] _rowDefaultExpressions;
         private bool _isMatched;
         private bool _isCellReplaced;
-        public EnumerableResultRewriter(IEnumerable<string> methodPath, int resultRowIndex, int resultColumnIndex, string valueNewCode)
+        public EnumerableResultRewriter(IEnumerable<string> methodPath, int resultRowIndex, int resultColumnIndex, string valueNewCode, string[] rowDefaultExpressions = null)
             : base(methodPath, valueNewCode)
         {
             _resultRowIndex = resultRowIndex;
             _resultColumnIndex = resultColumnIndex;
+            _rowDefaultExpressions = rowDefaultExpressions ?? Array.Empty<string>();
         }
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
@@ -70,10 +73,10 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         }
 
         public override SyntaxNode VisitArrayCreationExpression(ArrayCreationExpressionSyntax node) =>
-            VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), GetChildNodesOfChildNodes(node), base.VisitArrayCreationExpression);
+            VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), CellProviderHelper.GetChildNodesOfChildNodes(node), base.VisitArrayCreationExpression);
 
         public override SyntaxNode VisitImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax node) =>
-            VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), GetChildNodesOfChildNodes(node), base.VisitImplicitArrayCreationExpression);
+            VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), CellProviderHelper.GetChildNodesOfChildNodes(node), base.VisitImplicitArrayCreationExpression);
 
         public override SyntaxNode VisitCollectionExpression(CollectionExpressionSyntax node) =>
             VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), node.ChildNodes(), base.VisitCollectionExpression);
@@ -82,27 +85,10 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             VisitImplementation(node ?? throw new ArgumentNullException(nameof(node)), node.ChildNodes(), base.VisitTupleExpression);
 
         public override SyntaxNode VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node) =>
-            VisitImplementation(node, GetObjectChilds(node), base.VisitImplicitObjectCreationExpression);
+            VisitImplementation(node, CellProviderHelper.GetObjectChilds(node), base.VisitImplicitObjectCreationExpression);
 
         public override SyntaxNode VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
-         => VisitImplementation(node, GetObjectChilds(node), base.VisitObjectCreationExpression);
-
-        private static IEnumerable<SyntaxNode> GetObjectChilds(ImplicitObjectCreationExpressionSyntax node)
-            => GetObjectChilds(node?.ArgumentList, node?.Initializer?.Expressions);
-
-        private static IEnumerable<SyntaxNode> GetObjectChilds(ObjectCreationExpressionSyntax node)
-            => GetObjectChilds(node?.ArgumentList, node?.Initializer?.Expressions);
-
-        private static IEnumerable<SyntaxNode> GetObjectChilds(ArgumentListSyntax argumentList, SeparatedSyntaxList<ExpressionSyntax>? expressions)
-        {
-            if (argumentList?.Ancestors().Any(x => x is ThrowExpressionSyntax || x is ThrowStatementSyntax) == true)
-            {
-                return Enumerable.Empty<SyntaxNode>();
-            }
-            return argumentList?.Arguments.Count > 0 == true
-                    ? argumentList.Arguments
-                    : expressions ?? Enumerable.Empty<SyntaxNode>();
-        }
+         => VisitImplementation(node, CellProviderHelper.GetObjectChilds(node), base.VisitObjectCreationExpression);
 
         private SyntaxNode VisitImplementation<T>(T node, IEnumerable<SyntaxNode> rows, Func<T, SyntaxNode> baseVisit)
             where T : SyntaxNode
@@ -125,14 +111,14 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             {
                 return node;
             }
-            IEnumerable<SyntaxNode> cells = GetCells(row);
+            IEnumerable<SyntaxNode> cells = GetCells(row, out var rowUpdatedOrSelf);
             if (cells == null)
             {
                 return node;
             }
             var cell = cells
-                                .Skip(_resultColumnIndex)
-                                .FirstOrDefault();
+                        .Skip(_resultColumnIndex)
+                        .FirstOrDefault();
             if (cell == null)
             {
                 return baseVisit(node);
@@ -159,67 +145,59 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             {
                 return baseVisit(node);
             }
-            return node.ReplaceNode(cell, newNode);
+            rowUpdatedOrSelf = rowUpdatedOrSelf.ReplaceNode(cell, newNode);
+            return node.ReplaceNode(row, rowUpdatedOrSelf);
         }
 
-        private static IEnumerable<SyntaxNode> GetCells(SyntaxNode row)
+        private IEnumerable<SyntaxNode> GetCells(SyntaxNode row, out SyntaxNode rowUpdatedOrSelf)
         {
+            rowUpdatedOrSelf = row;
             IEnumerable<SyntaxNode> cells = null;
-            if (row is BaseObjectCreationExpressionSyntax baseObjectCreation)
+            if (row is ExpressionElementSyntax)
             {
-                cells = GetObjectChilds(baseObjectCreation.ArgumentList, baseObjectCreation.Initializer?.Expressions);
+                cells = GetCellsFromExpression(row, x => ((ExpressionElementSyntax)x).Expression, out rowUpdatedOrSelf);
             }
-            else if (row is ArrayCreationExpressionSyntax || row is ImplicitArrayCreationExpressionSyntax)
+            else if (row is YieldStatementSyntax)
             {
-                cells = GetChildNodesOfChildNodes(row);
+                cells = GetCellsFromExpression(row, x => ((YieldStatementSyntax)x).Expression, out rowUpdatedOrSelf);
             }
-            else if (row is ImplicitObjectCreationExpressionSyntax implicitObjectCreation)
+            else
             {
-                cells = GetObjectChilds(implicitObjectCreation);
-            }
-            else if (row is ObjectCreationExpressionSyntax objectCreation)
-            {
-                cells = GetObjectChilds(objectCreation);
-            }
-            else if (row is ExpressionElementSyntax expression)
-            {
-                var e = expression.Expression;
-                if (e is TupleExpressionSyntax tupleExpression)
+                var (_, rowFromProviders, cellsFromProviders) =
+                    GetCellProviders()
+                        .Select(x => (IsCellsOk: x.TryGetCells(row, _resultColumnIndex, _rowDefaultExpressions, out var tempRow, out var tempCells), Row: tempRow, Cells: tempCells))
+                        .FirstOrDefault(x => x.IsCellsOk);
+                if (rowFromProviders != null)
                 {
-                    cells = tupleExpression.Arguments;
-                }
-                else if (e is CollectionExpressionSyntax collection)
-                {
-                    cells = collection.Elements;
-                }
-                else if (e is BaseObjectCreationExpressionSyntax expressionBaseObjectCreation)
-                {
-                    cells = GetObjectChilds(expressionBaseObjectCreation.ArgumentList, expressionBaseObjectCreation.Initializer?.Expressions);
-                }
-                else if (e is ImplicitArrayCreationExpressionSyntax implicitArray)
-                {
-                    cells = GetChildNodesOfChildNodes(implicitArray);
+                    rowUpdatedOrSelf = rowFromProviders;
+                    cells = cellsFromProviders;
                 }
             }
-            else if (row is YieldStatementSyntax yieldSyntax)
-            {
-                cells = GetCells(yieldSyntax.Expression);
-            }
-            if (cells == null)
-            {
-                cells = row.ChildNodes();
-            }
-            return FilterOutRedundantNodes(cells);
+            return cells;
         }
 
-        private static IEnumerable<SyntaxNode> FilterOutRedundantNodes(IEnumerable<SyntaxNode> nodes)
-            => nodes.Where(x => !(
-                                    x.IsKind(SyntaxKind.ArrayRankSpecifier)
-                                    || x.IsKind(SyntaxKind.PredefinedType)
-                                ));
+        private IEnumerable<SyntaxNode> GetCellsFromExpression(SyntaxNode row, Func<SyntaxNode, ExpressionSyntax> expressionSelector, out SyntaxNode rowUpdatedOrSelf)
+        {
+            rowUpdatedOrSelf = row;
+            var rowExpression = expressionSelector(row);
+            var cells = GetCells(expressionSelector(row), out var rowExpressionUpdatedOrSelf);
+            if (rowExpression != rowExpressionUpdatedOrSelf)
+            {
+                rowUpdatedOrSelf = row.ReplaceNode(rowExpression, rowExpressionUpdatedOrSelf);
+                cells = GetCells(expressionSelector(rowUpdatedOrSelf), out var _);
+            }
+            return cells;
+        }
 
-        private static IEnumerable<SyntaxNode> GetChildNodesOfChildNodes(SyntaxNode node) =>
-            node.ChildNodes().SelectMany(x => FilterOutRedundantNodes(x.ChildNodes()));
+        private static IEnumerable<AbstractCellProvider> GetCellProviders()
+        {
+            yield return new BaseObjectCreationCellProvider();
+            yield return new ArrayCreationCellProvider();
+            yield return new ImplicitArrayCreationCellProvider();
+            yield return new TupleCellProvider();
+            yield return new CollectionCellProvider();
+            yield return new InitializerCellProvider();
+        }
 
         private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b, SyntaxNode c, SyntaxNode d)
         {

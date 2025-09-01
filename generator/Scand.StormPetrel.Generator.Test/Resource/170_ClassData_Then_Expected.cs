@@ -54,7 +54,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
+                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -70,12 +70,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (x == (int)stormPetrelRow[0])
+                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (y == (int)stormPetrelRow[1])
+                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -105,7 +105,10 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
+                    Path = new[]
+                    {
+                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
+                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -167,7 +170,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
+                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -183,12 +186,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (x == (int)stormPetrelRow[0])
+                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (y == (int)stormPetrelRow[1])
+                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -218,7 +221,10 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
+                    Path = new[]
+                    {
+                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\",\"default(string)\"]"
+                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -231,7 +237,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows1)
             {
                 stormPetrelTestCaseSourceRowIndex1++;
-                if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
+                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist1 = true;
                     break;
@@ -247,12 +253,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows1)
                 {
-                    if (x == (int)stormPetrelRow[0])
+                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames1.Remove("x");
                     }
 
-                    if (y == (int)stormPetrelRow[1])
+                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames1.Remove("y");
                     }
@@ -282,7 +288,10 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 3,
                     RowIndex = stormPetrelTestCaseSourceRowIndex1,
-                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
+                    Path = new[]
+                    {
+                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\",\"default(string)\"]"
+                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -337,7 +346,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if (x == (int)stormPetrelRow[0] && y == (int)stormPetrelRow[1])
+                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -353,12 +362,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (x == (int)stormPetrelRow[0])
+                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (y == (int)stormPetrelRow[1])
+                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -388,7 +397,10 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
+                    Path = new[]
+                    {
+                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
+                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };

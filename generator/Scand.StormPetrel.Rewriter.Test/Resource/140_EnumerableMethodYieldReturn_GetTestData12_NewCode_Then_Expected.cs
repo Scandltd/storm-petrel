@@ -25,6 +25,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 },
             };
             yield return new object[] { 7, 8, 9 };
+            yield return [];
+            yield return [1];
         }
 
         public static IEnumerable<object[]> GetTestDataPropertyGetExplicit

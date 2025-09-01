@@ -115,7 +115,11 @@ namespace Scand.StormPetrel.Generator.Analyzer
                         if (!isUpdatable)
                         {
                             const int veryFirstUpdatingIndex = 0;
-                            var rewriter = new EnumerableResultRewriter(SyntaxNodeHelperCommon.GetValuePath(dataSourceMethodSyntax), veryFirstUpdatingIndex, veryFirstUpdatingIndex, "1");
+                            var rowDefaultExpressions = Enumerable
+                                                            .Range(0, dataSourceMethodSyntax.ParameterList.Parameters.Count)
+                                                            .Select(x => "default(int)") //Some default value with correct syntax. Its semantic does not matter for this case
+                                                            .ToArray();
+                            var rewriter = new EnumerableResultRewriter(SyntaxNodeHelperCommon.GetValuePath(dataSourceMethodSyntax), veryFirstUpdatingIndex, veryFirstUpdatingIndex, "1", rowDefaultExpressions);
                             var updated = rewriter.Visit(dataSourceMethodSyntax);
                             isUpdatable = updated != dataSourceMethodSyntax;
                         }

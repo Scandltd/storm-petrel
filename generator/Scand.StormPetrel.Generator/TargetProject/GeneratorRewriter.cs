@@ -5,7 +5,10 @@ using Scand.StormPetrel.Rewriter.Extension;
 using System;
 using System.Collections.Concurrent;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace Scand.StormPetrel.Generator.TargetProject
 {
@@ -68,11 +71,19 @@ namespace Scand.StormPetrel.Generator.TargetProject
             }
             else if (extraContext is TestCaseSourceContext testCaseSourceContext)
             {
-                var testCaseSourcePropertyInfo = GetStaticPropertyInfo(testCaseSourceContext.Path, false);
+                var testCaseSourceContextPath = testCaseSourceContext.Path;
+                string[] parameterDefaultValues = null;
+                const string prefixInTestCaseSourceContextPath = "experimental-parameter-default-values:";
+                if (testCaseSourceContextPath[0].StartsWith(prefixInTestCaseSourceContextPath, StringComparison.Ordinal))
+                {
+                    parameterDefaultValues = DeserializeStringArray(testCaseSourceContextPath[0].Substring(prefixInTestCaseSourceContextPath.Length));
+                    testCaseSourceContextPath = testCaseSourceContextPath.Skip(1).ToArray();
+                }
+                var testCaseSourcePropertyInfo = GetStaticPropertyInfo(testCaseSourceContextPath, false);
                 string[] testCaseSourcePath = null;
                 if (testCaseSourcePropertyInfo == null)
                 {
-                    var testCaseSourceMethodInfo = GetStaticMethodInfo(testCaseSourceContext.Path, -1);
+                    var testCaseSourceMethodInfo = GetStaticMethodInfo(testCaseSourceContextPath, -1);
                     testCaseSourcePath = testCaseSourceMethodInfo.MethodPath;
                     filePath = testCaseSourceMethodInfo.FilePath;
                 }
@@ -81,7 +92,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                     testCaseSourcePath = testCaseSourcePropertyInfo.PropertyPath;
                     filePath = testCaseSourcePropertyInfo.FilePath;
                 }
-                rewriter = new EnumerableResultRewriter(testCaseSourcePath, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value);
+                rewriter = new EnumerableResultRewriter(testCaseSourcePath, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value, parameterDefaultValues);
             }
             else
             {
@@ -180,5 +191,14 @@ namespace Scand.StormPetrel.Generator.TargetProject
             parent.Length >= child.Length
                 ? parent.Skip(parent.Length - child.Length).SequenceEqual(child)
                 : false;
+
+        private static string[] DeserializeStringArray(string json)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(string[]));
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+            {
+                return (string[])serializer.ReadObject(ms);
+            }
+        }
     }
 }

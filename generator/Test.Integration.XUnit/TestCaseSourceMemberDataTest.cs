@@ -55,7 +55,7 @@ namespace Test.Integration.XUnit
 
         [Theory]
         [MemberData(nameof(DataMultipleExpected))]
-        public void WhenMultipleExpectedThenItIsUpdated(int x, int y, int expected, string expectedHexString)
+        public void WhenMultipleExpectedThenItIsUpdated(int x, int y, int expected, string expectedHexString = "\"[,'json-special-symbol-examples")
         {
             var actual = Calculator.Add(x, y).Value;
             var actualHexString = Calculator.Add(x, y).ValueAsHexString;
@@ -208,6 +208,10 @@ namespace Test.Integration.XUnit
             [-2, 2, 0, "0x0"],
             [int.MinValue, -1, -100, "0x0"],
             [-4, -6, +50, "0x0"],
+#region Test data for method parameter default values
+            //[100, 200], //Ignore due to Xunit runtime error: System.InvalidOperationException : The test method expected 4 parameter values, but 2 parameter value was provided.
+            [100, 200, -5],
+#endregion
         ];
 
         public static IEnumerable<object[]> DataYieldReturnAndMultipleExpected()

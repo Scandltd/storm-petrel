@@ -27,8 +27,30 @@ public class TheoryContractTest
     }
 
     [Theory]
+    [MemberData(nameof(TheoryDataRowImplicitArrayAndDefaultParameterValues))]
+    public void WhenTheoryDataRowImplicitArrayAndDefaultParameterValues(int a, int b = int.MinValue, int expected = int.MaxValue)
+    {
+        //Act
+        var actual = a + b;
+
+        //Assert
+        actual.Should().Be(expected);
+    }
+
+    [Theory]
     [MemberData(nameof(TheoryDataRowMethodYieldReturn))]
     public void WhenMethodYieldReturnTheoryDataRow(int a, int b, int expected)
+    {
+        //Act
+        var actual = a + b;
+
+        //Assert
+        actual.Should().Be(expected);
+    }
+
+    [Theory]
+    [MemberData(nameof(TheoryDataRowMethodYieldReturnAndDefaultParameterValues))]
+    public void WhenMethodYieldReturnTheoryDataRowAndDefaultParameterValues(int a = default, int b = -100, int expected = +1000)
     {
         //Act
         var actual = a + b;
@@ -62,10 +84,25 @@ public class TheoryContractTest
         new(-1, -2, 100)
     ];
 
+    public static IEnumerable<TheoryDataRow> TheoryDataRowImplicitArrayAndDefaultParameterValues =>
+    [
+        new(1),
+        new(0, 0),
+        new(-1, -2, 100)
+    ];
+
     public static IEnumerable<TheoryDataRow> TheoryDataRowMethodYieldReturn()
     {
         yield return new(1, 123, 100);
         yield return new(0, 0, 100);
+    }
+
+    public static IEnumerable<TheoryDataRow> TheoryDataRowMethodYieldReturnAndDefaultParameterValues()
+    {
+        yield return new();
+        yield return new(1);
+        yield return new(1, 2);
+        yield return new(1, 2, 3);
     }
 
     public static IEnumerable<TheoryDataRow> TheoryDataRowImplicitObjectArray =>

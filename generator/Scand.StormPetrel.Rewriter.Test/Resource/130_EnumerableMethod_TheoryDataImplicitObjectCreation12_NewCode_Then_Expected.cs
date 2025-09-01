@@ -24,7 +24,11 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 {
                     4, 5, 6,
                 },
-                new object[] { 7, 8, 9 }
+                new object[] { 7, 8, 9 },
+
+                new object[] {  }, //Missed cells use cases
+                new object[] { 1 },
+                new object[] { 1, }
                 //Test comment
             }
         }
@@ -113,5 +117,34 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
             { 1, 2, 100 },
             { -4, -6, -100 },
         };
+
+        public static TheoryData<IEnumerable<int>, string[]> TheoryDataWithEnumerableCells =>
+        new()
+        {
+            { new int[]{ }, new[]{ "test" } },
+            { Enumerable.Empty<int>(), new[2] },
+        };
+
+        public static IEnumerable<object[]> GetTestData3D()
+        {
+            return new object[]
+            {
+                new object[]
+                {
+                    new object[] { 1, 2, 3 },
+                    new [] { "a", "b", "c" },
+                    new int[3] { 1, 2, 3 },
+                },
+            }
+        }
+
+        public static IEnumerable<DataSourceRow> ClassDataMethod() =>
+        [
+            (1, 2, new AddResult()),
+            new(),
+            new(-4),
+            new DataSourceRow(),
+            new DataSourceRow(-4),
+        ];
     }
 }

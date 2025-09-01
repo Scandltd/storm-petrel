@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace Scand.StormPetrel.Generator
 {
@@ -28,17 +30,17 @@ namespace Scand.StormPetrel.Generator
 
         private static ExpressionSyntax ToStringLiteralExpression(string s) =>
             SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(s));
-        private static ExpressionSyntax GetArrayInitializer<T>(T[] arr, Func<T, ExpressionSyntax> func, string typeNameForEmptyArray = null)
+        private static ExpressionSyntax GetArrayInitializer<T>(T[] arr, Func<T, ExpressionSyntax> func, string typeNameForEmptyArray = null) =>
+            GetArrayInitializer(arr.Select(x => func(x)).ToArray(), typeNameForEmptyArray);
+        private static ExpressionSyntax GetArrayInitializer(ExpressionSyntax[] expressions, string typeNameForEmptyArray = null)
         {
             var arrayExpression = SyntaxFactory.InitializerExpression(
                 SyntaxKind.ArrayInitializerExpression,
-                SyntaxFactory.SeparatedList(
-                    arr.Select(a => func(a))
-                )
+                SyntaxFactory.SeparatedList(expressions)
             );
 
             TypeSyntax typeSyntax;
-            if (arr.Length == 0)
+            if (expressions.Length == 0)
             {
                 if (string.IsNullOrEmpty(typeNameForEmptyArray))
                 {
@@ -159,9 +161,10 @@ namespace Scand.StormPetrel.Generator
             {
                 var breakConditions = testCaseSourceContext
                                         .NonExpectedParameterNames
-                                        .Select((x, i) => (Name: x, Condition: $"{x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}]"))
+                                        .Select((x, i) => (Name: x, Condition: $"stormPetrelRow.Length > {i} && {x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}] || stormPetrelRow.Length <= {i} && {x} == {testCaseSourceContext.TestMethodParameterDefaultValues[i]}"))
                                         .ToArray();
-                var breakCondition = string.Join(" && ", breakConditions.Select(x => x.Condition));
+                var breakCondition = string.Join(") &&\n            (", breakConditions.Select(x => x.Condition));
+                breakCondition = breakConditions.Length <= 1 ? breakCondition : $"({breakCondition})";
                 var noEqualArgNames = GetBlockIndexVarName("stormPetrelNoEqualArgNames");
                 var noEqualArgNamesInit = string.Join(", ", breakConditions.Select(x => $"\"{x.Name}\""));
                 var detectNoEqualArgNamesCondition = string.Join("\n", breakConditions.Select(x => $"            if ({x.Condition}) {{ {noEqualArgNames}.Remove(\"{x.Name}\"); }}"));
@@ -203,7 +206,6 @@ private static void TempMethod()
                                     .OfType<LocalFunctionStatementSyntax>()
                                     .Single();
                 result.AddRange(rootMethod.Body.Statements);
-
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
                     SyntaxFactory.IdentifierName($"{typeof(TestCaseSourceContext).FullName}()"))
                     .WithInitializer(
@@ -216,7 +218,7 @@ private static void TempMethod()
                                             SyntaxFactory.Literal(testCaseSourceContext.PartialExtraContext.ColumnIndex)
                                 )),
                                 GetPropertyAssignment(nameof(TestCaseSourceContext.RowIndex), SyntaxFactory.IdentifierName(testCaseSourceRowIndexVarName)),
-                                GetPropertyAssignment(nameof(TestCaseSourceContext.Path), SyntaxFactory.ParseExpression(testCaseSourceContext.TestCaseSourcePathExpression)),
+                                GetPropertyAssignment(nameof(TestCaseSourceContext.Path), GetPathExpression(testCaseSourceContext)),
                             }
                         )
                     )
@@ -412,6 +414,38 @@ private static void TempMethod()
             var pe = SyntaxFactory.ParseExpression(invocationExpressionStormPetrel);
             var ie = SyntaxFactory.InvocationExpression(pe, args);
             return SyntaxFactory.EqualsValueClause(ie);
+        }
+
+        private static InvocationExpressionSyntax GetPathExpression(TestCaseSourceContextInternal context)
+        {
+            var pathExpression = GetArrayInitializer(
+            new[]
+            {
+                ToStringLiteralExpression($"experimental-parameter-default-values:{JsonSerializerForTargetProject.SerializeStringArray(context.TestMethodParameterDefaultValues)}")
+            });
+
+            var unionInvocation = SyntaxFactory.InvocationExpression(
+                SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    pathExpression,
+                    SyntaxFactory.IdentifierName("Union")
+                ),
+                SyntaxFactory.ArgumentList(
+                    SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.Argument(
+                            SyntaxFactory.ParseExpression(context.TestCaseSourcePathExpression)
+                        )
+                    )
+                )
+            );
+
+            return SyntaxFactory.InvocationExpression(
+                SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    unionInvocation,
+                    SyntaxFactory.IdentifierName("ToArray")
+                )
+            );
         }
     }
 }

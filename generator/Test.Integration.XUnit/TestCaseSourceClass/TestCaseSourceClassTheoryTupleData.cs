@@ -15,7 +15,7 @@
             (1, 2, new AddResult()),
             (-2, 2, new AddResult()),
             (int.MinValue, -1, new AddResult()),
-            (-4, -6, new AddResult()),
+            new(-4, -6, new AddResult()),
         ];
     }
 }
