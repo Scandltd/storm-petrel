@@ -6,9 +6,9 @@ namespace Scand.StormPetrel.Generator.Common.TargetProject
 {
     public sealed class MainConfigParsed
     {
-        private static readonly RegexOptions IgnoreFilePathRegexOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant;
-        private static readonly RegexOptions IgnoreInvocationExpressionRegexOptions = RegexOptions.Compiled;
-        private static readonly RegexOptions TestVarPairsRegexOptions = RegexOptions.Compiled | RegexOptions.CultureInvariant;
+        private const RegexOptions IgnoreFilePathRegexOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant;
+        private const RegexOptions IgnoreInvocationExpressionRegexOptions = RegexOptions.Compiled;
+        private const RegexOptions TestVarPairsRegexOptions = RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
         public string TargetProjectGeneratorExpression { get; private set; }
         public GeneratorConfig GeneratorConfig { get; private set; }
@@ -29,6 +29,11 @@ namespace Scand.StormPetrel.Generator.Common.TargetProject
 
         public static MainConfigParsed ParseConfig(MainConfig mainConfig, out HashSet<string> invalidRegexes)
         {
+            if (mainConfig == null)
+            {
+                throw new ArgumentNullException(nameof(mainConfig));
+            }
+
             invalidRegexes = new HashSet<string>();
             var parsed = new MainConfigParsed
             {

@@ -4,6 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AnalysisMode>All</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Copyright>© 2024–2025 Scand</Copyright>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.8" />
