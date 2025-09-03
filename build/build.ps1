@@ -199,12 +199,12 @@ if (-not $SkipGeneratorBuild) {
 }
 
 if (-not $SkipGeneratorTest) {
-    $solutionFileName = "Scand.StormPetrel.Test.Integration.sln"
+    $solutionFileName = "Scand.StormPetrel.Test.Integration.slnx"
     if ($SkipGeneratorTestPerformance) {
-        #Create temporary sln file where no performance integration tests project
-        $solutionFileName = "Scand.StormPetrel.Test.Integration.NoPerformance.Build.Temp.sln"
-        $content = Get-Content -Path "generator/Scand.StormPetrel.Test.Integration.sln" -Raw
-        $performanceProjectPattern = "(Project[^\r\n]*Test\.Integration\.Performance[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*A7504986-1E11-483C-8AF4-395CF2E25ED1[^\r\n]*[\r\n]*)"
+        #Create temporary slnx file where no performance integration tests project
+        $solutionFileName = "Scand.StormPetrel.Test.Integration.NoPerformance.Build.Temp.slnx"
+        $content = Get-Content -Path "generator/Scand.StormPetrel.Test.Integration.slnx" -Raw
+        $performanceProjectPattern = "<Project Path=`"Test.Integration.Performance.XUnit/Test.Integration.Performance.XUnit.csproj`" />"
         $content = $content -replace $performanceProjectPattern, ""
         Set-Content -Path "generator/$solutionFileName" -Value $content
     } else {
@@ -217,7 +217,7 @@ if (-not $SkipGeneratorTest) {
     #Disable .NETFramework tests on OS other than Windows
     if (!$isWin) {
         $content = Get-Content -Path "generator/$solutionFileName" -Raw
-        $netFrameworkProjectPattern = "(Project[^\r\n]*Test\.Integration\.NETFramework[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*CB999DAC-9870-4DFE-87D9-4F26A0B6538E[^\r\n]*[\r\n]*)"
+        $netFrameworkProjectPattern = "<Project Path=`"Test.Integration.NETFramework.NUnit/Test.Integration.NETFramework.NUnit.csproj`" />"
         $content = $content -replace $netFrameworkProjectPattern, ""
         Set-Content -Path "generator/$solutionFileName" -Value $content
     }
@@ -246,12 +246,12 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
     #Change NETFramework TargetFramework for Custom Configuration on OS other than Windows
     if (!$isWin) {
          ChangeTargetFramework "file-snapshot-infrastructure/Test.Integration.CustomConfiguration/Test.Integration.CustomConfiguration.csproj"
-         $solutionFileName = "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
+         $solutionFileName = "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.slnx"
          $content = Get-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Raw
-         $winformsProjectPattern = "(Project[^\r\n]*Test\.Integration\.WinFormsApp[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*0CC818D1-A409-41C5-A1D5-C9603F37FBDC[^\r\n]*[\r\n]*)"
-         $testProjectPattern = "(Project[^\r\n]*Test\.Integration\.WinFormsAppTest[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*D1255A63-B3E0-4488-8D1B-C4687FE4E64D[^\r\n]*[\r\n]*)"
-         $wpfProjectPattern = "(Project[^\r\n]*Test\.Integration\.WpfApp[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*38F13E7C-F75B-4E20-A093-88F4EF2E471E[^\r\n]*[\r\n]*)"
-         $testWpfProjectPattern = "(Project[^\r\n]*Test\.Integration\.WpfAppTest[^\r\n]*[\r\n]*[^\r\n]*EndProject[\r\n]*)|([^\r\n]*12DBAA41-31DA-455A-8E42-A9B68E16114C[^\r\n]*[\r\n]*)"
+         $winformsProjectPattern = "<Project Path=`"Test.Integration.WinFormsApp/Test.Integration.WinFormsApp.csproj`" />"
+         $testProjectPattern = "<Project Path=`"Test.Integration.WinFormsAppTest/Test.Integration.WinFormsAppTest.csproj`" />"
+         $wpfProjectPattern = "<Project Path=`"Test.Integration.WpfApp/Test.Integration.WpfApp.csproj`" />"
+         $testWpfProjectPattern = "<Project Path=`"Test.Integration.WpfAppTest/Test.Integration.WpfAppTest.csproj`" />"
          $content = $content -replace $testProjectPattern, "" -replace $winformsProjectPattern, "" -replace $wpfProjectPattern, "" -replace $testWpfProjectPattern, ""
          Set-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Value $content
     }
@@ -263,7 +263,7 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
         $content = $content -replace "(<PackageReference Include=\""Scand.StormPetrel.Generator\"" Version=\"")([0-9\.]*)(\"")", $replacement
         Set-Content -Path $projectFile.FullName -Value $content
     }
-    RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.sln"
+    RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.slnx"
 }
 
 ClearPackageCache "scand.stormpetrel.generator.analyzer"
@@ -296,7 +296,7 @@ if (-not $SkipAnalyzerTest) {
     }
     
 
-    $analyzerIngetrationTestSlnPath = "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.sln"
+    $analyzerIngetrationTestSlnPath = "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.slnx"
     dotnet build $analyzerIngetrationTestSlnPath 2>&1 | Select-Object -Unique | ForEach-Object {
         $line = $_
         Write-Output $line

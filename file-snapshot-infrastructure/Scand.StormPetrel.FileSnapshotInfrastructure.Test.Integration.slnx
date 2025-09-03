@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="Test.Integration.CustomConfiguration/Test.Integration.CustomConfiguration.csproj" />
+  <Project Path="Test.Integration.DefaultConfiguration/Test.Integration.DefaultConfiguration.csproj" />
+  <Project Path="Test.Integration.DefaultConfigurationWithCustomOptions/Test.Integration.DefaultConfigurationWithCustomOptions.csproj" />
+  <Project Path="Test.Integration.PlaywrightTest/Test.Integration.PlaywrightTest.csproj" />
+  <Project Path="Test.Integration.Shared/Test.Integration.Shared.shproj" />
+  <Project Path="Test.Integration.WinFormsApp/Test.Integration.WinFormsApp.csproj" />
+  <Project Path="Test.Integration.WinFormsAppTest/Test.Integration.WinFormsAppTest.csproj" />
+  <Project Path="Test.Integration.WpfApp/Test.Integration.WpfApp.csproj" />
+  <Project Path="Test.Integration.WpfAppTest/Test.Integration.WpfAppTest.csproj" />
+</Solution>

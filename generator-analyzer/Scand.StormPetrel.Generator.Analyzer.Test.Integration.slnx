@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Test.Integration.Analyzer/Test.Integration.Analyzer.csproj" />
+  <Project Path="Test.Integration.AnalyzerWithStormPetrel/Test.Integration.AnalyzerWithStormPetrel.csproj" />
+</Solution>

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="../generator/Scand.StormPetrel.Generator.Common/Scand.StormPetrel.Generator.Common.csproj" />
+  <Project Path="../generator/Scand.StormPetrel.Rewriter/Scand.StormPetrel.Rewriter.csproj" />
+  <Project Path="Scand.StormPetrel.Generator.Analyzer.Test/Scand.StormPetrel.Generator.Analyzer.Test.csproj" />
+  <Project Path="Scand.StormPetrel.Generator.Analyzer/Scand.StormPetrel.Generator.Analyzer.csproj" />
+  <Project Path="Test.Integration.Analyzer/Test.Integration.Analyzer.csproj" />
+  <Project Path="Test.Integration.AnalyzerWithStormPetrel/Test.Integration.AnalyzerWithStormPetrel.csproj" />
+</Solution>

@@ -1,0 +1,34 @@
+<Solution>
+  <Project Path="Scand.StormPetrel.Generator.Common/Scand.StormPetrel.Generator.Common.csproj" />
+  <Project Path="Scand.StormPetrel.Generator.Test/Scand.StormPetrel.Generator.Test.csproj" />
+  <Project Path="Scand.StormPetrel.Generator.Utils.Test/Scand.StormPetrel.Generator.Utils.Test.csproj" />
+  <Project Path="Scand.StormPetrel.Generator.Utils/Scand.StormPetrel.Generator.Utils.csproj" />
+  <Project Path="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  <Project Path="Scand.StormPetrel.Rewriter.Test/Scand.StormPetrel.Rewriter.Test.csproj" />
+  <Project Path="Scand.StormPetrel.Rewriter/Scand.StormPetrel.Rewriter.csproj" />
+  <Project Path="Scand.StormPetrel.Shared/Scand.StormPetrel.Shared.shproj" />
+  <Project Path="Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj" />
+  <Project Path="Test.Integration.MSTest/Test.Integration.MSTest.csproj">
+    <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  </Project>
+  <Project Path="Test.Integration.NETFramework.NUnit/Test.Integration.NETFramework.NUnit.csproj">
+    <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  </Project>
+  <Project Path="Test.Integration.NUnit/Test.Integration.NUnit.csproj">
+    <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  </Project>
+  <Project Path="Test.Integration.ObjectDumper.XUnit/Test.Integration.ObjectDumper.XUnit.csproj">
+    <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  </Project>
+  <Project Path="Test.Integration.Performance.XUnit/Test.Integration.Performance.XUnit.csproj">
+    <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  </Project>
+  <Project Path="Test.Integration.Shared/Test.Integration.Shared.shproj" />
+  <Project Path="Test.Integration.WebApi.XUnit/Test.Integration.WebApi.XUnit.csproj" />
+  <Project Path="Test.Integration.WebApi/Test.Integration.WebApi.csproj" />
+  <Project Path="Test.Integration.XUnit.NetNextVersion/Test.Integration.XUnit.NetNextVersion.csproj" />
+  <Project Path="Test.Integration.XUnit/Test.Integration.XUnit.csproj">
+    <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
+  </Project>
+  <Project Path="Test.Integration.XUnitV3/Test.Integration.XUnitV3.csproj" />
+</Solution>

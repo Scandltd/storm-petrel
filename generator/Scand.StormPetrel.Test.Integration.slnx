@@ -1,0 +1,14 @@
+<Solution>
+  <Project Path="Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj" />
+  <Project Path="Test.Integration.MSTest/Test.Integration.MSTest.csproj" />
+  <Project Path="Test.Integration.NETFramework.NUnit/Test.Integration.NETFramework.NUnit.csproj" />
+  <Project Path="Test.Integration.NUnit/Test.Integration.NUnit.csproj" />
+  <Project Path="Test.Integration.ObjectDumper.XUnit/Test.Integration.ObjectDumper.XUnit.csproj" />
+  <Project Path="Test.Integration.Performance.XUnit/Test.Integration.Performance.XUnit.csproj" />
+  <Project Path="Test.Integration.Shared/Test.Integration.Shared.shproj" />
+  <Project Path="Test.Integration.WebApi.XUnit/Test.Integration.WebApi.XUnit.csproj" />
+  <Project Path="Test.Integration.WebApi/Test.Integration.WebApi.csproj" />
+  <Project Path="Test.Integration.XUnit.NetNextVersion/Test.Integration.XUnit.NetNextVersion.csproj" />
+  <Project Path="Test.Integration.XUnit/Test.Integration.XUnit.csproj" />
+  <Project Path="Test.Integration.XUnitV3/Test.Integration.XUnitV3.csproj" />
+</Solution>
