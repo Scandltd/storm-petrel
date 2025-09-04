@@ -1,5 +1,21 @@
 # Change Log
 
+## [2.6.0] - 2025-09-04
+
+### Added
+- Ignore expected invocation method with `throw` expression as arrow method body.
+- Ignore invalid regex values specified in Storm Petrel settings file.
+- Latest versions of referenced NuGet packages.
+- Append test method parameters default values while updating baselines in the test data source.
+
+### Fixed
+- Failure when expected is from arguments, matches to the regex, and does not have actual var for pairing.
+- Missed null values for Regex properties in JSON schema.
+- Invalid generated path for included files.
+
+### Documentation: added
+- Custom assert expression examples.
+
 ## [2.5.0] - 2025-07-15
 
 ### Added

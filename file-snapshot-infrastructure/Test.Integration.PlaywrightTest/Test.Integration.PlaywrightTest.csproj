@@ -29,7 +29,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="8.6.0" />
-    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.5.0" />
+    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.6.0" />
     <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="Microsoft.Playwright.Xunit" Version="1.54.0" />
