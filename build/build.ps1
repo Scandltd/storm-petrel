@@ -7,7 +7,11 @@ param(
     [bool]$SkipFileSnapshotInfrastructureTest = $false,             #To build and execute the package integration tests
     [string]$FSIIntegrationTestGeneratorVersion = "2.6.0",          #To execute File Snapshot Infrastructure integration tests with specific version of the generator
     [bool]$SkipAnalyzerBuild = $false,                              #To build the package and execute its unit tests
-    [bool]$SkipAnalyzerTest = $false                                #To build and execute the package integration tests
+    [bool]$SkipAnalyzerTest = $false,                               #To build and execute the package integration tests
+    [string]$TestTargetFrameworkMap = ""                            #To:
+                                                                    # - Execute the tests against specific target framework if need.
+                                                                    # - Not execute the tests for some .NET runtimes. E.g. both .NET 8 and .NET 10 runtimes may not be simultaneously installable on Ubuntu 22.04.5 LTS.
+                                                                    #Parameter value example: "{'net8.0': 'net10.0'}"
 )
 
 $isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")
@@ -67,6 +71,7 @@ function RunUnitTest {
     $unitTestDirectories = Get-ChildItem -Path $PackageDirName -Filter "Scand.StormPetrel.*.Test" -Directory
     foreach ($directory in $unitTestDirectories) {
         Write-Output "Executing unit tests in directory: $($directory.Name)"
+        FixTestProjectsTargetFramework $directory.FullName
         dotnet test $directory.FullName
         if ($LASTEXITCODE -ne 0) {
             Write-Error "$PackageDirName unit tests failed. Exiting with error."
@@ -89,6 +94,7 @@ function RunIntegrationTests {
         New-Item -Path "$PackageDirName/bin" -ItemType Directory
     }
     Write-Output "Executing StormPetrel integration tests"
+    FixTestProjectsTargetFramework $PackageDirName
     dotnet test "$PackageDirName/$SolutionFileName" --logger:junit --filter "FullyQualifiedName~StormPetrel"
 
     $failedItems = [System.Collections.ArrayList]::new()
@@ -125,14 +131,16 @@ function ChangeTargetFramework {
     Set-Content -Path $FilePath -Value $content
 }
 
-#Stops dotnet process which locks StormPetrel log files created (and locked) by Serilog while integration tests execution.
-function StopDotnetProcess {
-    if (-not (Get-Process -Name "dotnet" -ErrorAction SilentlyContinue)) {
-        Write-Host "Process 'dotnet' does not exist"
+function StopProcess {
+    param (
+        $ProcessName
+    )
+    if (-not (Get-Process -Name $ProcessName -ErrorAction SilentlyContinue)) {
+        Write-Host "Process '$ProcessName' does not exist"
         return
     }
     $processIds = @()
-    Get-Process -Name "dotnet" | foreach {
+    Get-Process -Name $ProcessName | foreach {
         $processVar = $_;$_.Modules | foreach {
             if($_.FileName -like "*StormPetrel*" -and $processIds -notcontains $processVar.id) {
                 $processIds += $processVar.id
@@ -147,16 +155,22 @@ function StopDotnetProcess {
         $process = Get-Process -Id $processId -ErrorAction SilentlyContinue
         if ($process) {
             while ((-not $process.HasExited) -and $counter -gt 0) {
-                Write-Output "'dotnet' process is still running."
+                Write-Output "'$ProcessName' process is still running."
                 Start-Sleep -Seconds 1
                 $process.Refresh()
                 $counter--
             }
             if ($counter -eq 0) {
-                Throw "Cannot stop 'dotnet' process"
+                Throw "Cannot stop '$ProcessName' process"
             }
         }
     }
+}
+
+#Stops processes which may lock StormPetrel log files created (and locked) by Serilog while integration tests execution.
+function StopSpecialProcesses {
+    StopProcess "VBCSCompiler" #For .NET 10 Runtime
+    StopProcess "dotnet"       #For runtimes before .NET 10
 }
 
 function Recursively-Copy-Cs-Files {
@@ -179,6 +193,59 @@ function Recursively-Copy-Cs-Files {
             }
             Copy-Item -Path $_.FullName -Destination $targetPath -ErrorAction Stop
         }
+}
+
+function GetTestTargetFrameworkMapAsDictionary {
+    if ([string]::IsNullOrEmpty($TestTargetFrameworkMap)) {
+        return $null
+    }
+    $Error.Clear()
+    $parsedJson = $TestTargetFrameworkMap | ConvertFrom-Json -ErrorAction Stop
+    if ($Error.Count -gt 0) {
+        Write-Error "An error while parsing JSON. See the details above"
+        exit -1
+    }
+    $dict = @{}
+    $parsedJson.PSObject.Properties | ForEach-Object {
+        $dict[$_.Name] = $_.Value
+    }
+    return $dict
+}
+
+function FixTestProjectsTargetFramework {
+    param (
+        $testDir
+    )
+    $dict = GetTestTargetFrameworkMapAsDictionary
+    if ($null -eq $dict) {
+        Write-Output "TestTargetFrameworkMap argument is null or empty"
+        return
+    }
+
+    $testCsprojFiles = Get-ChildItem -Path $testDir -Filter "*Test*.csproj" -File -Recurse
+    $testCsprojFiles | ForEach-Object {
+        $testCsprojFile = $_.FullName
+        $content = Get-Content -Path $testCsprojFile -Raw
+        $matches = [regex]::Matches($content, "(<TargetFramework[s]{0,1}>).*?(</TargetFramework[s]{0,1}>)")
+        if ($matches.Count -eq 1) {
+            $match = $matches[0]
+            $matchChanged = $match.Value
+            $dict.GetEnumerator() | ForEach-Object {
+                if ($matchChanged.IndexOf($_.Key) -ge 0) {
+                    $matchChanged = $matchChanged.Replace($_.Value, "").Replace(">;", ">").Replace(";<", "<")
+                    $matchChanged = $matchChanged.Replace($_.Key, $_.Value)
+                }
+            }
+            if ($matchChanged -ne $match.Value) {
+                $content = $content.Replace($match.Value, $matchChanged)
+                Write-Output "Updating TargetFramework(s) in $testCsprojFile"
+                Set-Content -Path $testCsprojFile -Value $content -NoNewline
+                Write-Output "Updated"
+            }
+        } elseif ($matches.Count -ge 2) {
+            Throw "Unexpected multiple TargetFramework(s) detected in $testCsprojFile"
+        }
+    }
 }
 
 ClearPackageCache "scand.stormpetrel.generator.abstraction"
@@ -253,6 +320,14 @@ if (-not $SkipFileSnapshotInfrastructureTest) {
          $wpfProjectPattern = "<Project Path=`"Test.Integration.WpfApp/Test.Integration.WpfApp.csproj`" />"
          $testWpfProjectPattern = "<Project Path=`"Test.Integration.WpfAppTest/Test.Integration.WpfAppTest.csproj`" />"
          $content = $content -replace $testProjectPattern, "" -replace $winformsProjectPattern, "" -replace $wpfProjectPattern, "" -replace $testWpfProjectPattern, ""
+         $dict = GetTestTargetFrameworkMapAsDictionary
+         if ($null -ne $dict -and $dict["net8.0"] -eq "net10.0") {
+             #Do not run Playwright tests under unix-like platforms for .NET 10 because:
+             # - Playwright team recommends .NET 8, see https://playwright.dev/dotnet/docs/intro#system-requirements.
+             # - Highly likely we will have issues with Playwright tests like "NewPageAsync hangs". TODO: investigate and fix the issue when .NET 10 is officially suggested.
+             $testPlaywrightProjectPattern = "<Project Path=`"Test.Integration.PlaywrightTest/Test.Integration.PlaywrightTest.csproj`" />"
+             $content = $content -replace $testPlaywrightProjectPattern, ""
+         }
          Set-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Value $content
     }
     #Update Scand.StormPetrel.Generator package references in integration test projects
@@ -330,6 +405,6 @@ if (-not $SkipAnalyzerTest) {
     }
 }
 
-StopDotnetProcess
+StopSpecialProcesses
 
 Write-Output "Build script has been executed successfully."

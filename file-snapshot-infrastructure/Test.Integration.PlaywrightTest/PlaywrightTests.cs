@@ -39,7 +39,15 @@ public class PlaywrightTests : IAsyncLifetime
         {
             throw new InvalidOperationException();
         }
-        return await _browser.NewPageAsync();
+        var delay = TimeSpan.FromSeconds(30);
+        var delayTask = Task.Delay(delay);
+        var newPageTask = _browser.NewPageAsync();
+        var winner = await Task.WhenAny(newPageTask, delayTask);
+        if (winner == delayTask)
+        {
+            throw new InvalidOperationException($"Cannot create new page within {delay}");
+        }
+        return await newPageTask;
     }
 
     [Fact]
