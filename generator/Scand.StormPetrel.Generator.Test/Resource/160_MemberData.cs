@@ -57,6 +57,14 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [MemberData(nameof(DataWithEnumerable), MemberType = typeof(SomeType))]
+        public void MemberDataWithArrays(int[] x, IEnumerable<int> y, int expected)
+        {
+            var actual = Calculator.Sum(x, y);
+            Assert.Equal(expected, actual);
+        }
+
         public static IEnumerable<object[]> Data =>
             new object[][]
             {

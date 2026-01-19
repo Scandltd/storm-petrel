@@ -8,6 +8,10 @@ dotnet_diagnostic.CA2007.severity = none
 # Justification: We make the types public to allow test frameworks execute the tests
 dotnet_diagnostic.CA1515.severity = none
 
+# xUnit1044: Avoid using TheoryData type arguments that are not serializable
+# Justification: To avoid IXunitSerializable or whatever additional implementation to simplify the tests
+dotnet_diagnostic.xUnit1044.severity = none
+
 # xUnit1045: Avoid using TheoryData type arguments that might not be serializable
 # Justification: To avoid IXunitSerializable or whatever additional implementation to simplify the tests
 dotnet_diagnostic.xUnit1045.severity = none

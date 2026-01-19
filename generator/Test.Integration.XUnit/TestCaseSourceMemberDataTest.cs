@@ -155,6 +155,39 @@ namespace Test.Integration.XUnit
             actualHexString.Should().Be(expectedHexString);
         }
 
+        [Theory]
+        [MemberData(nameof(TheoryDataCustomEqualArg))]
+        public void WhenCustomEqualArg(CustomEqualValue x, int expected)
+        {
+            //Arrange
+            //Act
+            var actual = Calculator.Add(x?.Value ?? 0, x?.Value ?? 0).Value;
+            //Assert
+            actual.Should().Be(expected);
+        }
+
+        [Theory]
+        [MemberData(nameof(TheoryDataEnumerableArgs))]
+        public void WhenEnumerableArgs(int[] x, IEnumerable<CustomEqualValue> y, string expectedHexString)
+        {
+            //Arrange
+            //Act
+            var actualHexString = Calculator.Add((x ?? []).Sum(), (y ?? []).Sum(a => a.Value)).ValueAsHexString;
+            //Assert
+            actualHexString.Should().Be(expectedHexString);
+        }
+
+        [Theory]
+        [MemberData(nameof(TheoryDataMultiDimensionalEnumerableArgs))]
+        public void WhenMultiDimensionalEnumerableArgs(int[][] x, IEnumerable<IEnumerable<CustomEqualValue>> y, int expected)
+        {
+            //Arrange
+            //Act
+            var actual = Calculator.Add((x ?? []).SelectMany(a => a).Sum(), (y ?? []).SelectMany(a => a).Sum(a => a.Value)).Value;
+            //Assert
+            actual.Should().Be(expected);
+        }
+
         public static IEnumerable<object[]> DataMethod() =>
         [
             [1, 2, new AddResult()],
@@ -260,6 +293,29 @@ namespace Test.Integration.XUnit
                 }),
                 new AddResult() //keep incorrect (default properties) to have original test failed
             },
+        };
+        public static TheoryData<CustomEqualValue, int> TheoryDataCustomEqualArg =>
+        new()
+        {
+            { null!, -123 },
+            { new() { Value = 1 }, -123 },
+            { new() { Value = 2 }, -123 },
+        };
+        public static TheoryData<int[], IEnumerable<CustomEqualValue>, string> TheoryDataEnumerableArgs =>
+        new()
+        {
+            { null!, null!, "0x123" },
+            { [], [], "0x123" },
+            { [1], [new() { Value = 1 } ], "0x123" },
+            { [1, 2], [new() { Value = 1 }, new() { Value = 2 } ], "0x123" },
+        };
+        public static TheoryData<int[][], IEnumerable<IEnumerable<CustomEqualValue>>, int> TheoryDataMultiDimensionalEnumerableArgs =>
+        new()
+        {
+            { null!, null!, -100 },
+            { [], [], -100 },
+            { [[1]], [[new() { Value = 1 } ]], -100 },
+            { [[1, 2], [1, 2]], [[new() { Value = 1 }, new() { Value = 2 }] ], -100 },
         };
     }
 }

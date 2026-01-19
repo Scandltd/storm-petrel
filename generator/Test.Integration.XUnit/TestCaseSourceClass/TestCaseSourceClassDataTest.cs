@@ -54,5 +54,14 @@ namespace Test.Integration.XUnit.TestCaseSourceClass
             actual.Should().Be(expected);
             actualHexString.Should().Be(expectedHexString);
         }
+
+        [Theory]
+        [ClassData(typeof(TestCaseSourceClassWithEnumerableAndEqual))]
+        public void WhenClassWithEnumerableAndEqual(CustomEqualValue x, int[] y, IEnumerable<CustomEqualValue> z, int expected)
+        {
+            var actual = Calculator.Add(x?.Value ?? 0, y?.Sum() ?? 0).Value;
+            actual = Calculator.Add(actual, z?.Select(a => a.Value).Sum() ?? 0).Value;
+            actual.Should().Be(expected);
+        }
     }
 }

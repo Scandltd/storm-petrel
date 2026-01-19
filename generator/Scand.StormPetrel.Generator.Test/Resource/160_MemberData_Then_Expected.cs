@@ -54,7 +54,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -70,12 +70,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -162,7 +162,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -178,12 +178,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -270,7 +270,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -286,12 +286,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -378,7 +378,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -394,12 +394,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -486,7 +486,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -502,12 +502,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -594,7 +594,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -610,12 +610,12 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && x == (int)stormPetrelRow[0] || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && y == (int)stormPetrelRow[1] || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
@@ -649,6 +649,114 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     {
                         "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
                     }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters))).ToArray()
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(DataWithEnumerable), MemberType = typeof(SomeType))]
+        public void MemberDataWithArraysStormPetrel(int[] x, IEnumerable<int> y, int expected)
+        {
+            var actual = Calculator.Sum(x, y);
+            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "MemberDataTests",
+                MethodName = "MemberDataWithArrays",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1,
+                Parameters = new[]
+                {
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "x",
+                        Value = x,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "y",
+                        Value = y,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    },
+                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    {
+                        Name = "expected",
+                        Value = expected,
+                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
+                        {
+                        }
+                    }
+                }
+            };
+            var stormPetrelTestCaseSourceRowIndex = -1;
+            var stormPetrelIsTestCaseSourceRowExist = false;
+            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(SomeType), nameof(DataWithEnumerable)));
+            foreach (var stormPetrelRow in stormPetrelRows)
+            {
+                stormPetrelTestCaseSourceRowIndex++;
+                if ((stormPetrelRow.Length > 0 && (x == (int[])stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int[])) && (stormPetrelRow.Length > 1 && (y == (IEnumerable<int>)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(IEnumerable<int>)))
+                {
+                    stormPetrelIsTestCaseSourceRowExist = true;
+                    break;
+                }
+            }
+
+            if (!stormPetrelIsTestCaseSourceRowExist)
+            {
+                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                {
+                    "x",
+                    "y"
+                };
+                foreach (var stormPetrelRow in stormPetrelRows)
+                {
+                    if (stormPetrelRow.Length > 0 && (x == (int[])stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int[]))
+                    {
+                        stormPetrelNoEqualArgNames.Remove("x");
+                    }
+
+                    if (stormPetrelRow.Length > 1 && (y == (IEnumerable<int>)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(IEnumerable<int>))
+                    {
+                        stormPetrelNoEqualArgNames.Remove("y");
+                    }
+                }
+
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
+            }
+
+            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+                Actual = actual,
+                ActualVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Generator.Test.Resource",
+                    "MemberDataTests",
+                    "MemberDataWithArrays",
+                    "actual"
+                },
+                Expected = expected,
+                ExpectedVariablePath = new[]
+                {
+                    "Scand.StormPetrel.Generator.Test.Resource",
+                    "MemberDataTests",
+                    "MemberDataWithArrays"
+                },
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+                {
+                    ColumnIndex = 2,
+                    RowIndex = stormPetrelTestCaseSourceRowIndex,
+                    Path = new[]
+                    {
+                        "experimental-parameter-default-values:[\"default(int[])\",\"default(IEnumerable<int>)\",\"default(int)\"]"
+                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(DataWithEnumerable))).ToArray()
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };

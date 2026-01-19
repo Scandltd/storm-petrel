@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -60,6 +61,43 @@ namespace Scand.StormPetrel.Rewriter
                 return convertedRow;
             });
             return stormPetrelRows;
+        }
+
+        public static bool AreEqual(object x, object y)
+        {
+            if (x == null && y == null)
+            {
+                return true;
+            }
+            else if (x == null || y == null || !x.Equals(y))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool AreEnumerablesOfEqualElements(object x, object y)
+        {
+            if (!(x is IEnumerable xCasted) || !(y is IEnumerable yCasted))
+            {
+                return false;
+            }
+            var xArr = xCasted.Cast<object>().ToArray();
+            var yArr = yCasted.Cast<object>().ToArray();
+            if (xArr.Length != yArr.Length)
+            {
+                return false;
+            }
+            for (int i = 0; i < xArr.Length; i++)
+            {
+                var xi = xArr[i];
+                var yi = yArr[i];
+                if (!AreEnumerablesOfEqualElements(xi, yi) && !AreEqual(xi, yi))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public static string[] GetPath(Type type, string memberName) =>

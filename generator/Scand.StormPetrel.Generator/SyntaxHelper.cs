@@ -161,7 +161,9 @@ namespace Scand.StormPetrel.Generator
             {
                 var breakConditions = testCaseSourceContext
                                         .NonExpectedParameterNames
-                                        .Select((x, i) => (Name: x, Condition: $"stormPetrelRow.Length > {i} && {x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}] || stormPetrelRow.Length <= {i} && {x} == {testCaseSourceContext.TestMethodParameterDefaultValues[i]}"))
+                                        .Select((x, i) => (Name: x, Condition:
+$@"stormPetrelRow.Length > {i} && ({x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual({x}, stormPetrelRow[{i}]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements({x}, stormPetrelRow[{i}]))
+    || stormPetrelRow.Length <= {i} && {x} == {testCaseSourceContext.TestMethodParameterDefaultValues[i]}"))
                                         .ToArray();
                 var breakCondition = string.Join(") &&\n            (", breakConditions.Select(x => x.Condition));
                 breakCondition = breakConditions.Length <= 1 ? breakCondition : $"({breakCondition})";
@@ -295,7 +297,7 @@ private static void TempMethod()
                                 ? GetPropertyAssignment(nameof(GenerationContext.Expected), SyntaxFactory.IdentifierName(info.ExpectedVarName))
                                 : expectedExpression != null
                                     ? GetPropertyAssignment(nameof(GenerationContext.Expected), expectedExpression)
-                                    : throw new InvalidOperationException("Unexpected case"),
+                                    : throw new InvalidOperationException($"Unexpected null in {nameof(expectedExpression)}"),
                             info.ExpectedVarPath != null
                                 ? GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath, ToStringLiteralExpression))
                                 : null,

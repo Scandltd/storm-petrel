@@ -120,5 +120,19 @@ namespace Test.Integration.XUnit
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
+
+        [Theory]
+        [InlineData(new int[] { }, "0_incorrect")]
+        [InlineData(new[] { 1 }, "1_incorrect")]
+        [InlineData(new[] { 1, 2, 3 }, "incorrect_2")]
+        public void TestMethodWithInputArray(int[] i, string expected)
+        {
+            //Arrange
+            //Act
+            var actual = i.Sum().ToString(CultureInfo.InvariantCulture);
+
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
     }
 }
