@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -22,18 +22,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JunitXml.TestLogger" Version="6.1.0" />
+    <PackageReference Include="JunitXml.TestLogger" Version="7.1.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="8.6.0" />
+    <PackageReference Include="FluentAssertions" Version="8.8.0" />
     <PackageReference Include="Scand.StormPetrel.Generator" Version="2.6.0" />
     <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.3" />
-    <PackageReference Include="SkiaSharp" Version="3.119.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="Xunit.StaFact" Version="3.0.13" />
-    <PackageReference Include="xunit.v3" Version="3.0.1" />
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -34,22 +34,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
         <!-- Include CSharp because it is referenced by Scand.StormPetrel.Rewriter.dll -->
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" /> <!-- Do NOT update the version without a significant need. Reason: be compatible with differenct versions of .NET 8.0 Runtime. -->
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" GeneratePathProperty="true" />
         <PackageReference Include="Serilog" Version="4.3.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.IO.Pipelines" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.Text.Encodings.Web" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
-        <PackageReference Include="System.Text.Json" Version="9.0.8" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.IO.Pipelines" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Encodings.Web" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="System.Text.Json" Version="10.0.2" PrivateAssets="all" GeneratePathProperty="true" />
         <None Include="..\assets\logo-128x128-transparent.png">
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>

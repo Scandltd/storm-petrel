@@ -11,7 +11,7 @@ public class NoExpectedVarWithOperatorsTest
 
         //Assert
         Assert.AreEqual("Incorrect value", actual?.ValueAsHexString);
-        Assert.AreEqual(null, actual?.ValueAsHexString);
+        Assert.AreEqual("", actual?.ValueAsHexString);
         Assert.AreEqual("Incorrect value", actual?.ValueAsHexString?.ToString());
         Assert.AreEqual("Incorrect value", actual?.ValueAsHexStringAsMethod());
         Assert.AreEqual("Incorrect value", actual?.ValueAsHexStringAsMethod()?.ToString());
@@ -28,7 +28,7 @@ public class NoExpectedVarWithOperatorsTest
 
         //Assert
         Assert.AreEqual("Incorrect not null", actual?.ValueAsHexString);
-        Assert.AreEqual(null, actual?.ValueAsHexString);
+        Assert.AreEqual("", actual?.ValueAsHexString);
         Assert.AreEqual("Incorrect not null", actual?.ValueAsHexString?.ToString());
         Assert.AreEqual("Incorrect not null", actual?
                                                 .ValueAsHexStringAsMethod()?
@@ -45,7 +45,7 @@ public class NoExpectedVarWithOperatorsTest
 
         //Assert
         Assert.AreEqual("Incorrect value", actual!.ValueAsHexString);
-        Assert.AreEqual(null, actual!.ValueAsHexString);
+        Assert.AreEqual("", actual!.ValueAsHexString);
         Assert.AreEqual("Incorrect value", actual!.ValueAsHexString!.ToString());
         Assert.AreEqual("Incorrect value", actual!.ValueAsHexStringAsMethod());
         Assert.AreEqual("Incorrect value", actual!.ValueAsHexStringAsMethod()!.ToString());
@@ -60,7 +60,7 @@ public class NoExpectedVarWithOperatorsTest
 
         //Assert
         Assert.AreEqual("Incorrect value", (actual ?? throw new InvalidOperationException()).ValueAsHexString);
-        Assert.AreEqual(null, (actual ?? throw new InvalidOperationException()).ValueAsHexString);
+        Assert.AreEqual("", (actual ?? throw new InvalidOperationException()).ValueAsHexString);
         Assert.AreEqual("Incorrect value", (actual ?? throw new InvalidOperationException()).ValueAsHexString.ToString());
         Assert.AreEqual("Incorrect value", (actual ?? throw new InvalidOperationException()).ValueAsHexStringAsMethod());
         Assert.AreEqual("Incorrect value", (actual ?? throw new InvalidOperationException()).ValueAsHexStringAsMethod().ToString());

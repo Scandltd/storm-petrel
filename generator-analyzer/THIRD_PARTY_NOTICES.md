@@ -1,7 +1,7 @@
  | Reference                     | Version | License Type | License                        | 
  | ----------------------------- | ------- | ------------ | ------------------------------ | 
- | Microsoft.Bcl.AsyncInterfaces | 9.0.8   | MIT          | https://licenses.nuget.org/MIT | 
+ | Microsoft.Bcl.AsyncInterfaces | 10.0.2  | MIT          | https://licenses.nuget.org/MIT | 
  | Microsoft.CodeAnalysis.CSharp | 4.11.0  | MIT          | https://licenses.nuget.org/MIT | 
- | System.IO.Pipelines           | 9.0.8   | MIT          | https://licenses.nuget.org/MIT | 
- | System.Text.Encodings.Web     | 9.0.8   | MIT          | https://licenses.nuget.org/MIT | 
- | System.Text.Json              | 9.0.8   | MIT          | https://licenses.nuget.org/MIT | 
+ | System.IO.Pipelines           | 10.0.2  | MIT          | https://licenses.nuget.org/MIT | 
+ | System.Text.Encodings.Web     | 10.0.2  | MIT          | https://licenses.nuget.org/MIT | 
+ | System.Text.Json              | 10.0.2  | MIT          | https://licenses.nuget.org/MIT | 

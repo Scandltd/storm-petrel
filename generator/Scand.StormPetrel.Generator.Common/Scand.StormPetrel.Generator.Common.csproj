@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
-    <PackageReference Include="System.Text.Json" Version="9.0.8" />
+    <PackageReference Include="System.Text.Json" Version="10.0.2" />
     <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" />
   </ItemGroup>
 

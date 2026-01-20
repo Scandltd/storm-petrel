@@ -9,7 +9,7 @@ namespace Test.Integration.MSTest
     public sealed class TestCaseSourceTest
     {
         [TestMethod]
-        [DynamicData(nameof(DataMethod), dynamicDataSourceType: DynamicDataSourceType.Method)]
+        [DynamicData(nameof(DataMethod))]
         public void WhenMemberDataMethodThenItIsUpdated(int x, int y, AddResult expected)
         {
             var actual = Calculator.Add(x, y);
@@ -51,7 +51,7 @@ namespace Test.Integration.MSTest
         }
 
         [TestMethod]
-        [DynamicData(nameof(DataYieldReturnAndMultipleExpected), dynamicDataSourceType: DynamicDataSourceType.Method)]
+        [DynamicData(nameof(DataYieldReturnAndMultipleExpected))]
         public void WhenYieldReturnAndMultipleExpectedThenItIsUpdated(int x, int y, int expected, string expectedHexString)
         {
             var actual = Calculator.Add(x, y).Value;

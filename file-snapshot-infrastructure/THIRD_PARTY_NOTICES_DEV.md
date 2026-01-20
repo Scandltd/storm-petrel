@@ -1,19 +1,20 @@
  | Reference                      | Version | License Type | License                                                       | 
  | ------------------------------ | ------- | ------------ | ------------------------------------------------------------- | 
- | Codeuctivity.ImageSharpCompare | 4.1.350 | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | Codeuctivity.ImageSharpCompare | 4.1.379 | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
  | coverlet.collector             | 6.0.4   | MIT          | https://licenses.nuget.org/MIT                                | 
- | FluentAssertions               | 8.6.0   | LICENSE      | https://www.nuget.org/packages/FluentAssertions/8.6.0/License | 
- | JunitXml.TestLogger            | 6.1.0   | MIT          | https://licenses.nuget.org/MIT                                | 
- | Microsoft.NET.Test.Sdk         | 17.14.1 | MIT          | https://licenses.nuget.org/MIT                                | 
- | Microsoft.Playwright.Xunit     | 1.54.0  | MIT          | https://licenses.nuget.org/MIT                                | 
+ | FluentAssertions               | 8.8.0   | LICENSE      | https://www.nuget.org/packages/FluentAssertions/8.8.0/License | 
+ | JunitXml.TestLogger            | 8.0.0   | MIT          | https://licenses.nuget.org/MIT                                | 
+ | JunitXml.TestLogger            | 7.1.0   | MIT          | https://licenses.nuget.org/MIT                                | 
+ | Microsoft.NET.Test.Sdk         | 18.0.1  | MIT          | https://licenses.nuget.org/MIT                                | 
+ | Microsoft.Playwright.Xunit     | 1.57.0  | MIT          | https://licenses.nuget.org/MIT                                | 
  | NUnit                          | 4.4.0   | MIT          | https://licenses.nuget.org/MIT                                | 
- | NUnit3TestAdapter              | 5.1.0   | MIT          | https://licenses.nuget.org/MIT                                | 
+ | NUnit3TestAdapter              | 6.1.0   | MIT          | https://licenses.nuget.org/MIT                                | 
  | ObjectDumper.NET               | 4.3.2   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
- | SkiaSharp                      | 3.119.0 | MIT          | https://licenses.nuget.org/MIT                                | 
- | SkiaSharp.NativeAssets.Linux   | 3.119.0 | MIT          | https://licenses.nuget.org/MIT                                | 
- | System.Text.Json               | 9.0.8   | MIT          | https://licenses.nuget.org/MIT                                | 
+ | SkiaSharp                      | 3.119.1 | MIT          | https://licenses.nuget.org/MIT                                | 
+ | SkiaSharp.NativeAssets.Linux   | 3.119.1 | MIT          | https://licenses.nuget.org/MIT                                | 
+ | System.Text.Json               | 10.0.2  | MIT          | https://licenses.nuget.org/MIT                                | 
  | VarDump                        | 1.0.6   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
  | xunit                          | 2.9.3   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
- | xunit.runner.visualstudio      | 3.1.4   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | xunit.runner.visualstudio      | 3.1.5   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
  | Xunit.StaFact                  | 3.0.13  | MS-PL        | https://licenses.nuget.org/MS-PL                              | 
- | xunit.v3                       | 3.0.1   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
+ | xunit.v3                       | 3.2.2   | Apache-2.0   | https://licenses.nuget.org/Apache-2.0                         | 
