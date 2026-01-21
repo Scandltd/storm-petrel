@@ -201,16 +201,9 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 
         private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b, SyntaxNode c, SyntaxNode d)
         {
-            var max = MaxTriviaNode(a, b);
-            var max2 = MaxTriviaNode(c, d);
-            return MaxTriviaNode(max, max2);
-        }
-
-        private static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b)
-        {
-            var aLength = Utils.GetLeadingWhitespaceLength(a);
-            var bLength = Utils.GetLeadingWhitespaceLength(b);
-            return aLength >= bLength ? a : b;
+            var max = Utils.MaxTriviaNode(a, b);
+            var max2 = Utils.MaxTriviaNode(c, d);
+            return Utils.MaxTriviaNode(max, max2);
         }
     }
 }

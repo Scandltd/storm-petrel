@@ -25,6 +25,13 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             return expression;
         }
 
+        public static SyntaxNode MaxTriviaNode(SyntaxNode a, SyntaxNode b)
+        {
+            var aLength = GetLeadingWhitespaceLength(a);
+            var bLength = GetLeadingWhitespaceLength(b);
+            return aLength >= bLength ? a : b;
+        }
+
         public static SyntaxTrivia GetLeadingWhitespace(SyntaxNode syntaxNode)
             => GetLeadingWhitespaceImplementation(syntaxNode.GetLeadingTrivia());
 
@@ -32,9 +39,9 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             => GetLeadingWhitespaceImplementation(nodeOrToken.GetLeadingTrivia());
 
         public static int GetLeadingWhitespaceLength(SyntaxNode syntaxNode)
-            => GetLeadingWhitespaceLength(GetLeadingWhitespace(syntaxNode));
+            => GetTriviaLength(GetLeadingWhitespace(syntaxNode));
 
-        public static int GetLeadingWhitespaceLength(SyntaxTrivia trivia)
+        public static int GetTriviaLength(SyntaxTrivia trivia)
             => trivia.FullSpan.Length;
 
         private static SyntaxTrivia GetLeadingWhitespaceImplementation(SyntaxTriviaList trivias)

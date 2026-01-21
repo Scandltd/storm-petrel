@@ -74,11 +74,27 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                             .Skip(_attributeParameterIndex)
                             .First();
             var attributeParent = (AttributeListSyntax)attribute.Parent; //returns `[InlineData(...)]` when the attribute is `InlineData(...)`
-            var newArg = SyntaxFactory.AttributeArgument(CreateInitializeExpressionSyntax(attributeParent));
-            bool isMissedDefaultWithTrivia = arg.HasLeadingTrivia;
-            if (isMissedDefaultWithTrivia)
+            SyntaxNode leadingTriviaDonor = attributeParent;
+            var arrayInitializer = arg
+                                    .DescendantNodes()
+                                    .Where(x => x.IsKind(SyntaxKind.ArrayInitializerExpression))
+                                    .FirstOrDefault();
+            if (arrayInitializer != null)
             {
-                newArg = newArg.WithLeadingTrivia(SyntaxFactory.Whitespace(" "));
+                leadingTriviaDonor = Utils.MaxTriviaNode(leadingTriviaDonor, arrayInitializer);
+            }
+            if (arg.HasLeadingTrivia)
+            {
+                var triviaLength = Utils.GetTriviaLength(Utils.GetLeadingWhitespace(arg));
+                if (triviaLength > Utils.GetLeadingWhitespaceLength(leadingTriviaDonor))
+                {
+                    leadingTriviaDonor = arg;
+                }
+            }
+            var newArg = SyntaxFactory.AttributeArgument(CreateInitializeExpressionSyntax(leadingTriviaDonor));
+            if (arg.HasLeadingTrivia)
+            {
+                newArg = newArg.WithLeadingTrivia(arg.GetLeadingTrivia());
             }
             newArgumentListArgs = newAttribute
                                     .ArgumentList

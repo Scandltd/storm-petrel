@@ -155,11 +155,11 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                                                 return !isArgumentDescendant;
                                             });
                     var maxTrivia = Utils.GetLeadingWhitespace(argument);
-                    var maxTriviaLength = Utils.GetLeadingWhitespaceLength(maxTrivia);
+                    var maxTriviaLength = Utils.GetTriviaLength(maxTrivia);
                     foreach (var triviaSource in triviaSources)
                     {
                         var trivia = Utils.GetLeadingWhitespace(triviaSource);
-                        var triviaLength = Utils.GetLeadingWhitespaceLength(trivia);
+                        var triviaLength = Utils.GetTriviaLength(trivia);
                         if (triviaLength > maxTriviaLength)
                         {
                             maxTrivia = trivia;
