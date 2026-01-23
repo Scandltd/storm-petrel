@@ -1224,4 +1224,103 @@ public class NoExpectedVarShouldlyTestStormPetrel
         //Assert
         actual.ShouldBe(new TestClassResult { IntProperty = 123, DateTimeProperty = DateTime.ParseExact("2025-03-17T18:11:00.0000000", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind), }, new TestClassResultEqualityComparer());
     }
+
+    [Fact]
+    public void WhenShouldBeEquivalentToStormPetrel()
+    {
+        //Act
+        var actual = Calculator.Add(2, 2);
+        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        {
+            FilePath = "C:\\temp\\temp.cs",
+            ClassName = "NoExpectedVarShouldlyTest",
+            MethodName = "WhenShouldBeEquivalentTo",
+            VariablePairCurrentIndex = 0,
+            VariablePairsCount = 1,
+            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+            {
+            }
+        };
+        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarShouldlyTest",
+                "WhenShouldBeEquivalentTo"
+            },
+            Expected = new(),
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:1",
+                    "NoExpectedVarShouldlyTest",
+                    "WhenShouldBeEquivalentTo"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 0,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        //Assert
+        actual.ShouldBeEquivalentTo(new());
+    }
+
+    [Fact]
+    public void WhenShouldBeEquivalentToWithNamedArgsStormPetrel()
+    {
+        //Act
+        int[] actual = [1, 2, 3];
+        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        {
+            FilePath = "C:\\temp\\temp.cs",
+            ClassName = "NoExpectedVarShouldlyTest",
+            MethodName = "WhenShouldBeEquivalentToWithNamedArgs",
+            VariablePairCurrentIndex = 0,
+            VariablePairsCount = 1,
+            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
+            {
+            }
+        };
+        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        {
+            Actual = actual,
+            ActualVariablePath = new[]
+            {
+                "NoExpectedVarShouldlyTest",
+                "WhenShouldBeEquivalentToWithNamedArgs"
+            },
+            Expected = new int[]
+            {
+                3,
+                4,
+                5
+            },
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            {
+                Path = new[]
+                {
+                    "experimental-method-body-statement-index:1",
+                    "NoExpectedVarShouldlyTest",
+                    "WhenShouldBeEquivalentToWithNamedArgs"
+                },
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                {
+                    NodeKind = 8638,
+                    NodeIndex = 1,
+                    ArgsCount = 0
+                }
+            },
+            MethodSharedContext = stormPetrelSharedContext
+        };
+        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        //Assert
+        actual.ShouldBeEquivalentTo(customMessage: "Should detect `expected` as a named arg", expected: new int[] { 3, 4, 5 });
+    }
 }

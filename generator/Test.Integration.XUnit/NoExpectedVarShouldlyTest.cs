@@ -210,4 +210,24 @@ public class NoExpectedVarShouldlyTest
             DateTimeProperty = DateTime.ParseExact("2025-03-17T18:11:00.0000000", "O", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind),
         }, new TestClassResultEqualityComparer());
     }
+
+    [Fact]
+    public void WhenShouldBeEquivalentTo()
+    {
+        //Act
+        var actual = Calculator.Add(2, 2);
+
+        //Assert
+        actual.ShouldBeEquivalentTo(new());
+    }
+
+    [Fact]
+    public void WhenShouldBeEquivalentToWithNamedArgs()
+    {
+        //Act
+        int[] actual = [1, 2, 3];
+
+        //Assert
+        actual.ShouldBeEquivalentTo(customMessage: "Should detect `expected` as a named arg", expected: new int[] { 3, 4, 5 });
+    }
 }

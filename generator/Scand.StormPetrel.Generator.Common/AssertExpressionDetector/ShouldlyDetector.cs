@@ -10,7 +10,8 @@ namespace Scand.StormPetrel.Generator.Common.AssertExpressionDetector
     {
         private static readonly string[] SupportedMethodNamesStatic = new[]
         {
-            "ShouldBe"
+            "ShouldBe",
+            "ShouldBeEquivalentTo",
         };
         private static readonly string[] SupportedArgumentNamesStatic = new[]
         {
