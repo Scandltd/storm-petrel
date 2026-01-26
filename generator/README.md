@@ -285,7 +285,7 @@ Supported expressions include `Assert.That(actual, Is.EqualTo(123));` and `Asser
 Supported expressions include `Assert.AreEqual(123, actual);`. See more examples in [NoExpectedVarAssertTest](Test.Integration.MSTest/NoExpectedVarAssertTest.cs).
 
 ##### Shouldly expressions
-Supported expressions include `actual.ShouldBe(123);` according to [Shouldly](https://docs.shouldly.org/) documentation. See more examples in [NoExpectedVarShouldlyTest](Test.Integration.XUnit/NoExpectedVarShouldlyTest.cs).
+Supported expressions include `actual.ShouldBe(123);` and `actual.ShouldBeEquivalentTo(new object());` according to [Shouldly](https://docs.shouldly.org/) documentation. See more examples in [NoExpectedVarShouldlyTest](Test.Integration.XUnit/NoExpectedVarShouldlyTest.cs).
 
 ##### Custom assertions that replicate the signatures above
 You can also implement and use custom assertions. Ensure they replicate the signatures of the assertions mentioned above so that StormPetrel can detect them effectively. See [CustomAssertTest](Test.Integration.XUnit/CustomAssertTest.cs) for custom assertion examples.
