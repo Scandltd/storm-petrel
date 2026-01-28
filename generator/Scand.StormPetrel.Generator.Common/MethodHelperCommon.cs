@@ -30,6 +30,22 @@ namespace Scand.StormPetrel.Generator.Common
                 .SelectMany(a => a.Attributes
                                     .Where(b => predicate(b))
                                     .Select(b => (a, b)));
+        public static bool IsExtensionMethod(MethodDeclarationSyntax method) =>
+            method.ParameterList?.Parameters.FirstOrDefault()?.Modifiers.Any(SyntaxKind.ThisKeyword) == true;
+        /// <summary>
+        /// CAUTION: `private protected` is treated as `private` because `private protected` is impossible case within static classes where extension methods are only allowed.
+        /// </summary>
+        /// <param name="memberModifiers"></param>
+        /// <returns></returns>
+        public static bool HasPrivateOrNoAccessModifiers(SyntaxTokenList memberModifiers) =>
+            memberModifiers.FirstOrDefault(x => x.IsKind(SyntaxKind.PrivateKeyword)) != default
+                || !memberModifiers.Any(x => x.IsKind(SyntaxKind.PublicKeyword) || x.IsKind(SyntaxKind.InternalKeyword) || x.IsKind(SyntaxKind.ProtectedKeyword));
+        /// <summary>
+        /// CAUTION: see <see cref="HasPrivateOrNoAccessModifiers(SyntaxTokenList)"/> summary.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
+        public static bool HasPrivateOrNoAccessModifiers(MethodDeclarationSyntax method) => HasPrivateOrNoAccessModifiers(method.Modifiers);
         public static bool IsExpectedVarInvocationExpressionCandidate(MethodDeclarationSyntax method)
             => IsStatic(method)
                 && !GetTestAttributeNames(method).Any()
@@ -37,7 +53,7 @@ namespace Scand.StormPetrel.Generator.Common
                 && method.ReturnType.ToString() != "void"
                 && method.ReturnType.ToString().IndexOf("Task", StringComparison.Ordinal) < 0
                 //ignore extension methods to avoid duplicated extension method and thus target test project compilation failure
-                && method.ParameterList?.Parameters.FirstOrDefault()?.Modifiers.Any(SyntaxKind.ThisKeyword) != true;
+                && !IsExtensionMethod(method);
         public static bool IsExpectedVarInvocationExpressionCandidate(PropertyDeclarationSyntax property)
             => IsStatic(property)
                 && property.Type != null

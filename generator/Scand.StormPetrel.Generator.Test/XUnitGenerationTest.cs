@@ -1,11 +1,12 @@
 using FluentAssertions;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NSubstitute;
-using Serilog;
 using Scand.StormPetrel.Generator.Common.TargetProject;
+using Serilog;
 using System.Diagnostics;
 using System.Reflection;
-using Microsoft.CodeAnalysis;
 
 namespace Scand.StormPetrel.Generator.Test
 {
@@ -45,6 +46,18 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("ExpectedInMethodTest01Data", null, true)]
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod")]
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod", true)]
+        [InlineData("ExtensionExample")]
+        [InlineData("ExtensionExample", null, true)]
+#if NET10_0_OR_GREATER
+        [InlineData("ExtensionExample", null, false, new[] { "NET10_0_OR_GREATER" })]
+        [InlineData("ExtensionExample", null, true, new[] { "NET10_0_OR_GREATER" })]
+#endif
+        [InlineData("ExtensionTest")]
+        [InlineData("ExtensionTest", null, true)]
+#if NET10_0_OR_GREATER
+        [InlineData("ExtensionTest", null, false, new[] { "NET10_0_OR_GREATER" })]
+        [InlineData("ExtensionTest", null, true, new[] { "NET10_0_OR_GREATER" })]
+#endif
         [InlineData("NoExpectedVarAssertTest")]
         [InlineData("NoExpectedVarAssertThatTest")]
         [InlineData("NoExpectedVarAssertMSTest")]
@@ -68,7 +81,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("IgnoreCommon", null, true)]
         [InlineData("IgnoreInDebug", null, true)]
         [InlineData("IgnoreInRelease", null, true)]
-        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false)
+        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false, IEnumerable<string>? preprocessorSymbols = null)
         {
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(XUnitGenerationTest));
@@ -89,6 +102,7 @@ namespace Scand.StormPetrel.Generator.Test
             {
                 postfixes.Add("StaticStuff");
             }
+            postfixes.AddRange(preprocessorSymbols ?? []);
             var postfix = string.Join("_", postfixes);
             if (!string.IsNullOrEmpty(postfix))
             {
@@ -101,14 +115,20 @@ namespace Scand.StormPetrel.Generator.Test
             //Act
             var stopwatch = Stopwatch.StartNew();
             SyntaxNode? actualSyntaxNode;
+            CSharpParseOptions? parseOptions = null;
+            if (preprocessorSymbols != null)
+            {
+                parseOptions = new(preprocessorSymbols: preprocessorSymbols);
+            }
+            var parsedCode = CSharpSyntaxTree.ParseText(inputCode, parseOptions);
             if (isStaticStuffUseCase)
             {
-                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, parsedCode, GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
                 actualSyntaxNode = tempNode;
             }
             else
             {
-                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, CSharpSyntaxTree.ParseText(inputCode), GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, parsedCode, GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
             }
             stopwatch.Stop();
             string? actual = actualSyntaxNode?.ToFullString();
@@ -181,11 +201,11 @@ namespace Scand.StormPetrel.Generator.Test
                     IgnoreInvocationExpressionRegex = "InvocationExpressionToBeIgnored",
                 },
                 "OnlyActualVarNameTokenRegex" => new MainConfig()
-                { 
+                {
                     TestVariablePairConfigs =
                     [
                         new TestVariablePairConfig()
-                        { 
+                        {
                             ActualVarNameTokenRegex = "[Ss]{1}pecificActualVarName",
                             ExpectedVarNameTokenRegex = null
                         }

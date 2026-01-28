@@ -17,6 +17,7 @@ namespace Scand.StormPetrel.Generator
 {
     internal partial class SourceGenerator
     {
+        private const SyntaxRemoveOptions NodeRemoveOptions = SyntaxRemoveOptions.KeepNoTrivia | SyntaxRemoveOptions.KeepDirectives;
         public static SourceText CreateNewSourceAsSourceText(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
             => CreateNewSource(syntaxTreeFilePath, syntaxTree, config, logger, cancellationToken)?.GetText(Encoding.UTF8);
         public static SyntaxNode CreateNewSource(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
@@ -33,7 +34,8 @@ namespace Scand.StormPetrel.Generator
         {
             var collector = new StaticInfoCollector();
             var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
-            if (collector.IsTestMethodCollected)
+            if (collector.IsTestMethodCollected
+                    || collector.CollectedMethodInfo.Count == 0 && collector.CollectedPropertyPaths.Count == 0)
             {
                 newSource = null;
             }
@@ -54,6 +56,18 @@ namespace Scand.StormPetrel.Generator
                 int skipClassChildMethodCount = -1;
                 int skipNewClassChildMethodCount = -1;
                 var newClass = @class;
+                var csharp14ExtensionChildrenToRemove =
+                    newClass
+                        .ChildNodes()
+                        .Where(x => x.RawKind == 9079 /* ExtensionDeclaration */)
+                        .SelectMany(x => x.ChildNodes()
+                                            .Where(y => y.IsKind(SyntaxKind.MethodDeclaration) && !MethodHelperCommon.HasPrivateOrNoAccessModifiers((MethodDeclarationSyntax)y)
+                                                        || y.IsKind(SyntaxKind.PropertyDeclaration) && !MethodHelperCommon.HasPrivateOrNoAccessModifiers(((PropertyDeclarationSyntax)y).Modifiers)))
+                        .ToArray();
+                if (csharp14ExtensionChildrenToRemove.Length > 0)
+                {
+                    newClass = newClass.RemoveNodes(csharp14ExtensionChildrenToRemove, NodeRemoveOptions);
+                }
                 do
                 {
                     if (cancellationToken.IsCancellationRequested)
@@ -71,6 +85,7 @@ namespace Scand.StormPetrel.Generator
                     if (!hasTestAttributeNames)
                     {
                         var isExpectedVarInvocationExpressionCandidate = MethodHelperCommon.IsExpectedVarInvocationExpressionCandidate(method);
+                        var isExtensionMethodAndNotPrivate = false;
                         if (isExpectedVarInvocationExpressionCandidate)
                         {
                             var original = GetFirstOrDefaultMethod(@class, skipClassChildMethodCount);
@@ -85,7 +100,13 @@ namespace Scand.StormPetrel.Generator
                                 newClass = newClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
                             }
                         }
-                        logger.Information("No test attributes for {MethodName} method, isExpectedVarInvocationExpressionCandidate={isExpectedVarInvocationExpressionCandidate}", method.Identifier.Text, isExpectedVarInvocationExpressionCandidate);
+                        else if (MethodHelperCommon.IsExtensionMethod(method) && !MethodHelperCommon.HasPrivateOrNoAccessModifiers(method))
+                        {
+                            isExtensionMethodAndNotPrivate = true;
+                            newClass = newClass.RemoveNode(method, NodeRemoveOptions);
+                            skipNewClassChildMethodCount--;
+                        }
+                        logger.Information("No test attributes for {MethodName} method, isExpectedVarInvocationExpressionCandidate={isExpectedVarInvocationExpressionCandidate}, isExtensionMethodAndNotPrivate={isExtensionMethodAndNotPrivate}", method.Identifier.Text, isExpectedVarInvocationExpressionCandidate, isExtensionMethodAndNotPrivate);
                         continue;
                     }
                     infoCollector.IsTestMethodCollected = true;

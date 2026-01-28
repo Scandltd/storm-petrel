@@ -187,12 +187,23 @@ namespace Test.Integration.XUnit
         {
             //Arrange
             var expectedVar = "123";
+            var expectedForExtensionWithinPreprocessorDirective = "123";
+            var expectedIsEmpty = false;
 
             //Act
             var actualVar = TestedClass.TestedMethod().ExtensionMethodExample();
+            var actualForExtensionWithinPreprocessorDirective = TestedClass.TestedMethod().ExtensionMethodExampleWithinPreprocessorDirective();
+            bool actualIsEmpty = Array.Empty<int>()
+#if NET10_0_OR_GREATER
+                .WhereExtension(_ => true).IsEmpty;
+#else
+                .Length == 0;
+#endif
 
             //Assert
             actualVar.Should().Be(expectedVar);
+            actualForExtensionWithinPreprocessorDirective.Should().Be(expectedForExtensionWithinPreprocessorDirective);
+            actualIsEmpty.Should().Be(expectedIsEmpty);
         }
 
         [Theory]

@@ -21,6 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.XUnit\ExtensionTest.cs" Link="Resource\ExtensionTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.XUnit\ExtensionExample.cs" Link="Resource\ExtensionExample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.ObjectDumper.XUnit\IgnoreCommon.cs" Link="Resource\IgnoreCommon.cs" />
     <EmbeddedResource Include="..\Test.Integration.ObjectDumper.XUnit\IgnoreInDebug.cs" Link="Resource\IgnoreInDebug.cs" />
     <EmbeddedResource Include="..\Test.Integration.ObjectDumper.XUnit\IgnoreInRelease.cs" Link="Resource\IgnoreInRelease.cs" />
@@ -70,7 +78,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" Condition="$(TargetFramework.Contains('net8.0')) or $(TargetFramework.Contains('net9.0'))" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" Condition="!($(TargetFramework.Contains('net8.0')) or $(TargetFramework.Contains('net9.0')))" />
   </ItemGroup>
 
   <ItemGroup>
