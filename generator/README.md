@@ -14,6 +14,7 @@
         * [Expected expression decorators](#expected-expression-decorators)
             * [Collection initializer](#collection-initializer)
             * [Implicit object creation](#implicit-object-creation)
+            * [Raw string literals](#raw-string-literals)
             * [Removal of property or field assignments](#removal-of-property-or-field-assignments)
             * [Verbatim strings or custom literal values](#verbatim-strings-or-custom-literal-values)
         * [Expected expression is inlined within an assertion](#expected-expression-is-inlined-within-an-assertion)
@@ -238,7 +239,7 @@ HTML, JSON, binary or whatever expected snapshots can be hardcoded in tests code
 #### Expected expression decorators
 Refer to the classes in the `Scand.StormPetrel.Generator.Utils` namespace and their usage in the files of the [Test.Integration.Generator.Utils.XUnit](Test.Integration.Generator.Utils.XUnit/Test.Integration.Generator.Utils.XUnit.csproj) project to decorate the expressions. The example includes:
 * [CustomDumperDecorator](Test.Integration.Generator.Utils.XUnit/CustomDumperDecorator.cs). Replaces `DateTime.ParseExact(...)` with `new DateTime(...)` or a constant value.
-* [DumperFactory](Test.Integration.Generator.Utils.XUnit/DumperFactory.cs). Combines implementations of `IGeneratorDumper` to have custom C# representations of expected baselines. It demonstrates how to remove redundant assignments and apply constant expressions, verbatim strings, implicit object creation, collection expressions and other C# syntax decorations to the baselines.
+* [DumperFactory](Test.Integration.Generator.Utils.XUnit/DumperFactory.cs). Combines implementations of `IGeneratorDumper` to have custom C# representations of expected baselines. It demonstrates how to remove redundant assignments and apply constant expressions, verbatim strings, raw string literals, implicit object creation, collection expressions and other C# syntax decorations to the baselines.
 
 Built-in decorators include
 
@@ -247,6 +248,9 @@ Replaces C# syntax nodes (e.g., array creation) with collection expressions.
 
 ##### Implicit object creation
 Replaces C# constructor calls with implicit object creation syntax.
+
+##### Raw string literals
+Replaces regular strings with raw string literals. Optionally can add the literal [comments](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string) like `// lang=json` according to the configuration.
 
 ##### Removal of property or field assignments
 Removes property of field assignments according to the configuration.

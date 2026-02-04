@@ -44,43 +44,33 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         {
         }
         /// <summary>
-        /// Creates new funtion to prepend verbatim text token (@) to string literal expression value if both:
+        /// Creates new function to prepend verbatim text token (@) to string literal expression value if both:
         /// - The value length is greater than <paramref name="maxPreservedStringLength"/>.
         /// - The value contains double quote or line break characters.
         /// </summary>
         /// <param name="typeNameToVerbatimStringPropertyNames">A dictionary where:
         /// - Key is object constructor token. Use empty string for anonymous or target-typed objects or any constructor token or root expression;
-        /// - Value is a list of assigment (e.g. property or field) names to apply verbatim string decoration. Use empty string to decorate any assignment in context of the key.
+        /// - Value is a list of assignment (e.g. property or field) names to apply verbatim string decoration. Use empty string to decorate any assignment in context of the key.
         /// Use `null` to decorate any string longer than <paramref name="maxPreservedStringLength"/>.</param>
         /// <param name="maxPreservedStringLength">Max length of strings where verbatim token is not applied to.</param>
-        /// <returns>New function returning new <see cref="SyntaxNode"/> or <see cref="null"/> if verbatim text token is not applicable.</returns>
+        /// <returns>New function returning new <see cref="SyntaxNode"/> with verbatim token or <see cref="null"/> if verbatim text token is not applicable for input <see cref="LiteralExpressionDumpContext"/> instance.</returns>
         public static Func<LiteralExpressionDumpContext, SyntaxNode> GetVerbatimStringDecoratingFunc(
-                                                                        Dictionary<string, IEnumerable<string>> typeNameToVerbatimStringPropertyNames = null,
+                                                                        IReadOnlyDictionary<string, IEnumerable<string>> typeNameToVerbatimStringPropertyNames = null,
                                                                         int maxPreservedStringLength = MaxPreservedStringLength)
         {
-            return (LiteralExpressionDumpContext context) =>
-            {
-                var nd = context.OriginalLiteralExpression;
-                if (!nd.IsKind(SyntaxKind.StringLiteralExpression)
-                        || context.TokenValueText == null
-                        || context.TokenValueText.Length <= maxPreservedStringLength
-                        || context.TokenText == null
-                        || context.TokenText.StartsWith("@"))
-                {
-                    return null;
-                }
-                if (typeNameToVerbatimStringPropertyNames == null
-                    || context.FirstAncestorName != null
-                        && typeNameToVerbatimStringPropertyNames.TryGetValue(context.FirstAncestorName, out var verbatimStringPropertyNames)
-                            && (verbatimStringPropertyNames.Contains("") || verbatimStringPropertyNames.Contains(context.AssignmentLeftName))
-                    || typeNameToVerbatimStringPropertyNames.TryGetValue("", out var verbatimStringPropertyNamesDefault)
-                        && (verbatimStringPropertyNamesDefault.Contains("") || verbatimStringPropertyNamesDefault.Contains(context.AssignmentLeftName)))
-                {
-                    return CreateVerbatimStringLiteral(context.TokenValueText)
-                            ?.WithTriviaFrom(nd);
-                }
-                return null;
-            };
+            var funcProvider = new StringVerbatimDecoratingFuncProvider(maxPreservedStringLength, typeNameToVerbatimStringPropertyNames);
+            return funcProvider.GetDecoratingFunc();
+        }
+        /// <summary>
+        /// Creates new function to replace string regular values with raw string literals.
+        /// </summary>
+        /// <param name="typeNameToRawStringProperties">Configuration object similar to <see cref="GetVerbatimStringDecoratingFunc(IReadOnlyDictionary{string, IEnumerable{string}}, int)"/> corresponding parameter.</param>
+        /// <returns>New function returning new <see cref="SyntaxNode"/> with raw string literal or <see cref="null"/> if raw string literal is not applicable for input <see cref="LiteralExpressionDumpContext"/> instance.</returns>
+        public static Func<LiteralExpressionDumpContext, SyntaxNode> GetRawStringDecoratingFunc(
+                                                                        IReadOnlyDictionary<string, IEnumerable<RawStringProperty>> typeNameToRawStringProperties = null)
+        {
+            var funcProvider = new StringRawDecoratingFuncProvider(typeNameToRawStringProperties);
+            return funcProvider.GetDecoratingFunc();
         }
 
         /// <summary>
@@ -139,29 +129,6 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
                 TokenText = literalExpression.Token.Text,
                 TokenValueText = literalExpression.Token.ValueText,
             };
-        }
-        private static LiteralExpressionSyntax CreateVerbatimStringLiteral(string value)
-        {
-            const string doubleQuotes = "\"";
-            if (value.All(x => x != doubleQuotes[0]
-                                && x != '\r'
-                                && x != '\n'))
-            {
-                return null;
-            }
-            // Escape quotes (replace " with "")
-            string escapedContent = value.Replace(doubleQuotes, "\"\"");
-
-            // Format as verbatim string (@"...")
-            string verbatimText = "@\"" + escapedContent + "\"";
-
-            return SyntaxFactory.LiteralExpression(
-                SyntaxKind.StringLiteralExpression,
-                SyntaxFactory.Literal(
-                    text: verbatimText,
-                    value: value  // Actual unescaped value
-                )
-            );
         }
     }
 }

@@ -108,16 +108,97 @@ public class MainTest
                 new LiteralExpressionDumperDecorator(_generatorDumper, LiteralExpressionDumperDecorator.GetNumberToHexDecoratingFunc()));
         //Act, Assert
         await SourceGeneratorTestImplementation(inputReplacementCodeResourceName, decorator);
-
     }
 
-    private async Task SourceGeneratorTestImplementation(string inputReplacementCodeResourceName, IGeneratorDumper dumper)
+    [Theory]
+    [InlineData("300_LiteralExpressionRawStringDecorator", null, null)]
+    [InlineData("300_LiteralExpressionRawStringDecorator", "300_LiteralExpressionRawStringDecorator_When_PropertyComments_Then_Expected.cs",
+        // lang=json
+        """
+        {
+            "FooClass": [
+                {
+                    "Name": "MultiLineProperty",
+                    "Comment": 1
+                },
+                {
+                    "Name": "SingleLineProperty",
+                    "Comment": 2
+                },
+                {
+                    "Name": "MultiLinePropertyWithVeryFirstLFAsEndOfLine",
+                    "Comment": 0
+                },
+                {
+                    "Name": "MultiLinePropertyWithExtraTrivia",
+                    "Comment": 1
+                }
+            ]
+        }
+        """)]
+    [InlineData("300_LiteralExpressionRawStringDecorator", "300_LiteralExpressionRawStringDecorator_When_PropertyConfiguration_Then_ExpectedByConfigOrder.cs",
+        // lang=json
+        """
+        {
+            "FooClass": [
+                {
+                    "Name": "SingleLineProperty",
+                    "Comment": 1
+                }
+            ],
+            "": [
+                {
+                    "Name": "SingleLineProperty",
+                    "Comment": 2
+                }
+            ]
+        }
+        """)]
+    [InlineData("300_LiteralExpressionRawStringDecorator", "300_LiteralExpressionRawStringDecorator_When_PropertyConfiguration_Then_ExpectedByConfigOrder.cs",
+        // lang=json
+        """
+        {
+            "": [
+                {
+                    "Name": "SingleLineProperty",
+                    "Comment": 1
+                }
+            ],
+            "FooClass": [
+                {
+                    "Name": "SingleLineProperty",
+                    "Comment": 2
+                }
+            ]
+        }
+        """)]
+    [InlineData("300_LiteralExpressionRawStringDecorator", "300_LiteralExpressionRawStringDecorator_When_AnyPropertyIsJson_Then_Expected.cs",
+        // lang=json
+        """
+        {
+            "": [
+                {
+                    "Name": "",
+                    "Comment": 1
+                }
+            ]
+        }
+        """)]
+    public async Task LiteralExpressionRawStringDecoratorTest(string inputReplacementCodeResourceName, string? expectedResourceFileName, string? rawStringConfigSerialized)
+        => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName,
+                                                        new LiteralExpressionDumperDecorator(_generatorDumper, LiteralExpressionDumperDecorator.GetRawStringDecoratingFunc(rawStringConfigSerialized != null
+                                                                ? JsonSerializer.Deserialize<Dictionary<string, IEnumerable<RawStringProperty>>>(rawStringConfigSerialized, JsonOptions)
+                                                                : null)),
+                                                        expectedResourceFileName,
+                                                        true);
+
+    private async Task SourceGeneratorTestImplementation(string inputReplacementCodeResourceName, IGeneratorDumper dumper, string? expectedResourceFileName = null, bool skipNormalizeLineEndings = false)
     {
         //Arrange
         var assembly = Assembly.GetAssembly(typeof(MainTest));
         ArgumentNullException.ThrowIfNull(assembly, nameof(assembly));
         var inputCode = await ReadResourceAsync(assembly, $"{inputReplacementCodeResourceName}.cs");
-        string? expectedResourceFileName = $"{inputReplacementCodeResourceName}_Then_Expected.cs"; ;
+        expectedResourceFileName ??= $"{inputReplacementCodeResourceName}_Then_Expected.cs";
         string? expectedCode = await ReadResourceAsync(assembly, expectedResourceFileName);
         _generatorDumper
             .Dump(_generationDumpContext)
@@ -126,7 +207,10 @@ public class MainTest
         //Act
         string? actual = dumper.Dump(_generationDumpContext);
 
-        actual = NormalizeLineEndings(actual);
+        if (!skipNormalizeLineEndings)
+        {
+            actual = NormalizeLineEndings(actual);
+        }
         if (expectedResourceFileName != null)
         {
             //Keep commented in git. Uncomment to overwrite baselines while development only.

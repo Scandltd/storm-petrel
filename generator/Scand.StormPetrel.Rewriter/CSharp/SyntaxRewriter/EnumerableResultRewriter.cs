@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter.CellProvider;
+using Scand.StormPetrel.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;

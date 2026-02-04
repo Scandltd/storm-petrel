@@ -36,6 +36,19 @@ internal static class DumperFactory
                 nameof(AddResult), [nameof(AddResult.ValueAsVerbatimString)]
             },
         });
+        var rawStringDecoratingFunc = LiteralExpressionDumperDecorator.GetRawStringDecoratingFunc(new Dictionary<string, IEnumerable<RawStringProperty>>
+        {
+            {
+                nameof(AddResult),
+                [
+                    new()
+                    {
+                        Name = nameof(AddResult.ValueAsRawString),
+                        Comment = RawStringPropertyComment.LangJson,
+                    }
+                ]
+            },
+        });
 
         return context =>
         {
@@ -56,6 +69,11 @@ internal static class DumperFactory
                             SyntaxFactory.IdentifierName("Constants"),
                             SyntaxFactory.IdentifierName(constantName))
                         .WithTriviaFrom(context.OriginalLiteralExpression);
+            }
+            var rawStringNode = rawStringDecoratingFunc(context);
+            if (rawStringNode != null)
+            {
+                return rawStringNode;
             }
             return verbatimStringDecoratingFunc(context);
         };

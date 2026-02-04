@@ -59,6 +59,34 @@ namespace Scand.StormPetrel.Rewriter.Test
         [Theory]
         [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, "new List<MessageTreeDoc>()", "050_Assignment_NewCode_Then_Expected")]
         [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, "file:050_Assignment_NewCodeMultiline", "050_Assignment_NewCodeMultiline_Then_Expected")]
+        [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, @"new List<MessageTreeDoc>(){
+    """"""Single line"""""",
+    """"""
+    Line1
+    Line2
+    """""",
+    // lang=json
+    """"""
+    Line1
+    Line2
+    """""",
+    ""A non-raw string"", """"""
+    Line1
+    Line2
+    """""",
+}", "050_Assignment_NewCodeWithRawStrings_Then_Expected")]
+        [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, @"""""""New code is single line raw string""""""", "050_Assignment_NewCodeIsSingleLineRawString_Then_Expected")]
+        [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, @"""""""
+Multiline raw string
+Line 2
+""""""", "050_Assignment_NewCodeIsMultiLineRawString_Then_Expected")]
+        [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, @"// lang=json
+""""""
+Multiline raw string
+Line 2
+""""""", "050_Assignment_NewCodeIsMultiLineRawStringWithComment_Then_Expected")]
+        [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, @"""\""\""\""""", "050_Assignment_NewCodeIsNotRawStringOf3DoubleQuotes_Then_Expected")]
+        [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, @"@""""""""""""""""", "050_Assignment_NewCodeIsNotRawStringOf3DoubleQuotesVerbatim_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[0]" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment0_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[1]" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment1_Then_Expected")]

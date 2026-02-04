@@ -9,5 +9,7 @@
     <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
    </ItemGroup>
+
+  <Import Project="..\Scand.StormPetrel.Shared\Scand.StormPetrel.Shared.projitems" Label="Shared" />
      
 </Project>
