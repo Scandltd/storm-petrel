@@ -11,6 +11,9 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Copyright>© 2024–2026 Scand</Copyright>
+    <Version>2.6.0</Version>
+    <Company>Scand</Company>
+    <Authors>Scand</Authors>
   </PropertyGroup>
 
   <ItemGroup>
