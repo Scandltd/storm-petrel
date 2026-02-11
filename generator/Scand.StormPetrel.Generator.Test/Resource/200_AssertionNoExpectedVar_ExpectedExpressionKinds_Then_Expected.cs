@@ -8,7 +8,7 @@ using Xunit.Sdk;
 
 namespace Test.Integration.XUnit
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.6.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
     public class AssertionNoExpectedVarTestStormPetrel
     {
         [Fact]

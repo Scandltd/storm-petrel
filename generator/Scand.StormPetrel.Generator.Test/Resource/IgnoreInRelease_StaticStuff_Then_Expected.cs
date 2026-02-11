@@ -5,7 +5,7 @@
 #if !DEBUG
 namespace Test.Integration.ObjectDumper.XUnit;
 // Commented out for partial classes to avoid CS0579 error
-// [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.6.0")]
+// [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
 public static partial class IgnoreInReleaseStormPetrel
 {
     public static int TestDataSourceCandidate() => EnsureProperIgnoreFilePathRegexIsAppliedConstant;

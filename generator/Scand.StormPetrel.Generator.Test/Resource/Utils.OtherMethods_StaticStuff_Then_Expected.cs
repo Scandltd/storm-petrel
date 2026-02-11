@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Test.Integration.XUnit;
 // Commented out for partial classes to avoid CS0579 error
-// [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.6.0")]
+// [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
 partial class UtilsStormPetrel
 {
     private readonly static JsonSerializerOptions options = new()

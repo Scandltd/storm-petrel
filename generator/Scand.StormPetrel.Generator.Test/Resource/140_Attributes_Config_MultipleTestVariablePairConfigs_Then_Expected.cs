@@ -7,7 +7,7 @@ using FluentAssertions;
 
 namespace Scand.StormPetrel.Rewriter.Test.Resource
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.6.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
     internal class AttributesTestStormPetrel
     {
         [Theory]

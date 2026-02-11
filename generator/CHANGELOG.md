@@ -1,5 +1,18 @@
 # Change Log
 
+## [2.7.0] - 2026-02-11
+
+### Added
+- Build/tests: allow testing under .NET 10 runtimes.
+- Equals method and single/multi dimensional Enumerable(s) support for non-expected test arguments.
+- Shouldly's ShouldBeEquivalentTo assertion support.
+- GetRawStringDecoratingFunc as API method for embedding raw strings into baselines.
+- Nullability and metadata to generated code: `#nullable enable`, `auto-generated` header comment, GeneratedCode attribute.
+
+### Fixed
+- Expected value indentation within attributes.
+- Exclude redundant extension members (including C# 14 syntax) from generated code.
+
 ## [2.6.0] - 2025-09-04
 
 ### Added

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Copyright>© 2024–2026 Scand</Copyright>
-    <Version>2.6.0</Version>
+    <Version>2.7.0</Version>
     <Authors>Scand</Authors>
     <Company>Scand</Company>
   </PropertyGroup>
