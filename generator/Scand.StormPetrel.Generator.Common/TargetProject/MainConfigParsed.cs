@@ -16,7 +16,7 @@ namespace Scand.StormPetrel.Generator.Common.TargetProject
         public Regex IgnoreFilePathRegex { get; private set; }
         public Regex IgnoreInvocationExpressionRegex { get; private set; }
         public TestVariablePairConfigParsed[] TestVariablePairConfigs { get; private set; }
-
+        public bool IsAddNullableEnable { get; private set; }
         internal bool IsMatchToIgnoreFilePathRegex(string path)
         {
             if (IgnoreFilePathRegex == null || string.IsNullOrEmpty(path))
@@ -37,13 +37,14 @@ namespace Scand.StormPetrel.Generator.Common.TargetProject
             invalidRegexes = new HashSet<string>();
             var parsed = new MainConfigParsed
             {
+                IsAddNullableEnable = mainConfig.IsAddNullableEnable,
                 TargetProjectGeneratorExpression = mainConfig.TargetProjectGeneratorExpression,
                 GeneratorConfig = mainConfig.GeneratorConfig,
                 IsDisabled = mainConfig.IsDisabled,
 
                 IgnoreFilePathRegex = ParseRegex(mainConfig.IgnoreFilePathRegex,
                     IgnoreFilePathRegexOptions,
-                    out bool ignoreFilePathRegexError)
+                    out bool ignoreFilePathRegexError),
             };
 
             if (ignoreFilePathRegexError)

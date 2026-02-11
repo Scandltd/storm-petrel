@@ -27,7 +27,7 @@ namespace Scand.StormPetrel.Generator.Common.TargetProject
                 ExpectedVarNameTokenRegex = null,
             },
         };
-
+        public bool IsAddNullableEnable { get; set; } = true;
         internal static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {
             ReadCommentHandling = JsonCommentHandling.Skip,

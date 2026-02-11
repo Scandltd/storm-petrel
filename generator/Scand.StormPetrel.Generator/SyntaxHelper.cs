@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Runtime.Serialization.Json;
-using System.Text;
 
 namespace Scand.StormPetrel.Generator
 {
@@ -71,7 +69,7 @@ namespace Scand.StormPetrel.Generator
             return completeArrayCreationExpression;
         }
 
-        public List<StatementSyntax> GetNewCodeBlock(string className, string methodName, VarPairInfo info, int blockIndex, int varPairsCount, SeparatedSyntaxList<ParameterSyntax> parameters)
+        public List<StatementSyntax> GetNewCodeBlock(string className, string methodName, VarPairInfo info, int blockIndex, int varPairsCount, SeparatedSyntaxList<ParameterSyntax> parameters, bool isAddNullableEnable)
         {
             ObjectCreationExpressionSyntax extraContextExpression = null;
             var result = new List<StatementSyntax>();
@@ -190,7 +188,7 @@ private static void TempMethod()
     }
     if (!" + isTestCaseSourceRowExistVarName + @")
     {
-        var " + noEqualArgNames + @" = new System.Collections.Generic.List<string>(){ "+ noEqualArgNamesInit + @" };
+        var " + noEqualArgNames + @" = new System.Collections.Generic.List<string>(){ " + noEqualArgNamesInit + @" };
         foreach (var stormPetrelRow in " + stormPetrelRowsVarName + @")
         {
             " + detectNoEqualArgNamesCondition + @"
@@ -284,6 +282,17 @@ private static void TempMethod()
             {
                 throw new InvalidOperationException("Unexpected case");
             }
+            var actualAssignment = (ExpressionSyntax)GetPropertyAssignment(nameof(GenerationContext.Actual), info.ActualVarExpression ?? SyntaxFactory.IdentifierName(info.ActualVarName));
+            var expectedAssignment = !string.IsNullOrEmpty(info.ExpectedVarName) && expectedExpression == null
+                                        ? GetPropertyAssignment(nameof(GenerationContext.Expected), SyntaxFactory.IdentifierName(info.ExpectedVarName))
+                                        : expectedExpression != null
+                                            ? GetPropertyAssignment(nameof(GenerationContext.Expected), expectedExpression)
+                                            : throw new InvalidOperationException($"Unexpected null in {nameof(expectedExpression)}");
+            if (isAddNullableEnable)
+            {
+                actualAssignment = WithNullableDisableRestore(actualAssignment);
+                expectedAssignment = WithNullableDisableRestore(expectedAssignment);
+            }
             var contextCreationExpression = SyntaxFactory.ObjectCreationExpression(
                 SyntaxFactory.IdentifierName($"{typeof(GenerationContext).FullName}()"))
                 .WithInitializer(
@@ -291,13 +300,9 @@ private static void TempMethod()
                         SyntaxKind.ObjectInitializerExpression,
                         SyntaxFactory.SeparatedList(new[]
                         {
-                            (ExpressionSyntax)GetPropertyAssignment(nameof(GenerationContext.Actual), info.ActualVarExpression ?? SyntaxFactory.IdentifierName(info.ActualVarName)),
+                            actualAssignment,
                             GetPropertyAssignment(nameof(GenerationContext.ActualVariablePath), GetArrayInitializer(info.ActualVarPath, ToStringLiteralExpression)),
-                            !string.IsNullOrEmpty(info.ExpectedVarName) && expectedExpression == null
-                                ? GetPropertyAssignment(nameof(GenerationContext.Expected), SyntaxFactory.IdentifierName(info.ExpectedVarName))
-                                : expectedExpression != null
-                                    ? GetPropertyAssignment(nameof(GenerationContext.Expected), expectedExpression)
-                                    : throw new InvalidOperationException($"Unexpected null in {nameof(expectedExpression)}"),
+                            expectedAssignment,
                             info.ExpectedVarPath != null
                                 ? GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath, ToStringLiteralExpression))
                                 : null,
@@ -324,7 +329,49 @@ private static void TempMethod()
             return result;
 
             string GetBlockIndexVarName(string varName) => blockIndex == 0 ? varName : varName + blockIndex.ToString(CultureInfo.InvariantCulture);
+            // To allow assignment for a non-nullable property in nullable context
+            T WithNullableDisableRestore<T>(T node) where T: CSharpSyntaxNode =>
+                node
+                    .WithLeadingTrivia(
+                        IfDirectiveTriviaForNullableEnable(),
+                        SyntaxFactory.ElasticCarriageReturnLineFeed,
+                        SyntaxFactory.Trivia(
+                            SyntaxFactory.NullableDirectiveTrivia(
+                                SyntaxFactory.Token(SyntaxKind.DisableKeyword),
+                                true
+                            )),
+                        SyntaxFactory.ElasticCarriageReturnLineFeed,
+                        EndIfDirectiveTrivia(),
+                        SyntaxFactory.ElasticCarriageReturnLineFeed)
+                    .WithTrailingTrivia(
+                        SyntaxFactory.ElasticCarriageReturnLineFeed,
+                        IfDirectiveTriviaForNullableEnable(),
+                        SyntaxFactory.ElasticCarriageReturnLineFeed,
+                        SyntaxFactory.Trivia(
+                            SyntaxFactory.NullableDirectiveTrivia(
+                                SyntaxFactory.Token(SyntaxKind.RestoreKeyword),
+                                true
+                            )),
+                        SyntaxFactory.ElasticCarriageReturnLineFeed,
+                        EndIfDirectiveTrivia());
         }
+
+        /// <summary>
+        /// Add `if` directive according to <see cref="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-versioning#defaults"/>
+        /// and <see cref="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/preprocessor-directives#conditional-compilation"/>, i.e:
+        /// - Disable for .NET Framework that uses C# 7.3 (nullable is not supported) by default.
+        /// - [Highly likely impossible case] Enable if not .NET Framework even with C# 7.3 default version: .NET Core 2.x, .NET Standard 1.x, 2.0.
+        /// - Enable if SCAND_STORM_PETREL_NULLABLE_ENABLE is explicitely defined.
+        /// </summary>
+        /// <returns></returns>
+        public static SyntaxTrivia IfDirectiveTriviaForNullableEnable() =>
+            SyntaxFactory.Trivia(
+                SyntaxFactory.IfDirectiveTrivia(
+                    SyntaxFactory.ParseExpression("!NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE"),
+                    true, true, false));
+
+        public static SyntaxTrivia EndIfDirectiveTrivia() =>
+            SyntaxFactory.Trivia(SyntaxFactory.EndIfDirectiveTrivia(true));
 
         private StatementSyntax GetMethodContextStatement(string className, string methodName, int varPairIndex, int varPairsCount, SeparatedSyntaxList<ParameterSyntax> parameters)
         {

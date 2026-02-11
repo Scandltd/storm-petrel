@@ -134,5 +134,18 @@ namespace Test.Integration.XUnit
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
+
+        [Theory]
+        [InlineData(1, "1_incorrect")]
+        [InlineData(2, null)]
+        public void TestNullableMethod(int i, string? expected)
+        {
+            //Act
+            var actual = i.ToString(CultureInfo.InvariantCulture);
+
+            //Assert
+            //Intentionally use null-forgiving operator `!` to vary the test case
+            actual!.Should().BeEquivalentTo(expected);
+        }
     }
 }

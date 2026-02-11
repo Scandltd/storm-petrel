@@ -15,6 +15,7 @@ namespace Scand.StormPetrel.Generator.Test
         [Theory]
         [InlineData("010_OriginalCodeText")]
         [InlineData("010_OriginalCodeText", "CustomGeneratorInstance")]
+        [InlineData("010_OriginalCodeText", "DoNotAddNullableEnable")]
         [InlineData("020_NoTestClasses")]
         [InlineData("030_OriginalCodeTextWithSeveralTestMethodsAndNonTestMethod")]
         [InlineData("040_OriginalCodeTextWithSeveralTestClasses")]
@@ -218,6 +219,10 @@ namespace Scand.StormPetrel.Generator.Test
                                                     .TestVariablePairConfigs
                                                     .Reverse()
                                               ],
+                },
+                "DoNotAddNullableEnable" => new MainConfig()
+                {
+                    IsAddNullableEnable = false,
                 },
                 _ => throw new InvalidOperationException(),
             };
