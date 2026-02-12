@@ -4,8 +4,8 @@ namespace Test.Integration.XUnit.EntityFrameworkExamples
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public DbSet<User> Users => Set<User>();
-        public DbSet<Post> Posts => Set<Post>();
+        public static DbSet<User> Users => Set<User>();
+        public static DbSet<Post> Posts => Set<Post>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
