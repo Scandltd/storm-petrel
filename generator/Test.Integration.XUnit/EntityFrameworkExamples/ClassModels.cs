@@ -6,8 +6,7 @@ namespace Test.Integration.XUnit.EntityFrameworkExamples
     {
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
-        //public List<Post> Posts { get; set; } = [];
-        public Collection<Post> Posts { get; } = [];
+        public ICollection<Post> Posts { get; init; } = [];
     }
 
     public class Post
