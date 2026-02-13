@@ -76,14 +76,20 @@ namespace Test.Integration.XUnit.EntityFrameworkExamples
 
             using (var db = DbContextFactory.Create(dbName))
             {
+                var posts = new List<Post>();
+                for (int i = 0; i < postCount; i++)
+                {
+                    posts.Add(new Post { Title = $"{postTitlePrefix} {i + 1}" });
+                }
+
                 var user = new User
                 {
                     Email = email
                 };
 
-                for (int i = 0; i < postCount; i++)
+                foreach (var post in posts)
                 {
-                    user.posts.Add(new Post { Title = $"{postTitlePrefix} {i + 1}" });
+                    user.Posts.Add(post);
                 }
 
                 db.Users.Add(user);
