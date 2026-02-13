@@ -1,3 +1,4 @@
+using AutoFixture;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
@@ -66,8 +67,14 @@ namespace Test.Integration.XUnit.EntityFrameworkExamples
                 var user = new User
                 {
                     Email = email,
-                    Posts = posts
+                    //Posts = posts
                 };
+                foreach (var post in posts)
+                {
+                    user.Posts.Add(post);
+                }
+
+                //user.Posts.AddRange(posts);
 
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
