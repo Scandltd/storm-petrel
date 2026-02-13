@@ -37,26 +37,7 @@ namespace Test.Integration.XUnit.EntityFrameworkExamples
             }
 
             //Assert
-            var expected = new User
-            {
-                Id = 1,
-                Email = "user@test.com",
-                Posts =
-                {
-                    new Post
-                    {
-                        Id = 1,
-                        Title = "Post 1",
-                        UserId = 1
-                    },
-                    new Post
-                    {
-                        Id = 2,
-                        Title = "Post 2",
-                        UserId = 1
-                    }
-                }
-            };
+            var expected = new User();
 
             actual.Should().BeEquivalentTo(expected);
         }
@@ -84,13 +65,9 @@ namespace Test.Integration.XUnit.EntityFrameworkExamples
 
                 var user = new User
                 {
-                    Email = email
+                    Email = email,
+                    Posts = posts
                 };
-
-                foreach (var post in posts)
-                {
-                    user.Posts.Add(post);
-                }
 
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
