@@ -89,7 +89,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -220,7 +220,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -298,7 +298,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "' argument(s).");
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
             var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
@@ -421,7 +421,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '" + string.Join("', '", stormPetrelNoEqualArgNames) + "' argument(s).");
+                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
             var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()

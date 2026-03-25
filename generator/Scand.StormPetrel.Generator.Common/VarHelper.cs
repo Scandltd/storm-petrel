@@ -436,7 +436,7 @@ namespace Scand.StormPetrel.Generator.Common
                                                             .ParameterList
                                                             .Parameters
                                                             .Where(x => !_varNameRegexPairs.Any(y => y.ExpectedRegex?.IsMatch(x.Identifier.Text) == true))
-                                                            .Select(x => (Type: x.Type.GetText().ToString(), Name: x.Identifier.Text))
+                                                            .Select(x => (Type: x.Type.WithoutTrivia().GetText().ToString(), Name: x.Identifier.Text))
                                                             .ToArray();
                         GetTestCaseSourceExpressions(method, testCaseSourceAttribute, out var testCaseSourceExpression, out var testCaseSourcePathExpression);
                         varInfo.ExtraContextInternal = new TestCaseSourceContextInternal

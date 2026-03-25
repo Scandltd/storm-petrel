@@ -194,7 +194,7 @@ private static void TempMethod()
         {
             " + detectNoEqualArgNamesCondition + @"
         }
-        throw new System.InvalidOperationException(""Cannot detect appropriate test case source row to rewrite because the equality operator (==) does not return 'true' against all values of '"" + string.Join(""', '"", " + noEqualArgNames + @") + ""' argument(s)."");
+        throw new System.InvalidOperationException(""Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '"" + string.Join(""', '"", " + noEqualArgNames + @") + ""'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s)."");
     }
 }
 ";
