@@ -5,10 +5,10 @@
     /// </summary>
     public sealed class GenerationRewriteContext
     {
-        public GenerationContext GenerationContext { get; set; }
+        public GenerationContext GenerationContext { get; set; } = new GenerationContext();
         /// <summary>
         /// Actual variable value to use in the rewrite algorithm.
         /// </summary>
-        public string Value { get; set; }
+        public string Value { get; set; } = "";
     }
 }

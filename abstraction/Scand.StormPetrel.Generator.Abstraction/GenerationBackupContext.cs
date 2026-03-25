@@ -5,10 +5,10 @@
     /// </summary>
     public sealed class GenerationBackupContext
     {
-        public GenerationContext GenerationContext { get; set; }
+        public GenerationContext GenerationContext { get; set; } = new GenerationContext();
         /// <summary>
         /// File path needed to create a backup.
         /// </summary>
-        public string FilePath { get; set; }
+        public string FilePath { get; set; } = "";
     }
 }

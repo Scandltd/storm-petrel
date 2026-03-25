@@ -33,7 +33,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -41,7 +42,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -49,7 +51,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -124,10 +127,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -155,7 +155,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -163,7 +164,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -171,7 +173,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -179,7 +182,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expectedString,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "string"
                     }
                 }
             };
@@ -254,10 +258,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\",\"default(string)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -335,10 +336,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 3,
                     RowIndex = stormPetrelTestCaseSourceRowIndex1,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\",\"default(string)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -367,7 +365,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -375,7 +374,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -383,7 +383,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -458,10 +459,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetEnumerableStaticMemberPath(typeof(SomeClass))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };

@@ -5,10 +5,10 @@
     /// </summary>
     public sealed class GenerationDumpContext
     {
-        public GenerationContext GenerationContext { get; set; }
+        public GenerationContext GenerationContext { get; set; } = new GenerationContext();
         /// <summary>
         /// Expected or actual variable value to dump.
         /// </summary>
-        public object Value { get; set; }
+        public object? Value { get; set; }
     }
 }

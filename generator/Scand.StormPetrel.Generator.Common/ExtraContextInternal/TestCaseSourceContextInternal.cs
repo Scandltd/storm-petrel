@@ -8,6 +8,5 @@ namespace Scand.StormPetrel.Generator.Common.ExtraContextInternal
         public string[] NonExpectedParameterNames { get; set; }
         public string TestCaseSourceExpression { get; set; }
         public string TestCaseSourcePathExpression { get; set; }
-        public string[] TestMethodParameterDefaultValues { get; set; }
     }
 }

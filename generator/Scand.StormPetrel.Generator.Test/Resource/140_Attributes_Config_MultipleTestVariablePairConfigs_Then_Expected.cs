@@ -33,7 +33,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = intArg,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -41,7 +42,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "string"
                     }
                 }
             };
@@ -112,7 +114,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = intArg,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -120,7 +123,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "string"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -128,7 +132,9 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = expected2,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int",
+                        DefaultExpression = "-1"
                     }
                 }
             };
@@ -246,7 +252,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                             {
                                 Name = "CallerFilePath"
                             }
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -262,7 +269,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                             {
                                 Name = "SomeNameSpace.MyCustomAttribute"
                             }
-                        }
+                        },
+                        TypeToken = "string"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -278,7 +286,9 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                             {
                                 Name = "CallerMemberName"
                             }
-                        }
+                        },
+                        TypeToken = "string",
+                        DefaultExpression = "\"\""
                     }
                 }
             };
@@ -350,7 +360,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = i,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -358,7 +369,8 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "string"
                     }
                 }
             };

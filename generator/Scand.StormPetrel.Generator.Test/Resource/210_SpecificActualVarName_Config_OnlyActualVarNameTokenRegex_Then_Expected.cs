@@ -51,20 +51,19 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
-                        "experimental-method-body-statement-index:2",
                         "Test.Integration.XUnit",
                         "AssertionNoExpectedVarTest",
                         "AssertEqualTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
-                        NodeKind = 8638,
-                        NodeIndex = 0,
-                        ArgsCount = 0
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 2
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
@@ -95,20 +94,19 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
-                        "experimental-method-body-statement-index:4",
                         "Test.Integration.XUnit",
                         "AssertionNoExpectedVarTest",
                         "AssertEqualTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
-                        NodeKind = 8638,
-                        NodeIndex = 1,
-                        ArgsCount = 0
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 1,
+                        StatementIndex = 4
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
@@ -139,20 +137,19 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
-                        "experimental-method-body-statement-index:5",
                         "Test.Integration.XUnit",
                         "AssertionNoExpectedVarTest",
                         "AssertEqualTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
-                        NodeKind = 8638,
-                        NodeIndex = 0,
-                        ArgsCount = 0
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 5
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext

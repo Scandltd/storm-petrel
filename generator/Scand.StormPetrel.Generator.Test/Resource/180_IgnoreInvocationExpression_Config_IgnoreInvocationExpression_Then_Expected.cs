@@ -60,7 +60,7 @@ namespace Test.Integration.XUnit
                     "ShouldIgnoreInvocationExpressionTest",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -68,9 +68,9 @@ namespace Test.Integration.XUnit
                         "IgnoreInvocationExpressionTest",
                         "InvocationExpressionToBeIgnored[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
-                        ArgsCount = 0
+                        MethodArgsCount = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
@@ -131,7 +131,7 @@ namespace Test.Integration.XUnit
                     "ShouldNotIgnoreInvocationExpressionDueToCaseSensitivityTest",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -139,11 +139,11 @@ namespace Test.Integration.XUnit
                         "IgnoreInvocationExpressionTest",
                         "InvocationExpressiontobeignored[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
-                        ArgsCount = 0
+                        MethodArgsCount = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext

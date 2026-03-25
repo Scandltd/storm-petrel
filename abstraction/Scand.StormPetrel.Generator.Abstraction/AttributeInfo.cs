@@ -2,6 +2,6 @@
 {
     public sealed class AttributeInfo
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
     }
 }

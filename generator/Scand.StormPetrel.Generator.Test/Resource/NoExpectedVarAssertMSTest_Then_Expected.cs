@@ -46,19 +46,18 @@ public class NoExpectedVarAssertTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertTest",
                     "AssertAreEqualTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -88,19 +87,18 @@ public class NoExpectedVarAssertTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:2",
                     "NoExpectedVarAssertTest",
                     "AssertAreEqualTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 1,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 1,
+                    StatementIndex = 2
                 }
             },
             MethodSharedContext = stormPetrelSharedContext

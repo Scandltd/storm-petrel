@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource;
 using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
 using Scand.StormPetrel.Generator.Common.TargetProject;
 using Scand.StormPetrel.Shared;
@@ -233,12 +234,9 @@ namespace Scand.StormPetrel.Generator.Common
                 v.ExtraContextInternal = new InvocationExpressionContextInternal(invocationExpression.Expression.ToString())
                 {
                     MethodArgs = invocationExpression.ArgumentList,
-                    PartialExtraContext = new InvocationSourceContext()
+                    MethodNodeInfo = new MethodNodeInfo()
                     {
-                        MethodInfo = new InvocationSourceMethodInfo()
-                        {
-                            ArgsCount = invocationExpression.ArgumentList?.Arguments.Count ?? 0,
-                        },
+                        MethodArgsCount = invocationExpression.ArgumentList?.Arguments.Count ?? 0,
                     },
                 };
                 return true;
@@ -387,10 +385,7 @@ namespace Scand.StormPetrel.Generator.Common
                     else if (localVarInfo.Variable.Initializer?.Value is IdentifierNameSyntax
                                 || localVarInfo.Variable.Initializer?.Value is MemberAccessExpressionSyntax)
                     {
-                        varInfo.ExtraContextInternal = new InvocationExpressionContextInternal(localVarInfo.Variable.Initializer.Value.ToString())
-                        {
-                            PartialExtraContext = new InvocationSourceContext(),
-                        };
+                        varInfo.ExtraContextInternal = new InvocationExpressionContextInternal(localVarInfo.Variable.Initializer.Value.ToString());
                     }
                     else
                     {
@@ -450,17 +445,6 @@ namespace Scand.StormPetrel.Generator.Common
                             NonExpectedParameterNames = nonExpectedParameterInfo.Select(x => x.Name).ToArray(),
                             TestCaseSourceExpression = testCaseSourceExpression,
                             TestCaseSourcePathExpression = testCaseSourcePathExpression,
-                            TestMethodParameterDefaultValues = method
-                                                                .ParameterList
-                                                                .Parameters
-                                                                .Select(x => (Default: x.Default?.Value?.ToFullString(), x.Type))
-                                                                .Select(x => x.Default == null
-                                                                                //`default` produces `null` value out of a context what is incompatible with value types.
-                                                                                //Thus use `default(int)` against `default` for int and other value/reference types.
-                                                                                || x.Default == "default"
-                                                                                ? $"default({x.Type.WithoutTrivia().ToFullString()})"
-                                                                                : x.Default)
-                                                                .ToArray(),
                             PartialExtraContext = new TestCaseSourceContext
                             {
                                 ColumnIndex = expectedVarParameterIndex,

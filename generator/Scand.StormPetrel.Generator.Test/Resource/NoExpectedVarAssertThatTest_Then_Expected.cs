@@ -56,19 +56,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatEqualToTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 2,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 2,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -117,19 +116,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatActualWithMethodCallIsEqualToTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 3,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 3,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -181,19 +179,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatEqualConstraintTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 2,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 2,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -223,19 +220,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:2",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatEqualConstraintTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 1,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 1,
+                    StatementIndex = 2
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -285,19 +281,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatIsEqualToMultipleTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 2,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 2,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -327,19 +322,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:2",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatIsEqualToMultipleTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 1,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 1,
+                    StatementIndex = 2
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -394,19 +388,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatIsEquivalentToTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 2,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 2,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -460,19 +453,18 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "NoExpectedVarAssertThatTest",
                     "AssertThatCollectionEquivalentConstraintTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 2,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 2,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext

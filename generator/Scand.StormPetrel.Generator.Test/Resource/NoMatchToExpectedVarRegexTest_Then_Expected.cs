@@ -29,7 +29,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = arg,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -37,7 +38,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = exp,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };
@@ -101,7 +103,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = arg1,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -109,7 +112,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = exp1,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -117,7 +121,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = arg2,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -125,7 +130,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = exp2,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };
@@ -229,7 +235,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = arg1,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -237,7 +244,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = exp1,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };
@@ -339,7 +347,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = a,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -347,7 +356,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = b,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -355,7 +365,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = expected,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };
@@ -419,7 +430,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = a,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -427,7 +439,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = b,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -435,7 +448,8 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                     Value = exp,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };

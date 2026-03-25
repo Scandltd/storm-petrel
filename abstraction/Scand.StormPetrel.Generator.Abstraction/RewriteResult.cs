@@ -6,6 +6,6 @@
     public sealed class RewriteResult
     {
         public bool IsRewritten { get; set; }
-        public string BackupFilePath { get; set; }
+        public string? BackupFilePath { get; set; }
     }
 }

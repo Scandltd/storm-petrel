@@ -107,4 +107,17 @@ public class NoExpectedVarTest
         actual.Should().Be(TestedClass.TestedMethod());
         actual.Should().Be(TestedClass.ReturnInput(TestedClass.TestedMethod()));
     }
+
+    [Fact]
+    public void WhenActualIsNullableAndThrowIfNullCheckThenShouldUpdateExpectedBaselinesTest()
+    {
+        //Act
+        var actualNullable = TestedClass.TestedClassResultMethod();
+
+        //Assert
+        actualNullable?.StringProperty.Should().Be("Incorrect value");
+        // Throw if null
+        ArgumentNullException.ThrowIfNull(actualNullable);
+        actualNullable.IntProperty.Should().Be(123);
+    }
 }

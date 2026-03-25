@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource;
 using Scand.StormPetrel.Generator.Common.AssertExpressionDetector;
 using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
 using Scand.StormPetrel.Shared;
@@ -106,21 +106,13 @@ namespace Scand.StormPetrel.Generator.Common
                     ExpectedVarExtraContextInternal = new InvocationExpressionWithEmbeddedExpectedContextInternal
                     {
                         ExpectedExpression = expectedExpression,
-                        PartialExtraContext = new InvocationSourceContext
+                        MethodBodyStatementInfo = new MethodBodyStatementInfo
                         {
-                            MethodInfo = new InvocationSourceMethodInfo
-                            {
-                                ArgsCount = method.ParameterList.Parameters.Count,
-                                NodeIndex = argumentToIndex[argument],
-                                NodeKind = argument.RawKind,
-                            },
-                            Path = new[]
-                                    {
-                                        $"experimental-method-body-statement-index:{indexOfBodyStatement}",
-                                    }
-                                    .Concat(SyntaxNodeHelper.GetValuePath(method))
-                                    .ToArray(),
+                            StatementNodeIndex = argumentToIndex[argument],
+                            StatementNodeKind = argument.RawKind,
+                            StatementIndex = indexOfBodyStatement,
                         },
+                        Path = SyntaxNodeHelper.GetValuePath(method),
                     },
                 });
             }

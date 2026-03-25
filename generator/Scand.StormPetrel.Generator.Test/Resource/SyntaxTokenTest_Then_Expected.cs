@@ -48,19 +48,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBeMinusTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -106,19 +105,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBePlusTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -164,19 +162,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBeSingleQuouteTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -222,19 +219,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBeExclamationTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -280,19 +276,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualMinusTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -338,19 +333,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualDefaultExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -396,19 +390,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualDefaultExpressionWithTypeTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -454,19 +447,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualInterpolatedStringTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -512,19 +504,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualInterpolatedVerbatimStringTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -574,19 +565,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualInterpolatedRawStringTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -636,19 +626,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBeInterpolatedStringExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -697,19 +686,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBeOpenBracketTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -758,19 +746,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEquivalentNullTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -816,19 +803,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -858,19 +844,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:1",
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 1
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -900,19 +885,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:2",
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 2
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -942,19 +926,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:3",
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 3
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -984,19 +967,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:4",
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 4
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -1047,19 +1029,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualBitwiseNotTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -1115,19 +1096,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "ShouldBeOmittedArraySizeExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -1178,19 +1158,18 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "SyntaxTokenTest",
                     "AssertEqualTupleTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext

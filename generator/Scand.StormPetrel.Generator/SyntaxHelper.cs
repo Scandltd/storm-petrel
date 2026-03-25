@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Scand.StormPetrel.Generator.Abstraction;
 using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource;
 using Scand.StormPetrel.Generator.Common;
 using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
 using System;
@@ -80,7 +81,7 @@ namespace Scand.StormPetrel.Generator
             {
                 string stormPetrelMethodNodeVarName = null;
                 ObjectCreationExpressionSyntax methodInfoExpression = null;
-                if (invocationSourceContext.PartialExtraContext.MethodInfo != null)
+                if (invocationSourceContext.MethodNodeInfo != null)
                 {
                     if (_ignoreInvocationExpressionRegex == null || !_ignoreInvocationExpressionRegex.IsMatch(invocationSourceContext.InvocationExpressionStormPetrel))
                     {
@@ -98,17 +99,17 @@ namespace Scand.StormPetrel.Generator
                     }
 
                     methodInfoExpression = SyntaxFactory.ObjectCreationExpression(
-                        SyntaxFactory.IdentifierName($"{typeof(InvocationSourceMethodInfo).FullName}()"))
+                        SyntaxFactory.IdentifierName($"{typeof(MethodNodeInfo).FullName}()"))
                         .WithInitializer(
                             SyntaxFactory.InitializerExpression(
                                 SyntaxKind.ObjectInitializerExpression,
                                 SyntaxFactory.SeparatedList(new ExpressionSyntax[]
                                 {
-                                        stormPetrelMethodNodeVarName == null ? null : GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeKind), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeKind")),
-                                        stormPetrelMethodNodeVarName == null ? null : GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeIndex), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeIndex")),
-                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.ArgsCount), SyntaxFactory.LiteralExpression(
+                                        stormPetrelMethodNodeVarName == null ? null : GetPropertyAssignment(nameof(MethodNodeInfo.NodeKind), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeKind")),
+                                        stormPetrelMethodNodeVarName == null ? null : GetPropertyAssignment(nameof(MethodNodeInfo.NodeIndex), SyntaxFactory.ParseExpression($"{stormPetrelMethodNodeVarName}.NodeIndex")),
+                                        GetPropertyAssignment(nameof(MethodNodeInfo.MethodArgsCount), SyntaxFactory.LiteralExpression(
                                                 SyntaxKind.StringLiteralExpression,
-                                                SyntaxFactory.Literal(invocationSourceContext.PartialExtraContext.MethodInfo.ArgsCount))),
+                                                SyntaxFactory.Literal(invocationSourceContext.MethodNodeInfo.MethodArgsCount))),
                                 }
                                 .Where(a => a != null)
                             )
@@ -161,7 +162,7 @@ namespace Scand.StormPetrel.Generator
                                         .NonExpectedParameterNames
                                         .Select((x, i) => (Name: x, Condition:
 $@"stormPetrelRow.Length > {i} && ({x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual({x}, stormPetrelRow[{i}]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements({x}, stormPetrelRow[{i}]))
-    || stormPetrelRow.Length <= {i} && {x} == {testCaseSourceContext.TestMethodParameterDefaultValues[i]}"))
+    || stormPetrelRow.Length <= {i} && {x} == {GetCompatibleDefaultExpression(parameters.Where(y => y.Identifier.Text == x).Single())}"))
                                         .ToArray();
                 var breakCondition = string.Join(") &&\n            (", breakConditions.Select(x => x.Condition));
                 breakCondition = breakConditions.Length <= 1 ? breakCondition : $"({breakCondition})";
@@ -218,7 +219,7 @@ private static void TempMethod()
                                             SyntaxFactory.Literal(testCaseSourceContext.PartialExtraContext.ColumnIndex)
                                 )),
                                 GetPropertyAssignment(nameof(TestCaseSourceContext.RowIndex), SyntaxFactory.IdentifierName(testCaseSourceRowIndexVarName)),
-                                GetPropertyAssignment(nameof(TestCaseSourceContext.Path), GetPathExpression(testCaseSourceContext)),
+                                GetPropertyAssignment(nameof(TestCaseSourceContext.Path), SyntaxFactory.ParseExpression(testCaseSourceContext.TestCaseSourcePathExpression)),
                             }
                         )
                     )
@@ -241,23 +242,23 @@ private static void TempMethod()
             }
             else if (info.ExpectedVarExtraContextInternal is InvocationExpressionWithEmbeddedExpectedContextInternal embeddedExpectedContext)
             {
-                var currentMethodInfo = embeddedExpectedContext.PartialExtraContext.MethodInfo;
+                var currentMethodBodyStatementInfo = embeddedExpectedContext.MethodBodyStatementInfo;
                 var methodInfoExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(InvocationSourceMethodInfo).FullName}()"))
+                    SyntaxFactory.IdentifierName($"{typeof(MethodBodyStatementInfo).FullName}()"))
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
                             SyntaxFactory.SeparatedList(new ExpressionSyntax[]
                             {
-                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeKind), SyntaxFactory.LiteralExpression(
+                                        GetPropertyAssignment(nameof(MethodBodyStatementInfo.StatementNodeKind), SyntaxFactory.LiteralExpression(
                                                 SyntaxKind.NumericLiteralExpression,
-                                                SyntaxFactory.Literal(currentMethodInfo.NodeKind))),
-                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.NodeIndex), SyntaxFactory.LiteralExpression(
+                                                SyntaxFactory.Literal(currentMethodBodyStatementInfo.StatementNodeKind))),
+                                        GetPropertyAssignment(nameof(MethodBodyStatementInfo.StatementNodeIndex), SyntaxFactory.LiteralExpression(
                                                 SyntaxKind.NumericLiteralExpression,
-                                                SyntaxFactory.Literal(currentMethodInfo.NodeIndex))),
-                                        GetPropertyAssignment(nameof(InvocationSourceMethodInfo.ArgsCount), SyntaxFactory.LiteralExpression(
+                                                SyntaxFactory.Literal(currentMethodBodyStatementInfo.StatementNodeIndex))),
+                                        GetPropertyAssignment(nameof(MethodBodyStatementInfo.StatementIndex), SyntaxFactory.LiteralExpression(
                                                 SyntaxKind.StringLiteralExpression,
-                                                SyntaxFactory.Literal(currentMethodInfo.ArgsCount))),
+                                                SyntaxFactory.Literal(currentMethodBodyStatementInfo.StatementIndex))),
                             }
                         )
                     )
@@ -271,7 +272,7 @@ private static void TempMethod()
                             SyntaxKind.ObjectInitializerExpression,
                             SyntaxFactory.SeparatedList(new ExpressionSyntax[]
                             {
-                                GetPropertyAssignment(nameof(InvocationSourceContext.Path), GetArrayInitializer(embeddedExpectedContext.PartialExtraContext.Path, ToStringLiteralExpression)),
+                                GetPropertyAssignment(nameof(InvocationSourceContext.Path), GetArrayInitializer(embeddedExpectedContext.Path, ToStringLiteralExpression)),
                                 GetPropertyAssignment(nameof(InvocationSourceContext.MethodInfo), methodInfoExpression),
                             }
                         )
@@ -330,7 +331,8 @@ private static void TempMethod()
 
             string GetBlockIndexVarName(string varName) => blockIndex == 0 ? varName : varName + blockIndex.ToString(CultureInfo.InvariantCulture);
             // To allow assignment for a non-nullable property in nullable context
-            T WithNullableDisableRestore<T>(T node) where T: CSharpSyntaxNode =>
+            // Do not remove this method even it seems redundant: some of inegration tests should fail in this case.
+            T WithNullableDisableRestore<T>(T node) where T : CSharpSyntaxNode =>
                 node
                     .WithLeadingTrivia(
                         IfDirectiveTriviaForNullableEnable(),
@@ -404,7 +406,12 @@ private static void TempMethod()
                                                                 )),
                                                         typeof(AttributeInfo).FullName)
                                                       ),
-                            })
+                                GetPropertyAssignment(nameof(ParameterInfo.TypeToken), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(GetTypeToken(x)))),
+                                GetDefaultValue(x) == null
+                                    ? null
+                                    : GetPropertyAssignment(nameof(ParameterInfo.DefaultExpression), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(GetDefaultValue(x)))),
+                            }
+                            .Where(y => y != null))
                         )
                     ),
                     typeof(ParameterInfo).FullName
@@ -465,36 +472,20 @@ private static void TempMethod()
             return SyntaxFactory.EqualsValueClause(ie);
         }
 
-        private static InvocationExpressionSyntax GetPathExpression(TestCaseSourceContextInternal context)
-        {
-            var pathExpression = GetArrayInitializer(
-            new[]
-            {
-                ToStringLiteralExpression($"experimental-parameter-default-values:{JsonSerializerForTargetProject.SerializeStringArray(context.TestMethodParameterDefaultValues)}")
-            });
-
-            var unionInvocation = SyntaxFactory.InvocationExpression(
-                SyntaxFactory.MemberAccessExpression(
-                    SyntaxKind.SimpleMemberAccessExpression,
-                    pathExpression,
-                    SyntaxFactory.IdentifierName("Union")
-                ),
-                SyntaxFactory.ArgumentList(
-                    SyntaxFactory.SingletonSeparatedList(
-                        SyntaxFactory.Argument(
-                            SyntaxFactory.ParseExpression(context.TestCaseSourcePathExpression)
-                        )
-                    )
-                )
-            );
-
-            return SyntaxFactory.InvocationExpression(
-                SyntaxFactory.MemberAccessExpression(
-                    SyntaxKind.SimpleMemberAccessExpression,
-                    unionInvocation,
-                    SyntaxFactory.IdentifierName("ToArray")
-                )
-            );
-        }
+        private static string GetTypeToken(ParameterSyntax x) => x.Type.WithoutTrivia().ToFullString();
+        private static string GetDefaultValue(ParameterSyntax x) => x.Default?.Value?.ToFullString();
+        private static string GetCompatibleDefaultExpression(ParameterSyntax x) => GetCompatibleDefaultExpression(GetTypeToken(x), GetDefaultValue(x));
+        /// <summary>
+        /// CAUTION: duplicated in GeneratorRewriter.
+        /// `default` keyword produces `null` value out of a context what is incompatible with value types.
+        /// Thus use `default(int)` against `default` for int and other value/reference types.
+        /// </summary>
+        /// <param name="typeToken"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        private static string GetCompatibleDefaultExpression(string typeToken, string defaultValue) =>
+            defaultValue == null || defaultValue == "default"
+                ? $"default({typeToken})"
+                : defaultValue;
     }
 }

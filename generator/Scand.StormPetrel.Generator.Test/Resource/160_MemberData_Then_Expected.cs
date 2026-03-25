@@ -33,7 +33,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -41,7 +42,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -49,7 +51,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -124,10 +127,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(Data))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(Data))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -155,7 +155,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -163,7 +164,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -171,7 +173,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -246,10 +249,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeNameSpace.SomeType), nameof(Data))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeNameSpace.SomeType), nameof(Data))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -277,7 +277,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -285,7 +286,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -293,7 +295,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -368,10 +371,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(Data))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(Data))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -399,7 +399,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -407,7 +408,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -415,7 +417,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -490,10 +493,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(Data))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(Data))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -521,7 +521,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -529,7 +530,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -537,7 +539,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -612,10 +615,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(Data))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(Data))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -643,7 +643,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -651,7 +652,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -659,7 +661,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -734,10 +737,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int)\",\"default(int)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(MemberDataTests), nameof(DataMethodWithArgsForNamedParameters))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
@@ -765,7 +765,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = x,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int[]"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -773,7 +774,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = y,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "IEnumerable<int>"
                     },
                     new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
@@ -781,7 +783,8 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                         Value = expected,
                         Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                         {
-                        }
+                        },
+                        TypeToken = "int"
                     }
                 }
             };
@@ -856,10 +859,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
-                    Path = new[]
-                    {
-                        "experimental-parameter-default-values:[\"default(int[])\",\"default(IEnumerable<int>)\",\"default(int)\"]"
-                    }.Union(Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(DataWithEnumerable))).ToArray()
+                    Path = Scand.StormPetrel.Rewriter.DataSourceHelper.GetPath(typeof(SomeType), nameof(DataWithEnumerable))
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };

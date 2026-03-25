@@ -112,22 +112,27 @@ Line 2
         [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 0, "file:100_PatternMatch_NewCode_ArrowMethod", "100_PatternMatch_NewCode_ArrowMethod_Then_Expected")]
         [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 1, "file:100_PatternMatch_NewCode_ArrowMethodSwitch2", "100_PatternMatch_NewCode_ArrowMethodSwitch2_Then_Expected")]
         [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBe123" }, SyntaxKind.NumericLiteralExpression, 2, Const100, "105_InvocationExpressionParametersOnly_Then_Expected")]
-        [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBe123" }, SyntaxKind.Argument, 0, Const100, "105_InvocationExpressionParametersOnly_Then_Expected", 1)]
-        [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBeArgumentWithNameColon" }, SyntaxKind.Argument, 1, Const100, "105_InvocationExpressionParametersOnly_ArgumentWithNameColon_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeCorrectTrivia" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromArgumentAndMethodBodyStatement" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromArgumentAndMethodBodyStatement_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromArgumentAndLongestTriviaFromAncestors" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromArgumentAndLongestTriviaFromAncestors_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromArgumentAndLongestTriviaFromArgumentList" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromArgumentAndLongestTriviaFromArgumentList_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromCodeLineWithoutDot" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromCodeLineWithoutDot_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromAssertEqual" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromAssertEqual_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromLongestTriviaOfAncestorBodyStatement" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromLongestTriviaOfAncestorBodyStatement_Then_Expected", 0)]
-        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromLongestTriviaOfExpressionBody" }, SyntaxKind.Argument, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromLongestTriviaOfExpressionBody_Then_Expected", 0)]
-        public async Task ExpressionRewriterTest(string inputCodeResourceName, string[] declarationPath, SyntaxKind expressionKind, int expressionIndex, string initializeCode, string expectedResourceFileName, int? methodBodyStatementIndex = null)
+        public async Task ExpressionRewriterTest(string inputCodeResourceName, string[] declarationPath, SyntaxKind expressionKind, int expressionIndex, string initializeCode, string expectedResourceFileName)
             => await RewriteTestImplementation(
-                        async () => new ExpressionRewriter(declarationPath, (int)expressionKind, expressionIndex, await ResourceOrSelfAsync(initializeCode), methodBodyStatementIndex),
+                        async () => new ExpressionRewriter(declarationPath, (int)expressionKind, expressionIndex, await ResourceOrSelfAsync(initializeCode)),
                         inputCodeResourceName,
                         expectedResourceFileName);
-
+        [Theory]
+        [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBe123" }, 0, Const100, "105_InvocationExpressionParametersOnly_Then_Expected", 1)]
+        [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBeArgumentWithNameColon" }, 1, Const100, "105_InvocationExpressionParametersOnly_ArgumentWithNameColon_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeCorrectTrivia" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromArgumentAndMethodBodyStatement" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromArgumentAndMethodBodyStatement_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromArgumentAndLongestTriviaFromAncestors" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromArgumentAndLongestTriviaFromAncestors_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromArgumentAndLongestTriviaFromArgumentList" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromArgumentAndLongestTriviaFromArgumentList_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromCodeLineWithoutDot" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromCodeLineWithoutDot_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromAssertEqual" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromAssertEqual_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromLongestTriviaOfAncestorBodyStatement" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromLongestTriviaOfAncestorBodyStatement_Then_Expected", 0)]
+        [InlineData("106_InvocationExpressionParametersTrivia", new[] { "Foo", "ShouldBeTriviaFromLongestTriviaOfExpressionBody" }, 0, List2ElementsMultiline, "106_InvocationExpressionParametersTrivia_ShouldBeTriviaFromLongestTriviaOfExpressionBody_Then_Expected", 0)]
+        public async Task BodyStatementRewriterTest(string inputCodeResourceName, string[] declarationPath, int expressionIndex, string initializeCode, string expectedResourceFileName, int methodBodyStatementIndex)
+            => await RewriteTestImplementation(
+                        async () => new BodyStatementRewriter(declarationPath, await ResourceOrSelfAsync(initializeCode), methodBodyStatementIndex, (int)SyntaxKind.Argument, expressionIndex),
+                        inputCodeResourceName,
+                        expectedResourceFileName);
         [Theory]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 0, 0, Const123, "120_Attributes_NewCode_Then_Expected")]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 0, 1, Const123, "120_Attributes_NewCode01_Then_Expected")]

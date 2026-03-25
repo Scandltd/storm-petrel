@@ -46,19 +46,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "AssertEqualWithAwait"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -105,19 +104,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "AssertEqualWithAwaitAndColonName"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 1,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 1,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -164,19 +162,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "FluentAssertionsWithAwait"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -223,19 +220,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ShouldBeWithAwait"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -282,19 +278,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ArrowExpressionBody"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -340,19 +335,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ArrowExpressionBodyWithAssertEqual"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -398,19 +392,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ArrowExpressionBodyWithAssertEqualAndAwait"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 1,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 1,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -456,19 +449,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ArrowExpressionBodyWithFluentAssertionsWithAwait"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 0
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -496,7 +488,8 @@ public class NoActualAndNoExpectedVarTestStormPetrel
                     Value = arg,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };
@@ -523,19 +516,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ArrowExpressionBodyWithDefaultArgs"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 1,
-                    ArgsCount = 1
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 1,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext
@@ -563,7 +555,8 @@ public class NoActualAndNoExpectedVarTestStormPetrel
                     Value = x,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 },
                 new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
@@ -571,7 +564,8 @@ public class NoActualAndNoExpectedVarTestStormPetrel
                     Value = y,
                     Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
                     {
-                    }
+                    },
+                    TypeToken = "int"
                 }
             }
         };
@@ -598,19 +592,18 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
-                    "experimental-method-body-statement-index:0",
                     "NoActualAndNoExpectedVarTest",
                     "ArrowExpressionBodyWithArgs"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
-                    NodeKind = 8638,
-                    NodeIndex = 0,
-                    ArgsCount = 2
+                    StatementNodeKind = 8638,
+                    StatementNodeIndex = 0,
+                    StatementIndex = 0
                 }
             },
             MethodSharedContext = stormPetrelSharedContext

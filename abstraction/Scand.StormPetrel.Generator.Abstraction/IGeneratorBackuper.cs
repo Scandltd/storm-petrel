@@ -10,6 +10,6 @@
         /// </summary>
         /// <param name="generationBackupContext"></param>
         /// <returns>Backup file path, URI, or another identifier where the backup is created, or null if not created.</returns>
-        string Backup(GenerationBackupContext generationBackupContext);
+        string? Backup(GenerationBackupContext generationBackupContext);
     }
 }

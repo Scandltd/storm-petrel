@@ -1,11 +1,11 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Scand.StormPetrel.Generator.Common.ExtraContextInternal
 {
-    internal class InvocationExpressionContextInternal : AbstractExtraContextInternal<InvocationSourceContext>
+    internal class InvocationExpressionContextInternal : AbstractExtraContextInternal
     {
         private readonly IEnumerable<string> _invocationExpressionSplit;
         public InvocationExpressionContextInternal(string invocationExpression)
@@ -25,9 +25,10 @@ namespace Scand.StormPetrel.Generator.Common.ExtraContextInternal
             var methodNameIndex = expressionPath.Length - 1;
             //Select any method. Appropriate overload should be selected by method arguments
             expressionPath[methodNameIndex] = expressionPath[methodNameIndex]
-                + (PartialExtraContext.MethodInfo != null ? "[*]" : "");
+                + (MethodNodeInfo != null ? "[*]" : "");
             return expressionPath;
         }
+        public MethodNodeInfo MethodNodeInfo { get; set; }
         public string InvocationExpressionStormPetrel
         {
             get

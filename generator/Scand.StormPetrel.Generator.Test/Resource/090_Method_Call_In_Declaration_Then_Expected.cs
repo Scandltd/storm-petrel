@@ -61,18 +61,18 @@ namespace Test.Integration.XUnit
                     "Test1",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
                         "SomeClass",
                         "Expected[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
-                        ArgsCount = 0
+                        MethodArgsCount = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
@@ -133,7 +133,7 @@ namespace Test.Integration.XUnit
                     "WhenMethodNameOnlyThenFullPathShouldBeGeneratedInExpectedVariableInvocationExpressionPath",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -141,11 +141,11 @@ namespace Test.Integration.XUnit
                         "UnitTest1",
                         "Expected[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
-                        ArgsCount = 0
+                        MethodArgsCount = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
@@ -206,7 +206,7 @@ namespace Test.Integration.XUnit
                     "WhenMethodWithArgsThenTheArgsShouldBeTransferredToGenerationContext",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceContext()
+                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -214,11 +214,11 @@ namespace Test.Integration.XUnit
                         "UnitTest1",
                         "Expected[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSourceMethodInfo()
+                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
-                        ArgsCount = 5
+                        MethodArgsCount = 5
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
