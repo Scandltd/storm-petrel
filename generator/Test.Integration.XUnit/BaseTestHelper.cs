@@ -1,7 +1,8 @@
 ﻿namespace Test.Integration.XUnit
 {
-    internal static class BaseTestHelper
+    internal sealed class BaseTestHelper
     {
+        public string? NullableStringProperty { get; set; }
         public static int GetExpected() => 123;
 
         public static int GetExpectedPropertyArrow => 123;
@@ -150,6 +151,8 @@
             2 => 5,
             _ => 6,
         };
+
+        public static BaseTestHelper GetExpectedAsFactoryMethodCall() => new();
 
         #region Ignored Methods
         public static void VoidMethodToIgnore()

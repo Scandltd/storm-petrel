@@ -335,6 +335,22 @@ namespace Test.Integration.XUnit
             actual.Should().Be(expected);
         }
 
+        [Fact]
+        public void TestGetExpectedAsFactoryMethodCall()
+        {
+            //Arrange
+            var expected = BaseTestHelper.GetExpectedAsFactoryMethodCall();
+
+            //Act
+            var actual = new BaseTestHelper
+            {
+                NullableStringProperty = "Some actual value not matching to the expected",
+            };
+
+            //Assert
+            actual.Should().BeEquivalentTo(expected);
+        }
+
         private static int GetExpected() => 123;
 
         private static int GetExpectedForMultipleAssignment() => 123;

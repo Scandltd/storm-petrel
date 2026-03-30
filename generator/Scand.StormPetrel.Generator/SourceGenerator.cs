@@ -68,6 +68,10 @@ namespace Scand.StormPetrel.Generator
                 {
                     newClass = newClass.RemoveNodes(csharp14ExtensionChildrenToRemove, NodeRemoveOptions);
                 }
+                newClass = RenameChildConstructorsAndOtherTokensIfNeed(newClass);
+                var newTypeName = @class.Identifier.Text + "StormPetrel";
+                newClass = newClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
+                var newClassCopyBeforeMethodChanges = newClass;
                 do
                 {
                     if (cancellationToken.IsCancellationRequested)
@@ -95,9 +99,6 @@ namespace Scand.StormPetrel.Generator
                             {
                                 skipNewClassChildMethodCount++;
                                 newClass = newClass.InsertNodesAfter(method, new[] { extraMethod });
-                                newClass = RenameChildConstructorsIfNeed(newClass);
-                                var newTypeName = @class.Identifier.Text + "StormPetrel";
-                                newClass = newClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
                             }
                         }
                         else if (MethodHelperCommon.IsExtensionMethod(method) && !MethodHelperCommon.HasPrivateOrNoAccessModifiers(method))
@@ -157,13 +158,14 @@ namespace Scand.StormPetrel.Generator
                             addStormPetrelUseCaseIndex = false;
                         }
                         newClass = newClass.ReplaceNode(oldMethod, newMethod);
-                        newClass = RenameChildConstructorsIfNeed(newClass);
-                        var newTypeName = @class.Identifier.Text + "StormPetrel";
-                        newClass = newClass.WithIdentifier(SyntaxFactory.ParseToken(newTypeName));
                     }
                     logger.Information("Test variable pairs count for {MethodName}: {Count}", method.Identifier.Text, varPairInfoList.Count);
                 }
                 while (true);
+                if (newClass == newClassCopyBeforeMethodChanges)
+                {
+                    return @class;
+                }
                 newClass = GeneratedCodeAttribute.WithAttribute(newClass);
                 return newClass;
             });
@@ -203,10 +205,91 @@ namespace Scand.StormPetrel.Generator
             newRoot = newRoot.WithLeadingTrivia(newLeadingTrivia);
             return newRoot.NormalizeWhitespace();
 
-            ClassDeclarationSyntax RenameChildConstructorsIfNeed(ClassDeclarationSyntax @class) =>
-                @class.Identifier.Text.EndsWith("StormPetrel", StringComparison.OrdinalIgnoreCase)
-                    ? @class //no need to rename, already renamed
-                    : @class.ReplaceNodes(@class.ChildNodes().OfType<ConstructorDeclarationSyntax>(), (x, _) => x.WithIdentifier(SyntaxFactory.Identifier(x.Identifier.Text + "StormPetrel")));
+            ClassDeclarationSyntax RenameChildConstructorsAndOtherTokensIfNeed(ClassDeclarationSyntax @class)
+            {
+                if (@class.Identifier.Text.EndsWith("StormPetrel", StringComparison.OrdinalIgnoreCase))
+                {
+                    return @class; //no need to rename, already renamed
+                }
+
+                var oldName = @class.Identifier.Text;
+                var newName = oldName + "StormPetrel";
+
+                // Replace class identifier first preserving trivia
+                var newClass = @class.WithIdentifier(SyntaxFactory.Identifier(@class.Identifier.LeadingTrivia, newName, @class.Identifier.TrailingTrivia));
+
+                // Replace any identifier tokens inside the class that match the old name (constructors, type references, etc.)
+                // But do not rename tokens that are part of a qualified name (e.g. Namespace.MyType) or member access where
+                // the identifier is qualified by a namespace-like segment.
+                var tokensToReplace = newClass
+                    .DescendantTokens()
+                    .Where(x => x.IsKind(SyntaxKind.IdentifierToken) && x.ValueText == oldName)
+                    .Where(x =>
+                    {
+                        var parent = x.Parent;
+                        if (parent == null)
+                        {
+                            return false;
+                        }
+
+                        // Do not rename identifiers that are part of attribute usages because they are definitely do not match the class we rename
+                        if (parent.AncestorsAndSelf().OfType<AttributeSyntax>().Any())
+                        {
+                            return false;
+                        }
+
+                        // Allow constructor declarations (e.g. `public MyClass() { }`)
+                        if (parent is ConstructorDeclarationSyntax)
+                        {
+                            return true;
+                        }
+
+                        // Only allow renames for a few specific SimpleName usages:
+                        // - object creation expressions (constructor calls): `new MyClass()`
+                        // - type names in variable/field declarations: `MyClass x;` (covers local and field declarations)
+                        // - type names in property declarations: `public MyClass Prop { get; set; }`
+                        if (parent is SimpleNameSyntax simpleName)
+                        {
+                            var pp = simpleName.Parent;
+                            // Skip qualified/alias/member access (Namespace.MyType, global::MyType, obj.Type)
+                            if (pp is QualifiedNameSyntax q && q.Right == simpleName
+                                || pp is AliasQualifiedNameSyntax a && a.Name == simpleName
+                                // Member access can be used in expressions (obj.Type) or in some type references; treat as qualified and skip.
+                                || pp is MemberAccessExpressionSyntax m && m.Name == simpleName)
+                            {
+                                return false;
+                            }
+
+                            if (pp is NullableTypeSyntax)
+                            {
+                                pp = pp.Parent;
+                            }
+
+                            if (
+                                // Constructor call: `new MyClass()`
+                                pp is ObjectCreationExpressionSyntax
+                                // Variable/field declaration: `MyClass x;` (covers local declarations and fields)
+                                || pp is VariableDeclarationSyntax
+                                // Property declaration: `public MyClass Prop { get; set; }`
+                                || pp is PropertyDeclarationSyntax
+                                // Method declaration: `public MyClass Method()`
+                                || pp is MethodDeclarationSyntax
+                                // Named tuple element type: `(MyClass x, int y)`
+                                || pp is DeclarationExpressionSyntax
+                                // Generic type argument: `MyGenericType<MyClass>`
+                                || pp is TypeArgumentListSyntax)
+                            {
+                                return true;
+                            }
+
+                            return false;
+                        }
+
+                        return false;
+                    });
+                newClass = newClass.ReplaceTokens(tokensToReplace, (x, _) => SyntaxFactory.Identifier(x.LeadingTrivia, newName, x.TrailingTrivia));
+                return newClass;
+            }
 
             SyntaxNode CandidateToRemove(SyntaxNode x) =>
                 x is ClassDeclarationSyntax

@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NSubstitute;
 using Scand.StormPetrel.Generator.Common.TargetProject;
 using Serilog;
@@ -34,6 +33,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("120_Property")]
         [InlineData("120_PropertyFromAnotherClass")]
         [InlineData("130_ClassWithConstructor")]
+        [InlineData("135_SelfConsumingClass")]
         [InlineData("140_Attributes")]
         [InlineData("140_Attributes", "MultipleTestVariablePairConfigs")]
         [InlineData("140_Attributes", "MultipleTestVariablePairConfigsReverseOrder")]

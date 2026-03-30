@@ -51,7 +51,7 @@ namespace Test.Integration.XUnit
 
     public class ClassWithConstructorAndTwoTestMethodsTest
     {
-        public ClassWithConstructorTest()
+        public ClassWithConstructorAndTwoTestMethodsTest()
         {
         }
 
