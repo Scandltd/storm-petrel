@@ -19,10 +19,14 @@ partial class UtilsStormPetrel
         {
             action();
         }
+#pragma warning disable CS0168 // Variable is declared but never used. Suppress for testing purposes: avoid auto-generating code compilation failure.
+
         catch (Exception e)
         {
             return e;
         }
+
+#pragma warning restore CS0168 // Variable is declared but never used
 
         return null;
     }
@@ -33,11 +37,89 @@ partial class UtilsStormPetrel
         {
             action();
         }
+#pragma warning disable CS0168 // Variable is declared but never used. Suppress for testing purposes: avoid auto-generating code compilation failure.
+
         catch (Exception e)
         {
             return (8805, 0);
         }
 
+#pragma warning restore CS0168 // Variable is declared but never used
+
         return (8805, 1);
+    }
+
+    public static string MethodWithIgnoredArrowsAndReturns()
+    {
+#pragma warning disable CS8321 // Local function is declared but never used. Suppress for testing purposes: avoid auto-generating code compilation failure.
+
+        static string localFunction() => "LocalFunctionResult";
+        static string localFunctionWithReturn()
+        {
+            return "LocalFunctionWithReturnResult";
+        }
+
+#pragma warning restore CS8321 // Local function is declared but never used
+
+        var sum = new[]
+        {
+            1,
+            2
+        }.Select(x => x * 2).ToArray();
+        var sumWithReturn = new[]
+        {
+            1,
+            2
+        }.Select(x =>
+        {
+            return x * 2;
+        }).ToArray();
+        var sumViaParenthesizedLambda = new Func<int, int, int>((x, y) => x + y);
+        var sumViaParenthesizedLambdaAndReturn = new Func<int, int, int>((x, y) =>
+        {
+            return x + y;
+        });
+        var sumViaAnonymousMethod = new Func<int, int, int>(delegate (int x, int y)
+        {
+            return x + y;
+        });
+        return $"Stuff above result: {localFunction()}, {localFunctionWithReturn()}, {sum}, {sumWithReturn}, {sumViaParenthesizedLambda(1, 2)}, {sumViaParenthesizedLambda(3, 4)}, {sumViaAnonymousMethod(5, 6)}";
+    }
+
+    public static (int NodeKind, int NodeIndex) MethodWithIgnoredArrowsAndReturnsStormPetrel()
+    {
+#pragma warning disable CS8321 // Local function is declared but never used. Suppress for testing purposes: avoid auto-generating code compilation failure.
+
+        static string localFunction() => "LocalFunctionResult";
+        static string localFunctionWithReturn()
+        {
+            return "LocalFunctionWithReturnResult";
+        }
+
+#pragma warning restore CS8321 // Local function is declared but never used
+
+        var sum = new[]
+        {
+            1,
+            2
+        }.Select(x => x * 2).ToArray();
+        var sumWithReturn = new[]
+        {
+            1,
+            2
+        }.Select(x =>
+        {
+            return x * 2;
+        }).ToArray();
+        var sumViaParenthesizedLambda = new Func<int, int, int>((x, y) => x + y);
+        var sumViaParenthesizedLambdaAndReturn = new Func<int, int, int>((x, y) =>
+        {
+            return x + y;
+        });
+        var sumViaAnonymousMethod = new Func<int, int, int>(delegate (int x, int y)
+        {
+            return x + y;
+        });
+        return (8805, 0);
     }
 }

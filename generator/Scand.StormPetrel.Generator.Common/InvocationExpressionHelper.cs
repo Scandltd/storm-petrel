@@ -31,12 +31,14 @@ namespace Scand.StormPetrel.Generator.Common
                 }
                 SyntaxNode newNode = null;
                 if (node is ReturnStatementSyntax @return
-                        && !nodesWithDescendantSwitchExpressionArm.Contains(@return))
+                        && !nodesWithDescendantSwitchExpressionArm.Contains(@return)
+                        && !IsInsideLocalFunctionOrLambda(@return))
                 {
                     newNode = @return.WithExpression(NewExpression(@return));
                 }
                 else if (node is ArrowExpressionClauseSyntax arrow
-                            && !nodesWithDescendantSwitchExpressionArm.Contains(arrow))
+                            && !nodesWithDescendantSwitchExpressionArm.Contains(arrow)
+                            && !IsInsideLocalFunctionOrLambda(arrow))
                 {
                     var arrowBody = GetNodeExpressionBody(syntaxNode);
                     if (arrowBody != null)
@@ -62,6 +64,13 @@ namespace Scand.StormPetrel.Generator.Common
                 }
                 return newNode == null;
             }).Count();
+
+            bool IsInsideLocalFunctionOrLambda(SyntaxNode n) => n.Ancestors()
+                .Any(x =>
+                        x is LocalFunctionStatementSyntax
+                        || x is SimpleLambdaExpressionSyntax
+                        || x is ParenthesizedLambdaExpressionSyntax
+                        || x is AnonymousMethodExpressionSyntax);
 
             if (nodeToNewNode.Count != 0)
             {
