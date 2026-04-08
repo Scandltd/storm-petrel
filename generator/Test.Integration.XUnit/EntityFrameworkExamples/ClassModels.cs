@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-
 namespace Test.Integration.XUnit.EntityFrameworkExamples;
 
 public class User

@@ -10,14 +10,14 @@ public class ClassBasedTests
     public async Task UserWithPosts()
     {
         //Arrange
-        var dbName = $"{GetType().FullName}-{nameof(UserWithPosts)}";
+        var dbName = $"{GetType().FullName}-UserWithPosts";
 
         var user = new User
         {
             Email = "user@test.com",
             Posts =
             {
-                new Post 
+                new Post
                 {
                     Title = "Post 1",
                 },
@@ -45,7 +45,6 @@ public class ClassBasedTests
 
         //Assert
         var expected = new User();
-
         actual.Should().BeEquivalentTo(expected);
     }
 
@@ -69,16 +68,14 @@ public class ClassBasedTests
         {
             posts.Add(new Post { Title = $"{postTitlePrefix} {i + 1}" });
         }
-
         var user = new User
         {
             Email = email,
             Posts = posts,
         };
-
         db.Users.Add(user);
         await db.SaveChangesAsync();
-        
+
         //Act
         using var actDb = DbContextFactory.Create(dbName);
         var tempActual = await actDb.Users
@@ -89,7 +86,7 @@ public class ClassBasedTests
         {
             post.User = null!;
         }
-        
+
         //Assert
         var actual = tempActual;
         actual.Should().BeEquivalentTo(expected);
@@ -120,5 +117,4 @@ public class ClassBasedTests
         new User()
     }
     };
-
 }
