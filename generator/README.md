@@ -27,6 +27,7 @@
             * [Properties or fields invocation](#properties-or-fields-invocation)
         * [Framework and library specific examples](#framework-and-library-specific-examples)
             * [ASP.NET Core](#aspnet-core)
+			* [Entity Framework Core](#entity-framework-core)
             * [Exceptions](#exceptions)
             * [Windows Forms .NET](#windows-forms-net)
             * [WPF .NET](#wpf-net)
@@ -302,6 +303,9 @@ Supported expressions include property or field access such as `expected.Value` 
 
 ##### ASP.NET Core
 See test examples in [AspNetTest](Test.Integration.WebApi.XUnit/AspNetTest.cs).
+
+##### Entity Framework Core
+See test examples in [EntityFrameworkCore](Test.Integration.XUnit/EntityFrameworkExamples).
 
 ##### Exceptions
 See test examples in [ExceptionTest](Test.Integration.XUnit/ExceptionTest.cs).
