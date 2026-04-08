@@ -32,7 +32,6 @@ public static class DbContextFactory
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(databaseName)
             .Options;
-
         return new AppDbContext(options);
     }
 }

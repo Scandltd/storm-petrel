@@ -9,8 +9,7 @@ public class AnonymousObjectTests
     public async Task UserProjectionAsAnonymousTest()
     {
         //Arrange
-        var dbName = $"{GetType().FullName}-{nameof(UserProjectionAsAnonymousTest)}";
-
+        var dbName = $"{GetType().FullName}-UserProjectionAsAnonymousTest";
         var user = new User
         {
             Email = "anonymous@test.com",
@@ -26,7 +25,6 @@ public class AnonymousObjectTests
                 }
             }
         };
-
         using var arrangeDb = DbContextFactory.Create(dbName);
         arrangeDb.Users.Add(user);
         await arrangeDb.SaveChangesAsync();
@@ -48,7 +46,6 @@ public class AnonymousObjectTests
             Email = string.Empty,
             PostCount = 0
         };
-
         actual.Should().BeEquivalentTo(expected);
     }
 
@@ -64,23 +61,18 @@ public class AnonymousObjectTests
     {
         //Arrange
         ArgumentNullException.ThrowIfNull(useCaseTitle);
-
         var dbName = $"{GetType().FullName}-{useCaseTitle.Replace(" ", "-", StringComparison.Ordinal)}";
-
         using var arrangeDb = DbContextFactory.Create(dbName);
         var posts = new List<Post>();
-
         for (int i = 0; i < postCount; i++)
         {
             posts.Add(new Post { Title = $"{postPrefix} {i + 1}" });
         }
-
         var user = new User
         {
             Email = email,
             Posts = posts,
         };
-
         arrangeDb.Users.Add(user);
         await arrangeDb.SaveChangesAsync();
 
