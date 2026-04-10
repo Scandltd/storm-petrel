@@ -27,7 +27,7 @@ public class AnonymousObjectTests
         };
         using var arrangeDb = DbContextFactory.Create(dbName);
         arrangeDb.Users.Add(user);
-        await arrangeDb.SaveChangesAsync();
+        await arrangeDb.SaveChangesAsync(CancellationToken.None);
 
         //Act
         using var actDb = DbContextFactory.Create(dbName);
@@ -38,7 +38,7 @@ public class AnonymousObjectTests
                 u.Email,
                 PostCount = u.Posts.Count,
             })
-            .SingleAsync();
+            .SingleAsync(CancellationToken.None);
 
         //Assert
         var expected = new 
@@ -74,7 +74,7 @@ public class AnonymousObjectTests
             Posts = posts,
         };
         arrangeDb.Users.Add(user);
-        await arrangeDb.SaveChangesAsync();
+        await arrangeDb.SaveChangesAsync(CancellationToken.None);
 
         //Act
         using var actDb = DbContextFactory.Create(dbName);
@@ -85,7 +85,7 @@ public class AnonymousObjectTests
                 u.Email,
                 u.Posts,
             })
-            .SingleAsync();
+            .SingleAsync(CancellationToken.None);
 
         //Assert
         actual.Should().BeEquivalentTo(expected);

@@ -30,13 +30,13 @@ public class ClassBasedTests
 
         using var arrangeDb = DbContextFactory.Create(dbName);
         arrangeDb.Users.Add(user);
-        await arrangeDb.SaveChangesAsync();
+        await arrangeDb.SaveChangesAsync(CancellationToken.None);
 
         //Act
         using var actDb = DbContextFactory.Create(dbName);
         var actual = await actDb.Users
             .Include(u => u.Posts)
-            .SingleAsync();
+            .SingleAsync(CancellationToken.None);
 
         foreach (var post in actual.Posts)
         {
@@ -74,13 +74,13 @@ public class ClassBasedTests
             Posts = posts,
         };
         db.Users.Add(user);
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(CancellationToken.None);
 
         //Act
         using var actDb = DbContextFactory.Create(dbName);
         var tempActual = await actDb.Users
             .Include(u => u.Posts)
-            .SingleAsync();
+            .SingleAsync(CancellationToken.None);
 
         foreach (var post in tempActual.Posts)
         {
