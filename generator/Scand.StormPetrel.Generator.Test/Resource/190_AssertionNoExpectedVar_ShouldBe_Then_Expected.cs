@@ -36,12 +36,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -98,12 +92,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenMultipleArgsTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -160,12 +148,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenMultipleNamedArgsTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -222,12 +204,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenObjectCreationExpressionTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -287,12 +263,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentAndActualWithPropertyTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -349,12 +319,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentAndActualWithMethodTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -411,12 +375,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentAndActualCouplePropertiesOrMethodsTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

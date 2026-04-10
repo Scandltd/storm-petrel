@@ -35,11 +35,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBeMinusTokenTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -92,11 +87,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBePlusTokenTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -149,11 +139,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBeSingleQuouteTokenTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -206,11 +191,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBeExclamationTokenTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -263,11 +243,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualMinusTokenTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -320,11 +295,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualDefaultExpressionTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -377,11 +347,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualDefaultExpressionWithTypeTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -434,11 +399,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualInterpolatedStringTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -491,11 +451,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualInterpolatedVerbatimStringTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -550,11 +505,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualInterpolatedRawStringTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -613,11 +563,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBeInterpolatedStringExpressionTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -673,11 +618,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBeOpenBracketTokenTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -733,11 +673,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEquivalentNullTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -790,11 +725,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualNumericTypesTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -831,11 +761,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualNumericTypesTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -872,11 +797,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualNumericTypesTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -913,11 +833,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualNumericTypesTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -954,11 +869,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualNumericTypesTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -1016,11 +926,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualBitwiseNotTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -1078,11 +983,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "ShouldBeOmittedArraySizeExpressionTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -1145,11 +1045,6 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "SyntaxTokenTest",
-                "AssertEqualTupleTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

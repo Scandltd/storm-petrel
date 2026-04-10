@@ -7,8 +7,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 {
     public sealed class AssignmentRewriter : AbstractValueRewriter
     {
-        public AssignmentRewriter(IEnumerable<string> assignmentPath, string assignmentNewCode)
-            : base(assignmentPath, assignmentNewCode)
+        public AssignmentRewriter(IEnumerable<string> assignmentPath, string assignmentNewCode, IEnumerable<string> invocationPath)
+            : base(assignmentPath, assignmentNewCode, invocationPath)
         {
         }
 

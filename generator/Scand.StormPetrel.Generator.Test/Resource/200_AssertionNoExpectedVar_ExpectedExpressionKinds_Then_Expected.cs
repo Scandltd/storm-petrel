@@ -37,12 +37,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -103,12 +97,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenArrayCreationExpressionTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -165,12 +153,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -231,12 +213,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -293,12 +269,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -355,12 +325,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenCollectionExpressionNoCastTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -417,12 +381,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -479,12 +437,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -548,12 +500,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -627,12 +573,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxNoCastTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -689,12 +629,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -751,12 +685,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -816,12 +744,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -878,12 +800,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -940,12 +856,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -1002,12 +912,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -1064,12 +968,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -1129,12 +1027,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

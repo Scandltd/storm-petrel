@@ -4,12 +4,23 @@ namespace Test.Integration.XUnit
     {
         private static int _field = 123;
         private static int Expected { get; }
+        private static AddResult ExpectedAddResult { get; } = new AddResult
+        {
+            Value = 5,
+        };
         private static int ExpectedGetSet { get; set; }
-        private static int ExpectedReturn
+        private static AddResult ExpectedGetSetAddResult { get; set; } = new()
+        {
+            Value = 5,
+        };
+        private static AddResult ExpectedReturn
         {
             get
             {
-                return 123;
+                return new AddResult()
+                {
+                    Value = 5,
+                };
             }
         }
         private static int ExpectedReturnField
@@ -19,7 +30,7 @@ namespace Test.Integration.XUnit
                 return _field;
             }
         }
-        private static int ExpectedReturnMultiple
+        private static AddResult ExpectedReturnMultiple
         {
             get
             {
@@ -30,7 +41,13 @@ namespace Test.Integration.XUnit
                 return 100;
             }
         }
-        private static int ExpectedArrow => 123;
-        private static int ExpectedGetArrow { get => 123; }
+        private static AddResult ExpectedArrow => new()
+        {
+            Value = 5,
+        };
+        private static AddResult ExpectedGetArrow { get => new AddResult
+        {
+            Value = 5,
+        }; }
     }
 }

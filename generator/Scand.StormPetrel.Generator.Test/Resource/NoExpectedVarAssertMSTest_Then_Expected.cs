@@ -33,11 +33,6 @@ public class NoExpectedVarAssertTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertTest",
-                "AssertAreEqualTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -74,11 +69,6 @@ public class NoExpectedVarAssertTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertTest",
-                "AssertAreEqualTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

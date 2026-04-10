@@ -14,7 +14,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         private readonly int _attributeIndex;
         private readonly int _attributeParameterIndex;
         public AttributeRewriter(IEnumerable<string> methodPath, string attributeName, int attributeIndex, int attributeParameterIndex, string attributeParameterNewCode)
-            : base(methodPath, attributeParameterNewCode)
+            : base(methodPath, attributeParameterNewCode, Array.Empty<string>())
         {
             _attributeName = attributeName;
             _attributeIndex = attributeIndex;

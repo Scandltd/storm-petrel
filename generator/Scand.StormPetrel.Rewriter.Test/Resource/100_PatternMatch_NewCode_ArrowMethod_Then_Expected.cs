@@ -12,5 +12,9 @@ public class Foo
             2,
             2,
         },
+        "3" => new AddResult()
+        {
+            Value = "5",
+        },
     };
 }

@@ -19,7 +19,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         /// <param name="statementNodeIndex"></param>
         /// <exception cref="ArgumentOutOfRangeException">When <paramref name="statementNodeKind"/> is not <see cref="SyntaxKind.Argument"/></exception>
         public BodyStatementRewriter(IEnumerable<string> methodPath, string valueNewCode, int methodBodyStatementIndex, int statementNodeKind, int statementNodeIndex) :
-            base(methodPath, statementNodeKind, statementNodeIndex, valueNewCode)
+            base(methodPath, statementNodeKind, statementNodeIndex, valueNewCode, Array.Empty<string>())
         {
             if (_expressionKind != SyntaxKind.Argument)
             {

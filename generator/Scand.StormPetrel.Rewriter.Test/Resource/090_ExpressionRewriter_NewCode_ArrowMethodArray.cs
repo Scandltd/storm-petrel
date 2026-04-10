@@ -1,5 +1,5 @@
 ﻿new int[]
 {
-    1,
-    2,
+    3,
+    4, // Values other than in original code
 }

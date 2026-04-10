@@ -43,11 +43,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatEqualToTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -103,11 +98,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatActualWithMethodCallIsEqualToTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -166,11 +156,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatEqualConstraintTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -207,11 +192,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatEqualConstraintTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -268,11 +248,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatIsEqualToMultipleTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -309,11 +284,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatIsEqualToMultipleTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -370,11 +340,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatIsEquivalentToTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -435,11 +400,6 @@ public class NoExpectedVarAssertThatTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarAssertThatTest",
-                "AssertThatCollectionEquivalentConstraintTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

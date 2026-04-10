@@ -13,11 +13,31 @@ namespace Test.Integration.XUnit.TestCaseSourceClass
         }
 
         [Theory]
+        [ClassData(typeof(TestCaseSourceClassDataForInvocationPath))]
+        public void WhenClassDataTypeForInvocationPathThenItIsUpdated(int x, int y, AddResult expected)
+        {
+            ArgumentNullException.ThrowIfNull(expected);
+            var actualResult = Calculator.Add(x, y);
+            actualResult.Value.Should().Be(expected.Value);
+            actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
+        }
+
+        [Theory]
         [ClassData(typeof(TestCaseSourceClassDataProperty))]
         public void WhenClassDataPropertyThenItIsUpdated(int x, int y, int expected)
         {
             var actual = Calculator.Add(x, y).Value;
             actual.Should().Be(expected);
+        }
+
+        [Theory]
+        [ClassData(typeof(TestCaseSourceClassDataPropertyForInvocationPath))]
+        public void WhenClassDataPropertyForInvocationPathThenItIsUpdated(int x, int y, AddResult expected)
+        {
+            ArgumentNullException.ThrowIfNull(expected);
+            var actualResult = Calculator.Add(x, y);
+            actualResult.Value.Should().Be(expected.Value);
+            actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
         }
 
         [Theory]

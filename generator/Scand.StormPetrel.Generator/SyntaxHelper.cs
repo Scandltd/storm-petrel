@@ -158,6 +158,7 @@ namespace Scand.StormPetrel.Generator
             }
             else if (info.ExpectedVarExtraContextInternal is TestCaseSourceContextInternal testCaseSourceContext)
             {
+                expectedExpression = testCaseSourceContext.ExpectedExpression;
                 var breakConditions = testCaseSourceContext
                                         .NonExpectedParameterNames
                                         .Select((x, i) => (Name: x, Condition:
@@ -220,13 +221,35 @@ private static void TempMethod()
                                 )),
                                 GetPropertyAssignment(nameof(TestCaseSourceContext.RowIndex), SyntaxFactory.IdentifierName(testCaseSourceRowIndexVarName)),
                                 GetPropertyAssignment(nameof(TestCaseSourceContext.Path), SyntaxFactory.ParseExpression(testCaseSourceContext.TestCaseSourcePathExpression)),
+                                testCaseSourceContext.PartialExtraContext.InvocationPath.Length == 0
+                                    ? null
+                                    : GetPropertyAssignment(nameof(TestCaseSourceContext.InvocationPath), GetArrayInitializer(testCaseSourceContext.PartialExtraContext.InvocationPath, ToStringLiteralExpression, "string")),
                             }
+                            .Where(x => x != null)
                         )
                     )
                 );
             }
-            else if (info.ExpectedVarExtraContextInternal is InitializerContextInternal initializerContext)
+            else if (info.ExpectedVarExtraContextInternal is InitializerContextInternal
+                        || info.ExpectedVarExtraContextInternal is InvocationExpressionWithEmbeddedExpectedMemberAccessInternal)
             {
+                InitializerContextKind kind;
+                string[] invocationPath;
+                if (info.ExpectedVarExtraContextInternal is InvocationExpressionWithEmbeddedExpectedMemberAccessInternal embeddedExpectedMemberAccessContext)
+                {
+                    kind = embeddedExpectedMemberAccessContext.InitializerContextKind.Value;
+                    expectedExpression = embeddedExpectedMemberAccessContext.ExpectedExpression;
+                    invocationPath = embeddedExpectedMemberAccessContext.ExpectedVarInvocationPath;
+                }
+                else if (info.ExpectedVarExtraContextInternal is InitializerContextInternal initializerContext)
+                {
+                    kind = initializerContext.PartialExtraContext.Kind;
+                    invocationPath = Array.Empty<string>();
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unexpected case");
+                }
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
                     SyntaxFactory.IdentifierName($"{typeof(InitializerContext).FullName}()"))
                     .WithInitializer(
@@ -234,8 +257,12 @@ private static void TempMethod()
                             SyntaxKind.ObjectInitializerExpression,
                             SyntaxFactory.SeparatedList(new ExpressionSyntax[]
                             {
-                                GetPropertyAssignment(nameof(InitializerContext.Kind), SyntaxFactory.ParseExpression($"{typeof(InitializerContextKind).FullName}.{initializerContext.PartialExtraContext.Kind}")),
+                                invocationPath.Length == 0
+                                    ? null
+                                    : GetPropertyAssignment(nameof(InitializerContext.InvocationPath), GetArrayInitializer(invocationPath, ToStringLiteralExpression, "string")),
+                                GetPropertyAssignment(nameof(InitializerContext.Kind), SyntaxFactory.ParseExpression($"{typeof(InitializerContextKind).FullName}.{kind}")),
                             }
+                            .Where(x => x != null)
                         )
                     )
                 );
@@ -302,7 +329,9 @@ private static void TempMethod()
                         SyntaxFactory.SeparatedList(new[]
                         {
                             actualAssignment,
-                            GetPropertyAssignment(nameof(GenerationContext.ActualVariablePath), GetArrayInitializer(info.ActualVarPath, ToStringLiteralExpression)),
+                            info.ActualVarPath != null
+                                ? GetPropertyAssignment(nameof(GenerationContext.ActualVariablePath), GetArrayInitializer(info.ActualVarPath, ToStringLiteralExpression))
+                                : null,
                             expectedAssignment,
                             info.ExpectedVarPath != null
                                 ? GetPropertyAssignment(nameof(GenerationContext.ExpectedVariablePath), GetArrayInitializer(info.ExpectedVarPath, ToStringLiteralExpression))

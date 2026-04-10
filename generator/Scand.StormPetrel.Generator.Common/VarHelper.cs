@@ -38,29 +38,10 @@ namespace Scand.StormPetrel.Generator.Common
         }
         public List<VarPairInfo> GetVarPairs(MethodDeclarationSyntax method)
         {
-            IEnumerable<object> bodyStatements = null;
-            if (method.Body != null)
-            {
-                bodyStatements = method.Body.Statements.Select(x => x);
-            }
-            else if (method.ExpressionBody != null)
-            {
-                bodyStatements = new[] { method.ExpressionBody };
-            }
-            else
-            {
-                return new List<VarPairInfo>(0);
-            }
-
-            var statements = method
-                            .ParameterList
-                            .Parameters
-                            .Select(x => (object)x)
-                            .Union(bodyStatements);
             var regexToVarNameToStatementInfo = new Dictionary<Regex, Dictionary<string, VarInfo>>(_varNameRegexPairs.Length);
             var expectedExpressionInfo = new ExpectedExpressionInfo();
 
-            CollectVarPairs(method, statements, _varNameRegexPairs, regexToVarNameToStatementInfo, expectedExpressionInfo, null);
+            CollectVarPairs(method, _varNameRegexPairs, regexToVarNameToStatementInfo, expectedExpressionInfo, null);
             var collectedVarPairInfo = expectedExpressionInfo.GetCollectedPairInfo();
             //We may have more expected identifiers among collected expected expressions
             var expectedIdentifierToInfo = GetExpectedIdentifierToInfo(collectedVarPairInfo);
@@ -71,7 +52,7 @@ namespace Scand.StormPetrel.Generator.Common
                                             .Keys
                                             .Select(x => (noActualRegex, new Regex($@"\b{x}\b", RegexOptionsDefault)))
                                             .ToArray();
-                CollectVarPairs(method, statements, extendedRegexPairs, regexToVarNameToStatementInfo, expectedExpressionInfo, (varName, varInfo) =>
+                CollectVarPairs(method, extendedRegexPairs, regexToVarNameToStatementInfo, expectedExpressionInfo, (varName, varInfo) =>
                 {
                     var info = expectedIdentifierToInfo[varName];
                     var pairInfo = info.VarPairInfo;
@@ -92,9 +73,35 @@ namespace Scand.StormPetrel.Generator.Common
                                         .ToList();
             }
             List<VarPairInfo> varPairInfo = ToVarPairs(regexToVarNameToStatementInfo);
-            return varPairInfo
-                    .Union(collectedVarPairInfo)
-                    .ToList();
+            var result = varPairInfo
+                            .Union(collectedVarPairInfo)
+                            .ToList();
+            var resultExpectedVarNames = result
+                .Select(x => x.ExpectedVarName
+                                ?? (x.ExpectedVarExtraContextInternal is TestCaseSourceContextInternal testCaseSource
+                                            && !string.IsNullOrEmpty(testCaseSource.ExpectedExpressionVariableName)
+                                       ? testCaseSource.ExpectedExpressionVariableName
+                                       : x.ExpectedVarExtraContextInternal is InvocationExpressionWithEmbeddedExpectedMemberAccessInternal memberAccess
+                                                && !string.IsNullOrEmpty(memberAccess.ExpectedExpressionVariableName)
+                                            ? memberAccess.ExpectedExpressionVariableName
+                                            : null))
+                .Where(x => !string.IsNullOrEmpty(x))
+                .ToImmutableHashSet();
+            var nonExpectedParameterInfo = method
+                .ParameterList
+                .Parameters
+                .Where(x => !resultExpectedVarNames.Contains(x.Identifier.Text))
+                .Select(x => (Type: x.Type.WithoutTrivia().GetText().ToString(), Name: x.Identifier.Text))
+                .ToArray();
+            result.ForEach(x =>
+            {
+                if (x.ExpectedVarExtraContextInternal is TestCaseSourceContextInternal testCaseSource)
+                {
+                    testCaseSource.NonExpectedParameterTypes = nonExpectedParameterInfo.Select(y => y.Type).ToArray();
+                    testCaseSource.NonExpectedParameterNames = nonExpectedParameterInfo.Select(y => y.Name).ToArray();
+                }
+            });
+            return result;
         }
 
         private List<VarPairInfo> ToVarPairs(Dictionary<Regex, Dictionary<string, VarInfo>> regexToVarNameToStatementInfo)
@@ -146,38 +153,53 @@ namespace Scand.StormPetrel.Generator.Common
         }
 
         private void CollectVarPairs(MethodDeclarationSyntax method,
-            IEnumerable<object> statements, (Regex ActualRegex, Regex ExpectedRegex)[] varNameRegexPairs,
+            (Regex ActualRegex, Regex ExpectedRegex)[] varNameRegexPairs,
             Dictionary<Regex, Dictionary<string, VarInfo>> regexToVarNameToStatementInfo, ExpectedExpressionInfo expectedExpressionInfo,
             Action<string, VarInfo> newVarNameInfoHandler)
         {
+            IEnumerable<SyntaxNode> bodyStatements = null;
+            if (method.Body != null)
+            {
+                bodyStatements = method.Body.Statements.Select(x => x);
+            }
+            else if (method.ExpressionBody != null)
+            {
+                bodyStatements = new[] { method.ExpressionBody };
+            }
+            else
+            {
+                bodyStatements = Array.Empty<SyntaxNode>();
+            }
+            var parameterToVarInfo = method
+                .ParameterList
+                .Parameters
+                .ToDictionary(x => x, x => ParameterToVarInfo(x, method));
             foreach (var (actualRegex, expectedRegex) in varNameRegexPairs)
             {
                 int indexOfBodyStatement = -1;
-                int expectedVarParameterIndex = -1;
+                var statements = expectedRegex == null
+                    ? bodyStatements     // Parameters last because we should detect body statements assert expression expected variables first
+                        .Union(parameterToVarInfo.Keys)
+                    : parameterToVarInfo // Parameters first because we should detect expected variables from the parameters (not from assignments) if they match to the regex
+                        .Keys
+                        .Union(bodyStatements);
                 foreach (var statement in statements)
                 {
-                    var isBodyStatement = !(statement is ParameterSyntax);
-                    if (isBodyStatement)
+                    var parameter = statement as ParameterSyntax;
+                    if (parameter == null)
                     {
                         indexOfBodyStatement++;
-                    }
-                    else
-                    {
-                        expectedVarParameterIndex++;
                     }
                     string varName = null;
                     VarInfo varInfo = null;
                     Regex regex = null;
                     if (expectedRegex == null)
                     {
-                        if (isBodyStatement)
-                        {
-                            var varPairs = ToVarPairs(regexToVarNameToStatementInfo);
-                            var expectedVarNamesToSkip = varPairs
-                                                            .Select(x => x.ExpectedVarName)
-                                                            .ToImmutableHashSet();
-                            expectedExpressionInfo.TryCollectExpectedExpression(statement, method, actualRegex, indexOfBodyStatement, expectedVarNamesToSkip);
-                        }
+                        var varPairs = ToVarPairs(regexToVarNameToStatementInfo);
+                        var expectedVarNamesToSkip = varPairs
+                                                        .Select(x => x.ExpectedVarName)
+                                                        .ToImmutableHashSet();
+                        expectedExpressionInfo.TryCollectExpectedExpression(statement, method, actualRegex, indexOfBodyStatement, expectedVarNamesToSkip, parameterToVarInfo);
                         continue;
                     }
                     else if (TryParseAsExpressionStatement(statement, out varInfo, out varName))
@@ -192,8 +214,10 @@ namespace Scand.StormPetrel.Generator.Common
                     {
                         //No additional logic, all stuff is done in the condition call
                     }
-                    else if (TryParseAsParameter(statement, method, expectedRegex, expectedVarParameterIndex, out varInfo, out varName))
+                    else if (parameter != null && expectedRegex.IsMatch(parameter.Identifier.Text))
                     {
+                        varInfo = parameterToVarInfo[parameter];
+                        varName = parameter.Identifier.Text;
                         regex = expectedRegex;
                     }
                     if (regex != null)
@@ -340,7 +364,23 @@ namespace Scand.StormPetrel.Generator.Common
             testCaseSourcePathExpression = testCaseSourcePathExpressionSb.ToString();
         }
 
-        private static bool TryParseAsExpressionStatement(object statement, out VarInfo varInfo, out string varName)
+        protected static bool TryDetectInitializerContext(SyntaxNode statement, out string varName, out InitializerContextKind? contextKind)
+        {
+            if (TryParseAsExpressionStatement(statement, out var _, out varName))
+            {
+                contextKind = InitializerContextKind.VariableAssignment;
+                return true;
+            }
+            else if (TryParseAsLocalDeclarationStatement(statement, null, null, out var _, out varName, out var _))
+            {
+                contextKind = InitializerContextKind.VariableDeclaration;
+                return true;
+            }
+            contextKind = null;
+            return false;
+        }
+
+        private static bool TryParseAsExpressionStatement(SyntaxNode statement, out VarInfo varInfo, out string varName)
         {
             varInfo = null;
             varName = null;
@@ -362,7 +402,7 @@ namespace Scand.StormPetrel.Generator.Common
             return false;
         }
 
-        private static bool TryParseAsLocalDeclarationStatement(object statement, Regex actualRegex, Regex expectedRegex, out VarInfo varInfo, out string varName, out Regex regex)
+        private static bool TryParseAsLocalDeclarationStatement(SyntaxNode statement, Regex actualRegex, Regex expectedRegex, out VarInfo varInfo, out string varName, out Regex regex)
         {
             varInfo = null;
             regex = null;
@@ -373,7 +413,7 @@ namespace Scand.StormPetrel.Generator.Common
                                     .Declaration
                                     .Variables
                                     .Select(a => (Name: a.Identifier.Text, Variable: a))
-                                    .Select(a => (IsActualMatch: actualRegex.IsMatch(a.Name), IsExpectedMatch: expectedRegex.IsMatch(a.Name), VarName: a.Name, a.Variable))
+                                    .Select(a => (IsActualMatch: actualRegex == null || actualRegex.IsMatch(a.Name), IsExpectedMatch: expectedRegex == null || expectedRegex.IsMatch(a.Name), VarName: a.Name, a.Variable))
                                     .FirstOrDefault(a => a.IsActualMatch || a.IsExpectedMatch);
                 if (localVarInfo != default)
                 {
@@ -401,60 +441,54 @@ namespace Scand.StormPetrel.Generator.Common
             return false;
         }
 
-        private bool TryParseAsParameter(object statement, MethodDeclarationSyntax method, Regex expectedRegex, int expectedVarParameterIndex, out VarInfo varInfo, out string varName)
+        private static VarInfo ParameterToVarInfo(ParameterSyntax parameter, MethodDeclarationSyntax method)
         {
-            varInfo = null;
-            varName = null;
-            if (statement is ParameterSyntax parameter)
+            int parameterIndex = -1;
+            int i = -1;
+            var _ = method.ParameterList.Parameters.Single(x =>
             {
-                if (expectedRegex.IsMatch(parameter.Identifier.Text))
+                i++;
+                if (x == parameter)
                 {
-                    varName = parameter.Identifier.Text;
-                    varInfo = new VarInfo
-                    {
-                        Path = SyntaxNodeHelper.GetValuePath(method),
-                    };
-                    var testCaseAttributeName = MethodHelperCommon
-                                                    .GetTestCaseAttributeNames(method)
-                                                    .FirstOrDefault();
-                    var testCaseSourceAttribute = MethodHelperCommon
-                                                    .GetTestCaseSourceAttribute(method);
-                    if (!string.IsNullOrEmpty(testCaseAttributeName))
-                    {
-                        varInfo.ExtraContextInternal = new AttributeContextInternal
-                        {
-                            PartialExtraContext = new AttributeContext
-                            {
-                                ParameterIndex = expectedVarParameterIndex,
-                                Name = testCaseAttributeName,
-                            },
-                        };
-                    }
-                    else if (testCaseSourceAttribute != null)
-                    {
-                        var nonExpectedParameterInfo = method
-                                                            .ParameterList
-                                                            .Parameters
-                                                            .Where(x => !_varNameRegexPairs.Any(y => y.ExpectedRegex?.IsMatch(x.Identifier.Text) == true))
-                                                            .Select(x => (Type: x.Type.WithoutTrivia().GetText().ToString(), Name: x.Identifier.Text))
-                                                            .ToArray();
-                        GetTestCaseSourceExpressions(method, testCaseSourceAttribute, out var testCaseSourceExpression, out var testCaseSourcePathExpression);
-                        varInfo.ExtraContextInternal = new TestCaseSourceContextInternal
-                        {
-                            NonExpectedParameterTypes = nonExpectedParameterInfo.Select(x => x.Type).ToArray(),
-                            NonExpectedParameterNames = nonExpectedParameterInfo.Select(x => x.Name).ToArray(),
-                            TestCaseSourceExpression = testCaseSourceExpression,
-                            TestCaseSourcePathExpression = testCaseSourcePathExpression,
-                            PartialExtraContext = new TestCaseSourceContext
-                            {
-                                ColumnIndex = expectedVarParameterIndex,
-                            },
-                        };
-                    }
+                    parameterIndex = i;
                     return true;
                 }
+                return false;
+            });
+            var varInfo = new VarInfo
+            {
+                Path = SyntaxNodeHelper.GetValuePath(method),
+            };
+            var testCaseAttributeName = MethodHelperCommon
+                                            .GetTestCaseAttributeNames(method)
+                                            .FirstOrDefault();
+            var testCaseSourceAttribute = MethodHelperCommon
+                                            .GetTestCaseSourceAttribute(method);
+            if (!string.IsNullOrEmpty(testCaseAttributeName))
+            {
+                varInfo.ExtraContextInternal = new AttributeContextInternal
+                {
+                    PartialExtraContext = new AttributeContext
+                    {
+                        ParameterIndex = parameterIndex,
+                        Name = testCaseAttributeName,
+                    },
+                };
             }
-            return false;
+            else if (testCaseSourceAttribute != null)
+            {
+                GetTestCaseSourceExpressions(method, testCaseSourceAttribute, out var testCaseSourceExpression, out var testCaseSourcePathExpression);
+                varInfo.ExtraContextInternal = new TestCaseSourceContextInternal
+                {
+                    TestCaseSourceExpression = testCaseSourceExpression,
+                    TestCaseSourcePathExpression = testCaseSourcePathExpression,
+                    PartialExtraContext = new TestCaseSourceContext
+                    {
+                        ColumnIndex = parameterIndex,
+                    },
+                };
+            }
+            return varInfo;
         }
     }
 }

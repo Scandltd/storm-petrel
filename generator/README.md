@@ -24,6 +24,7 @@
             * [MSTest assertions](#mstest-assertions)
             * [Shouldly expressions](#shouldly-expressions)
             * [Custom assertions that replicate the signatures above](#custom-assertions-that-replicate-the-signatures-above)
+            * [Properties or fields invocation](#properties-or-fields-invocation)
         * [Framework and library specific examples](#framework-and-library-specific-examples)
             * [ASP.NET Core](#aspnet-core)
             * [Exceptions](#exceptions)
@@ -293,6 +294,9 @@ Supported expressions include `actual.ShouldBe(123);` and `actual.ShouldBeEquiva
 
 ##### Custom assertions that replicate the signatures above
 You can also implement and use custom assertions. Ensure they replicate the signatures of the assertions mentioned above so that StormPetrel can detect them effectively. See [CustomAssertTest](Test.Integration.XUnit/CustomAssertTest.cs) for custom assertion examples.
+
+##### Properties or fields invocation
+Supported expressions include property or field access such as `expected.Value` (for example: `actual.ShouldBeEquivalentTo(expected.Value);`). Nested paths are also supported, for example `expected.Address.Street`. This enables partial assertions and targeted updates of complex expected objects. See examples in [AssertInvocationPathTest](Test.Integration.XUnit/AssertInvocationPathTest.cs).
 
 #### Framework and library specific examples
 

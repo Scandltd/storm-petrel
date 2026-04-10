@@ -1,10 +1,8 @@
 ﻿public class Foo
 {
-    int[] TestProperty { get; set; } = new int[]
+    AddResult TestProperty { get; set; } = new()
     {
-        1,
-        2,
-        3,
+        Value = 4,
     };
 }
 

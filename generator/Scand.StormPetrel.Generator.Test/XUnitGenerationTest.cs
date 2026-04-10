@@ -71,6 +71,7 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("NoMatchToExpectedVarRegexTest", "DefaultConfigsReverseOrder")]
         [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile")]
         [InlineData("TestCaseSourceMemberDataTest.MemberDataInPartialFile", null, true)]
+        [InlineData("AssertInvocationPathTest")]
         [InlineData("Utils")]
         [InlineData("Utils", null, true)]
         [InlineData("Utils.IgnoredMembersMiddleware")]

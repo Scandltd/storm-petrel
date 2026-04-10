@@ -33,11 +33,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "AssertEqualWithAwait"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -91,11 +86,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "AssertEqualWithAwaitAndColonName"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -149,11 +139,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "FluentAssertionsWithAwait"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -207,11 +192,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ShouldBeWithAwait"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -265,11 +245,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ArrowExpressionBody"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -322,11 +297,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ArrowExpressionBodyWithAssertEqual"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -379,11 +349,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ArrowExpressionBodyWithAssertEqualAndAwait"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -436,11 +401,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ArrowExpressionBodyWithFluentAssertionsWithAwait"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -503,11 +463,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ArrowExpressionBodyWithDefaultArgs"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -579,11 +534,6 @@ public class NoActualAndNoExpectedVarTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoActualAndNoExpectedVarTest",
-                "ArrowExpressionBodyWithArgs"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

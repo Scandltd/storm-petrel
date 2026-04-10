@@ -37,12 +37,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "AssertEqualTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -80,12 +74,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "AssertEqualTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -123,12 +111,6 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Test.Integration.XUnit",
-                    "AssertionNoExpectedVarTest",
-                    "AssertEqualTest"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

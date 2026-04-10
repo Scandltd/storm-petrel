@@ -19,8 +19,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         /// <param name="expressionKind"></param>
         /// <param name="expressionIndex"></param>
         /// <param name="valueNewCode"></param>
-        private protected AbstractExpressionRewriter(IEnumerable<string> methodPath, int expressionKind, int expressionIndex, string valueNewCode) :
-            base(methodPath, valueNewCode)
+        private protected AbstractExpressionRewriter(IEnumerable<string> methodPath, int expressionKind, int expressionIndex, string valueNewCode, IEnumerable<string> invocationPath) :
+            base(methodPath, valueNewCode, invocationPath)
         {
             _expressionKind = (SyntaxKind)expressionKind;
             _expressionIndex = expressionIndex <= 0
@@ -86,8 +86,15 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 }
                 else if (nd is ReturnStatementSyntax @return)
                 {
-                    var newExpression = CreateInitializeExpressionSyntax(@return);
-                    newNode = @return.WithExpression(newExpression);
+                    if (_invocationPath.Length == 0)
+                    {
+                        var newExpression = CreateInitializeExpressionSyntax(@return);
+                        newNode = @return.WithExpression(newExpression);
+                    }
+                    else
+                    {
+                        newNode = WithInvocationPathHandling(@return, @return.Expression);
+                    }
                 }
                 else if (nd is ArrowExpressionClauseSyntax)
                 {
@@ -102,11 +109,19 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 }
                 else if (nd is SwitchExpressionArmSyntax @switch)
                 {
-                    var newExpression = CreateInitializeExpressionSyntax(@switch);
-                    newNode = @switch.WithExpression(newExpression);
+                    if (_invocationPath.Length == 0)
+                    {
+                        var newExpression = CreateInitializeExpressionSyntax(@switch);
+                        newNode = @switch.WithExpression(newExpression);
+                    }
+                    else
+                    {
+                        newNode = WithInvocationPathHandling(@switch, @switch.Expression);
+                    }
                 }
                 else if (nd is ArgumentSyntax argument)
                 {
+                    // Invocation path is not applicable for this case
                     var topAncestor = nd;
                     foreach (var ancestor in nd.Ancestors())
                     {
@@ -149,6 +164,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                 }
                 else
                 {
+                    // Invocation path is not applicable for this case
                     newNode = CreateInitializeExpressionSyntax(nd);
                 }
                 return false;
@@ -157,7 +173,7 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             {
                 return WithExpressionBody(node);
             }
-            if (newNode != null)
+            if (newNode != null && newNode != nodeToChange)
             {
                 return node.ReplaceNode(nodeToChange, newNode);
             }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Scand.StormPetrel.Generator.Abstraction.ExtraContext;
 using Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource;
 using Scand.StormPetrel.Generator.Common.AssertExpressionDetector;
 using Scand.StormPetrel.Generator.Common.ExtraContextInternal;
@@ -18,11 +19,13 @@ namespace Scand.StormPetrel.Generator.Common
         private class ExpectedExpressionInfo
         {
             private readonly List<VarPairInfo> _varPairInfoCollected;
+            private readonly Dictionary<string, InitializerContextKind> _localVarNameToInitializerContextKind;
 
             private readonly AbstractDetector[] _expectedExpressionDetectors;
             public ExpectedExpressionInfo()
             {
                 _varPairInfoCollected = new List<VarPairInfo>();
+                _localVarNameToInitializerContextKind = new Dictionary<string, InitializerContextKind>();
                 _expectedExpressionDetectors = new AbstractDetector[]
                 {
                     new ShouldBeDetector(),
@@ -37,8 +40,19 @@ namespace Scand.StormPetrel.Generator.Common
                 statementExpression is InvocationExpressionSyntax
                     || statementExpression is ConditionalAccessExpressionSyntax;
 
-            public void TryCollectExpectedExpression(object statement, MethodDeclarationSyntax method, Regex actualRegex, int indexOfBodyStatement, ImmutableHashSet<string> expectedVarNamesToSkip)
+            public void TryCollectExpectedExpression(
+                SyntaxNode statement,
+                MethodDeclarationSyntax method,
+                Regex actualRegex,
+                int indexOfBodyStatement,
+                ImmutableHashSet<string> expectedVarNamesToSkip,
+                IReadOnlyDictionary<ParameterSyntax, VarInfo> parameterToVarInfo)
             {
+                if (TryDetectInitializerContext(statement, out var varName, out var contextKind)
+                        && contextKind.HasValue)
+                {
+                    _localVarNameToInitializerContextKind[varName] = contextKind.Value;
+                }
                 SyntaxNode expressionStatement;
                 if (statement is ExpressionStatementSyntax expression
                         && IsSupportedStatementExpression(expression.Expression))
@@ -55,22 +69,22 @@ namespace Scand.StormPetrel.Generator.Common
                     return;
                 }
                 ExpressionSyntax actualExpression = null;
-                ArgumentSyntax argument = null;
+                (ArgumentSyntax Argument, int Index) argumentInfo = default;
                 ExpressionSyntax expectedExpression = null;
-                var argumentToIndex = new Dictionary<ArgumentSyntax, int>();
                 int argumentNodeLatestIndex = -1;
                 var _ = expressionStatement
                            .DescendantNodes(nd =>
                            {
                                if (nd is ArgumentSyntax tmpArgument)
                                {
-                                   argumentToIndex.Add(tmpArgument, ++argumentNodeLatestIndex);
-
+                                   argumentNodeLatestIndex++;
                                    if (actualExpression == null)
                                    {
                                        var e = tmpArgument.Expression;
                                        int arrayRankSpecifierCount = 0;
                                        var isExpressionOk = IsSupportedExpression(e, expectedVarNamesToSkip)
+                                                               || TryGetPropertyOrFieldInvocationPath(e, out var memberAccessVarName, out var _)
+                                                                    && !expectedVarNamesToSkip.Contains(memberAccessVarName)
                                                                || e is CastExpressionSyntax castExpression && IsSupportedExpression(castExpression.Expression, expectedVarNamesToSkip)
                                                                || IsSupportedCollectionExpression(e, out arrayRankSpecifierCount);
                                        if (isExpressionOk && _expectedExpressionDetectors.Any(x => x.IsExpectedArgument(tmpArgument, out actualExpression)))
@@ -82,9 +96,9 @@ namespace Scand.StormPetrel.Generator.Common
                                            }
                                            else
                                            {
-                                               argument = tmpArgument;
+                                               argumentInfo = (tmpArgument, argumentNodeLatestIndex);
                                                expectedExpression = arrayRankSpecifierCount <= 0
-                                                                        ? argument.Expression
+                                                                        ? tmpArgument.Expression
                                                                         : GetExpectedExpression(e, arrayRankSpecifierCount);
                                            }
                                            return false;
@@ -94,27 +108,77 @@ namespace Scand.StormPetrel.Generator.Common
                                return true;
                            })
                            .Count();
-                if (argument == null || actualExpression == null)
+                if (argumentInfo == default || actualExpression == null)
                 {
                     return;
                 }
-                _varPairInfoCollected.Add(new VarPairInfo
+                string[] expectedVarPath = null;
+                AbstractExtraContextInternal extraContext = null;
+                if (expectedExpression != null
+                    && TryGetPropertyOrFieldInvocationPath(expectedExpression, out var expectedExpressionVariableName, out var invocationPath))
                 {
-                    ActualVarExpression = actualExpression,
-                    ActualVarPath = SyntaxNodeHelper.GetValuePath(method),
-                    StatementIndexForSubOrder = indexOfBodyStatement - 1,
-                    ExpectedVarExtraContextInternal = new InvocationExpressionWithEmbeddedExpectedContextInternal
+                    if (_localVarNameToInitializerContextKind.TryGetValue(expectedExpressionVariableName, out var initializerContextKind))
+                    {
+                        expectedVarPath = SyntaxNodeHelper
+                                            .GetValuePath(method)
+                                            .Union(Enumerable.Repeat(expectedExpressionVariableName, 1))
+                                            .ToArray();
+                        extraContext = new InvocationExpressionWithEmbeddedExpectedMemberAccessInternal
+                        {
+                            ExpectedExpression = expectedExpression,
+                            ExpectedExpressionVariableName = expectedExpressionVariableName,
+                            ExpectedVarInvocationPath = invocationPath,
+                            InitializerContextKind = initializerContextKind,
+                        };
+                    }
+                    // Use test case source only: ignore attributes because no suitable updates are possible due to c# attribute syntax limitations
+                    else if (parameterToVarInfo
+                                .Where(x => x.Key.Identifier.ValueText == expectedExpressionVariableName)
+                                .Select(x => x.Value)
+                                .SingleOrDefault()?
+                                .ExtraContextInternal is TestCaseSourceContextInternal testCaseSource)
+                    {
+                        extraContext = new TestCaseSourceContextInternal
+                        {
+                            ExpectedExpression = expectedExpression,
+                            ExpectedExpressionVariableName = expectedExpressionVariableName,
+                            TestCaseSourceExpression = testCaseSource.TestCaseSourceExpression,
+                            TestCaseSourcePathExpression = testCaseSource.TestCaseSourcePathExpression,
+                            PartialExtraContext = new TestCaseSourceContext
+                            {
+                                Path = testCaseSource.PartialExtraContext.Path,
+                                ColumnIndex = testCaseSource.PartialExtraContext.ColumnIndex,
+                                InvocationPath = invocationPath,
+                            },
+                        };
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    extraContext = new InvocationExpressionWithEmbeddedExpectedContextInternal
                     {
                         ExpectedExpression = expectedExpression,
                         MethodBodyStatementInfo = new MethodBodyStatementInfo
                         {
-                            StatementNodeIndex = argumentToIndex[argument],
-                            StatementNodeKind = argument.RawKind,
+                            StatementNodeIndex = argumentInfo.Index,
+                            StatementNodeKind = argumentInfo.Argument.RawKind,
                             StatementIndex = indexOfBodyStatement,
                         },
                         Path = SyntaxNodeHelper.GetValuePath(method),
-                    },
+                    };
+                }
+                _varPairInfoCollected.Add(new VarPairInfo
+                {
+                    ActualVarExpression = actualExpression,
+                    StatementIndexForSubOrder = indexOfBodyStatement - 1,
+                    ExpectedVarExtraContextInternal = extraContext,
+                    ExpectedVarPath = expectedVarPath,
                 });
+
             }
             public List<VarPairInfo> GetCollectedPairInfo()
             {
@@ -148,6 +212,133 @@ namespace Scand.StormPetrel.Generator.Common
                     || e is TupleExpressionSyntax
                     || e is DefaultExpressionSyntax
                     ;
+
+            private static bool TryGetPropertyOrFieldInvocationPath(ExpressionSyntax node, out string variableName, out string[] path)
+            {
+                var names = new List<string>();
+                SyntaxNode current = node;
+                variableName = null;
+                path = null;
+
+                while (true)
+                {
+                    // unwrap null-forgiving postfix operator at the current level (e.g. a!.b or (a!).b)
+                    if (current is PostfixUnaryExpressionSyntax topPostfix && topPostfix.IsKind(SyntaxKind.SuppressNullableWarningExpression))
+                    {
+                        current = topPostfix.Operand;
+                    }
+
+                    if (IsConditionalExpression(current, out var isBreak, out bool isContinue))
+                    {
+                        if (isBreak)
+                        {
+                            break;
+                        }
+                        else if (isContinue)
+                        {
+                            continue;
+                        }
+                        return false;
+                    }
+
+                    if (!(current is MemberAccessExpressionSyntax ma))
+                    {
+                        return false;
+                    }
+
+                    // extract rightmost name (could be IdentifierName or GenericName)
+                    if (!(ma.Name is SimpleNameSyntax simpleName))
+                    {
+                        return false;
+                    }
+                    names.Add(simpleName.Identifier.Text);
+
+                    // move to the left part of the member access
+                    var expr = ma.Expression;
+
+                    // unwrap null-forgiving postfix operator (e.g. a!.b)
+                    if (expr is PostfixUnaryExpressionSyntax postfix && postfix.IsKind(SyntaxKind.SuppressNullableWarningExpression))
+                    {
+                        expr = postfix.Operand;
+                    }
+
+                    // If left side is identifier - add and finish
+                    if (expr is IdentifierNameSyntax id)
+                    {
+                        names.Add(id.Identifier.Text);
+                        break;
+                    }
+
+                    if (IsConditionalExpression(expr, out var isBreak2, out bool isContinue2))
+                    {
+                        if (isBreak2)
+                        {
+                            break;
+                        }
+                        else if (isContinue2)
+                        {
+                            continue;
+                        }
+                        return false;
+                    }
+
+                    // if left side is another member access - continue loop
+                    if (expr is MemberAccessExpressionSyntax leftMa)
+                    {
+                        current = leftMa;
+                        continue;
+                    }
+
+                    // unsupported expression on the left side (method calls, element access etc.)
+                    return false;
+                }
+
+                if (names.Count <= 1)
+                {
+                    throw new InvalidOperationException("Unexpected names count: " + names.Count);
+                }
+                // names are collected from right to left - reverse them
+                names.Reverse();
+                path = names.Skip(1).ToArray();
+                variableName = names[0];
+                return true;
+
+                bool IsConditionalExpression(SyntaxNode expr, out bool isBreak, out bool isContinue)
+                {
+                    isBreak = false;
+                    isContinue = false;
+                    // If current is a conditional access expression like `a?.b`
+                    if (expr is ConditionalAccessExpressionSyntax cond)
+                    {
+                        // WhenNotNull may be MemberBindingExpressionSyntax (?.Name)
+                        if (cond.WhenNotNull is MemberBindingExpressionSyntax mb && mb.Name is SimpleNameSyntax mbName)
+                        {
+                            // include the member from the binding (the one after ?.)
+                            names.Add(mbName.Identifier.Text);
+
+                            // continue walking from the conditional's expression (the leftmost part)
+                            var left = cond.Expression;
+                            while (left is ParenthesizedExpressionSyntax par2) left = par2.Expression;
+                            if (left is PostfixUnaryExpressionSyntax pf && pf.IsKind(SyntaxKind.SuppressNullableWarningExpression))
+                            {
+                                left = pf.Operand;
+                            }
+                            if (left is IdentifierNameSyntax id2)
+                            {
+                                names.Add(id2.Identifier.Text);
+                                isBreak = true;
+                            }
+                            else if (left is MemberAccessExpressionSyntax)
+                            {
+                                current = left;
+                                isContinue = true;
+                            }
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+            }
 
             #region Collection Initializer Handling
             private static CastExpressionSyntax GetExpectedExpression(ExpressionSyntax expression, int arrayRankSpecifierCount)

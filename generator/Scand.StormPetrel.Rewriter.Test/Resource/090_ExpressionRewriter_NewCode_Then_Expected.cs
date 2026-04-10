@@ -1,8 +1,8 @@
 public class Foo
 {
-    public int[] Bla()
+    public AddResult Bla()
     {
-        int[] localVar = null;
+        AddResult localVar = null;
 
         localVar = new List<string>() { };
 
@@ -17,6 +17,11 @@ public class Foo
         2,
     };
 
+    public AddResult ArrowMethodAddResult() => new AddResult()
+    {
+        Value = "5",
+    };
+
     public int ReturnMethod()
     {
         return 123;
@@ -28,6 +33,14 @@ public class Foo
         {
             1,
             2,
+        };
+    }
+
+    public AddResult ReturnMethodAddResult()
+    {
+        return new AddResult
+        {
+            Value = "5",
         };
     }
 

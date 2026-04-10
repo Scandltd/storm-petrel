@@ -173,6 +173,21 @@ namespace Test.Integration.XUnit
             actual.Should().Be(expected);
         }
 
+        // TODO: consider supporting of similar use cases
+        //[Fact]
+        //public void WhenExpectedIsFromMethodAndAssertInvocationPathThenMethodShouldBeUpdateTest()
+        //{
+        //    //Arrange
+        //    var expected = GetExpectedForInvocationPath();
+
+        //    //Act
+        //    var actualResult = Calculator.Add(2, 2);
+
+        //    //Assert
+        //    actualResult.Value.Should().Be(expected.Value);
+        //    actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
+        //}
+
         [Fact]
         public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect()
         {
@@ -352,8 +367,13 @@ namespace Test.Integration.XUnit
         }
 
         private static int GetExpected() => 123;
-
         private static int GetExpectedForMultipleAssignment() => 123;
+        // TODO: consider supporting of similar use cases
+        //private static AddResult GetExpectedForInvocationPath() => new()
+        //{
+        //    Value = 123,
+        //    ValueAsHexString = "Incorrect value",
+        //};
     }
 
     public static class TestedClass

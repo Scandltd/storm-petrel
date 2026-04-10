@@ -16,8 +16,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         private readonly string[] _rowDefaultExpressions;
         private bool _isMatched;
         private bool _isCellReplaced;
-        public EnumerableResultRewriter(IEnumerable<string> methodPath, int resultRowIndex, int resultColumnIndex, string valueNewCode, string[] rowDefaultExpressions = null)
-            : base(methodPath, valueNewCode)
+        public EnumerableResultRewriter(IEnumerable<string> methodPath, int resultRowIndex, int resultColumnIndex, string valueNewCode, string[] rowDefaultExpressions = null, string[] invocationPath = null)
+            : base(methodPath, valueNewCode, invocationPath ?? Array.Empty<string>())
         {
             _resultRowIndex = resultRowIndex;
             _resultColumnIndex = resultColumnIndex;
@@ -123,6 +123,15 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             if (cell == null)
             {
                 return baseVisit(node);
+            }
+            if (_invocationPath.Length != 0)
+            {
+                var assignment = GetAssignmentByInvocationPath(cell);
+                if (assignment == null)
+                {
+                    return baseVisit(node);
+                }
+                cell = assignment.Right;
             }
             var maxTriviaDonor = MaxTriviaNode(cell, cell.Parent, rows.First(), cells.First());
             var initExpression = CreateInitializeExpressionSyntax(maxTriviaDonor);

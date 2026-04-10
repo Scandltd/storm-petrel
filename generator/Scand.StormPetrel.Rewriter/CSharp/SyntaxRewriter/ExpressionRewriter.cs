@@ -13,8 +13,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
         /// <param name="expressionKind"></param>
         /// <param name="expressionIndex"></param>
         /// <param name="valueNewCode"></param>
-        public ExpressionRewriter(IEnumerable<string> methodPath, int expressionKind, int expressionIndex, string valueNewCode)
-            : base(methodPath, expressionKind, expressionIndex, valueNewCode)
+        public ExpressionRewriter(IEnumerable<string> methodPath, int expressionKind, int expressionIndex, string valueNewCode, IEnumerable<string> invocationPath)
+            : base(methodPath, expressionKind, expressionIndex, valueNewCode, invocationPath)
         {
         }
         protected override bool IsDescendantNodeVisitable(object onBeforeVisitDescendantNodesState, SyntaxNode descendantNode, out bool isResetExpressionIndex)

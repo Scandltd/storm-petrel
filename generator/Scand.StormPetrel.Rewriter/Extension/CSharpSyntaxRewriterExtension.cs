@@ -8,29 +8,30 @@ namespace Scand.StormPetrel.Rewriter.Extension
 {
     public static class CSharpSyntaxRewriterExtension
     {
-        public static async Task RewriteAsync(this CSharpSyntaxRewriter rewriter, string filePath)
+        public static async Task<bool> RewriteAsync(this CSharpSyntaxRewriter rewriter, string filePath)
             => await RewriteAsync(rewriter, filePath, true).ConfigureAwait(false);
 
-        public static async Task RewriteAsync(this CSharpSyntaxRewriter rewriter, Stream inputStream, Stream outputStream)
+        public static async Task<bool> RewriteAsync(this CSharpSyntaxRewriter rewriter, Stream inputStream, Stream outputStream)
             => await RewriteAsync(rewriter, inputStream, outputStream, true).ConfigureAwait(false);
 
-        public static void Rewrite(this CSharpSyntaxRewriter rewriter, Stream inputStream, Stream outputStream)
-            => RewriteAsync(rewriter, inputStream, outputStream, false).Wait();
+        public static bool Rewrite(this CSharpSyntaxRewriter rewriter, Stream inputStream, Stream outputStream)
+            => RewriteAsync(rewriter, inputStream, outputStream, false).Result;
 
-        public static void Rewrite(this CSharpSyntaxRewriter rewriter, string filePath)
-            => RewriteAsync(rewriter, filePath, false).Wait();
+        public static bool Rewrite(this CSharpSyntaxRewriter rewriter, string filePath)
+            => RewriteAsync(rewriter, filePath, false).Result;
 
-        private static async Task RewriteAsync(CSharpSyntaxRewriter rewriter, string filePath, bool isAsyncOtherwiseSync)
+        private static async Task<bool> RewriteAsync(CSharpSyntaxRewriter rewriter, string filePath, bool isAsyncOtherwiseSync)
         {
             using (var inStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var outStream = File.Open(filePath, FileMode.Open, FileAccess.Write, FileShare.ReadWrite))
             {
-                await RewriteAsync(rewriter, inStream, outStream, isAsyncOtherwiseSync).ConfigureAwait(false);
+                var result = await RewriteAsync(rewriter, inStream, outStream, isAsyncOtherwiseSync).ConfigureAwait(false);
                 outStream.SetLength(outStream.Position); //truncate the file if need
+                return result;
             }
         }
 
-        private static async Task RewriteAsync(CSharpSyntaxRewriter rewriter, Stream inputStream, Stream outputStream, bool isAsyncOtherwiseSync)
+        private static async Task<bool> RewriteAsync(CSharpSyntaxRewriter rewriter, Stream inputStream, Stream outputStream, bool isAsyncOtherwiseSync)
         {
             if (rewriter == null)
             {
@@ -64,6 +65,7 @@ namespace Scand.StormPetrel.Rewriter.Extension
                         writer.Flush();
                     }
                 }
+                return root != newSourceNode;
             }
         }
     }

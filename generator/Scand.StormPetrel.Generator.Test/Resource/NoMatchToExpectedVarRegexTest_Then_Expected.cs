@@ -53,11 +53,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "ArrowExpressionBodyWithActualAndExpected"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -145,11 +140,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "AttributeWithMultipleExpected"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -183,11 +173,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "AttributeWithMultipleExpected"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -259,11 +244,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "BodyWithMultipleExpected"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -297,11 +277,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "BodyWithMultipleExpected"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -380,11 +355,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -463,11 +433,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -534,11 +499,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "WhenTwoExpectedVarsNotMatchingConfigButAssertExpressionsThenVarsAreUpdatedInOneCallTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -571,11 +531,6 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoMatchToExpectedVarRegexTest",
-                "WhenTwoExpectedVarsNotMatchingConfigButAssertExpressionsThenVarsAreUpdatedInOneCallTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

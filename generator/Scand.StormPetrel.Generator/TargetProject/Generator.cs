@@ -2,14 +2,15 @@
 using Scand.StormPetrel.Generator.Abstraction;
 using Scand.StormPetrel.Generator.Abstraction.Exceptions;
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Scand.StormPetrel.Generator.TargetProject
 {
     // {GeneratedCodeAttribute}
     public sealed class Generator : IGenerator
     {
-        private static ConcurrentDictionary<MethodContext, string> MethodContextToFirstBackupFilePath = new ConcurrentDictionary<MethodContext, string>();
+        private const string MethodSharedContextRewriteResultsKey = "Scand.StormPetrel.Generator.TargetProject.Generator.RewriteResults";
         private readonly IGeneratorDumper _dumper;
         private readonly IGeneratorRewriter _rewriter;
         internal Generator()
@@ -51,14 +52,12 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 GenerationContext = generationContext,
                 Value = actualDump,
             });
-            if (!MethodContextToFirstBackupFilePath.TryGetValue(sharedContext, out var firstBackupFilePath)
-                    || !string.IsNullOrEmpty(rewriteResult.BackupFilePath) && string.IsNullOrEmpty(firstBackupFilePath))
+            if (!sharedContext.CustomProperties.TryGetValue(MethodSharedContextRewriteResultsKey, out var rewriteResults))
             {
-                if (string.IsNullOrEmpty(firstBackupFilePath))
-                {
-                    MethodContextToFirstBackupFilePath[sharedContext] = rewriteResult.BackupFilePath;
-                }
+                rewriteResults = new List<RewriteResult>();
+                sharedContext.CustomProperties.Add(MethodSharedContextRewriteResultsKey, rewriteResults);
             }
+            ((List<RewriteResult>)rewriteResults).Add(rewriteResult);
             if (isLastVariablePair)
             {
                 CompleteGenerationContext(sharedContext);
@@ -67,11 +66,18 @@ namespace Scand.StormPetrel.Generator.TargetProject
 
         private static void CompleteGenerationContext(MethodContext sharedContext)
         {
-            if (!MethodContextToFirstBackupFilePath.TryRemove(sharedContext, out var backupPath))
+            if (!(sharedContext.CustomProperties.TryGetValue(MethodSharedContextRewriteResultsKey, out var rewriteResultsObject)
+                    && rewriteResultsObject is List<RewriteResult> rewriteResults
+                    && rewriteResults.Any(x => x.IsRewritten)))
             {
                 //No code rewrites, just exit
                 return;
             }
+            var backupPaths = rewriteResults
+                .Where(x => x.IsRewritten && !string.IsNullOrEmpty(x.BackupFilePath))
+                .Select(x => x.BackupFilePath)
+                .Distinct();
+            var backupPath = string.Join(", ", backupPaths);
             var message = string.IsNullOrEmpty(backupPath)
                             ? "StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions. Original code is NOT saved according to the configuration."
                             : $"StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions. Original code is saved in {backupPath}.";

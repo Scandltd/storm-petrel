@@ -43,7 +43,7 @@ namespace Scand.StormPetrel.Rewriter.Test
 ";
             var expectedCode = code.Replace('1', '2');
             await File.WriteAllTextAsync(fileName, code, encoding);
-            var rewriter = new DeclarationRewriter(declarationPaths, "2");
+            var rewriter = new DeclarationRewriter(declarationPaths, "2", []);
 
             //Act
             await rewriter.RewriteAsync(fileName);

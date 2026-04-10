@@ -31,10 +31,10 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 switch (initializerContext.Kind)
                 {
                     case InitializerContextKind.VariableDeclaration:
-                        rewriter = new DeclarationRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value);
+                        rewriter = new DeclarationRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value, initializerContext.InvocationPath);
                         break;
                     case InitializerContextKind.VariableAssignment:
-                        rewriter = new AssignmentRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value);
+                        rewriter = new AssignmentRewriter(generationContext.ExpectedVariablePath, generationRewriteContext.Value, initializerContext.InvocationPath);
                         break;
                     default:
                         throw new InvalidOperationException("Unexpected Kind = " + initializerContext.Kind);
@@ -59,7 +59,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                         var staticMethodInfo = GetStaticMethodInfo(methodPath, methodNodeInfo.MethodArgsCount);
                         methodPath = staticMethodInfo.MethodPath;
                         filePath = staticMethodInfo.FilePath;
-                        rewriter = new ExpressionRewriter(methodPath, methodNodeInfo.NodeKind, methodNodeInfo.NodeIndex, generationRewriteContext.Value);
+                        rewriter = new ExpressionRewriter(methodPath, methodNodeInfo.NodeKind, methodNodeInfo.NodeIndex, generationRewriteContext.Value, Array.Empty<string>());
                     }
                     else
                     {
@@ -70,7 +70,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 {
                     var staticPropertyInfo = GetStaticPropertyInfo(invocationSourceContext.Path, true);
                     filePath = staticPropertyInfo.FilePath;
-                    rewriter = new DeclarationRewriter(staticPropertyInfo.PropertyPath, generationRewriteContext.Value);
+                    rewriter = new DeclarationRewriter(staticPropertyInfo.PropertyPath, generationRewriteContext.Value, Array.Empty<string>());
                 }
             }
             else if (extraContext is TestCaseSourceContext testCaseSourceContext)
@@ -95,7 +95,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                     testCaseSourcePath = testCaseSourcePropertyInfo.PropertyPath;
                     filePath = testCaseSourcePropertyInfo.FilePath;
                 }
-                rewriter = new EnumerableResultRewriter(testCaseSourcePath, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value, parameterDefaultValues);
+                rewriter = new EnumerableResultRewriter(testCaseSourcePath, testCaseSourceContext.RowIndex, testCaseSourceContext.ColumnIndex, generationRewriteContext.Value, parameterDefaultValues, testCaseSourceContext.InvocationPath);
             }
             else
             {
@@ -112,12 +112,13 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 });
             }
 
+            bool isRewritten;
             lock (filePathToLock.GetOrAdd(filePath, new object()))
             {
-                CSharpSyntaxRewriterExtension.Rewrite(rewriter, filePath);
+                isRewritten = CSharpSyntaxRewriterExtension.Rewrite(rewriter, filePath);
             }
 
-            return new RewriteResult { IsRewritten = true, BackupFilePath = backupFilePath };
+            return new RewriteResult { IsRewritten = isRewritten, BackupFilePath = backupFilePath };
         }
 
         private static StaticPropertyInfo GetStaticPropertyInfo(string[] staticPropertyPath, bool throwIfNotFound)

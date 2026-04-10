@@ -156,6 +156,19 @@ namespace Test.Integration.XUnit
         }
 
         [Theory]
+        [MemberData(nameof(MemberDataPropertyForInvocationPathInPartialFile))]
+        public void WhenMemberDataPropertyForInvocationPathInPartialFileThenExpectedIsUpdated(int x, int y, AddResult expected)
+        {
+            ArgumentNullException.ThrowIfNull(expected);
+            //Arrange
+            //Act
+            var actualResult = Calculator.Add(x, y);
+            //Assert
+            actualResult.Value.Should().Be(expected.Value);
+            actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
+        }
+
+        [Theory]
         [MemberData(nameof(TheoryDataCustomEqualArg))]
         public void WhenCustomEqualArg(CustomEqualValue x, int expected)
         {

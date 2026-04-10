@@ -1,6 +1,6 @@
 public class Foo
 {
-    int[] TestProperty { get; set; } = new List<string>() { };
+    AddResult TestProperty { get; set; } = new List<string>() { };
 }
 
 public class Foo2

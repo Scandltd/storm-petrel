@@ -35,11 +35,6 @@ public partial class RefStructTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "RefStructTest",
-                "Utf8StringLiteralTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -97,11 +92,6 @@ public partial class RefStructTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "RefStructTest",
-                "StackAllocArrayCreationExpressionTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -274,11 +264,6 @@ public partial class RefStructTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "RefStructTest",
-                "ArrowMethodWithActualReadOnlySpanFromMethodExpressionTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

@@ -34,11 +34,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -75,11 +70,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -116,11 +106,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -157,11 +142,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -198,11 +178,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -264,11 +239,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorAssertsNullTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -305,11 +275,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorAssertsNullTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -346,11 +311,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorAssertsNullTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -387,11 +347,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorAssertsNullTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -428,11 +383,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullConditionalOperatorAssertsNullTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -500,11 +450,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullForgivenOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -541,11 +486,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullForgivenOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -582,11 +522,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullForgivenOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -623,11 +558,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullForgivenOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -664,11 +594,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullForgivenOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -729,11 +654,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullCoalescingOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -770,11 +690,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullCoalescingOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -811,11 +726,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullCoalescingOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -852,11 +762,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullCoalescingOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -893,11 +798,6 @@ public class NoExpectedVarWithOperatorsTestStormPetrel
 #nullable restore
 #endif
         ,
-            ActualVariablePath = new[]
-            {
-                "NoExpectedVarWithOperatorsTest",
-                "WhenNullCoalescingOperatorTest"
-            },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

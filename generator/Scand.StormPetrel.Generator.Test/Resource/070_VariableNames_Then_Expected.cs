@@ -338,12 +338,6 @@ namespace Scand.StormPetrel.Generator.Test.Resources
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Scand.StormPetrel.Generator.Test.Resources",
-                    "VariableNames",
-                    "DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -411,12 +405,6 @@ namespace Scand.StormPetrel.Generator.Test.Resources
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Scand.StormPetrel.Generator.Test.Resources",
-                    "VariableNames",
-                    "WhenNoActualVariableAndStandardAssertThenShouldDetect"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
@@ -512,12 +500,6 @@ namespace Scand.StormPetrel.Generator.Test.Resources
 #nullable restore
 #endif
             ,
-                ActualVariablePath = new[]
-                {
-                    "Scand.StormPetrel.Generator.Test.Resources",
-                    "VariableNames",
-                    "MultipleVariablePairsShouldResultMultipleBaselineReplacements"
-                },
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif

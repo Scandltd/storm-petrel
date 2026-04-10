@@ -1,6 +1,6 @@
 public class Foo
 {
-    int[] TestMethod() => new List<string>()
+    AddResult TestMethod() => new List<string>()
     {
         "One",
         "Two",

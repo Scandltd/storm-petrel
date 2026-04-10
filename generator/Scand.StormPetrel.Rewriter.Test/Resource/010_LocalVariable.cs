@@ -2,11 +2,9 @@
 {
     public void Bla()
     {
-        var localVar = new int[]
+        var localVar = new AddResult
         {
-            1,
-            2,
-            3,
+            Value = 4,
         };
     }
 }

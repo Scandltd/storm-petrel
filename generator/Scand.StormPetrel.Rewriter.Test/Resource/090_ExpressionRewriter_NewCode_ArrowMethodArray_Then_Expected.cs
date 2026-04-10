@@ -1,13 +1,12 @@
 public class Foo
 {
-    public int[] Bla()
+    public AddResult Bla()
     {
-        int[] localVar = null;
+        AddResult localVar = null;
 
-        localVar = new int[]
+        localVar = new()
         {
-            1,
-            2,
+            Value = "5",
         };
 
         return localVar;
@@ -17,8 +16,13 @@ public class Foo
 
     public int[] ArrowMethodArray() => new int[]
     {
-        1,
-        2,
+        3,
+        4, // Values other than in original code
+    };
+
+    public AddResult ArrowMethodAddResult() => new AddResult()
+    {
+        Value = "5",
     };
 
     public int ReturnMethod()
@@ -32,6 +36,14 @@ public class Foo
         {
             1,
             2,
+        };
+    }
+
+    public AddResult ReturnMethodAddResult()
+    {
+        return new AddResult
+        {
+            Value = "5",
         };
     }
 

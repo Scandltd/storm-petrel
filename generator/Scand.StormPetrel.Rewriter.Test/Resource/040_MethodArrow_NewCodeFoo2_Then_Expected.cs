@@ -1,10 +1,8 @@
 public class Foo
 {
-    int[] TestMethod() => new int[]
+    AddResult TestMethod() => new AddResult()
     {
-        1,
-        2,
-        3,
+        Value = 4,
     };
 }
 

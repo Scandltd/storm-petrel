@@ -9,8 +9,8 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
 {
     public sealed class DeclarationRewriter : AbstractValueRewriter
     {
-        public DeclarationRewriter(IEnumerable<string> declarationPath, string declarationNewCode)
-            : base(declarationPath, declarationNewCode)
+        public DeclarationRewriter(IEnumerable<string> declarationPath, string declarationNewCode, IEnumerable<string> invocationPath)
+            : base(declarationPath, declarationNewCode, invocationPath)
         {
         }
 
@@ -60,9 +60,13 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
             }
             if (node.Initializer != null)
             {
-                var newExpression = CreateInitializeExpressionSyntax(node);
-                var newInitializer = node.Initializer.WithValue(newExpression);
-                return node.ReplaceNode(node.Initializer, newInitializer);
+                if (_invocationPath.Length == 0)
+                {
+                    var newExpression = CreateInitializeExpressionSyntax(node);
+                    var newInitializer = node.Initializer.WithValue(newExpression);
+                    return node.ReplaceNode(node.Initializer, newInitializer);
+                }
+                return WithInvocationPathHandling(node, node.Initializer);
             }
             var getAccessorReturns = getAccessor?
                                         .DescendantNodes(x => !(x is ReturnStatementSyntax))
@@ -70,33 +74,19 @@ namespace Scand.StormPetrel.Rewriter.CSharp.SyntaxRewriter
                                         .Cast<ReturnStatementSyntax>();
             if (getAccessorReturns?.Any() == true)
             {
-                var newExpression = CreateInitializeExpressionSyntax(node)
-                                        .WithoutTrailingTrivia();
-                //Replace all `returns` (even some of replaces might be redundant) so that it is visible for end user
-                return node.ReplaceNodes(getAccessorReturns, (x, _) => x.WithExpression(newExpression));
+                if (_invocationPath.Length == 0)
+                {
+                    var newExpression = CreateInitializeExpressionSyntax(node)
+                                            .WithoutTrailingTrivia();
+                    //Replace all `returns` (even some of replaces might be redundant) so that it is visible for end user
+                    return node.ReplaceNodes(getAccessorReturns, (x, _) => x.WithExpression(newExpression));
+                }
+                return WithInvocationPathHandling(node, getAccessorReturns.Select(x => x.Expression));
             }
             if (getAccessor?.ExpressionBody != null)
             {
-                var newGetAccessor = WithExpressionBody(getAccessor);
-                return node.ReplaceNode(getAccessor, newGetAccessor);
+                return WithExpressionBody(node, getAccessor);
             }
-            if (node.ExpressionBody == null)
-            {
-                var newExpression = CreateInitializeExpressionSyntax(node)
-                                        .WithoutTrailingTrivia();
-                var equalsToken = SyntaxFactory
-                                    .Token(SyntaxKind.EqualsToken)
-                                    .WithLeadingTrivia(SyntaxFactory.Whitespace(" "))
-                                    .WithTrailingTrivia(SyntaxFactory.Whitespace(" "));
-                var equalsValue = SyntaxFactory
-                                    .EqualsValueClause(equalsToken, newExpression);
-                return node
-                        .WithoutTrailingTrivia()
-                        .WithInitializer(equalsValue)
-                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
-                        .WithTrailingTrivia(node.GetTrailingTrivia());
-            }
-
             return WithExpressionBody(node);
         }
 
