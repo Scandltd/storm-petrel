@@ -517,6 +517,25 @@ An option is to always have a default value for the property while dumping it to
 This can be implemented via custom configuration or the implementation of [IGeneratorDumper](../abstraction/Scand.StormPetrel.Generator.Abstraction/IGeneratorDumper).
 See an example of how this is implemented via the `GetDumpOptions` method in [Test.Integration.XUnit/Utils](Test.Integration.XUnit/Utils.cs) and configured in [Test.Integration.XUnit/appsettings.StormPetrel.json](Test.Integration.XUnit/appsettings.StormPetrel.json).
 
+### What is the best test method pattern to update expected baselines for xUnit Theory tests?
+There is no single best pattern — choose or vary the approach that fits your needs. Common options:
+
+A. Use `[InlineData("input value", "expected value")]` (see [AttributesTest](Test.Integration.XUnit/AttributesTest.cs)).
+- Pros: Input and expected values are colocated and immediately visible with the test.
+- Cons: Attribute argument types are [limited](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/attribute-usage-errors#attribute-arguments-and-parameters), so complex objects cannot be used.
+
+B. Use an attribute like `[InlineData(UseCaseEnum.UseCaseDescription)]` (see [AttributesAndComplexTypesTest](Test.Integration.XUnit/AttributesAndComplexTypesTest.cs)).
+- Pros: Enables complex objects compared to approach A.
+- Cons: Input and expected values are stored separately, which can make reviewing a single case less straightforward.
+
+C. Use `[MemberData(nameof(TheoryDataSource))]` (see [TestCaseSourceMemberDataTest](Test.Integration.XUnit/TestCaseSourceMemberDataTest.cs) or [TheoryContractTest](Test.Integration.XUnitV3/TheoryContractTest.cs)).
+- Pros: Complex objects are supported and related input/expected data can live together in the data source.
+- Cons: Individual cases may not appear as separate rows in some test runners (e.g., Visual Studio Test Explorer).
+
+D. Use `[MemberData(...)]` together with an `IXunitSerializable` implementation (see [XunitSerializableExampleTest](Test.Integration.XUnit/XunitSerializableExampleTest.cs) and [XunitSerializable](Test.Integration.XUnit/XunitSerializable.cs)).
+- Pros: Test cases appear as individual rows in test runners.
+- Cons: Requires additional helpers (for example, `XunitSerializable`), which adds some complexity.
+
 ### What Operating Systems and IDEs can I use to run StormPetrel tests?
 You can definitely use Windows or Linux with:
 * Command line tools like `dotnet test ... --filter "FullyQualifiedName~StormPetrel"`.
