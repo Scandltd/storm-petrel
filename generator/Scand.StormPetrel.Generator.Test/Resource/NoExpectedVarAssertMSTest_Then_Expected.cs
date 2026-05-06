@@ -12,18 +12,15 @@ public class NoExpectedVarAssertTestStormPetrel
     {
         //Act
         var actual = 100;
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoExpectedVarAssertTest",
             MethodName = "AssertAreEqualTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 2,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 2
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -41,14 +38,14 @@ public class NoExpectedVarAssertTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "NoExpectedVarAssertTest",
                     "AssertAreEqualTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -57,9 +54,9 @@ public class NoExpectedVarAssertTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -77,14 +74,14 @@ public class NoExpectedVarAssertTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "NoExpectedVarAssertTest",
                     "AssertAreEqualTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 1,
@@ -93,7 +90,7 @@ public class NoExpectedVarAssertTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         //Assert
         Assert.AreEqual(123, actual);
         Assert.AreEqual(actual: actual, expected: 123);

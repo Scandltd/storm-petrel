@@ -18,7 +18,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
         {
             //Act
             var actual = "one_actual";
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "AttributesTest",
@@ -27,27 +27,21 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 VariablePairsCount = 1,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "intArg",
                         Value = intArg,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "string"
                     }
                 }
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -78,7 +72,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethod"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
@@ -86,7 +80,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
@@ -99,7 +93,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
         {
             //Act
             var actual = "one_actual";
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "AttributesTest",
@@ -108,37 +102,28 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 VariablePairsCount = 2,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "intArg",
                         Value = intArg,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "string"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected2",
                         Value = expected2,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int",
                         DefaultExpression = "-1"
                     }
                 }
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -169,7 +154,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethodMultipleExpected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
@@ -177,10 +162,10 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             var actual2 = "two_actual";
             stormPetrelSharedContext.VariablePairCurrentIndex++;
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -211,7 +196,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethodMultipleExpected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
@@ -219,7 +204,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             //Assert
             actual.Should().BeEquivalentTo(expected);
             actual2.Should().BeEquivalentTo(expected2);
@@ -233,7 +218,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
         {
             //Act
             var actual = "one_actual";
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "AttributesTest",
@@ -242,47 +227,47 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 VariablePairsCount = 1,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "intArg",
                         Value = intArg,
                         Attributes = new[]
                         {
-                            new Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
+                            new global::Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
                             {
                                 Name = "CallerFilePath"
                             }
                         },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
                         Attributes = new[]
                         {
-                            new Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
+                            new global::Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
                             {
                                 Name = "Obsolete"
                             },
-                            new Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
+                            new global::Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
                             {
                                 Name = "SomeNameSpace.MyCustomAttribute"
                             }
                         },
                         TypeToken = "string"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "oneMoreArgWithTwoAttributes",
                         Value = oneMoreArgWithTwoAttributes,
                         Attributes = new[]
                         {
-                            new Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
+                            new global::Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
                             {
                                 Name = "SomeNameSpace.CallerFilePath"
                             },
-                            new Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
+                            new global::Scand.StormPetrel.Generator.Abstraction.AttributeInfo()
                             {
                                 Name = "CallerMemberName"
                             }
@@ -292,7 +277,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     }
                 }
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -323,7 +308,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethodWithParameterAttributes"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
@@ -331,7 +316,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(expected);
         }
@@ -345,7 +330,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
             int expectedLength = 11;
             //Act
             var actual = i.ToString(CultureInfo.InvariantCulture);
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "AttributesTest",
@@ -354,27 +339,21 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 VariablePairsCount = 2,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "i",
                         Value = i,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "string"
                     }
                 }
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -405,7 +384,7 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "AttributesTest",
                     "TestMethodWithTwoExpectedVar"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
                 {
                     Index = stormPetrelUseCaseIndex,
                     Name = "InlineData",
@@ -413,10 +392,10 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             var actualLength = actual.Length;
             stormPetrelSharedContext.VariablePairCurrentIndex++;
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -448,13 +427,13 @@ namespace Scand.StormPetrel.Rewriter.Test.Resource
                     "TestMethodWithTwoExpectedVar",
                     "expectedLength"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
                 {
-                    Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                    Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             //Assert
             actual.Should().BeEquivalentTo(expected);
             actualLength.Should().Be(expectedLength);

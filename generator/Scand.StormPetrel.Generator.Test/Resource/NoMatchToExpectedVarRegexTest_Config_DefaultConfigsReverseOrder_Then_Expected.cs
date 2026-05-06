@@ -14,7 +14,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
     [InlineData(1, 200, 123)]
     public void ArrowExpressionBodyWithActualAndExpectedStormPetrel(int stormPetrelUseCaseIndex, int arg, int exp)
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
@@ -23,27 +23,21 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             VariablePairsCount = 1,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "arg",
                     Value = arg,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "exp",
                     Value = exp,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 }
             }
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -66,7 +60,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "NoMatchToExpectedVarRegexTest",
                 "ArrowExpressionBodyWithActualAndExpected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
             {
                 Index = stormPetrelUseCaseIndex,
                 Name = "InlineData",
@@ -74,7 +68,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         TestedClass.ReturnInput(arg).Should().Be(exp);
     }
 
@@ -83,7 +77,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
     [InlineData(1, 200, 123, 300, 333)]
     public void AttributeWithMultipleExpectedStormPetrel(int stormPetrelUseCaseIndex, int arg1, int exp1, int arg2, int exp2)
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
@@ -92,45 +86,33 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             VariablePairsCount = 2,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "arg1",
                     Value = arg1,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "exp1",
                     Value = exp1,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "arg2",
                     Value = arg2,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "exp2",
                     Value = exp2,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 }
             }
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -153,7 +135,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "NoMatchToExpectedVarRegexTest",
                 "AttributeWithMultipleExpected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
             {
                 Index = stormPetrelUseCaseIndex,
                 Name = "InlineData",
@@ -161,9 +143,9 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -186,7 +168,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "NoMatchToExpectedVarRegexTest",
                 "AttributeWithMultipleExpected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
             {
                 Index = stormPetrelUseCaseIndex,
                 Name = "InlineData",
@@ -194,7 +176,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         TestedClass.ReturnInput(arg1).Should().Be(exp1);
         TestedClass.ReturnInput(arg2).Should().Be(exp2);
     }
@@ -205,7 +187,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
     public void BodyWithMultipleExpectedStormPetrel(int stormPetrelUseCaseIndex, int arg1, int exp1)
     {
         var exp2 = 123;
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
@@ -214,27 +196,21 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             VariablePairsCount = 2,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "arg1",
                     Value = arg1,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "exp1",
                     Value = exp1,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 }
             }
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -257,7 +233,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "NoMatchToExpectedVarRegexTest",
                 "BodyWithMultipleExpected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
             {
                 Index = stormPetrelUseCaseIndex,
                 Name = "InlineData",
@@ -265,9 +241,9 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -291,13 +267,13 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "BodyWithMultipleExpected",
                 "exp2"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         TestedClass.ReturnInput(arg1).Should().Be(exp1);
         TestedClass.ReturnInput(100).Should().Be(exp2);
     }
@@ -307,7 +283,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
     [InlineData(1, -2, -2, 123)]
     public void ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTestStormPetrel(int stormPetrelUseCaseIndex, int a, int b, int expected)
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
@@ -316,36 +292,27 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             VariablePairsCount = 1,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "a",
                     Value = a,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "b",
                     Value = b,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "expected",
                     Value = expected,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 }
             }
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -368,7 +335,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "NoMatchToExpectedVarRegexTest",
                 "ComplexActualExpressionInAssertEqualAndExpectedArgMatchingRegexTest"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
             {
                 Index = stormPetrelUseCaseIndex,
                 Name = "InlineData",
@@ -376,7 +343,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(expected, Calculator.Add(a, b).Value);
     }
 
@@ -385,7 +352,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
     [InlineData(1, -2, -2, 123)]
     public void ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTestStormPetrel(int stormPetrelUseCaseIndex, int a, int b, int exp /*does not match the regex*/)
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
@@ -394,36 +361,27 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             VariablePairsCount = 1,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "a",
                     Value = a,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "b",
                     Value = b,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "exp",
                     Value = exp,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 }
             }
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -446,7 +404,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "NoMatchToExpectedVarRegexTest",
                 "ComplexActualExpressionInAssertEqualAndExpectedArgNotMatchingRegexTest"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.AttributeContext()
             {
                 Index = stormPetrelUseCaseIndex,
                 Name = "InlineData",
@@ -454,7 +412,7 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(exp, Calculator.Add(a, b).Value);
     }
 
@@ -478,18 +436,15 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
         var actAsString = act.ToString(CultureInfo.InvariantCulture);
         var exp = 123;
         var expAsString = "123";
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
             MethodName = "WhenTwoExpectedVarsNotMatchingConfigButAssertExpressionsThenVarsAreUpdatedInOneCallTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 2,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 2
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -513,15 +468,15 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "WhenTwoExpectedVarsNotMatchingConfigButAssertExpressionsThenVarsAreUpdatedInOneCallTest",
                 "exp"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -545,13 +500,13 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "WhenTwoExpectedVarsNotMatchingConfigButAssertExpressionsThenVarsAreUpdatedInOneCallTest",
                 "expAsString"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         //Assert
         Assert.Equal(exp, act);
         Assert.Equal(expAsString, actAsString);
@@ -567,18 +522,15 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
         var actual = TestedClass.TestedMethod();
         var actualString = actual.ToString(CultureInfo.InvariantCulture);
         TestedClass.TestedClassResultMethod(); //One more code line to indicate more difference in unit tests for different configurations
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "NoMatchToExpectedVarRegexTest",
             MethodName = "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 2,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 2
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -602,15 +554,15 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -634,13 +586,13 @@ public class NoMatchToExpectedVarRegexTestStormPetrel
                 "WhenExpectedVarMatchesBothVarPairAndAssertExpressionThenTheMatchDependsOnTheOrderTest",
                 "expectedString"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         //Assert
         Assert.Equal(expected, actual);
         //Use ToUpperInvariant to distinguish (expectedString, actualString) and (expectedString, actualString.ToUpperInvariant()) pairs in unit tests for different configurations

@@ -344,7 +344,7 @@ namespace Scand.StormPetrel.Generator
         {
             var newCode = ResourceHelper.ReadTargetProjectResource(ResourceHelper.StaticPropertyInfoResourceFileName);
             var sb = new StringBuilder();
-            sb.AppendLine(propertiesInfo.Any() ? "new[]" : "new StaticPropertyInfo[]");
+            sb.AppendLine(propertiesInfo.Any() ? "new[]" : "new global::Scand.StormPetrel.Generator.TargetProject.GeneratorRewriter.StaticPropertyInfo[]");
             sb.AppendLine("{");
             foreach (var (propertyPath, filePath) in propertiesInfo)
             {
@@ -352,7 +352,7 @@ namespace Scand.StormPetrel.Generator
                 {
                     break;
                 }
-                sb.AppendLine("    new StaticPropertyInfo()");
+                sb.AppendLine("    new global::Scand.StormPetrel.Generator.TargetProject.GeneratorRewriter.StaticPropertyInfo()");
                 sb.AppendLine("    {");
                 sb.AppendLine(@"        PropertyPath = new[] {""" + string.Join(@""", """, propertyPath) + @"""},");
                 sb.AppendLine(@"        FilePath = @""" + filePath + @"""");
@@ -368,7 +368,7 @@ namespace Scand.StormPetrel.Generator
         {
             var newCode = ResourceHelper.ReadTargetProjectResource(ResourceHelper.StaticMethodInfoResourceFileName);
             var sb = new StringBuilder();
-            sb.AppendLine(methodsInfo.Any() ? "new[]" : "new StaticMethodInfo[]");
+            sb.AppendLine(methodsInfo.Any() ? "new[]" : "new global::Scand.StormPetrel.Generator.TargetProject.GeneratorRewriter.StaticMethodInfo[]");
             sb.AppendLine("{");
             foreach (var (methodPath, methodParametersCount, filePath) in methodsInfo)
             {
@@ -384,7 +384,7 @@ namespace Scand.StormPetrel.Generator
                 }
                 //Select any method. Appropriate overload should be selected by method arguments
                 methodPathStr[methodPathStr.Length - 1] = methodNameSegment + "[*]";
-                sb.AppendLine("    new StaticMethodInfo()");
+                sb.AppendLine("    new global::Scand.StormPetrel.Generator.TargetProject.GeneratorRewriter.StaticMethodInfo()");
                 sb.AppendLine("    {");
                 sb.AppendLine(@"        MethodPath = new[] {""" + string.Join(@""", """, methodPathStr) + @"""},");
                 sb.AppendLine(@"        MethodArgsCount = " + methodParametersCount + @",");
@@ -420,15 +420,16 @@ namespace Scand.StormPetrel.Generator
             foreach (var fileName in fileNames.Where(a => a != null))
             {
                 var newCode = ResourceHelper.ReadTargetProjectResource(fileName);
+                const string globalPrefix = "global::Scand.StormPetrel.Generator.Abstraction";
                 if (fileName == "Generator")
                 {
-                    newCode = newCode.Replace("(IGeneratorDumper)null", $"(IGeneratorDumper){generatorConfig.DumperExpression}");
-                    newCode = newCode.Replace("(IGeneratorRewriter)null", $"(IGeneratorRewriter){generatorConfig.RewriterExpression}");
+                    newCode = newCode.Replace($"({globalPrefix}.IGeneratorDumper)null", $"({globalPrefix}.IGeneratorDumper){generatorConfig.DumperExpression}");
+                    newCode = newCode.Replace($"({globalPrefix}.IGeneratorRewriter)null", $"({globalPrefix}.IGeneratorRewriter){generatorConfig.RewriterExpression}");
                 }
                 else if (fileName == "GeneratorRewriter")
                 {
                     string backuperExpression = string.IsNullOrEmpty(generatorConfig.BackuperExpression) ? "null" : generatorConfig.BackuperExpression;
-                    newCode = newCode.Replace("(IGeneratorBackuper)null", $"(IGeneratorBackuper){backuperExpression}");
+                    newCode = newCode.Replace($"({globalPrefix}.IGeneratorBackuper)null", $"({globalPrefix}.IGeneratorBackuper){backuperExpression}");
                 }
                 newCode = newCode.Replace("// {GeneratedCodeAttribute}", GeneratedCodeAttribute.GetAttributeFullString());
 

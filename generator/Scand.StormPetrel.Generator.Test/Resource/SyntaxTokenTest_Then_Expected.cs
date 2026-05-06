@@ -14,18 +14,15 @@ public class SyntaxTokenTestStormPetrel
     [Fact]
     public void ShouldBeMinusTokenTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBeMinusTokenTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -43,14 +40,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBeMinusTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -59,25 +56,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         (-100).Should().Be(-123);
     }
 
     [Fact]
     public void ShouldBePlusTokenTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBePlusTokenTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -95,14 +89,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBePlusTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -111,25 +105,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         100.Should().Be(+123);
     }
 
     [Fact]
     public void ShouldBeSingleQuouteTokenTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBeSingleQuouteTokenTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -147,14 +138,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBeSingleQuouteTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -163,25 +154,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         'a'.Should().Be('b');
     }
 
     [Fact]
     public void ShouldBeExclamationTokenTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBeExclamationTokenTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -199,14 +187,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBeExclamationTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -215,25 +203,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         false.Should().Be(!false);
     }
 
     [Fact]
     public void AssertEqualMinusTokenTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualMinusTokenTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -251,14 +236,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualMinusTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -267,25 +252,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(-123, 100);
     }
 
     [Fact]
     public void AssertEqualDefaultExpressionTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualDefaultExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -303,14 +285,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualDefaultExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -319,25 +301,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(default, 100);
     }
 
     [Fact]
     public void AssertEqualDefaultExpressionWithTypeTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualDefaultExpressionWithTypeTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -355,14 +334,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualDefaultExpressionWithTypeTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -371,25 +350,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(default(int), 100);
     }
 
     [Fact]
     public void AssertEqualInterpolatedStringTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualInterpolatedStringTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -407,14 +383,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualInterpolatedStringTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -423,25 +399,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal($"{123}", $"{100}");
     }
 
     [Fact]
     public void AssertEqualInterpolatedVerbatimStringTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualInterpolatedVerbatimStringTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -459,14 +432,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualInterpolatedVerbatimStringTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -475,25 +448,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(@$"{123}", @$"{100}");
     }
 
     [Fact]
     public void AssertEqualInterpolatedRawStringTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualInterpolatedRawStringTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -515,14 +485,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualInterpolatedRawStringTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -531,7 +501,7 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal($"""
         {123}
         """, $"""
@@ -542,18 +512,15 @@ public class SyntaxTokenTestStormPetrel
     [Fact]
     public void ShouldBeInterpolatedStringExpressionTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBeInterpolatedStringExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -571,14 +538,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBeInterpolatedStringExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -587,25 +554,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         $"{100}".Should().Be($"{123}");
     }
 
     [Fact]
     public void ShouldBeOpenBracketTokenTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBeOpenBracketTokenTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -626,14 +590,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBeOpenBracketTokenTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -642,7 +606,7 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         new int[]
         {
             100
@@ -652,18 +616,15 @@ public class SyntaxTokenTestStormPetrel
     [Fact]
     public void AssertEquivalentNullTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEquivalentNullTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -681,14 +642,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEquivalentNullTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -697,25 +658,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equivalent(null, new object ());
     }
 
     [Fact]
     public void AssertEqualNumericTypesTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualNumericTypesTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 5,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 5
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -733,14 +691,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -749,9 +707,9 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -769,14 +727,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -785,9 +743,9 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext2 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext2 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -805,14 +763,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -821,9 +779,9 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext3 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext3 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -841,14 +799,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -857,9 +815,9 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext3);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext3);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext4 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext4 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -877,14 +835,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualNumericTypesTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -893,7 +851,7 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext4);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext4);
         //Act, Assert
         Assert.Equal(123f, 100.6f);
         Assert.Equal(123m, 100.7m);
@@ -905,18 +863,15 @@ public class SyntaxTokenTestStormPetrel
     [Fact]
     public void AssertEqualBitwiseNotTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualBitwiseNotTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -934,14 +889,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualBitwiseNotTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -950,25 +905,22 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(~123, 100);
     }
 
     [Fact]
     public void ShouldBeOmittedArraySizeExpressionTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "ShouldBeOmittedArraySizeExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -996,14 +948,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "ShouldBeOmittedArraySizeExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -1012,7 +964,7 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         new int[, ]
         {
             {
@@ -1024,18 +976,15 @@ public class SyntaxTokenTestStormPetrel
     [Fact]
     public void AssertEqualTupleTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "SyntaxTokenTest",
             MethodName = "AssertEqualTupleTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -1053,14 +1002,14 @@ public class SyntaxTokenTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "SyntaxTokenTest",
                     "AssertEqualTupleTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -1069,7 +1018,7 @@ public class SyntaxTokenTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal((123, 123), (100, 100));
     }
 }

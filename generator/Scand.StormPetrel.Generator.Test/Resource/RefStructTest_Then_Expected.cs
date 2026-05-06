@@ -14,18 +14,15 @@ public partial class RefStructTestStormPetrel
     {
         //Act
         var actual = "cdef"u8;
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "RefStructTest",
             MethodName = "Utf8StringLiteralTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -43,14 +40,14 @@ public partial class RefStructTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "RefStructTest",
                     "Utf8StringLiteralTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -59,7 +56,7 @@ public partial class RefStructTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         //Assert
         Assert.Equal("abc", Encoding.UTF8.GetString(actual));
     }
@@ -71,18 +68,15 @@ public partial class RefStructTestStormPetrel
         Span<int> actual = stackalloc int[5];
         //Act
         FillActualSpan(actual);
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "RefStructTest",
             MethodName = "StackAllocArrayCreationExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -100,14 +94,14 @@ public partial class RefStructTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "RefStructTest",
                     "StackAllocArrayCreationExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -116,7 +110,7 @@ public partial class RefStructTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         //Assert
         Assert.Equal([1, 2, 3], actual.ToArray());
     }
@@ -130,18 +124,15 @@ public partial class RefStructTestStormPetrel
         ReadOnlySpan<int> act = [4, 5, 6];
         //Assert
         var actual = act.ToArray();
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "RefStructTest",
             MethodName = "ReadOnlySpanCreationExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -171,13 +162,13 @@ public partial class RefStructTestStormPetrel
                 "ReadOnlySpanCreationExpressionTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal(expected, actual);
     }
 
@@ -188,18 +179,15 @@ public partial class RefStructTestStormPetrel
         int[] expected = [1, 2, 3];
         //Act
         var actual = GetActualAsReadOnlySpan().ToArray();
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "RefStructTest",
             MethodName = "ReadOnlySpanFromMethodExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -229,13 +217,13 @@ public partial class RefStructTestStormPetrel
                 "ReadOnlySpanFromMethodExpressionTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         //Assert
         Assert.Equal(expected, actual);
     }
@@ -243,18 +231,15 @@ public partial class RefStructTestStormPetrel
     [Fact]
     public void ArrowMethodWithActualReadOnlySpanFromMethodExpressionTestStormPetrel()
     {
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "RefStructTest",
             MethodName = "ArrowMethodWithActualReadOnlySpanFromMethodExpressionTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 1,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 1
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -272,14 +257,14 @@ public partial class RefStructTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
             {
                 Path = new[]
                 {
                     "RefStructTest",
                     "ArrowMethodWithActualReadOnlySpanFromMethodExpressionTest"
                 },
-                MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                 {
                     StatementNodeKind = 8638,
                     StatementNodeIndex = 0,
@@ -288,7 +273,7 @@ public partial class RefStructTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         Assert.Equal([1, 2, 3], GetActualAsReadOnlySpan().ToArray());
     }
 

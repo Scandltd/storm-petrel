@@ -18,18 +18,15 @@ namespace Test.Integration.XUnit
                 Amount = 100,
                 Message = "Hello"
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -51,7 +48,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -59,7 +56,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenAnonymousObjectCreationTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -68,7 +65,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(new { Amount = 123, Message = "Hello incorrect" });
         }
@@ -78,18 +75,15 @@ namespace Test.Integration.XUnit
         {
             //Act
             var actual = new int[6];
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -107,7 +101,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -115,7 +109,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -124,7 +118,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new int[5]);
         }
@@ -138,18 +132,15 @@ namespace Test.Integration.XUnit
                 2,
                 3,
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -171,7 +162,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -179,7 +170,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionWithInitializerTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -188,7 +179,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new int[] { 1, 2, });
         }
@@ -198,18 +189,15 @@ namespace Test.Integration.XUnit
         {
             //Act
             var actual = new int[1, 1];
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -227,7 +215,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -235,7 +223,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionMultidimensionalTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -244,7 +232,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new int[3, 3]);
         }
@@ -257,18 +245,15 @@ namespace Test.Integration.XUnit
             {
                 [1]
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -286,7 +271,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -294,7 +279,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenArrayCreationExpressionJaggedTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -303,7 +288,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new int[3][]);
         }
@@ -313,18 +298,15 @@ namespace Test.Integration.XUnit
         {
             //Act
             List<int> actual = [3, 4];
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenCollectionExpressionTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 2,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 2
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -342,7 +324,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -350,7 +332,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -359,9 +341,9 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             stormPetrelSharedContext.VariablePairCurrentIndex++;
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -379,7 +361,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -387,7 +369,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenCollectionExpressionTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -396,7 +378,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             //Assert
             actual.Should().BeEquivalentTo([1, 2, ]);
             //Assert when explicit cast
@@ -411,18 +393,15 @@ namespace Test.Integration.XUnit
             {
                 1,
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -447,7 +426,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -455,7 +434,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -464,7 +443,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new[] { 1, 2, 3, 4, 5 });
         }
@@ -486,18 +465,15 @@ namespace Test.Integration.XUnit
                     2
                 },
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -532,7 +508,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -540,7 +516,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitArrayCreationExpressionMultiDimensionalTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -549,7 +525,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new[, ] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
         }
@@ -562,18 +538,15 @@ namespace Test.Integration.XUnit
             {
                 StringNullableProperty = "Incorrect Test StringNullableProperty",
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -591,7 +564,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -599,7 +572,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -608,7 +581,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo((TestClassResult)new());
         }
@@ -621,18 +594,15 @@ namespace Test.Integration.XUnit
             {
                 StringNullableProperty = "Incorrect Test StringNullableProperty",
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -653,7 +623,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -661,7 +631,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenImplicitObjectCreationExpressionSyntaxWithInitializerTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -670,7 +640,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo((TestClassResult)new() { IntProperty = 0 });
         }
@@ -680,18 +650,15 @@ namespace Test.Integration.XUnit
         {
             //Act
             var actual = 100;
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -709,7 +676,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -717,7 +684,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -726,7 +693,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(123);
         }
@@ -736,18 +703,15 @@ namespace Test.Integration.XUnit
         {
             //Act
             var actual = "Hello, World incorrect!";
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -765,7 +729,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -773,7 +737,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxStringTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -782,7 +746,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be("Hello, World!");
         }
@@ -792,18 +756,15 @@ namespace Test.Integration.XUnit
         {
             //Act
             var actual = 'B';
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -821,7 +782,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -829,7 +790,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenLiteralExpressionSyntaxCharTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -838,7 +799,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be('A');
         }
@@ -851,18 +812,15 @@ namespace Test.Integration.XUnit
             {
                 StringProperty = "Test String property",
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -880,7 +838,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -888,7 +846,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -897,7 +855,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new TestClassResult());
         }
@@ -910,18 +868,15 @@ namespace Test.Integration.XUnit
             {
                 StringProperty = "Test String property",
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -942,7 +897,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -950,7 +905,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -959,7 +914,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new TestClassResult() { StringProperty = "Incorrect Test StringNullableProperty", });
         }
@@ -972,18 +927,15 @@ namespace Test.Integration.XUnit
             {
                 StringProperty = "Test String property",
             };
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "NoExpectedVarExpressionKindsTest",
                 MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -1004,7 +956,7 @@ namespace Test.Integration.XUnit
 #nullable restore
 #endif
             ,
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -1012,7 +964,7 @@ namespace Test.Integration.XUnit
                         "NoExpectedVarExpressionKindsTest",
                         "ShouldDetectExpectedArgumentWhenObjectCreationExpressionSyntaxInitializerNoConstructorParametersTest"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
@@ -1021,7 +973,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().BeEquivalentTo(new TestClassResult { StringProperty = "Incorrect Test StringNullableProperty", });
         }

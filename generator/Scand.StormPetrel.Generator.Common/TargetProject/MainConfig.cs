@@ -8,7 +8,7 @@ namespace Scand.StormPetrel.Generator.Common.TargetProject
     public sealed class MainConfig
     {
         internal const string GeneratorTargetProjectNamespace = "Scand.StormPetrel.Generator.TargetProject";
-        public string TargetProjectGeneratorExpression { get; set; } = $"new {GeneratorTargetProjectNamespace}.Generator()";
+        public string TargetProjectGeneratorExpression { get; set; } = $"new global::{GeneratorTargetProjectNamespace}.Generator()";
         public GeneratorConfig GeneratorConfig { get; set; } = new GeneratorConfig();
         public bool IsDisabled { get; set; }
         public string IgnoreFilePathRegex { get; set; }

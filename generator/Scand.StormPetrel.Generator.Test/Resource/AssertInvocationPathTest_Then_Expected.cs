@@ -24,18 +24,15 @@ public sealed class AssertInvocationPathTestStormPetrel
         };
         //Act
         var actualResult = Calculator.Add(2, 2);
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "AssertInvocationPathTest",
             MethodName = "WhenAssertIndividualExpectedPropertiesOfLocalVarDeclarationThenShouldUpdateThemTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 3,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 3
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -59,19 +56,19 @@ public sealed class AssertInvocationPathTestStormPetrel
                 "WhenAssertIndividualExpectedPropertiesOfLocalVarDeclarationThenShouldUpdateThemTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
                 InvocationPath = new[]
                 {
                     "Value"
                 },
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -95,19 +92,19 @@ public sealed class AssertInvocationPathTestStormPetrel
                 "WhenAssertIndividualExpectedPropertiesOfLocalVarDeclarationThenShouldUpdateThemTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
                 InvocationPath = new[]
                 {
                     "ValueAsHexString"
                 },
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext2 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext2 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -131,18 +128,18 @@ public sealed class AssertInvocationPathTestStormPetrel
                 "WhenAssertIndividualExpectedPropertiesOfLocalVarDeclarationThenShouldUpdateThemTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
                 InvocationPath = new[]
                 {
                     "ValueAsHexString",
                     "Length"
                 },
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
         //Assert
         actualResult.Value.Should().Be(expected.Value);
         actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
@@ -166,18 +163,15 @@ public sealed class AssertInvocationPathTestStormPetrel
         };
         //Act
         var actualResult = Calculator.Add(2, 2);
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "AssertInvocationPathTest",
             MethodName = "WhenAssertIndividualExpectedPropertiesOfLocalVarAssignmentThenShouldUpdateThemTest",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 2,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 2
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -201,19 +195,19 @@ public sealed class AssertInvocationPathTestStormPetrel
                 "WhenAssertIndividualExpectedPropertiesOfLocalVarAssignmentThenShouldUpdateThemTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
                 InvocationPath = new[]
                 {
                     "Value"
                 },
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -237,17 +231,17 @@ public sealed class AssertInvocationPathTestStormPetrel
                 "WhenAssertIndividualExpectedPropertiesOfLocalVarAssignmentThenShouldUpdateThemTest",
                 "expected"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
                 InvocationPath = new[]
                 {
                     "ValueAsHexString"
                 },
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableAssignment
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         //Assert
         actualResult.Value.Should().Be(expected.Value);
         actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
@@ -261,7 +255,7 @@ public sealed class AssertInvocationPathTestStormPetrel
         //Arrange
         //Act
         var actualResult = Calculator.Add(a, b);
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "AssertInvocationPathTest",
@@ -270,42 +264,33 @@ public sealed class AssertInvocationPathTestStormPetrel
             VariablePairsCount = 3,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "a",
                     Value = a,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "b",
                     Value = b,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "expected",
                     Value = expected,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "AddResult?"
                 }
             }
         };
         var stormPetrelTestCaseSourceRowIndex = -1;
         var stormPetrelIsTestCaseSourceRowExist = false;
-        var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSource)));
+        var stormPetrelRows = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSource)));
         foreach (var stormPetrelRow in stormPetrelRows)
         {
             stormPetrelTestCaseSourceRowIndex++;
-            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
+            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
             {
                 stormPetrelIsTestCaseSourceRowExist = true;
                 break;
@@ -314,28 +299,28 @@ public sealed class AssertInvocationPathTestStormPetrel
 
         if (!stormPetrelIsTestCaseSourceRowExist)
         {
-            var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+            var stormPetrelNoEqualArgNames = new global::System.Collections.Generic.List<string>()
             {
                 "a",
                 "b"
             };
             foreach (var stormPetrelRow in stormPetrelRows)
             {
-                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
+                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
                 {
                     stormPetrelNoEqualArgNames.Remove("a");
                 }
 
-                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
+                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
                 {
                     stormPetrelNoEqualArgNames.Remove("b");
                 }
             }
 
-            throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+            throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
         }
 
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -353,7 +338,7 @@ public sealed class AssertInvocationPathTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
             {
                 ColumnIndex = 2,
                 RowIndex = stormPetrelTestCaseSourceRowIndex,
@@ -365,15 +350,15 @@ public sealed class AssertInvocationPathTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
         var stormPetrelTestCaseSourceRowIndex1 = -1;
         var stormPetrelIsTestCaseSourceRowExist1 = false;
-        var stormPetrelRows1 = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSource)));
+        var stormPetrelRows1 = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSource)));
         foreach (var stormPetrelRow in stormPetrelRows1)
         {
             stormPetrelTestCaseSourceRowIndex1++;
-            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
+            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
             {
                 stormPetrelIsTestCaseSourceRowExist1 = true;
                 break;
@@ -382,28 +367,28 @@ public sealed class AssertInvocationPathTestStormPetrel
 
         if (!stormPetrelIsTestCaseSourceRowExist1)
         {
-            var stormPetrelNoEqualArgNames1 = new System.Collections.Generic.List<string>()
+            var stormPetrelNoEqualArgNames1 = new global::System.Collections.Generic.List<string>()
             {
                 "a",
                 "b"
             };
             foreach (var stormPetrelRow in stormPetrelRows1)
             {
-                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
+                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
                 {
                     stormPetrelNoEqualArgNames1.Remove("a");
                 }
 
-                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
+                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
                 {
                     stormPetrelNoEqualArgNames1.Remove("b");
                 }
             }
 
-            throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+            throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
         }
 
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -421,7 +406,7 @@ public sealed class AssertInvocationPathTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
             {
                 ColumnIndex = 2,
                 RowIndex = stormPetrelTestCaseSourceRowIndex1,
@@ -434,15 +419,15 @@ public sealed class AssertInvocationPathTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
         var stormPetrelTestCaseSourceRowIndex2 = -1;
         var stormPetrelIsTestCaseSourceRowExist2 = false;
-        var stormPetrelRows2 = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSource)));
+        var stormPetrelRows2 = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSource)));
         foreach (var stormPetrelRow in stormPetrelRows2)
         {
             stormPetrelTestCaseSourceRowIndex2++;
-            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
+            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
             {
                 stormPetrelIsTestCaseSourceRowExist2 = true;
                 break;
@@ -451,28 +436,28 @@ public sealed class AssertInvocationPathTestStormPetrel
 
         if (!stormPetrelIsTestCaseSourceRowExist2)
         {
-            var stormPetrelNoEqualArgNames2 = new System.Collections.Generic.List<string>()
+            var stormPetrelNoEqualArgNames2 = new global::System.Collections.Generic.List<string>()
             {
                 "a",
                 "b"
             };
             foreach (var stormPetrelRow in stormPetrelRows2)
             {
-                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
+                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
                 {
                     stormPetrelNoEqualArgNames2.Remove("a");
                 }
 
-                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
+                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
                 {
                     stormPetrelNoEqualArgNames2.Remove("b");
                 }
             }
 
-            throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames2) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+            throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames2) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
         }
 
-        var stormPetrelContext2 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext2 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -490,7 +475,7 @@ public sealed class AssertInvocationPathTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
             {
                 ColumnIndex = 2,
                 RowIndex = stormPetrelTestCaseSourceRowIndex2,
@@ -502,7 +487,7 @@ public sealed class AssertInvocationPathTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
         //Assert
         actualResult.Value.Should().Be(expected!.Value);
         actualResult.ValueAsHexString.Length.Should().Be(expected.ValueAsHexString.Length);
@@ -514,7 +499,7 @@ public sealed class AssertInvocationPathTestStormPetrel
     public static void WhenAnExpressionInsteadOfActualVariableThenShouldUpdateItTestStormPetrel(int a, int b, AddResult? myExp)
     {
         ArgumentNullException.ThrowIfNull(myExp);
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "AssertInvocationPathTest",
@@ -523,42 +508,33 @@ public sealed class AssertInvocationPathTestStormPetrel
             VariablePairsCount = 2,
             Parameters = new[]
             {
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "a",
                     Value = a,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "b",
                     Value = b,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "int"
                 },
-                new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                 {
                     Name = "myExp",
                     Value = myExp,
-                    Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                    {
-                    },
                     TypeToken = "AddResult?"
                 }
             }
         };
         var stormPetrelTestCaseSourceRowIndex = -1;
         var stormPetrelIsTestCaseSourceRowExist = false;
-        var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSourceForNoActualVariable)));
+        var stormPetrelRows = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSourceForNoActualVariable)));
         foreach (var stormPetrelRow in stormPetrelRows)
         {
             stormPetrelTestCaseSourceRowIndex++;
-            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
+            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
             {
                 stormPetrelIsTestCaseSourceRowExist = true;
                 break;
@@ -567,28 +543,28 @@ public sealed class AssertInvocationPathTestStormPetrel
 
         if (!stormPetrelIsTestCaseSourceRowExist)
         {
-            var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+            var stormPetrelNoEqualArgNames = new global::System.Collections.Generic.List<string>()
             {
                 "a",
                 "b"
             };
             foreach (var stormPetrelRow in stormPetrelRows)
             {
-                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
+                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
                 {
                     stormPetrelNoEqualArgNames.Remove("a");
                 }
 
-                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
+                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
                 {
                     stormPetrelNoEqualArgNames.Remove("b");
                 }
             }
 
-            throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+            throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
         }
 
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -606,7 +582,7 @@ public sealed class AssertInvocationPathTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
             {
                 ColumnIndex = 2,
                 RowIndex = stormPetrelTestCaseSourceRowIndex,
@@ -618,15 +594,15 @@ public sealed class AssertInvocationPathTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         stormPetrelSharedContext.VariablePairCurrentIndex++;
         var stormPetrelTestCaseSourceRowIndex1 = -1;
         var stormPetrelIsTestCaseSourceRowExist1 = false;
-        var stormPetrelRows1 = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSourceForNoActualVariable)));
+        var stormPetrelRows1 = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(Scand.StormPetrel.Rewriter.DataSourceHelper.Enumerate(typeof(AssertInvocationPathTest), nameof(TheoryDataSourceForNoActualVariable)));
         foreach (var stormPetrelRow in stormPetrelRows1)
         {
             stormPetrelTestCaseSourceRowIndex1++;
-            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
+            if ((stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int)) && (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int)))
             {
                 stormPetrelIsTestCaseSourceRowExist1 = true;
                 break;
@@ -635,28 +611,28 @@ public sealed class AssertInvocationPathTestStormPetrel
 
         if (!stormPetrelIsTestCaseSourceRowExist1)
         {
-            var stormPetrelNoEqualArgNames1 = new System.Collections.Generic.List<string>()
+            var stormPetrelNoEqualArgNames1 = new global::System.Collections.Generic.List<string>()
             {
                 "a",
                 "b"
             };
             foreach (var stormPetrelRow in stormPetrelRows1)
             {
-                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
+                if (stormPetrelRow.Length > 0 && (a == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(a, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(a, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && a == default(int))
                 {
                     stormPetrelNoEqualArgNames1.Remove("a");
                 }
 
-                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
+                if (stormPetrelRow.Length > 1 && (b == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(b, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(b, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && b == default(int))
                 {
                     stormPetrelNoEqualArgNames1.Remove("b");
                 }
             }
 
-            throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+            throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
         }
 
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -674,7 +650,7 @@ public sealed class AssertInvocationPathTestStormPetrel
 #nullable restore
 #endif
         ,
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
             {
                 ColumnIndex = 2,
                 RowIndex = stormPetrelTestCaseSourceRowIndex1,
@@ -686,7 +662,7 @@ public sealed class AssertInvocationPathTestStormPetrel
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         Calculator.Add(a, b).Value.Should().Be(myExp!.Value);
         Calculator.Add(a, b).ValueAsHexString.Should().Be(myExp?.ValueAsHexString!);
     }

@@ -17,19 +17,16 @@ namespace Test.Integration.XUnit
             int expected = SomeClass.Expected();
             //Act
             var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "UnitTest1",
                 MethodName = "Test1",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
             var stormPetrelMethodNode = SomeClassStormPetrel.ExpectedStormPetrel();
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -61,14 +58,14 @@ namespace Test.Integration.XUnit
                     "Test1",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
                         "SomeClass",
                         "Expected[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
@@ -77,7 +74,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(expected);
         }
@@ -89,19 +86,16 @@ namespace Test.Integration.XUnit
             object expected = Expected();
             //Act
             var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "UnitTest1",
                 MethodName = "WhenMethodNameOnlyThenFullPathShouldBeGeneratedInExpectedVariableInvocationExpressionPath",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
             var stormPetrelMethodNode = ExpectedStormPetrel();
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -133,7 +127,7 @@ namespace Test.Integration.XUnit
                     "WhenMethodNameOnlyThenFullPathShouldBeGeneratedInExpectedVariableInvocationExpressionPath",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -141,7 +135,7 @@ namespace Test.Integration.XUnit
                         "UnitTest1",
                         "Expected[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
@@ -150,7 +144,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(expected);
         }
@@ -162,19 +156,16 @@ namespace Test.Integration.XUnit
             object expected = Expected(arg1, 1, "123", SomeType.SomeProperty, SomeType.SomeMethod());
             //Act
             var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "UnitTest1",
                 MethodName = "WhenMethodWithArgsThenTheArgsShouldBeTransferredToGenerationContext",
                 VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1,
-                Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-                {
-                }
+                VariablePairsCount = 1
             };
             var stormPetrelMethodNode = ExpectedStormPetrel(arg1, 1, "123", SomeType.SomeProperty, SomeType.SomeMethod());
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -206,7 +197,7 @@ namespace Test.Integration.XUnit
                     "WhenMethodWithArgsThenTheArgsShouldBeTransferredToGenerationContext",
                     "expected"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
                 {
                     Path = new[]
                     {
@@ -214,7 +205,7 @@ namespace Test.Integration.XUnit
                         "UnitTest1",
                         "Expected[*]"
                     },
-                    MethodInfo = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodNodeInfo()
                     {
                         NodeKind = stormPetrelMethodNode.NodeKind,
                         NodeIndex = stormPetrelMethodNode.NodeIndex,
@@ -223,7 +214,7 @@ namespace Test.Integration.XUnit
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             //Assert
             actual.Should().Be(expected);
         }

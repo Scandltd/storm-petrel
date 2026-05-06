@@ -38,18 +38,15 @@ public static class ExtensionTestStormPetrel
         var expectedIsEmptyForPrivateExtensionWithoutAccessModifier = false;
         //Act
         var actualVar = TestedClass.TestedMethod().ExtensionMethodExampleWithinTestClass();
-        var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+        var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
         {
             FilePath = "C:\\temp\\temp.cs",
             ClassName = "ExtensionTest",
             MethodName = "WhenExtensionMethodWithinTestMethod",
             VariablePairCurrentIndex = 0,
-            VariablePairsCount = 7,
-            Parameters = new Scand.StormPetrel.Generator.Abstraction.ParameterInfo[]
-            {
-            }
+            VariablePairsCount = 7
         };
-        var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -79,16 +76,16 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedVar"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
         var actualVarForPrivateExtension = TestedClass.TestedMethod().ExtensionMethodExampleWithinTestClassAndPrivate();
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -118,16 +115,16 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedVarForPrivateExtension"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
         var actualVarForPrivateExtensionWithoutAccessModifier = TestedClass.TestedMethod().ExtensionMethodExampleWithinTestClassAndPrivateWithoutAccessModifier();
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext2 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext2 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -157,16 +154,16 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedVarForPrivateExtensionWithoutAccessModifier"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext2);
         var actualForExtensionWithinPreprocessorDirective = TestedClass.TestedMethod().ExtensionMethodExampleWithinPreprocessorDirectiveAndTestClass();
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext3 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext3 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -196,18 +193,18 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedForExtensionWithinPreprocessorDirective"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext3);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext3);
         bool actualIsEmpty = Array.Empty<int>()
 #if NET10_0_OR_GREATER
         .WhereExtensionWithinTestClass(_ => true).IsEmptyWithinTestClass;
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext4 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext4 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -237,13 +234,13 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedIsEmpty"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext4);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext4);
 #else
                 .Length == 0;
 #endif
@@ -251,7 +248,7 @@ public static class ExtensionTestStormPetrel
 #if NET10_0_OR_GREATER
         .IsEmptyWithinTestClassAndPrivate;
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext5 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext5 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -281,13 +278,13 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedIsEmptyForPrivateExtension"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext5);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext5);
 #else
                 .Length == 0;
 #endif
@@ -295,7 +292,7 @@ public static class ExtensionTestStormPetrel
 #if NET10_0_OR_GREATER
         .IsEmptyWithinTestClassAndPrivate;
         stormPetrelSharedContext.VariablePairCurrentIndex++;
-        var stormPetrelContext6 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+        var stormPetrelContext6 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
         {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -325,13 +322,13 @@ public static class ExtensionTestStormPetrel
                 "WhenExtensionMethodWithinTestMethod",
                 "expectedIsEmptyForPrivateExtensionWithoutAccessModifier"
             },
-            ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
+            ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContext()
             {
-                Kind = Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
+                Kind = global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InitializerContextKind.VariableDeclaration
             },
             MethodSharedContext = stormPetrelSharedContext
         };
-        ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext6);
+        ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext6);
 #else
                 .Length == 0;
 #endif

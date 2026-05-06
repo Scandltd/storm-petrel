@@ -18,7 +18,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
         public void TestStormPetrel(int x, int y, int expected)
         {
             var actual = Calculator.Add(x, y);
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "ClassDataTests",
@@ -27,42 +27,33 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 VariablePairsCount = 1,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "x",
                         Value = x,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "y",
                         Value = y,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     }
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
+            var stormPetrelRows = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -71,28 +62,28 @@ namespace Scand.StormPetrel.Generator.Test.Resource
 
             if (!stormPetrelIsTestCaseSourceRowExist)
             {
-                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                var stormPetrelNoEqualArgNames = new global::System.Collections.Generic.List<string>()
                 {
                     "x",
                     "y"
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+                throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -123,7 +114,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "Test"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
@@ -131,7 +122,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             Assert.Equal(expected, actual);
         }
 
@@ -140,7 +131,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
         public void MultipleVarsTestStormPetrel(int x, int y, int expected, string expectedString)
         {
             var actual = Calculator.Add(x, y);
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "ClassDataTests",
@@ -149,51 +140,39 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 VariablePairsCount = 2,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "x",
                         Value = x,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "y",
                         Value = y,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expectedString",
                         Value = expectedString,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "string"
                     }
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
+            var stormPetrelRows = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -202,28 +181,28 @@ namespace Scand.StormPetrel.Generator.Test.Resource
 
             if (!stormPetrelIsTestCaseSourceRowExist)
             {
-                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                var stormPetrelNoEqualArgNames = new global::System.Collections.Generic.List<string>()
                 {
                     "x",
                     "y"
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+                throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -254,7 +233,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "MultipleVarsTest"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
@@ -262,16 +241,16 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             var actualString = actual.ToString();
             stormPetrelSharedContext.VariablePairCurrentIndex++;
             var stormPetrelTestCaseSourceRowIndex1 = -1;
             var stormPetrelIsTestCaseSourceRowExist1 = false;
-            var stormPetrelRows1 = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
+            var stormPetrelRows1 = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
             foreach (var stormPetrelRow in stormPetrelRows1)
             {
                 stormPetrelTestCaseSourceRowIndex1++;
-                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist1 = true;
                     break;
@@ -280,28 +259,28 @@ namespace Scand.StormPetrel.Generator.Test.Resource
 
             if (!stormPetrelIsTestCaseSourceRowExist1)
             {
-                var stormPetrelNoEqualArgNames1 = new System.Collections.Generic.List<string>()
+                var stormPetrelNoEqualArgNames1 = new global::System.Collections.Generic.List<string>()
                 {
                     "x",
                     "y"
                 };
                 foreach (var stormPetrelRow in stormPetrelRows1)
                 {
-                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames1.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames1.Remove("y");
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+                throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames1) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
-            var stormPetrelContext1 = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext1 = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -332,7 +311,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "MultipleVarsTest"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 3,
                     RowIndex = stormPetrelTestCaseSourceRowIndex1,
@@ -340,7 +319,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext1);
             Assert.Equal(expected, actual);
             Assert.Equal(expectedString, actualString);
         }
@@ -350,7 +329,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
         public void TypeofWhitespacesTestStormPetrel(int x, int y, int expected)
         {
             var actual = Calculator.Add(x, y);
-            var stormPetrelSharedContext = new Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
                 ClassName = "ClassDataTests",
@@ -359,42 +338,33 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 VariablePairsCount = 1,
                 Parameters = new[]
                 {
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "x",
                         Value = x,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "y",
                         Value = y,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     },
-                    new Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
+                    new global::Scand.StormPetrel.Generator.Abstraction.ParameterInfo()
                     {
                         Name = "expected",
                         Value = expected,
-                        Attributes = new Scand.StormPetrel.Generator.Abstraction.AttributeInfo[]
-                        {
-                        },
                         TypeToken = "int"
                     }
                 }
             };
             var stormPetrelTestCaseSourceRowIndex = -1;
             var stormPetrelIsTestCaseSourceRowExist = false;
-            var stormPetrelRows = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
+            var stormPetrelRows = global::Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(new SomeClass());
             foreach (var stormPetrelRow in stormPetrelRows)
             {
                 stormPetrelTestCaseSourceRowIndex++;
-                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
+                if ((stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int)) && (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int)))
                 {
                     stormPetrelIsTestCaseSourceRowExist = true;
                     break;
@@ -403,28 +373,28 @@ namespace Scand.StormPetrel.Generator.Test.Resource
 
             if (!stormPetrelIsTestCaseSourceRowExist)
             {
-                var stormPetrelNoEqualArgNames = new System.Collections.Generic.List<string>()
+                var stormPetrelNoEqualArgNames = new global::System.Collections.Generic.List<string>()
                 {
                     "x",
                     "y"
                 };
                 foreach (var stormPetrelRow in stormPetrelRows)
                 {
-                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
+                    if (stormPetrelRow.Length > 0 && (x == (int)stormPetrelRow[0] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(x, stormPetrelRow[0]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(x, stormPetrelRow[0])) || stormPetrelRow.Length <= 0 && x == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("x");
                     }
 
-                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
+                    if (stormPetrelRow.Length > 1 && (y == (int)stormPetrelRow[1] || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual(y, stormPetrelRow[1]) || global::Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements(y, stormPetrelRow[1])) || stormPetrelRow.Length <= 1 && y == default(int))
                     {
                         stormPetrelNoEqualArgNames.Remove("y");
                     }
                 }
 
-                throw new System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
+                throw new global::System.InvalidOperationException("Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '" + string.Join("', '", stormPetrelNoEqualArgNames) + "'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s).");
             }
 
-            var stormPetrelContext = new Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
             {
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
@@ -455,7 +425,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                     "ClassDataTests",
                     "TypeofWhitespacesTest"
                 },
-                ExtraContext = new Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.TestCaseSourceContext()
                 {
                     ColumnIndex = 2,
                     RowIndex = stormPetrelTestCaseSourceRowIndex,
@@ -463,7 +433,7 @@ namespace Scand.StormPetrel.Generator.Test.Resource
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
-            ((Scand.StormPetrel.Generator.Abstraction.IGenerator)new Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
             Assert.Equal(expected, actual);
         }
     }

@@ -20,6 +20,7 @@ namespace Scand.StormPetrel.Generator
         private readonly string _targetProjectGeneratorExpression;
         private readonly Regex _ignoreInvocationExpressionRegex;
         private const string StormPetrelSharedContextVarName = "stormPetrelSharedContext";
+        private const string GlobalWithColons = "global::";
         public SyntaxHelper(string syntaxTreeFilePath, string targetProjectGeneratorExpression, Regex ignoreInvocationExpressionRegex)
         {
             _syntaxTreeFilePath = syntaxTreeFilePath;
@@ -29,9 +30,9 @@ namespace Scand.StormPetrel.Generator
 
         private static ExpressionSyntax ToStringLiteralExpression(string s) =>
             SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(s));
-        private static ExpressionSyntax GetArrayInitializer<T>(T[] arr, Func<T, ExpressionSyntax> func, string typeNameForEmptyArray = null) =>
-            GetArrayInitializer(arr.Select(x => func(x)).ToArray(), typeNameForEmptyArray);
-        private static ExpressionSyntax GetArrayInitializer(ExpressionSyntax[] expressions, string typeNameForEmptyArray = null)
+        private static ExpressionSyntax GetArrayInitializer<T>(T[] arr, Func<T, ExpressionSyntax> func, string typeNameForEmptyArray = null, bool useGlobalPrefix = true) =>
+            GetArrayInitializer(arr.Select(x => func(x)).ToArray(), typeNameForEmptyArray, useGlobalPrefix);
+        private static ExpressionSyntax GetArrayInitializer(ExpressionSyntax[] expressions, string typeNameForEmptyArray = null, bool useGlobalPrefix = true)
         {
             var arrayExpression = SyntaxFactory.InitializerExpression(
                 SyntaxKind.ArrayInitializerExpression,
@@ -44,6 +45,10 @@ namespace Scand.StormPetrel.Generator
                 if (string.IsNullOrEmpty(typeNameForEmptyArray))
                 {
                     throw new ArgumentOutOfRangeException(nameof(typeNameForEmptyArray));
+                }
+                if (useGlobalPrefix)
+                {
+                    typeNameForEmptyArray = $"{GlobalWithColons}{typeNameForEmptyArray}";
                 }
                 typeSyntax = SyntaxFactory.ParseTypeName(typeNameForEmptyArray);
             }
@@ -99,7 +104,7 @@ namespace Scand.StormPetrel.Generator
                     }
 
                     methodInfoExpression = SyntaxFactory.ObjectCreationExpression(
-                        SyntaxFactory.IdentifierName($"{typeof(MethodNodeInfo).FullName}()"))
+                        GetConstructorCall<MethodNodeInfo>())
                         .WithInitializer(
                             SyntaxFactory.InitializerExpression(
                                 SyntaxKind.ObjectInitializerExpression,
@@ -117,7 +122,7 @@ namespace Scand.StormPetrel.Generator
                     );
                 }
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(InvocationSourceContext).FullName}()"))
+                    GetConstructorCall<InvocationSourceContext>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -136,7 +141,7 @@ namespace Scand.StormPetrel.Generator
             else if (info.ExpectedVarExtraContextInternal is AttributeContextInternal attributeContext)
             {
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(AttributeContext).FullName}()"))
+                    GetConstructorCall<AttributeContext>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -162,7 +167,7 @@ namespace Scand.StormPetrel.Generator
                 var breakConditions = testCaseSourceContext
                                         .NonExpectedParameterNames
                                         .Select((x, i) => (Name: x, Condition:
-$@"stormPetrelRow.Length > {i} && ({x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}] || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual({x}, stormPetrelRow[{i}]) || Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements({x}, stormPetrelRow[{i}]))
+$@"stormPetrelRow.Length > {i} && ({x} == ({testCaseSourceContext.NonExpectedParameterTypes[i]}) stormPetrelRow[{i}] || {GlobalWithColons}Scand.StormPetrel.Rewriter.DataSourceHelper.AreEqual({x}, stormPetrelRow[{i}]) || {GlobalWithColons}Scand.StormPetrel.Rewriter.DataSourceHelper.AreEnumerablesOfEqualElements({x}, stormPetrelRow[{i}]))
     || stormPetrelRow.Length <= {i} && {x} == {GetCompatibleDefaultExpression(parameters.Where(y => y.Identifier.Text == x).Single())}"))
                                         .ToArray();
                 var breakCondition = string.Join(") &&\n            (", breakConditions.Select(x => x.Condition));
@@ -178,7 +183,7 @@ private static void TempMethod()
 {
     var " + testCaseSourceRowIndexVarName + @" = -1;
     var " + isTestCaseSourceRowExistVarName + @" = false;
-    var " + stormPetrelRowsVarName + @" = Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(" + testCaseSourceContext.TestCaseSourceExpression + @");
+    var " + stormPetrelRowsVarName + $@" = {GlobalWithColons}Scand.StormPetrel.Rewriter.DataSourceHelper.ConvertToStormPetrelRows(" + testCaseSourceContext.TestCaseSourceExpression + @");
     foreach (var stormPetrelRow in " + stormPetrelRowsVarName + @")
     {
         " + testCaseSourceRowIndexVarName + @"++;
@@ -190,12 +195,12 @@ private static void TempMethod()
     }
     if (!" + isTestCaseSourceRowExistVarName + @")
     {
-        var " + noEqualArgNames + @" = new System.Collections.Generic.List<string>(){ " + noEqualArgNamesInit + @" };
+        var " + noEqualArgNames + $@" = new {GlobalWithColons}" + @"System.Collections.Generic.List<string>(){ " + noEqualArgNamesInit + @" };
         foreach (var stormPetrelRow in " + stormPetrelRowsVarName + @")
         {
             " + detectNoEqualArgNamesCondition + @"
         }
-        throw new System.InvalidOperationException(""Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '"" + string.Join(""', '"", " + noEqualArgNames + @") + ""'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s)."");
+        throw new " + GlobalWithColons + @"System.InvalidOperationException(""Cannot detect appropriate test case source row to rewrite. Test method argument(s) giving the failure: '"" + string.Join(""', '"", " + noEqualArgNames + @") + ""'. To understand the failure root cause you can debug the conditions above returning unexpected value for the argument(s)."");
     }
 }
 ";
@@ -209,7 +214,7 @@ private static void TempMethod()
                                     .Single();
                 result.AddRange(rootMethod.Body.Statements);
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(TestCaseSourceContext).FullName}()"))
+                    GetConstructorCall<TestCaseSourceContext>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -223,7 +228,7 @@ private static void TempMethod()
                                 GetPropertyAssignment(nameof(TestCaseSourceContext.Path), SyntaxFactory.ParseExpression(testCaseSourceContext.TestCaseSourcePathExpression)),
                                 testCaseSourceContext.PartialExtraContext.InvocationPath.Length == 0
                                     ? null
-                                    : GetPropertyAssignment(nameof(TestCaseSourceContext.InvocationPath), GetArrayInitializer(testCaseSourceContext.PartialExtraContext.InvocationPath, ToStringLiteralExpression, "string")),
+                                    : GetPropertyAssignment(nameof(TestCaseSourceContext.InvocationPath), GetArrayInitializer(testCaseSourceContext.PartialExtraContext.InvocationPath, ToStringLiteralExpression, "string", false)),
                             }
                             .Where(x => x != null)
                         )
@@ -251,7 +256,7 @@ private static void TempMethod()
                     throw new InvalidOperationException("Unexpected case");
                 }
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(InitializerContext).FullName}()"))
+                    GetConstructorCall<InitializerContext>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -259,8 +264,8 @@ private static void TempMethod()
                             {
                                 invocationPath.Length == 0
                                     ? null
-                                    : GetPropertyAssignment(nameof(InitializerContext.InvocationPath), GetArrayInitializer(invocationPath, ToStringLiteralExpression, "string")),
-                                GetPropertyAssignment(nameof(InitializerContext.Kind), SyntaxFactory.ParseExpression($"{typeof(InitializerContextKind).FullName}.{kind}")),
+                                    : GetPropertyAssignment(nameof(InitializerContext.InvocationPath), GetArrayInitializer(invocationPath, ToStringLiteralExpression, "string", false)),
+                                GetPropertyAssignment(nameof(InitializerContext.Kind), SyntaxFactory.ParseExpression($"{GlobalWithColons}{typeof(InitializerContextKind).FullName}.{kind}")),
                             }
                             .Where(x => x != null)
                         )
@@ -271,7 +276,7 @@ private static void TempMethod()
             {
                 var currentMethodBodyStatementInfo = embeddedExpectedContext.MethodBodyStatementInfo;
                 var methodInfoExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(MethodBodyStatementInfo).FullName}()"))
+                    GetConstructorCall<MethodBodyStatementInfo>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -293,7 +298,7 @@ private static void TempMethod()
 
                 expectedExpression = embeddedExpectedContext.ExpectedExpression;
                 extraContextExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(InvocationSourceContext).FullName}()"))
+                    GetConstructorCall<InvocationSourceContext>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -322,7 +327,7 @@ private static void TempMethod()
                 expectedAssignment = WithNullableDisableRestore(expectedAssignment);
             }
             var contextCreationExpression = SyntaxFactory.ObjectCreationExpression(
-                SyntaxFactory.IdentifierName($"{typeof(GenerationContext).FullName}()"))
+                GetConstructorCall<GenerationContext>())
                 .WithInitializer(
                     SyntaxFactory.InitializerExpression(
                         SyntaxKind.ObjectInitializerExpression,
@@ -355,7 +360,7 @@ private static void TempMethod()
             result.Add(SyntaxFactory
                         .LocalDeclarationStatement(variableDeclaration));
             result.Add(SyntaxFactory
-                        .ParseStatement($"(({typeof(IGenerator).FullName}) {_targetProjectGeneratorExpression}).GenerateBaseline({stormPetrelContextVarName});"));
+                        .ParseStatement($"(({GlobalWithColons}{typeof(IGenerator).FullName}) {_targetProjectGeneratorExpression}).GenerateBaseline({stormPetrelContextVarName});"));
             return result;
 
             string GetBlockIndexVarName(string varName) => blockIndex == 0 ? varName : varName + blockIndex.ToString(CultureInfo.InvariantCulture);
@@ -408,8 +413,14 @@ private static void TempMethod()
         {
             if (varPairIndex == 0)
             {
-                var parametersExpression = GetArrayInitializer(parameters.ToArray(), x => SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(ParameterInfo).FullName}()"))
+                var parametersExpression = !parameters.Any() ? null : GetArrayInitializer(parameters.ToArray(), x =>
+                {
+                    var attributes = x.AttributeLists
+                        .ToArray()
+                        .SelectMany(y => y.Attributes.Where(z => z != null))
+                        .ToArray();
+                    return SyntaxFactory.ObjectCreationExpression(
+                    GetConstructorCall<ParameterInfo>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -417,13 +428,16 @@ private static void TempMethod()
                             {
                                 GetPropertyAssignment(nameof(ParameterInfo.Name), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(x.Identifier.Text))),
                                 GetPropertyAssignment(nameof(ParameterInfo.Value), SyntaxFactory.IdentifierName(x.Identifier.Text)),
+                                attributes.Length == 0
+                                    ? null
+                                    :
                                 GetPropertyAssignment(nameof(ParameterInfo.Attributes),
                                                         GetArrayInitializer(x.AttributeLists
                                                                                 .ToArray()
                                                                                 .SelectMany(y => y.Attributes.Where(z => z != null))
                                                                                 .ToArray(),
                                                         y => SyntaxFactory
-                                                                .ObjectCreationExpression(SyntaxFactory.IdentifierName($"{typeof(AttributeInfo).FullName}()"))
+                                                                .ObjectCreationExpression(GetConstructorCall<AttributeInfo>())
                                                                 .WithInitializer(
                                                                     SyntaxFactory.InitializerExpression(
                                                                         SyntaxKind.ObjectInitializerExpression,
@@ -442,12 +456,12 @@ private static void TempMethod()
                             }
                             .Where(y => y != null))
                         )
-                    ),
-                    typeof(ParameterInfo).FullName
-                );
+                    );
+                },
+                typeof(ParameterInfo).FullName);
 
                 var sharedContextExpression = SyntaxFactory.ObjectCreationExpression(
-                    SyntaxFactory.IdentifierName($"{typeof(MethodContext).FullName}()"))
+                    GetConstructorCall<MethodContext>())
                     .WithInitializer(
                         SyntaxFactory.InitializerExpression(
                             SyntaxKind.ObjectInitializerExpression,
@@ -458,8 +472,9 @@ private static void TempMethod()
                                 GetPropertyAssignment(nameof(MethodContext.MethodName), SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(methodName))),
                                 GetPropertyAssignment(nameof(MethodContext.VariablePairCurrentIndex), SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0))),
                                 GetPropertyAssignment(nameof(MethodContext.VariablePairsCount), SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(varPairsCount))),
-                                GetPropertyAssignment(nameof(MethodContext.Parameters), parametersExpression),
+                                parametersExpression == null ? null : GetPropertyAssignment(nameof(MethodContext.Parameters), parametersExpression),
                             }
+                            .Where(x => x != null)
                         )
                     )
                 );
@@ -516,5 +531,6 @@ private static void TempMethod()
             defaultValue == null || defaultValue == "default"
                 ? $"default({typeToken})"
                 : defaultValue;
+        private static IdentifierNameSyntax GetConstructorCall<T>() => SyntaxFactory.IdentifierName($"{GlobalWithColons}{typeof(T).FullName}()");
     }
 }

@@ -3,7 +3,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
 {
     partial class GeneratorRewriter
     {
-        private static StaticPropertyInfo[] _staticPropertyInfoArray = null;
+        private static global::Scand.StormPetrel.Generator.TargetProject.GeneratorRewriter.StaticPropertyInfo[] _staticPropertyInfoArray = null;
 
         private sealed class StaticPropertyInfo
         {
