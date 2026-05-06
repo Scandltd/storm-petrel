@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -8,7 +9,7 @@ namespace Scand.StormPetrel.Rewriter
 {
     public static class DataSourceHelper
     {
-        public static IEnumerable<object> Enumerate(Type dataSourceType, string dataSourceMemberName, params object[] memberParameters)
+        public static IEnumerable<object> Enumerate([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type dataSourceType, string dataSourceMemberName, params object[] memberParameters)
         {
             if (dataSourceType == null)
             {
@@ -100,16 +101,16 @@ namespace Scand.StormPetrel.Rewriter
             return true;
         }
 
-        public static string[] GetPath(Type type, string memberName) =>
+        public static string[] GetPath([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type, string memberName) =>
             GetPathImplementation(type, x => x.Name == memberName);
 
-        public static string[] GetEnumerableStaticMemberPath(Type type) =>
+        public static string[] GetEnumerableStaticMemberPath([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type) =>
             GetPathImplementation(type, x => IsEnumerableMember(x, MemberTypes.Property)) //check properties first to filter out "get_PropertyName" methods
                 ?? GetPathImplementation(type, x => IsEnumerableMember(x, MemberTypes.Field))
                 ?? GetPathImplementation(type, x => IsEnumerableMember(x, MemberTypes.Method));
 
         private static bool IsEnumerableMember(MemberInfo member, MemberTypes memberType) =>
-            member.MemberType == memberType && typeof(System.Collections.IEnumerable).IsAssignableFrom(GetReturnType(member));
+            member.MemberType == memberType && typeof(IEnumerable).IsAssignableFrom(GetReturnType(member));
 
         private static Type GetReturnType(MemberInfo member)
         {

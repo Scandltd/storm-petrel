@@ -15,6 +15,7 @@ param(
 )
 
 $isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")
+$runtimeIdentifier = if ($isWin) { "win-x64" } else { "linux-x64" }
 
 #Use XUNIT, TEST, MEMBERDATA upper-case values to ensure case-insensitivity of TestFrameworkKindName, KindName, XUnitTestCaseSourceKindName properties
 $env:SCAND_STORM_PETREL_GENERATOR_CONFIG = '{"CustomTestAttributes":[{"TestFrameworkKindName":"XUnit","FullName":"Xunit.UIFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.UITheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomTheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomInlineDataAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"XUnit","FullName":"AutoFixture.Xunit2.InlineAutoDataAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomMemberDataAttribute","KindName":"TestCaseSource","XUnitTestCaseSourceKindName":"MEMBERDATA"},{"TestFrameworkKindName":"XUNIT","FullName":"Xunit.CustomClassDataAttribute","KindName":"TestCaseSource","XUnitTestCaseSourceKindName":"ClassData"},{"TestFrameworkKindName":"Xunit","FullName":"xRetry.RetryFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"Xunit","FullName":"xRetry.RetryTheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestAttribute","KindName":"Test"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestCaseAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestCaseSourceAttribute","KindName":"TestCaseSource"},{"TestFrameworkKindName":"MSTest","FullName":"MSTest.CustomTestMethodAttribute","KindName":"TEST"},{"TestFrameworkKindName":"MSTest","FullName":"MSTest.CustomDataRowAttribute","KindName":"TestCase"}]}'
@@ -67,7 +68,7 @@ function RunUnitTest {
     param (
         $PackageDirName
     )
-    
+
     $unitTestDirectories = Get-ChildItem -Path $PackageDirName -Filter "Scand.StormPetrel.*.Test" -Directory
     foreach ($directory in $unitTestDirectories) {
         Write-Output "Executing unit tests in directory: $($directory.Name)"
@@ -118,6 +119,24 @@ function RunIntegrationTests {
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Aborted due to failed integration tests in $PackageDirName/$SolutionFileName"
         exit 1
+    }
+}
+
+function RunAOTTests {
+    param (
+        $IsExitOnFailure
+    )
+    #Push the directory to apply its global.json
+    Push-Location "generator/Test.Integration.XUnitV3AOT"
+    try {
+        dotnet test --project "Test.Integration.XUnitV3AOT.csproj" -p:RuntimeIdentifier=$runtimeIdentifier
+        if ($IsExitOnFailure -and $LASTEXITCODE -ne 0) {
+            Write-Error "AOT tests fail"
+            exit 1
+        }
+    }
+    finally {
+        Pop-Location
     }
 }
 
@@ -299,6 +318,26 @@ if (-not $SkipGeneratorTest) {
     $testsContent = $testsContent -replace "parameters:", "arguments:"
     Set-Content -Path $testFileName -Value $testsContent
 
+    if ($SkipGeneratorTestPerformance) {
+        Write-Output "Executing AOT tests without 'dotnet publish' to save build time"
+        RunAOTTests $false
+    } else {
+        $publishPath = "generator/Test.Integration.XUnitV3AOT/bin/Release/AOT/$runtimeIdentifier"
+        dotnet publish -c Release -r $runtimeIdentifier -o $publishPath generator/Test.Integration.XUnitV3AOT/Test.Integration.XUnitV3AOT.csproj -p:DebugSymbols=false -p:SatelliteResourceLanguages=en
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "AOT tests publishing fails"
+            exit 1
+        }
+        #Run AOT-published tests
+        & "$publishPath/Test.Integration.XUnitV3AOT"
+        if ($LASTEXITCODE -eq 0) {
+            Write-Error "AOT StormPetrel tests fail: unexpected zero exit code"
+            exit 1
+        }
+    }
+    Write-Output "Validating AOT tests result"
+    RunAOTTests $true
+    Write-Output "AOT tests have been executed successfully"
     RunIntegrationTests "generator" $solutionFileName
 }
 

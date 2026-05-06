@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+
+    <!-- Native AOT / publish settings -->
+    <PublishAot>true</PublishAot>
+    <PublishTrimmed>true</PublishTrimmed>
+    <SelfContained>true</SelfContained>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="appsettings.StormPetrel.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="appsettings.StormPetrel.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="8.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="8.8.0" />
+    <PackageReference Include="Scand.StormPetrel.Generator" Version="2.7.0" />
+    <!-- Some test runners may require VSTest support what will become deprecated according to https://xunit.net/docs/getting-started/v3/microsoft-testing-platform#what-is-microsoft-testing-platform.
+    Uncomment the packages below to allow VSTest for the runners:
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    -->
+    <PackageReference Include="xunit.v3.aot" Version="4.0.0-pre.81" />
+    <PackageReference Include="xunit.v3.assert.aot" Version="4.0.0-pre.81" />
+    <PackageReference Include="ObjectDumper.NET" Version="4.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Test.Integration.XUnitV3AOT.LibraryBeingTested\Test.Integration.XUnitV3AOT.LibraryBeingTested.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+
+  <PropertyGroup>
+    <DefineConstants>IS_XUNIT_V3</DefineConstants>
+    <NoWarn>1701;1702;CA1861</NoWarn>
+  </PropertyGroup>
+</Project>

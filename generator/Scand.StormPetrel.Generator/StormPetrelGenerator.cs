@@ -170,6 +170,14 @@ namespace Scand.StormPetrel.Generator
                     syntaxContext.AddSource($"{sourcePath}.g.cs", newSource.GetText(Encoding.UTF8));
                 }
             });
+            context.RegisterSourceOutput(context.CompilationProvider, (spc, compilation) =>
+            {
+                if (compilation.GetTypeByMetadataName("Xunit.TheoryDataRow") == null) // Is xUnit before V3?
+                {
+                    return;
+                }
+                spc.AddSource($"Scand.StormPetrel.Generator.TargetProject.Generator.XUnitAOT.g.cs", ResourceHelper.ReadTargetProjectResource("Generator.XUnitAOT"));
+            });
         }
     }
 }

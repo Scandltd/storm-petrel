@@ -12,8 +12,8 @@ namespace Scand.StormPetrel.Generator.Utils
     {
         private readonly IGeneratorDumper _dumper;
         private readonly bool _applyCollectionExpression;
-        private readonly RemoveAssignmentDumperDecorator _removeAssignmentDumperDecorator;
-        private readonly LiteralExpressionDumperDecorator _literalExpressionDumperDecorator;
+        private readonly RemoveAssignmentDumperDecorator? _removeAssignmentDumperDecorator;
+        private readonly LiteralExpressionDumperDecorator? _literalExpressionDumperDecorator;
 
         /// <summary>
         /// Creates new instance of <see cref="CSharpSyntaxDumperDecorator"/>.
@@ -24,8 +24,8 @@ namespace Scand.StormPetrel.Generator.Utils
         /// <param name="literalExpressionDumperDecorator">An instance to apply decorations of <see cref="LiteralExpressionDumperDecorator"/>.</param>
         public CSharpSyntaxDumperDecorator(IGeneratorDumper dumper,
             bool decorateByCollectionExpression = true,
-            RemoveAssignmentDumperDecorator removeAssignmentDumperDecorator = null,
-            LiteralExpressionDumperDecorator literalExpressionDumperDecorator = null)
+            RemoveAssignmentDumperDecorator? removeAssignmentDumperDecorator = null,
+            LiteralExpressionDumperDecorator? literalExpressionDumperDecorator = null)
         {
             _dumper = dumper;
             _applyCollectionExpression = decorateByCollectionExpression;

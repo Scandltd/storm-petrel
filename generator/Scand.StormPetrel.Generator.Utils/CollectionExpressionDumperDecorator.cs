@@ -55,8 +55,8 @@ namespace Scand.StormPetrel.Generator.Utils
         /// <exception cref="InvalidOperationException"></exception>
         public static SyntaxNode DecorateByCollectionExpression(
             SyntaxNode node,
-            IEnumerable<string> fullSupportCollections = null,
-            IEnumerable<string> partialSupportCollections = null)
+            IEnumerable<string>? fullSupportCollections = null,
+            IEnumerable<string>? partialSupportCollections = null)
         {
             var initializerNodes = node
                                         .DescendantNodes()
@@ -66,7 +66,7 @@ namespace Scand.StormPetrel.Generator.Utils
 
             node = node.ReplaceNodes(initializerNodes, (_, nodeNew) =>
             {
-                CollectionExpressionSyntax collectionExpression = null;
+                CollectionExpressionSyntax? collectionExpression = null;
                 if (nodeNew.IsKind(SyntaxKind.ArrayCreationExpression))
                 {
                     collectionExpression = GetCollectionExpression<ArrayCreationExpressionSyntax>(nodeNew, x => x.Initializer);
@@ -100,13 +100,13 @@ namespace Scand.StormPetrel.Generator.Utils
                                 .OfType<SimpleNameSyntax>()
                                 .Where(x => x.Identifier != null
                                             && (fullSupportCollections.Contains(x.Identifier.ValueText)
-                                                    || (((ObjectCreationExpressionSyntax)x.Parent).Initializer == null
+                                                    || (((ObjectCreationExpressionSyntax)x.Parent!).Initializer == null
                                                             && partialSupportCollections.Contains(x.Identifier.ValueText))))
-                                .Select(x => x.Parent);
+                                .Select(x => x.Parent ?? throw new InvalidOperationException("Parent is null"));
 
             node = node.ReplaceNodes(initializers, (_, nodeNew) =>
             {
-                var collectionExpression = GetCollectionExpression<ObjectCreationExpressionSyntax>(nodeNew, x => x.Initializer);
+                var collectionExpression = GetCollectionExpression<ObjectCreationExpressionSyntax>(nodeNew, x => x.Initializer!);
 
                 var genericNameTriviaList = nodeNew
                                                 .ChildNodes()
@@ -131,7 +131,7 @@ namespace Scand.StormPetrel.Generator.Utils
                                 .Where(c => c.HasLeadingTrivia && c.GetLeadingTrivia()
                                                                    .Any(t => t.IsKind(SyntaxKind.EndOfLineTrivia))
                                                                           && c.Parent.IsKind(SyntaxKind.SimpleAssignmentExpression))
-                                .Select(x => ((AssignmentExpressionSyntax)x.Parent).OperatorToken);
+                                .Select(x => ((AssignmentExpressionSyntax)x.Parent!).OperatorToken);
 
             node = node.ReplaceTokens(operatorTokens, (_, token) =>
             {
@@ -141,7 +141,7 @@ namespace Scand.StormPetrel.Generator.Utils
             return node;
         }
 
-        private static CollectionExpressionSyntax GetCollectionExpression<T>(SyntaxNode initializerExpression, Func<T, InitializerExpressionSyntax> callback) where T : ExpressionSyntax
+        private static CollectionExpressionSyntax GetCollectionExpression<T>(SyntaxNode initializerExpression, Func<T, InitializerExpressionSyntax?> callback) where T : ExpressionSyntax
         {
             var initializer = callback((T)initializerExpression);
             if (initializer == null)

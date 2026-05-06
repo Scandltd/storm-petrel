@@ -55,7 +55,7 @@ public class MainTest
     public async Task RemoveAssignmentDumperDecoratorTest(string inputReplacementCodeResourceName, string dictionarySerialized)
         => await SourceGeneratorTestImplementation(inputReplacementCodeResourceName,
                                                     new RemoveAssignmentDumperDecorator(_generatorDumper,
-                                                        JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(dictionarySerialized, JsonOptions)));
+                                                        JsonSerializer.Deserialize<Dictionary<string, IEnumerable<string>>>(dictionarySerialized, JsonOptions)!));
 
     [Theory]
     [InlineData("250_LiteralExpressionDumperDecorator", @"{

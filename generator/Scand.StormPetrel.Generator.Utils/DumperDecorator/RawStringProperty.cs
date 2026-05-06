@@ -2,7 +2,7 @@
 {
     public sealed class RawStringProperty
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public RawStringPropertyComment Comment { get; set; }
     }
 }

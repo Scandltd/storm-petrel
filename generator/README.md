@@ -35,6 +35,7 @@
             * [Other examples](#other-examples)
         * [Actual value is built via mocks or callbacks or other algorithms](#actual-value-is-built-via-mocks-or-callbacks-or-other-algorithms)
         * [Ref struct types support](#ref-struct-types-support)
+        * [Native AOT Support](#native-aot-support)
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
     * [Optional Visual Studio Extension](#optional-visual-studio-extension)
@@ -360,6 +361,16 @@ See [RefStructTest](Test.Integration.XUnit/RefStructTest.cs) for examples.
 * **Direct `ref struct` Assertions**. **Reason**: Storm Petrel and Dump Libraries API limitations against `ref struct` types.
 See [RefStructTest.Unsupported](Test.Integration.XUnit/RefStructTest.Unsupported.cs) for examples and more explanations.
 
+#### Native AOT support
+Storm Petrel supports native ahead-of-time (AOT) compiled tests for [xUnit Testing with Native AOT](https://xunit.net/docs/getting-started/v3/native-aot).
+Due to the architecture of both Storm Petrel and xUnit AOT tests, the AOT support differs from traditional reflection-based tests in the following ways:
+- Both Storm Petrel and xUnit AOT packages use code generators to produce additional code targeting the same xUnit `Fact` and `Theory` attributes.
+- Due to limitations in the current auto-generated code implementation, xUnit AOT packages cannot detect auto-generated Storm Petrel tests. See more details [here](https://github.com/dotnet/roslyn/issues/57239).
+
+To work around this, follow these steps when using xUnit AOT in your test project:
+- **Step 1 [Required]**. Manually create additional test classes (e.g., [CalculatorTestStormPetrelExecutor](Test.Integration.XUnitV3AOT/CalculatorTestStormPetrelExecutor.cs)) and replicate your original test method signatures. Inside each method, call the auto-generated `StormPetrel` test. This step enables test execution in IDE test runners before the test code is AOT-published.
+- **Step 2 [Optional]**. Add a custom dumper class (e.g. [Dumper](Test.Integration.XUnitV3AOT/Dumper.cs)) to enable reflection-based algorithms for complex objects dumping and assertion. Configure it via [appsettings.StormPetrel.json](Test.Integration.XUnitV3AOT/appsettings.StormPetrel.json). This step allows you to execute `StormPetrel` tests via the command line against the AOT-published test executable and update (or detect) expected values. This is especially useful because the actual values often differ significantly from IDE-generated ones due to the nature of Native AOT.
+
 ## Getting Started
 To utilize the StormPetrel tests, add the following NuGet Package references to your test project:
 * Scand.StormPetrel.Generator.
@@ -454,7 +465,7 @@ See:
 ### Test Frameworks
 * [xUnit](https://xunit.net/)
     * **For v2 and v3**: See [Test.Integration.XUnit](Test.Integration.XUnit) for examples.
-    * **v3-specific**: See [Test.Integration.XUnitV3](Test.Integration.XUnitV3).
+    * **v3-specific**: See [Test.Integration.XUnitV3](Test.Integration.XUnitV3), [Test.Integration.XUnitV3AOT](Test.Integration.XUnitV3AOT).
 * [NUnit](https://nunit.org/)
 * [MSTest](https://github.com/microsoft/testfx/)
 
@@ -530,9 +541,9 @@ B. Use an attribute like `[InlineData(UseCaseEnum.UseCaseDescription)]` (see [At
 
 C. Use `[MemberData(nameof(TheoryDataSource))]` (see [TestCaseSourceMemberDataTest](Test.Integration.XUnit/TestCaseSourceMemberDataTest.cs) or [TheoryContractTest](Test.Integration.XUnitV3/TheoryContractTest.cs)).
 - Pros: Complex objects are supported and related input/expected data can live together in the data source.
-- Cons: Individual cases may not appear as separate rows in some test runners (e.g., Visual Studio Test Explorer).
+- Cons: [Not applicable for xUnit AOT] Individual cases may not appear as separate rows in some test runners (e.g., Visual Studio Test Explorer).
 
-D. Use `[MemberData(...)]` together with an `IXunitSerializable` implementation (see [XunitSerializableExampleTest](Test.Integration.XUnit/XunitSerializableExampleTest.cs) and [XunitSerializable](Test.Integration.XUnit/XunitSerializable.cs)).
+D. [Not applicable for xUnit AOT] Use `[MemberData(...)]` together with an `IXunitSerializable` implementation (see [XunitSerializableExampleTest](Test.Integration.XUnit/XunitSerializableExampleTest.cs) and [XunitSerializable](Test.Integration.XUnit/XunitSerializable.cs)).
 - Pros: Test cases appear as individual rows in test runners.
 - Cons: Requires additional helpers (for example, `XunitSerializable`), which adds some complexity.
 

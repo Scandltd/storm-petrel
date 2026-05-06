@@ -28,7 +28,7 @@ internal static class DumperFactory
     /// Decorates literal expressions with constants of <see cref="Constants"/> if possible.
     /// </summary>
     /// <returns></returns>
-    private static Func<LiteralExpressionDumpContext, SyntaxNode> GetLiteralExpressionDecoratingFunc()
+    private static Func<LiteralExpressionDumpContext, SyntaxNode?> GetLiteralExpressionDecoratingFunc()
     {
         var verbatimStringDecoratingFunc = LiteralExpressionDumperDecorator.GetVerbatimStringDecoratingFunc(new Dictionary<string, IEnumerable<string>>
         {

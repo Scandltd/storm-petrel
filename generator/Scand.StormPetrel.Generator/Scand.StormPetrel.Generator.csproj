@@ -83,6 +83,7 @@
 
     <ItemGroup>
       <Compile Remove="TargetProject\Generator.cs" />
+      <Compile Remove="TargetProject\Generator.XUnitAOT.cs" />
       <Compile Remove="TargetProject\GeneratorBackuper.cs" />
       <Compile Remove="TargetProject\GeneratorDumper.cs" />
       <Compile Remove="TargetProject\GeneratorObjectDumper.cs" />
@@ -92,6 +93,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="TargetProject\Generator.XUnitAOT.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorBackuper.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorDumper.cs" />
       <EmbeddedResource Include="TargetProject\GeneratorObjectDumper.cs" />

@@ -112,8 +112,9 @@ namespace Scand.StormPetrel.Generator.TargetProject
                 });
             }
 
+            var fileLock = filePathToLock.GetOrAdd(filePath, _ => new object());
             bool isRewritten;
-            lock (filePathToLock.GetOrAdd(filePath, new object()))
+            lock (fileLock)
             {
                 isRewritten = CSharpSyntaxRewriterExtension.Rewrite(rewriter, filePath);
             }

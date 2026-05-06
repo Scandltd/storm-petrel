@@ -4,14 +4,13 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
 {
     internal class StringRawDecoratingFuncProvider : StringDecoratingFuncProviderAbstract
     {
-        private readonly IReadOnlyDictionary<string, IEnumerable<RawStringProperty>> _decoratingTypeNameToProperties;
-        public StringRawDecoratingFuncProvider(IReadOnlyDictionary<string, IEnumerable<RawStringProperty>> decoratingTypeNameToProperties)
+        private readonly IReadOnlyDictionary<string, IEnumerable<RawStringProperty>>? _decoratingTypeNameToProperties;
+        public StringRawDecoratingFuncProvider(IReadOnlyDictionary<string, IEnumerable<RawStringProperty>>? decoratingTypeNameToProperties)
         {
             _decoratingTypeNameToProperties = decoratingTypeNameToProperties;
         }
@@ -57,7 +56,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
             );
             return result;
         }
-        protected override IReadOnlyDictionary<string, IEnumerable<string>> GetDecoratingTypeNameToPropertyNames() =>
+        protected override IReadOnlyDictionary<string, IEnumerable<string>>? GetDecoratingTypeNameToPropertyNames() =>
             _decoratingTypeNameToProperties?.ToDictionary(x => x.Key, x => x.Value.Select(y => y.Name));
         protected override bool ShouldSkip(LiteralExpressionDumpContext context)
         {
@@ -73,7 +72,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         }
         private static string GetLeadingTriviaText(LiteralExpressionDumpContext context)
         {
-            SyntaxNode maxTriviaNode = null;
+            SyntaxNode? maxTriviaNode = null;
             foreach (var a in context.OriginalLiteralExpression.Ancestors())
             {
                 if (maxTriviaNode == null)
@@ -84,6 +83,10 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
                 {
                     maxTriviaNode = Shared.Utils.MaxTriviaNode(a, maxTriviaNode);
                 }
+            }
+            if (maxTriviaNode == null)
+            {
+                return "";
             }
             var leadingTriviaText = Shared.Utils.GetLeadingWhitespace(maxTriviaNode).ToFullString() ?? "";
             return leadingTriviaText;

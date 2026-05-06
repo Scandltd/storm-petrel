@@ -26,7 +26,7 @@ namespace Scand.StormPetrel.Rewriter.Test
         [InlineData("010_LocalVariable", new[] { "Foo", "Bla", "localVar" }, "file:010_LocalVariable_NewCodeMultiline", "010_LocalVariable_NewCodeMultiline_Then_Expected")]
         [InlineData("010_LocalVariable", new[] { "Foo", "Bla", "localVar" }, "file:010_LocalVariable_NewCodeMultilineString", "010_LocalVariable_NewCodeMultilineString_Then_Expected")]
         [InlineData("010_LocalVariable", new[] { "Foo", "Bla", "localVar" }, List2ElementsMultiline, "010_LocalVariable_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("010_LocalVariable", new[] { "Foo", "Bla", "localVar" }, List2ElementsMultiline, "010_LocalVariable", new[] { "NonExistingProperty" }, false)]
+        [InlineData("010_LocalVariable", new[] { "Foo", "Bla", "localVar" }, List2ElementsMultiline, null, new[] { "NonExistingProperty" })]
         [InlineData("015_LocalVariableWithNamespace", new[] { "TestNamespace.SomeSubSpace", "Foo", "Bla", "localVar" }, EmptyList, "015_LocalVariableWithNamespace_NewCode_Then_Expected")]
         [InlineData("020_LocalVariables", new[] { "Foo", "Bla", "localVar" }, EmptyList, "020_LocalVariables_NewCode_Then_Expected")]
         [InlineData("020_LocalVariables", new[] { "Foo", "Bla", "localVar" }, "file:020_LocalVariables_NewCodeMultiline", "020_LocalVariables_NewCodeMultiline_Then_Expected")]
@@ -35,39 +35,39 @@ namespace Scand.StormPetrel.Rewriter.Test
         [InlineData("030_Properties", new[] { "Foo", "TestProperty" }, "file:030_Properties_NewCodeMultiline", "030_Properties_NewCodeMultiline_Then_Expected")]
         [InlineData("030_Properties", new[] { "Foo2", "TestProperty" }, "file:030_Properties_NewCodeFoo2", "030_Properties_NewCodeFoo2_Then_Expected")]
         [InlineData("030_Properties", new[] { "Foo", "TestProperty" }, List2ElementsMultiline, "030_Properties_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("030_Properties", new[] { "Foo", "TestProperty" }, List2ElementsMultiline, "030_Properties", new[] { "NonExistingProperty" }, false)]
+        [InlineData("030_Properties", new[] { "Foo", "TestProperty" }, List2ElementsMultiline, null, new[] { "NonExistingProperty" })]
         [InlineData("040_MethodArrow", new[] { "Foo", "TestMethod" }, EmptyList, "040_MethodArrow_NewCode_Then_Expected")]
         [InlineData("040_MethodArrow", new[] { "Foo", "TestMethod" }, "file:040_MethodArrow_NewCodeMultiline", "040_MethodArrow_NewCodeMultiline_Then_Expected")]
         [InlineData("040_MethodArrow", new[] { "Foo2", "TestMethod" }, EmptyList, "040_MethodArrow_NewCodeFoo2_Then_Expected")]
         [InlineData("040_MethodArrow", new[] { "Foo", "TestMethod" }, List2ElementsMultiline, "040_MethodArrow_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("040_MethodArrow", new[] { "Foo", "TestMethod" }, List2ElementsMultiline, "040_MethodArrow", new[] { "NonExistingValue" }, false)]
+        [InlineData("040_MethodArrow", new[] { "Foo", "TestMethod" }, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("060_LocalVariableWithCommentAndTabs", new[] { "Foo", "Bla", "localVar" }, "file:060_LocalVariableWithCommentAndTabs_NewCode", "060_LocalVariableWithCommentAndTabs_NewCode_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar" }, EmptyListWithComment, "070_LocalVariableWithMultipleAssignments_NewCode_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo[0]", "Bla2[0]", "localVar" }, EmptyListWithComment, "070_LocalVariableWithMultipleAssignments_NewCode_Then_Expected")]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[2]" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo[1]", "Bla2", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[2]" }, EmptyList, null)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo[1]", "Bla2", "localVar" }, EmptyList, null)]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[1]", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeDeclaration2_Then_Expected")]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[2]", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[2]", "localVar" }, EmptyList, null)]
         [InlineData("080_LocalFunction", new[] { "Foo", "Bla", "BlaInBla", "localVar" }, EmptyList, "080_LocalFunction_NewCode_Then_Expected")]
         [InlineData("080_LocalFunction", new[] { "Foo", "Bla", "BlaInBla[1]", "localVar" }, EmptyList, "080_LocalFunction_NewCode1_Then_Expected")]
         [InlineData("080_LocalFunction", new[] { "Foo", "Bla", "localVar" }, EmptyList, "080_LocalFunction_NewCodeAssignmentInParent_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "Expected" }, Const100, "110_Property_NewCode_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedArrow" }, Const100, "110_PropertyArrow_NewCode_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedArrow" }, List2ElementsMultiline, "110_PropertyArrow_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedArrow" }, List2ElementsMultiline, "110_Property", new[] { "NonExistingValue" }, false)]
+        [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedArrow" }, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedGetArrow" }, Const100, "110_PropertyGetArrow_NewCode_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedGetArrow" }, List2ElementsMultiline, "110_PropertyGetArrow_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedGetArrow" }, List2ElementsMultiline, "110_Property", new[] { "NonExistingValue" }, false)]
+        [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedGetArrow" }, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedGetSet" }, Const100, "110_PropertyGetSet_NewCode_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturn" }, Const100, "110_PropertyReturn_NewCode_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturn" }, List2ElementsMultiline, "110_Property_ExpectedReturn_InvocationPath_Then_Expected", new[] { "Value" })]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturnField" }, Const100, "110_PropertyReturnField_NewCode_Then_Expected")]
-        [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturnField" }, Const100, "110_Property", new[] { "NonExistingValue" }, false)]
+        [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturnField" }, Const100, null, new[] { "NonExistingValue" })]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturnMultiple" }, "file:110_PropertyReturnMultiple_NewCode", "110_PropertyReturnMultiple_NewCode_Then_Expected")]
         [InlineData("110_Property", new[] { "Test.Integration.XUnit", "UnitTest1Helper", "ExpectedReturnMultiple" }, List2ElementsMultiline, "110_Property_ExpectedReturnMultiple_InvocationPath_Then_Expected", new[] { "Value" })]
         [InlineData("ExpectedInlineInstanceTest01", new[] { "Test.Integration.Performance.XUnit.ExpectedInlineInstance", "ExpectedInlineInstanceTest01", "Test10", "expected" }, "file:ExpectedInlineInstanceTest01_NewCode", "ExpectedInlineInstanceTest01_NewCode_Then_Expected")] //performance
-        public async Task DeclarationRewriterTest(string inputCodeResourceName, string[] declarationPath, string initializeCode, string expectedResourceFileName, string[]? invocationPath = null, bool expectedIsRewritten = true)
-            => await RewriteTestImplementation(async () => new DeclarationRewriter(declarationPath, await ResourceOrSelfAsync(initializeCode), invocationPath ?? []), inputCodeResourceName, expectedResourceFileName, expectedIsRewritten);
+        public async Task DeclarationRewriterTest(string inputCodeResourceName, string[] declarationPath, string initializeCode, string? expectedResourceFileName, string[]? invocationPath = null)
+            => await RewriteTestImplementation(async () => new DeclarationRewriter(declarationPath, await ResourceOrSelfAsync(initializeCode), invocationPath ?? []), inputCodeResourceName, expectedResourceFileName);
 
         [Theory]
         [InlineData("050_Assignment", new[] { "Scand.StormPetrel.Rewriter.Resource.Test", "GivenExample01FromSpec_ThenOutputDoc", "GetData", "Docs" }, "new List<MessageTreeDoc>()", "050_Assignment_NewCode_Then_Expected")]
@@ -103,23 +103,23 @@ Line 2
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[0]" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment0_Then_Expected")]
         [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[1]" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment1_Then_Expected")]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[2]" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo[1]", "Bla2", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[1]", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
-        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[2]", "localVar" }, EmptyList, "070_LocalVariableWithMultipleAssignments_NewCodeAssignment2_Then_Expected", null, false)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2", "localVar[2]" }, EmptyList, null)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo[1]", "Bla2", "localVar" }, EmptyList, null)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[1]", "localVar" }, EmptyList, null)]
+        [InlineData("070_LocalVariableWithMultipleAssignments", new[] { "Foo", "Bla2[2]", "localVar" }, EmptyList, null)]
         [InlineData("080_LocalFunction", new[] { "Foo", "Bla", "BlaInBla", "localVar" }, EmptyList, "080_LocalFunction_NewCodeAssignment_Then_Expected")]
         [InlineData("180_InvocationPath", new[] { "FooClass", "WhenVariableAssignment", "localVar" }, List2ElementsMultiline, "180_InvocationPath_ListProperty_Then_Expected", new[] { "FooProperty" })]
-        public async Task AssignmentRewriterTest(string inputCodeResourceName, string[] declarationPath, string initializeCode, string expectedResourceFileName, string[]? invocationPath = null, bool expectedIsRewritten = true)
-            => await RewriteTestImplementation(async () => new AssignmentRewriter(declarationPath, await ResourceOrSelfAsync(initializeCode), invocationPath ?? []), inputCodeResourceName, expectedResourceFileName, expectedIsRewritten);
+        public async Task AssignmentRewriterTest(string inputCodeResourceName, string[] declarationPath, string initializeCode, string? expectedResourceFileName, string[]? invocationPath = null)
+            => await RewriteTestImplementation(async () => new AssignmentRewriter(declarationPath, await ResourceOrSelfAsync(initializeCode), invocationPath ?? []), inputCodeResourceName, expectedResourceFileName);
 
         [Theory]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla" }, SyntaxKind.SimpleAssignmentExpression, 0, EmptyList, "090_ExpressionRewriter_NewCode_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla" }, SyntaxKind.SimpleAssignmentExpression, 0, List2ElementsMultiline, "090_ExpressionRewriter_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla" }, SyntaxKind.SimpleAssignmentExpression, 0, List2ElementsMultiline, "090_ExpressionRewriter", new[] { "NonExistingValue" }, false)]
+        [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla" }, SyntaxKind.SimpleAssignmentExpression, 0, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "ArrowMethod" }, SyntaxKind.ArrowExpressionClause, 0, "456", "090_ExpressionRewriter_NewCode_ArrowMethod_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "ArrowMethodArray" }, SyntaxKind.ArrowExpressionClause, 0, "file:090_ExpressionRewriter_NewCode_ArrowMethodArray", "090_ExpressionRewriter_NewCode_ArrowMethodArray_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "ArrowMethodAddResult" }, SyntaxKind.ArrowExpressionClause, 0, List2ElementsMultiline, "090_ExpressionRewriter_ArrowMethodAddResult_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("090_ExpressionRewriter", new[] { "Foo", "ArrowMethodAddResult" }, SyntaxKind.ArrowExpressionClause, 0, List2ElementsMultiline, "090_ExpressionRewriter", new[] { "NonExistingValue" }, false)]
+        [InlineData("090_ExpressionRewriter", new[] { "Foo", "ArrowMethodAddResult" }, SyntaxKind.ArrowExpressionClause, 0, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla" }, SyntaxKind.LocalDeclarationStatement, 0, EmptyList, "090_ExpressionRewriter_NewCode_LocalDeclaration_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla[0]" }, SyntaxKind.LocalDeclarationStatement, 0, EmptyList, "090_ExpressionRewriter_NewCode_LocalDeclaration_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "Bla[1]" }, SyntaxKind.LocalDeclarationStatement, 0, List2ElementsMultiline, "090_ExpressionRewriter_NewCode_MethodOverload1_Then_Expected")]
@@ -128,18 +128,17 @@ Line 2
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "ReturnMethod" }, SyntaxKind.ReturnStatement, 0, "456", "090_ExpressionRewriter_NewCode_ReturnMethod_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "ReturnMethodArray" }, SyntaxKind.ReturnStatement, 0, "file:090_ExpressionRewriter_NewCode_ReturnMethodArray", "090_ExpressionRewriter_NewCode_ReturnMethodArray_Then_Expected")]
         [InlineData("090_ExpressionRewriter", new[] { "Foo", "ReturnMethodAddResult" }, SyntaxKind.ReturnStatement, 0, List2ElementsMultiline, "090_ExpressionRewriter_ReturnMethodAddResult_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("090_ExpressionRewriter", new[] { "Foo", "ReturnMethodAddResult" }, SyntaxKind.ReturnStatement, 0, List2ElementsMultiline, "090_ExpressionRewriter", new[] { "NonExistingValue" }, false)]
+        [InlineData("090_ExpressionRewriter", new[] { "Foo", "ReturnMethodAddResult" }, SyntaxKind.ReturnStatement, 0, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 0, "file:100_PatternMatch_NewCode_ArrowMethod", "100_PatternMatch_NewCode_ArrowMethod_Then_Expected")]
         [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 1, "file:100_PatternMatch_NewCode_ArrowMethodSwitch2", "100_PatternMatch_NewCode_ArrowMethodSwitch2_Then_Expected")]
         [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 2, List2ElementsMultiline, "100_PatternMatch_InvocationPath_Then_Expected", new[] { "Value" })]
-        [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 2, List2ElementsMultiline, "100_PatternMatch", new[] { "NonExistingValue" }, false)]
+        [InlineData("100_PatternMatch", new[] { "Foo", "ArrowMethodWithPatternMatch" }, SyntaxKind.SwitchExpressionArm, 2, List2ElementsMultiline, null, new[] { "NonExistingValue" })]
         [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBe123" }, SyntaxKind.NumericLiteralExpression, 2, Const100, "105_InvocationExpressionParametersOnly_Then_Expected")]
-        public async Task ExpressionRewriterTest(string inputCodeResourceName, string[] declarationPath, SyntaxKind expressionKind, int expressionIndex, string initializeCode, string expectedResourceFileName, string[]? invocationPath = null, bool expectedIsRewritten = true)
+        public async Task ExpressionRewriterTest(string inputCodeResourceName, string[] declarationPath, SyntaxKind expressionKind, int expressionIndex, string initializeCode, string? expectedResourceFileName, string[]? invocationPath = null)
             => await RewriteTestImplementation(
                         async () => new ExpressionRewriter(declarationPath, (int)expressionKind, expressionIndex, await ResourceOrSelfAsync(initializeCode), invocationPath ?? []),
                         inputCodeResourceName,
-                        expectedResourceFileName,
-                        expectedIsRewritten);
+                        expectedResourceFileName);
         [Theory]
         [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBe123" }, 0, Const100, "105_InvocationExpressionParametersOnly_Then_Expected", 1)]
         [InlineData("105_InvocationExpressionParametersOnly", new[] { "Foo", "ShouldBeArgumentWithNameColon" }, 1, Const100, "105_InvocationExpressionParametersOnly_ArgumentWithNameColon_Then_Expected", 0)]
@@ -162,12 +161,12 @@ Line 2
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 1, 3, "true", "120_Attributes_NewCode13_Then_Expected")]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 2, 3, Const123, "120_Attributes_NewCode23_Then_Expected")]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 2, 3, List2ElementsMultiline, "120_Attributes_NewCode23_MultilineValue_Then_Expected")]
-        [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 3, 0, Const123, "120_Attributes_NewCode30_Then_Expected", false)]
+        [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethod" }, "InlineData", 3, 0, Const123, null)]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethodAllArgsWithDefaults" }, "InlineData", 0, 0, Const123, "120_Attributes_TestMethodAllArgsWithDefaults_NewCode00_Then_Expected")]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethodAllArgsWithDefaults" }, "InlineData", 0, 1, "\"test_expected\"", "120_Attributes_TestMethodAllArgsWithDefaults_NewCode01_Then_Expected")]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethodAllArgsWithDefaults" }, "InlineData", 0, 2, "true", "120_Attributes_TestMethodAllArgsWithDefaults_NewCode02_Then_Expected")]
         [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethodAllArgsWithDefaults" }, "InlineData", 0, 3, "1", "120_Attributes_TestMethodAllArgsWithDefaults_NewCode03_Then_Expected")]
-        [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethodAllArgsWithDefaults" }, "InlineData", 0, 4, "nonExistingToken", "120_Attributes_TestMethodAllArgsWithDefaults_NewCode04_Then_Expected", false)]
+        [InlineData("120_Attributes", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesTest", "TestMethodAllArgsWithDefaults" }, "InlineData", 0, 4, "nonExistingToken", null)]
         [InlineData("125_AttributesWithIndentedArgs", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesWithIndentedArgsTest", "TestMethod" }, "InlineData", 0, 0, List2ElementsMultiline, "125_AttributesWithIndentedArgs_NewCode00_Then_Expected")]
         [InlineData("125_AttributesWithIndentedArgs", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesWithIndentedArgsTest", "TestMethod" }, "InlineData", 1, 0, List2ElementsMultiline, "125_AttributesWithIndentedArgs_NewCode10_Then_Expected")]
         [InlineData("125_AttributesWithIndentedArgs", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesWithIndentedArgsTest", "TestMethod" }, "InlineData", 2, 0, List2ElementsMultiline, "125_AttributesWithIndentedArgs_NewCode20_Then_Expected")]
@@ -194,12 +193,11 @@ Line 2
         [InlineData("125_AttributesWithIndentedArgs", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesWithIndentedArgsTest", "TestMethodWithExtraArg" }, "InlineData", 10, 1, List2ElementsMultiline, "125_AttributesWithIndentedArgsAndExtraArg_NewCode101_Then_Expected")]
         [InlineData("125_AttributesWithIndentedArgs", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesWithIndentedArgsTest", "TestMethodWithExtraArg" }, "InlineData", 11, 1, List2ElementsMultiline, "125_AttributesWithIndentedArgsAndExtraArg_NewCode111_Then_Expected")]
         [InlineData("125_AttributesWithIndentedArgs", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "AttributesWithIndentedArgsTest", "TestMethodWithExtraArg" }, "InlineData", 12, 1, List2ElementsMultiline, "125_AttributesWithIndentedArgsAndExtraArg_NewCode121_Then_Expected")]
-        public async Task AttributeRewriterTest(string inputCodeResourceName, string[] methodPath, string attributeName, int attributeIndex, int attributeParameterIndex, string initializeCode, string expectedResourceFileName, bool expectedIsRewritten = true)
+        public async Task AttributeRewriterTest(string inputCodeResourceName, string[] methodPath, string attributeName, int attributeIndex, int attributeParameterIndex, string initializeCode, string? expectedResourceFileName)
             => await RewriteTestImplementation(
                         async () => new AttributeRewriter(methodPath, attributeName, attributeIndex, attributeParameterIndex, await ResourceOrSelfAsync(initializeCode)),
                         inputCodeResourceName,
-                        expectedResourceFileName,
-                        expectedIsRewritten);
+                        expectedResourceFileName);
 
         [Theory]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestData" }, 0, 0, Const111Quoted, "130_EnumerableMethod_BaseCase00_NewCode_Then_Expected")]
@@ -209,10 +207,10 @@ Line 2
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 0, 2, Const111Quoted, "130_EnumerableMethod_VariedInitializers02_NewCode_Then_Expected")]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 1, 0, Const111Quoted, "130_EnumerableMethod_VariedInitializers10_NewCode_Then_Expected")]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 1, 2, Const111Quoted, "130_EnumerableMethod_VariedInitializers12_NewCode_Then_Expected")]
-        [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 1, 3, Const111Quoted, "130_EnumerableMethod_VariedInitializers13_NewCode_Then_Expected", null, null, false)]
+        [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 1, 3, Const111Quoted, null)]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 2, 0, Const111Quoted, "130_EnumerableMethod_VariedInitializers20_NewCode_Then_Expected")]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 2, 2, Const111Quoted, "130_EnumerableMethod_VariedInitializers22_NewCode_Then_Expected")]
-        [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 3, 0, Const111Quoted, "130_EnumerableMethod_VariedInitializers30_NewCode_Then_Expected", null, null, false)]
+        [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 3, 0, Const111Quoted, null)]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 1, 3, Const111Quoted, "130_EnumerableMethod_VariedInitializers13_DefaultParams_Then_Expected", new[] { "default(int)", "default(int)", "default(int)", "default(int)" })]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataWithVariedInitializers" }, 2, 3, Const111Quoted, "130_EnumerableMethod_VariedInitializers23_DefaultParams_Then_Expected", new[] { "default(int)", "default(int)", "default(int)", "default(int)" })]
         [InlineData("130_EnumerableMethod", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataProperty" }, 0, 0, Const111Quoted, "130_EnumerableMethod_GetTestDataProperty_NewCode_Then_Expected")]
@@ -257,12 +255,12 @@ Line 2
         [InlineData("130_EnumerableMethodIndent", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryDataImplicitObjectCreationSpecialIndents" }, 3, 0, List2ElementsMultiline, "130_EnumerableMethodIndent_TheoryDataImplicitObjectCreationSpecialIndents30_NewCode_Then_Expected")]
         //The result formatting seems strange, but totally corresponds to input ugly formatting.
         [InlineData("130_EnumerableMethodIndent", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryDataImplicitObjectCreationSpecialIndents" }, 3, 1, List2ElementsMultiline, "130_EnumerableMethodIndent_TheoryDataImplicitObjectCreationSpecialIndents31_NewCode_Then_Expected")]
-        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestData" }, 0, 0, Const111Quoted, "135_EnumerableMethodThrow_NewCode_Then_Expected", null, null, false)]
-        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataArrow" }, 0, 0, Const111Quoted, "135_EnumerableMethodThrow_NewCode_Then_Expected", null, null, false)]
-        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataProperty" }, 0, 0, Const111Quoted, "135_EnumerableMethodThrow_NewCode_Then_Expected", null, null, false)]
-        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataPropertyArrow" }, 0, 0, Const111Quoted, "135_EnumerableMethodThrow_NewCode_Then_Expected", null, null, false)]
-        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataPropertyGetExplicit" }, 0, 0, Const111Quoted, "135_EnumerableMethodThrow_NewCode_Then_Expected", null, null, false)]
-        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryData" }, 0, 0, Const111Quoted, "135_EnumerableMethodThrow_NewCode_Then_Expected", null, null, false)]
+        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestData" }, 0, 0, Const111Quoted, null)]
+        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataArrow" }, 0, 0, Const111Quoted, null)]
+        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataProperty" }, 0, 0, Const111Quoted, null)]
+        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataPropertyArrow" }, 0, 0, Const111Quoted, null)]
+        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "GetTestDataPropertyGetExplicit" }, 0, 0, Const111Quoted, null)]
+        [InlineData("135_EnumerableMethodThrow", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodClass", "TheoryData" }, 0, 0, Const111Quoted, null)]
         [InlineData("140_EnumerableMethodYieldReturn", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodYieldReturnClass", "GetTestData" }, 0, 1, List2ElementsMultiline, "140_EnumerableMethodYieldReturn_GetTestData01_NewCode_Then_Expected")]
         [InlineData("140_EnumerableMethodYieldReturn", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodYieldReturnClass", "GetTestData" }, 1, 2, List2ElementsMultiline, "140_EnumerableMethodYieldReturn_GetTestData12_NewCode_Then_Expected")]
         [InlineData("140_EnumerableMethodYieldReturn", new[] { "Scand.StormPetrel.Rewriter.Test.Resource", "EnumerableMethodYieldReturnClass", "GetTestData" }, 2, 0, List2ElementsMultiline, "140_EnumerableMethodYieldReturn_GetTestData20_NewCode_Then_Expected")]
@@ -284,9 +282,9 @@ Line 2
         [InlineData("160_TheoryContractTest", new[] { "TheoryContractTest", "TheoryDataRowMethodYieldReturnAndDefaultParameterValues" }, 0, 0, Const123, "160_TheoryContractTest_TheoryDataRowMethodYieldReturnAndDefaultParameterValues00_Then_Expected", new[] { "default", "default" })]
         [InlineData("160_TheoryContractTest", new[] { "TheoryContractTest", "TheoryDataRowMethodYieldReturnAndDefaultParameterValues" }, 1, 1, Const123, "160_TheoryContractTest_TheoryDataRowMethodYieldReturnAndDefaultParameterValues11_Then_Expected", new[] { "default", "default" })]
         [InlineData("170_MissedCellsInTestDataRow", new[] { "DataSource", "GetRows" }, 0, 0, List2ElementsMultiline, "170_MissedCellsInTestDataRow_GetRows00_Then_Expected", new[] { "default(int)" })]
-        [InlineData("170_MissedCellsInTestDataRow", new[] { "DataSource", "GetRows" }, 0, 1, List2ElementsMultiline, "170_MissedCellsInTestDataRow_GetRows01_Then_Expected", new[] { "default(int)" }, null, false)]
+        [InlineData("170_MissedCellsInTestDataRow", new[] { "DataSource", "GetRows" }, 0, 1, List2ElementsMultiline, null, new[] { "default(int)" })]
         [InlineData("170_MissedCellsInTestDataRow", new[] { "DataSource", "GetRows" }, 1, 1, List2ElementsMultiline, "170_MissedCellsInTestDataRow_GetRows11_Then_Expected", new[] { "default(int)", "default(string)" })]
-        [InlineData("170_MissedCellsInTestDataRow", new[] { "DataSource", "GetRows" }, 1, 1, List2ElementsMultiline, "170_MissedCellsInTestDataRow_GetRows11_InsufficientDefaultExpressions_Then_Expected", new[] { "default(int)" }, null, false)]
+        [InlineData("170_MissedCellsInTestDataRow", new[] { "DataSource", "GetRows" }, 1, 1, List2ElementsMultiline, null, new[] { "default(int)" })]
         [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "GetRows" }, 0, 0, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_Then_Expected", null, new[] { "BlaProperty" })]
         [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSource" }, 0, 1, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_TheoryDataSource_01_Then_Expected", null, new[] { "Value" })]
         [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSource" }, 0, 2, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_TheoryDataSource_02_Then_Expected", null, new[] { "ValueAsHexString" })]
@@ -295,13 +293,12 @@ Line 2
         [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSource" }, 2, 1, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_TheoryDataSource_21_Then_Expected", null, new[] { "Value" })]
         [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSourceSeveralLevels" }, 0, 0, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_TheoryDataSourceSeveralLevels_00_Then_Expected", null, new[] { "WrappedValue", "Value" })]
         [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSourceSeveralLevels" }, 1, 0, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_TheoryDataSourceSeveralLevels_10_Then_Expected", null, new[] { "WrappedValue", "Value" })]
-        [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSourceSeveralLevels" }, 1, 0, List2ElementsMultiline, "190_InvocationPathInTestCaseSource_TheoryDataSourceSeveralLevels_10_NonExistingSyntaxNodeForPath_Then_Expected", null, new[] { "NonExistingSyntaxNodePathSegment", "Value" }, false)]
-        public async Task EnumerableResultRewriterTest(string inputCodeResourceName, string[] methodPath, int resultRowIndex, int resultColumnIndex, string initializeCode, string expectedResourceFileName, string[]? rowDefaultExpressions = null, string[]? invocationPath = null, bool expectedIsRewritten = true)
+        [InlineData("190_InvocationPathInTestCaseSource", new[] { "DataSource", "TheoryDataSourceSeveralLevels" }, 1, 0, List2ElementsMultiline, null, null, new[] { "NonExistingSyntaxNodePathSegment", "Value" })]
+        public async Task EnumerableResultRewriterTest(string inputCodeResourceName, string[] methodPath, int resultRowIndex, int resultColumnIndex, string initializeCode, string? expectedResourceFileName, string[]? rowDefaultExpressions = null, string[]? invocationPath = null)
             => await RewriteTestImplementation(
                         async () => new EnumerableResultRewriter(methodPath, resultRowIndex, resultColumnIndex, await ResourceOrSelfAsync(initializeCode), rowDefaultExpressions, invocationPath),
                         inputCodeResourceName,
-                        expectedResourceFileName,
-                        expectedIsRewritten);
+                        expectedResourceFileName);
 
         private static Assembly GetAssembly() => Assembly.GetAssembly(typeof(MainTest))
                 ?? throw new InvalidOperationException("Assembly with MainTest must not be null at this point");
@@ -330,13 +327,18 @@ Line 2
         /// <param name="expectedResourceFileName"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        private static async Task RewriteTestImplementation(Func<Task<CSharpSyntaxRewriter>> rewriterFactory, string inputCodeResourceName, string expectedResourceFileName, bool expectedIsRewritten = true)
+        private static async Task RewriteTestImplementation(Func<Task<CSharpSyntaxRewriter>> rewriterFactory, string inputCodeResourceName, string? expectedResourceFileName)
         {
             //Arrange
             using var inStream = GetAssembly().GetManifestResourceStream(typeof(MainTest), $"Resource.{inputCodeResourceName}.cs")
                 ?? throw new InvalidOperationException("Manifest Resource Stream must not be null at this point"); ;
-            expectedResourceFileName = $"{expectedResourceFileName.AsSpan()}.cs";
-            var expectedCode = await ReadResourceAsync(expectedResourceFileName);
+            string expectedCode = "";
+            var expectedIsRewritten = expectedResourceFileName != null;
+            if (expectedResourceFileName != null)
+            {
+                expectedResourceFileName = $"{expectedResourceFileName.AsSpan()}.cs";
+                expectedCode = await ReadResourceAsync(expectedResourceFileName);
+            }
 
             //Act
             var stopwatch = Stopwatch.StartNew();

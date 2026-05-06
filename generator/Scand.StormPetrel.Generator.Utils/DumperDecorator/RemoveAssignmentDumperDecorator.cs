@@ -36,9 +36,9 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
                                 .Select(x => x.Parent?.ChildNodes().LastOrDefault())
                                 .Where(x => x != null)
                                 .ToImmutableHashSet();
-            node = node.RemoveNodes(nodesToRemove.Where(x => !lastChilds.Contains(x)), SyntaxRemoveOptions.KeepNoTrivia);
+            node = node.RemoveNodes(nodesToRemove.Where(x => !lastChilds.Contains(x)), SyntaxRemoveOptions.KeepNoTrivia)!;
             var nodesToRemoveLeft = GetNodesToRemove(node, typeNameToRemovePropertyNames);
-            return node.RemoveNodes(nodesToRemoveLeft, SyntaxRemoveOptions.KeepEndOfLine);
+            return node.RemoveNodes(nodesToRemoveLeft, SyntaxRemoveOptions.KeepEndOfLine)!;
         }
         private static IEnumerable<SyntaxNode> GetNodesToRemove(SyntaxNode node, Dictionary<string, HashSet<string>> typeNameToRemovePropertyNames) =>
             node

@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Scand.StormPetrel.Shared
 {
+#nullable disable
     internal static class SyntaxNodeHelper
     {
         public static string[] GetValuePath(CSharpSyntaxNode node)
@@ -200,4 +201,5 @@ namespace Scand.StormPetrel.Shared
             }
         }
     }
+#nullable restore
 }

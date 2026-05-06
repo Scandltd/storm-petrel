@@ -1,0 +1,6 @@
+// This file is only necessary for running the tests from command line like `dotnet test --project "Test.Integration.XUnitV3AOT.csproj"`
+{
+    "test": {
+        "runner": "Microsoft.Testing.Platform"
+    }
+}

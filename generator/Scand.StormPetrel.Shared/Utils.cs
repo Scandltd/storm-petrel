@@ -34,7 +34,7 @@ namespace Scand.StormPetrel.Shared
                     originalNode
                         .WithToken(SyntaxFactory.Literal(
                             text: PrependForEachValueLine(originalNode.Token.Text, leadingWhitespace.ToFullString(), true),
-                            value: (string)originalNode.Token.Value
+                            value: originalNode.Token.Value is string s ? s : ""
                         ))
                         .WithTriviaFrom(originalNode));
             }

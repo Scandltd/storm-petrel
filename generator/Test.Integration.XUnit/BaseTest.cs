@@ -173,21 +173,6 @@ namespace Test.Integration.XUnit
             actual.Should().Be(expected);
         }
 
-        // TODO: consider supporting of similar use cases
-        //[Fact]
-        //public void WhenExpectedIsFromMethodAndAssertInvocationPathThenMethodShouldBeUpdateTest()
-        //{
-        //    //Arrange
-        //    var expected = GetExpectedForInvocationPath();
-
-        //    //Act
-        //    var actualResult = Calculator.Add(2, 2);
-
-        //    //Assert
-        //    actualResult.Value.Should().Be(expected.Value);
-        //    actualResult.ValueAsHexString.Should().Be(expected.ValueAsHexString);
-        //}
-
         [Fact]
         public void DefaultRegexCaseSensitivityShouldNotDetectThisCaseButAssertExpressionShouldDetect()
         {

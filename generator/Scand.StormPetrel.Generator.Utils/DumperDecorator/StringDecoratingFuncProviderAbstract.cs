@@ -9,10 +9,10 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
 {
     internal abstract class StringDecoratingFuncProviderAbstract
     {
-        protected abstract LiteralExpressionSyntax CreateLiteral(LiteralExpressionDumpContext context);
+        protected abstract LiteralExpressionSyntax? CreateLiteral(LiteralExpressionDumpContext context);
         protected abstract bool ShouldSkip(LiteralExpressionDumpContext context);
-        protected abstract IReadOnlyDictionary<string, IEnumerable<string>> GetDecoratingTypeNameToPropertyNames();
-        public Func<LiteralExpressionDumpContext, SyntaxNode> GetDecoratingFunc()
+        protected abstract IReadOnlyDictionary<string, IEnumerable<string>>? GetDecoratingTypeNameToPropertyNames();
+        public Func<LiteralExpressionDumpContext, SyntaxNode?> GetDecoratingFunc()
         {
             return (LiteralExpressionDumpContext context) =>
             {

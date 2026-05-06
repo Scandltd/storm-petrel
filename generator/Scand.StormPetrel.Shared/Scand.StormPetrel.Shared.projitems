@@ -9,6 +9,8 @@
     <Import_RootNamespace>Scand.StormPetrel.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicallyAccessedMembersAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicallyAccessedMemberTypes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SyntaxNodeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
   </ItemGroup>

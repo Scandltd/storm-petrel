@@ -23,8 +23,8 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
 
         protected static (string FirstAncestorName, string AssignmentLeftName)? GetAssignmentNodeInfo(SyntaxNode node)
         {
-            string firstAncestorName = null;
-            string assignmentLeftName = null;
+            string? firstAncestorName = null;
+            string? assignmentLeftName = null;
             if (node.IsKind(SyntaxKind.SimpleAssignmentExpression)
                     && node.Parent?.IsKind(SyntaxKind.ObjectInitializerExpression) == true)
             {
@@ -55,7 +55,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
                             && node.Parent?.IsKind(SyntaxKind.AnonymousObjectCreationExpression) == true)
             {
                 firstAncestorName = "";
-                assignmentLeftName = anonymousMemberDeclarator.NameEquals.Name.Identifier.Text;
+                assignmentLeftName = anonymousMemberDeclarator.NameEquals?.Name.Identifier.Text;
             }
             if (firstAncestorName == null || assignmentLeftName == null)
             {

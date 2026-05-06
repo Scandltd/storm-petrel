@@ -13,7 +13,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
     /// </summary>
     public sealed class LiteralExpressionDumperDecorator : AbstractDumperDecorator
     {
-        private readonly Func<LiteralExpressionDumpContext, SyntaxNode> _decoratingFunc;
+        private readonly Func<LiteralExpressionDumpContext, SyntaxNode?> _decoratingFunc;
         private const int MaxPreservedStringLength = 64;
         /// <summary>
         /// .ctor
@@ -24,7 +24,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         /// <exception cref="ArgumentNullException"></exception>
         public LiteralExpressionDumperDecorator(
             IGeneratorDumper dumper,
-            Func<LiteralExpressionDumpContext, SyntaxNode> decoratingFunc)
+            Func<LiteralExpressionDumpContext, SyntaxNode?> decoratingFunc)
                 : base(dumper)
         {
             _decoratingFunc = decoratingFunc ?? throw new ArgumentNullException(nameof(decoratingFunc));
@@ -37,7 +37,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         /// <param name="maxPreservedStringLength">Parameter value for <see cref="GetVerbatimStringDecoratingFunc"/>.</param>
         public LiteralExpressionDumperDecorator(
             IGeneratorDumper dumper,
-            Dictionary<string, IEnumerable<string>> typeNameToVerbatimStringPropertyNames,
+            Dictionary<string, IEnumerable<string>>? typeNameToVerbatimStringPropertyNames,
             int maxPreservedStringLength = MaxPreservedStringLength)
                 : this(dumper,
                         GetVerbatimStringDecoratingFunc(typeNameToVerbatimStringPropertyNames, maxPreservedStringLength))
@@ -54,8 +54,8 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         /// Use `null` to decorate any string longer than <paramref name="maxPreservedStringLength"/>.</param>
         /// <param name="maxPreservedStringLength">Max length of strings where verbatim token is not applied to.</param>
         /// <returns>New function returning new <see cref="SyntaxNode"/> with verbatim token or <see cref="null"/> if verbatim text token is not applicable for input <see cref="LiteralExpressionDumpContext"/> instance.</returns>
-        public static Func<LiteralExpressionDumpContext, SyntaxNode> GetVerbatimStringDecoratingFunc(
-                                                                        IReadOnlyDictionary<string, IEnumerable<string>> typeNameToVerbatimStringPropertyNames = null,
+        public static Func<LiteralExpressionDumpContext, SyntaxNode?> GetVerbatimStringDecoratingFunc(
+                                                                        IReadOnlyDictionary<string, IEnumerable<string>>? typeNameToVerbatimStringPropertyNames = null,
                                                                         int maxPreservedStringLength = MaxPreservedStringLength)
         {
             var funcProvider = new StringVerbatimDecoratingFuncProvider(maxPreservedStringLength, typeNameToVerbatimStringPropertyNames);
@@ -66,8 +66,8 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         /// </summary>
         /// <param name="typeNameToRawStringProperties">Configuration object similar to <see cref="GetVerbatimStringDecoratingFunc(IReadOnlyDictionary{string, IEnumerable{string}}, int)"/> corresponding parameter.</param>
         /// <returns>New function returning new <see cref="SyntaxNode"/> with raw string literal or <see cref="null"/> if raw string literal is not applicable for input <see cref="LiteralExpressionDumpContext"/> instance.</returns>
-        public static Func<LiteralExpressionDumpContext, SyntaxNode> GetRawStringDecoratingFunc(
-                                                                        IReadOnlyDictionary<string, IEnumerable<RawStringProperty>> typeNameToRawStringProperties = null)
+        public static Func<LiteralExpressionDumpContext, SyntaxNode?> GetRawStringDecoratingFunc(
+                                                                        IReadOnlyDictionary<string, IEnumerable<RawStringProperty>>? typeNameToRawStringProperties = null)
         {
             var funcProvider = new StringRawDecoratingFuncProvider(typeNameToRawStringProperties);
             return funcProvider.GetDecoratingFunc();
@@ -78,7 +78,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
         /// The method has naive implementation developed mostly for demonstrative purposes.
         /// </summary>
         /// <returns></returns>
-        public static Func<LiteralExpressionDumpContext, SyntaxNode> GetNumberToHexDecoratingFunc()
+        public static Func<LiteralExpressionDumpContext, SyntaxNode?> GetNumberToHexDecoratingFunc()
         {
             return (LiteralExpressionDumpContext context) =>
             {
@@ -107,7 +107,7 @@ namespace Scand.StormPetrel.Generator.Utils.DumperDecorator
                                                 .OfType<LiteralExpressionSyntax>()
                                                 .Select(x => (OriginalNode: x, Replacement: _decoratingFunc(GetLiteralExpressionDumpContext(x))))
                                                 .Where(x => x.Replacement != null)
-                                                .ToDictionary(x => x.OriginalNode, x => x.Replacement);
+                                                .ToDictionary(x => x.OriginalNode, x => x.Replacement ?? throw new InvalidOperationException($"Unexpected null in {nameof(x.Replacement)}"));
             var updatedNode = node.ReplaceNodes(originalNodeToReplacement.Keys, (nd, _) => originalNodeToReplacement[nd]);
             return updatedNode;
         }

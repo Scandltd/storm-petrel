@@ -31,4 +31,6 @@
     <BuildDependency Project="Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj" />
   </Project>
   <Project Path="Test.Integration.XUnitV3/Test.Integration.XUnitV3.csproj" />
+  <Project Path="Test.Integration.XUnitV3AOT.LibraryBeingTested/Test.Integration.XUnitV3AOT.LibraryBeingTested.csproj" Id="75e18715-6228-468f-a1df-c9b5a35b5f77" />
+  <Project Path="Test.Integration.XUnitV3AOT/Test.Integration.XUnitV3AOT.csproj" Id="03e95754-d242-4be7-b626-6069d5d84da4" />
 </Solution>

@@ -8,7 +8,7 @@ using System.Linq;
 namespace Scand.StormPetrel.Generator.TargetProject
 {
     // {GeneratedCodeAttribute}
-    public sealed class Generator : IGenerator
+    public sealed partial class Generator : IGenerator
     {
         private const string MethodSharedContextRewriteResultsKey = "Scand.StormPetrel.Generator.TargetProject.Generator.RewriteResults";
         private readonly IGeneratorDumper _dumper;
@@ -18,6 +18,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
             //placeholders to be overwritten while code generating
             _dumper = (IGeneratorDumper)null;
             _rewriter = (IGeneratorRewriter)null;
+            ReferenceNecessaryTypesInfo();
         }
 
         /// <summary>
@@ -83,5 +84,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
                             : $"StormPetrel has regenerated baseline(s) and intentionally fails to not execute test assertions. Original code is saved in {backupPath}.";
             throw new BaselineUpdatedException(message);
         }
+
+        static partial void ReferenceNecessaryTypesInfo();
     }
 }
