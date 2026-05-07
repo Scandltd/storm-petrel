@@ -73,7 +73,7 @@ function RunUnitTest {
     foreach ($directory in $unitTestDirectories) {
         Write-Output "Executing unit tests in directory: $($directory.Name)"
         FixTestProjectsTargetFramework $directory.FullName
-        dotnet test $directory.FullName
+        dotnet test $directory.FullName --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
         if ($LASTEXITCODE -ne 0) {
             Write-Error "$PackageDirName unit tests failed. Exiting with error."
             exit $LASTEXITCODE
@@ -96,7 +96,7 @@ function RunIntegrationTests {
     }
     Write-Output "Executing StormPetrel integration tests"
     FixTestProjectsTargetFramework $PackageDirName
-    dotnet test "$PackageDirName/$SolutionFileName" --logger:junit --filter "FullyQualifiedName~StormPetrel"
+    dotnet test "$PackageDirName/$SolutionFileName" --logger:junit --filter "FullyQualifiedName~StormPetrel" --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
 
     $failedItems = [System.Collections.ArrayList]::new()
     foreach ($i in (get-childitem $PackageDirName -recurse | where {$_.name -eq "TestResults.xml"} | Select-Object -Property FullName).FullName) {
@@ -115,7 +115,7 @@ function RunIntegrationTests {
     }
 
     Write-Output "Executing all integration tests now, including StormPetrel tests which are executed second time"
-    dotnet test "$PackageDirName/$SolutionFileName"
+    dotnet test "$PackageDirName/$SolutionFileName" --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Aborted due to failed integration tests in $PackageDirName/$SolutionFileName"
         exit 1
@@ -129,7 +129,7 @@ function RunAOTTests {
     #Push the directory to apply its global.json
     Push-Location "generator/Test.Integration.XUnitV3AOT"
     try {
-        dotnet test --project "Test.Integration.XUnitV3AOT.csproj" -p:RuntimeIdentifier=$runtimeIdentifier
+        dotnet test --project "Test.Integration.XUnitV3AOT.csproj" -p:RuntimeIdentifier=$runtimeIdentifier --configuration Release
         if ($IsExitOnFailure -and $LASTEXITCODE -ne 0) {
             Write-Error "AOT tests fail"
             exit 1

@@ -38,13 +38,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoFixture.Xunit3" Version="4.19.0" />
-    <PackageReference Include="coverlet.collector" Version="6.0.4">
+    <PackageReference Include="coverlet.collector" Version="10.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="8.8.0" />
-    <PackageReference Include="JunitXml.TestLogger" Version="7.1.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="FluentAssertions" Version="8.9.0" />
+    <PackageReference Include="JunitXml.TestLogger" Version="7.1.0" /><!-- Do NOT update the version. Reason: the tests cannot run in VS Test Explorer due to Microsoft.Testing.Platform version conflict. -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
     <PackageReference Include="xunit.v3" Version="3.2.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>

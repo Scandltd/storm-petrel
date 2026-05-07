@@ -17,7 +17,7 @@ namespace Test.Integration.Shared
             foreach (var date in possibleLogCreationDates)
             {
                 var dateSuffix = date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"../../../Logs/StormPetrel-{dateSuffix}.log");
+                var filePath = Path.Combine(SharedUtils.GetProjectDirectoryFullPath(), $"Logs/StormPetrel-{dateSuffix}.log");
                 bool logExists = File.Exists(filePath);
                 if (logExists)
                 {

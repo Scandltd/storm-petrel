@@ -43,16 +43,7 @@ namespace Test.Integration.Shared
                         throw new InvalidOperationException("This code line is unreachable due to locking mechanism above");
                     }
                 }
-                var rootDirectory = Directory
-                                        .GetParent(Directory.GetCurrentDirectory())?
-                                        .Parent?
-                                        .Parent?
-                                        .FullName;
-                if (string.IsNullOrEmpty(rootDirectory))
-                {
-                    throw new InvalidOperationException("Unable to get root directory");
-                }
-
+                var rootDirectory = SharedUtils.GetProjectDirectoryFullPath();
                 var className = classFullName.Split('.').Last();
                 int lastIndex = className.LastIndexOf("StormPetrel", StringComparison.OrdinalIgnoreCase);
                 var originalClassName = lastIndex > -1

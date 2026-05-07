@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)BackupHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackupHelperResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LogsTestHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedUtils.cs" />
   </ItemGroup>
 </Project>

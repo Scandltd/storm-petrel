@@ -22,16 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JunitXml.TestLogger" Version="7.1.0" />
-    <PackageReference Include="coverlet.collector" Version="6.0.4">
+    <PackageReference Include="JunitXml.TestLogger" Version="8.0.0" />
+    <PackageReference Include="coverlet.collector" Version="10.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="8.8.0" />
+    <PackageReference Include="FluentAssertions" Version="8.9.0" />
+    <PackageReference Include="Microsoft.Testing.Platform" Version="2.2.2" />
     <PackageReference Include="Scand.StormPetrel.Generator" Version="2.7.0" />
     <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.3" />
-    <PackageReference Include="SkiaSharp" Version="3.119.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="SkiaSharp" Version="3.119.1" /><!-- Do NOT update the version. Reason: newer versions contain ~80 MB pdb what significantly affects build time and output. -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
     <PackageReference Include="Xunit.StaFact" Version="3.0.13" />
     <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
