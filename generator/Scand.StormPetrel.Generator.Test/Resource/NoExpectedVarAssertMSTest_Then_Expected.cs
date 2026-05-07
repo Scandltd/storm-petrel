@@ -5,6 +5,7 @@
 namespace Test.Integration.MSTest;
 [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
 [TestClass]
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public class NoExpectedVarAssertTestStormPetrel
 {
     [TestMethod]

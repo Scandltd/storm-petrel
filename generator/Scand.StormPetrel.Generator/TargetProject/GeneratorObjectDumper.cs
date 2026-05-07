@@ -2,6 +2,7 @@
 namespace Scand.StormPetrel.Generator.TargetProject
 {
     // {GeneratedCodeAttribute}
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed class GeneratorObjectDumper : global::Scand.StormPetrel.Generator.Abstraction.IGeneratorDumper
     {
         private readonly global::DumpOptions _options;

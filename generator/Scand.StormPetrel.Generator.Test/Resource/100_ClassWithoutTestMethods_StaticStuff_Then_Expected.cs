@@ -10,6 +10,7 @@ using Xunit.Sdk;
 namespace Test.Integration.XUnit
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class UnitTestHelperWithoutTestMethodsStormPetrel
     {
         private static object Expected() => new object ();

@@ -9,8 +9,10 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace Scand.StormPetrel.Generator
@@ -18,22 +20,23 @@ namespace Scand.StormPetrel.Generator
     internal partial class SourceGenerator
     {
         private const SyntaxRemoveOptions NodeRemoveOptions = SyntaxRemoveOptions.KeepNoTrivia | SyntaxRemoveOptions.KeepDirectives;
-        public static SourceText CreateNewSourceAsSourceText(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
-            => CreateNewSource(syntaxTreeFilePath, syntaxTree, config, logger, cancellationToken)?.GetText(Encoding.UTF8);
-        public static SyntaxNode CreateNewSource(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
+        private static readonly Regex _excludeFromCodeCoverageAttributeNameRegex = new Regex(@"\bExcludeFromCodeCoverage\b", RegexOptions.Compiled | RegexOptions.Multiline);
+        public static SourceText CreateNewSourceAsSourceText(string syntaxTreeFilePath, SyntaxTreeInfo syntaxTreeInfo, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
+            => CreateNewSource(syntaxTreeFilePath, syntaxTreeInfo, config, logger, cancellationToken)?.GetText(Encoding.UTF8);
+        public static SyntaxNode CreateNewSource(string syntaxTreeFilePath, SyntaxTreeInfo syntaxTreeInfo, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
         {
             var collector = new TestInfoCollector();
-            var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
+            var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTreeInfo, config, collector, logger, cancellationToken);
             if (!collector.IsTestMethodCollected)
             {
                 return null;
             }
             return newSource;
         }
-        public static (SyntaxNode, IEnumerable<(string[] Path, int ParametersCount)> MethodInfo, IEnumerable<string[]> PropertyPaths) CreateNewSourceForStaticStuff(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
+        public static (SyntaxNode, IEnumerable<(string[] Path, int ParametersCount)> MethodInfo, IEnumerable<string[]> PropertyPaths) CreateNewSourceForStaticStuff(string syntaxTreeFilePath, SyntaxTreeInfo syntaxTreeInfo, MainConfigParsed config, ILogger logger, CancellationToken cancellationToken)
         {
             var collector = new StaticInfoCollector();
-            var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTree, config, collector, logger, cancellationToken);
+            var newSource = CreateNewSourceImplementation(syntaxTreeFilePath, syntaxTreeInfo, config, collector, logger, cancellationToken);
             if (collector.IsTestMethodCollected
                     || collector.CollectedMethodInfo.Count == 0 && collector.CollectedPropertyPaths.Count == 0)
             {
@@ -41,9 +44,9 @@ namespace Scand.StormPetrel.Generator
             }
             return (newSource, collector.CollectedMethodInfo, collector.CollectedPropertyPaths);
         }
-        private static SyntaxNode CreateNewSourceImplementation(string syntaxTreeFilePath, SyntaxTree syntaxTree, MainConfigParsed config, AbstractInfoCollector infoCollector, ILogger logger, CancellationToken cancellationToken)
+        private static SyntaxNode CreateNewSourceImplementation(string syntaxTreeFilePath, SyntaxTreeInfo syntaxTreeInfo, MainConfigParsed config, AbstractInfoCollector infoCollector, ILogger logger, CancellationToken cancellationToken)
         {
-            var syntaxTreeRoot = syntaxTree.GetRoot(CancellationToken.None);
+            var syntaxTreeRoot = syntaxTreeInfo.SourceTree.GetRoot(CancellationToken.None);
             var classes = MethodHelper.GetDescendantNodesOptimized(syntaxTreeRoot, a => a is ClassDeclarationSyntax c
                                                                                             ? (c, false)
                                                                                             : (null, true));
@@ -166,7 +169,11 @@ namespace Scand.StormPetrel.Generator
                 {
                     return @class;
                 }
-                newClass = GeneratedCodeAttribute.WithAttribute(newClass);
+                if (syntaxTreeInfo.IsVeryFirstEntry)
+                {
+                    newClass = GeneratedCodeAttribute.WithAttribute(newClass);
+                    newClass = WithExcludeFromCodeCoverageAttributeIfNeed(newClass);
+                }
                 return newClass;
             });
             if (newRoot == syntaxTreeRoot)
@@ -337,6 +344,35 @@ namespace Scand.StormPetrel.Generator
                 return candidatesToRemove
                             .Where(x => !neededNodes.Contains(x))
                             .ToArray();
+            }
+
+            ClassDeclarationSyntax WithExcludeFromCodeCoverageAttributeIfNeed(ClassDeclarationSyntax node)
+            {
+                var excludeAttributeFullName = typeof(ExcludeFromCodeCoverageAttribute).FullName.Substring(0, typeof(ExcludeFromCodeCoverageAttribute).FullName.Length - "Attribute".Length);
+                if (!node.AttributeLists
+                        .SelectMany(x => x.Attributes)
+                        .Any(x =>
+                        {
+                            var attributeFull = x.Name.WithoutTrivia().ToString();
+                            var index = attributeFull.IndexOf('(');
+                            if (index > 0)
+                            {
+                                attributeFull = attributeFull.Substring(0, index);
+                            }
+                            attributeFull = attributeFull.Trim();
+                            // Syntax-based approach limitations: ignore namespace, aliases, etc.
+                            var attributeName = attributeFull
+                                .Split('.')
+                                .Select(y => y.Trim())
+                                .Last();
+                            return _excludeFromCodeCoverageAttributeNameRegex.IsMatch(attributeName);
+                        }))
+                {
+                    var attribute = SyntaxFactory.Attribute(SyntaxFactory.ParseName($"global::{excludeAttributeFullName}"));
+                    var attributeList = SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(attribute));
+                    return node.AddAttributeLists(attributeList);
+                }
+                return node;
             }
         }
 

@@ -16,18 +16,7 @@ namespace Scand.StormPetrel.Generator
             {
                 _attributeList = CreateAttributeList();
             }
-            var attribute = _attributeList;
-            if (@class.Modifiers.Any(x => x.IsKind(SyntaxKind.PartialKeyword)))
-            {
-                SyntaxFactory.Comment(attribute.ToFullString());
-                return @class
-                            .WithLeadingTrivia(
-                                SyntaxFactory.Comment("// Commented out for partial classes to avoid CS0579 error"),
-                                SyntaxFactory.ElasticCarriageReturnLineFeed,
-                                SyntaxFactory.Comment("// " + attribute.ToFullString()),
-                                SyntaxFactory.ElasticCarriageReturnLineFeed);
-            }
-            attribute = _attributeList.WithLeadingTrivia(Shared.Utils.GetLeadingWhitespace(@class));
+            var attribute = _attributeList.WithLeadingTrivia(Shared.Utils.GetLeadingWhitespace(@class));
             var newList = @class.AttributeLists.Insert(0, attribute);
             return @class.WithAttributeLists(newList);
         }

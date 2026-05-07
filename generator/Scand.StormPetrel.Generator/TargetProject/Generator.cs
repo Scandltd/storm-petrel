@@ -4,6 +4,7 @@ using System.Linq;
 namespace Scand.StormPetrel.Generator.TargetProject
 {
     // {GeneratedCodeAttribute}
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed partial class Generator : global::Scand.StormPetrel.Generator.Abstraction.IGenerator
     {
         private const string MethodSharedContextRewriteResultsKey = "Scand.StormPetrel.Generator.TargetProject.Generator.RewriteResults";

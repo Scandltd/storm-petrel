@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace Scand.StormPetrel.Generator.Test.Resources
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class VariableNamesStormPetrel
     {
         [Fact]

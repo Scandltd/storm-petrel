@@ -8,6 +8,7 @@ using Xunit.Sdk;
 namespace Test.Integration.XUnit
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ClassWithConstructorTestStormPetrel
     {
         private int _argFromConstructor;
@@ -100,6 +101,7 @@ namespace Test.Integration.XUnit
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ClassWithConstructorAndTwoTestMethodsTestStormPetrel
     {
         public ClassWithConstructorAndTwoTestMethodsTestStormPetrel()
@@ -224,6 +226,7 @@ namespace Test.Integration.XUnit
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     internal class ClassWithConstructorWithStaticStormPetrel
     {
         public ClassWithConstructorWithStaticStormPetrel()
@@ -250,6 +253,7 @@ namespace Test.Integration.XUnit
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     internal class ClassWithConstructorWithTwoStaticStormPetrel
     {
         public ClassWithConstructorWithTwoStaticStormPetrel()

@@ -6,6 +6,7 @@ using FluentAssertions;
 
 namespace Test.Integration.XUnit;
 [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 /// <summary>
 /// The tests are created based on <see cref = "Microsoft.CodeAnalysis.CSharp.SyntaxKind"/> reasonable values.
 /// </summary>

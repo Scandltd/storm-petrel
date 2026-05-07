@@ -2,6 +2,7 @@
 namespace Scand.StormPetrel.Generator.TargetProject
 {
     // {GeneratedCodeAttribute}
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed class GeneratorBackuper : global::Scand.StormPetrel.Generator.Abstraction.IGeneratorBackuper
     {
         private static global::System.Collections.Concurrent.ConcurrentDictionary<string, object> FilePathToLockObject = new global::System.Collections.Concurrent.ConcurrentDictionary<string, object>();

@@ -6,6 +6,7 @@ using FluentAssertions;
 
 namespace Test.Integration.XUnit;
 [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 /// <summary>
 /// (actualResult, expected) names used in this class tests do not match "TestVariablePairConfigs" regex values.
 /// It allows Storm Petrel to analyze invocation paths of the `expected` variable/argument in the assertion expressions.

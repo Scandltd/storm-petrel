@@ -43,6 +43,8 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("180_IgnoreInvocationExpression", "IgnoreInvocationExpression")]
         [InlineData("190_AssertionNoExpectedVar_ShouldBe")]
         [InlineData("200_AssertionNoExpectedVar_ExpectedExpressionKinds")]
+        [InlineData("ExcludeFromCodeCoverageAttributeTest")]
+        [InlineData("ExcludeFromCodeCoverageAttributeTest", null, false, null, false)]
         [InlineData("ExpectedInMethodTest01Data")] //performance test
         [InlineData("ExpectedInMethodTest01Data", null, true)]
         [InlineData("ExpectedInMethodTest01Data", "IsReplaceOriginalInvocationMethod")]
@@ -83,7 +85,11 @@ namespace Scand.StormPetrel.Generator.Test
         [InlineData("IgnoreCommon", null, true)]
         [InlineData("IgnoreInDebug", null, true)]
         [InlineData("IgnoreInRelease", null, true)]
-        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName, string? configKey = null, bool isStaticStuffUseCase = false, IEnumerable<string>? preprocessorSymbols = null)
+        public async Task WhenInputCodeThenInjectStormPetrelStuffTest(string inputReplacementCodeResourceName,
+            string? configKey = null,
+            bool isStaticStuffUseCase = false,
+            IEnumerable<string>? preprocessorSymbols = null,
+            bool isVeryFirstSyntaxTreeEntry = true)
         {
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(XUnitGenerationTest));
@@ -104,6 +110,10 @@ namespace Scand.StormPetrel.Generator.Test
             {
                 postfixes.Add("StaticStuff");
             }
+            if (!isVeryFirstSyntaxTreeEntry)
+            {
+                postfixes.Add("NotVeryFirstSyntaxTreeEntry");
+            }
             postfixes.AddRange(preprocessorSymbols ?? []);
             var postfix = string.Join("_", postfixes);
             if (!string.IsNullOrEmpty(postfix))
@@ -123,14 +133,15 @@ namespace Scand.StormPetrel.Generator.Test
                 parseOptions = new(preprocessorSymbols: preprocessorSymbols);
             }
             var parsedCode = CSharpSyntaxTree.ParseText(inputCode, parseOptions);
+            var syntaxTreeInfo = new SyntaxTreeInfo(parsedCode, isVeryFirstSyntaxTreeEntry);
             if (isStaticStuffUseCase)
             {
-                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, parsedCode, GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                var (tempNode, _, _) = SourceGenerator.CreateNewSourceForStaticStuff(tempFilePath, syntaxTreeInfo, GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
                 actualSyntaxNode = tempNode;
             }
             else
             {
-                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, parsedCode, GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
+                actualSyntaxNode = SourceGenerator.CreateNewSource(tempFilePath, syntaxTreeInfo, GetConfigParsed(configKey), Substitute.For<ILogger>(), CancellationToken.None);
             }
             stopwatch.Stop();
             string? actual = actualSyntaxNode?.ToFullString();

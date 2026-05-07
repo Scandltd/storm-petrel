@@ -23,7 +23,7 @@ namespace Scand.StormPetrel.Generator
                                     .Collect()
                                     .Select((a, _) => Common.Utils.GetAppSetting(a, b => b.Path));
 
-            IncrementalValuesProvider<SyntaxTree> syntaxProvider = default;
+            IncrementalValuesProvider<SyntaxTreeInfo> syntaxProvider = default;
             foreach (var attributeFullName in SupportedMethodInfo.Instance.AttributeFullNames)
             {
                 var sp = context
@@ -40,12 +40,12 @@ namespace Scand.StormPetrel.Generator
                                     var type = (ITypeSymbol)semanticModel.GetDeclaredSymbol(syntaxContext.TargetNode.Parent, CancellationToken.None);
                                     return type
                                             .Locations
-                                            .Select(x => x.SourceTree);
+                                            .Select((x, i) => new SyntaxTreeInfo(x.SourceTree, i == 0));
                                 })
-                            .SelectMany((x, _) => x.Where(y => y != null))
+                            .SelectMany((x, _) => x.Where(y => y.SourceTree != null))
                             .Collect()
                             .SelectMany((x, _) => x.Distinct());
-                if (syntaxProvider.Equals(default(IncrementalValuesProvider<SyntaxTree>)))
+                if (syntaxProvider.Equals(default(IncrementalValuesProvider<SyntaxTreeInfo>)))
                 {
                     syntaxProvider = sp;
                 }
@@ -63,13 +63,13 @@ namespace Scand.StormPetrel.Generator
 
             var combinedProviderFirst = jsonConfigFile
                                             .Combine(syntaxProvider.Collect())
-                                            .Select((x, _) => (SyntaxTree: x.Right.FirstOrDefault(), AdditionalText: x.Left));
+                                            .Select((x, _) => (SyntaxTreeInfo: x.Right.FirstOrDefault(), AdditionalText: x.Left));
 
             context.RegisterImplementationSourceOutput(combinedProviderFirst, (syntaxContext, combined) =>
             {
                 var filePath = combined.AdditionalText != null
                                 ? combined.AdditionalText.Path
-                                : combined.SyntaxTree?.FilePath;
+                                : combined.SyntaxTreeInfo.SourceTree?.FilePath;
                 if (filePath == null)
                 {
                     return;
@@ -80,11 +80,11 @@ namespace Scand.StormPetrel.Generator
 
             var combinedProvider = jsonConfigFile
                                         .Combine(syntaxProvider.Collect())
-                                        .SelectMany((x, _) => x.Right.Select(y => (SyntaxTree: y, AdditionalText: x.Left)));
+                                        .SelectMany((x, _) => x.Right.Select(y => (SyntaxTreeInfo: y, AdditionalText: x.Left)));
 
             context.RegisterImplementationSourceOutput(combinedProvider, (syntaxContext, combined) =>
             {
-                var filePath = combined.SyntaxTree.FilePath;
+                var filePath = combined.SyntaxTreeInfo.SourceTree.FilePath;
                 var (config, logger) = GeneratorInfoCache.Get(combined.AdditionalText, filePath);
                 if (config.IsDisabled)
                 {
@@ -97,7 +97,7 @@ namespace Scand.StormPetrel.Generator
                     return;
                 }
                 logger.Information("Regenerating tests for `{FilePath}` file", filePath);
-                var newSource = SourceGenerator.CreateNewSourceAsSourceText(filePath, combined.SyntaxTree, config, logger, syntaxContext.CancellationToken);
+                var newSource = SourceGenerator.CreateNewSourceAsSourceText(filePath, combined.SyntaxTreeInfo, config, logger, syntaxContext.CancellationToken);
                 if (newSource != null)
                 {
                     var sourcePath = GeneratorInfoCache.ToSourcePath(combined.AdditionalText?.Path, filePath);
@@ -114,9 +114,9 @@ namespace Scand.StormPetrel.Generator
                     var type = (ITypeSymbol)semanticModel.GetDeclaredSymbol(syntaxContext.Node.Parent, cancellationToken);
                     return type
                             .Locations
-                            .Select(x => x.SourceTree);
+                            .Select((x, i) => new SyntaxTreeInfo(x.SourceTree, i == 0));
                 })
-                .SelectMany((x, _) => x.Where(y => y != null).Distinct())
+                .SelectMany((x, _) => x.Where(y => y.SourceTree != null).Distinct())
                 .Collect();
 
             var combinedProviderForClassWithStatic = jsonConfigFile
@@ -129,7 +129,7 @@ namespace Scand.StormPetrel.Generator
                 ILogger logger = Logger.None;
                 if (combined.AdditionalText != null || combined.SyntaxTrees.Any())
                 {
-                    (config, logger) = GeneratorInfoCache.Get(combined.AdditionalText, combined.SyntaxTrees.FirstOrDefault()?.FilePath);
+                    (config, logger) = GeneratorInfoCache.Get(combined.AdditionalText, combined.SyntaxTrees.FirstOrDefault().SourceTree?.FilePath);
                 }
                 bool isConfigNullOrDisabled = config == null || config.IsDisabled;
                 var invocationInfo = isConfigNullOrDisabled
@@ -137,12 +137,12 @@ namespace Scand.StormPetrel.Generator
                                         : combined
                                             .SyntaxTrees
                                             .Distinct()
-                                            .Where(a => config == null || !config.IsMatchToIgnoreFilePathRegex(a.FilePath))
+                                            .Where(x => config == null || !config.IsMatchToIgnoreFilePathRegex(x.SourceTree.FilePath))
                                             .AsParallel()
-                                            .Select(a =>
+                                            .Select(x =>
                                             {
-                                                var (newSource, methodInfo, propertyPaths) = SourceGenerator.CreateNewSourceForStaticStuff(a.FilePath, a, config, logger, syntaxContext.CancellationToken);
-                                                return (NewSource: newSource, MethodInfo: methodInfo, PropertyPaths: propertyPaths, a.FilePath);
+                                                var (newSource, methodInfo, propertyPaths) = SourceGenerator.CreateNewSourceForStaticStuff(x.SourceTree.FilePath, x, config, logger, syntaxContext.CancellationToken);
+                                                return (NewSource: newSource, MethodInfo: methodInfo, PropertyPaths: propertyPaths, x.SourceTree.FilePath);
                                             })
                                             .AsSequential();
 

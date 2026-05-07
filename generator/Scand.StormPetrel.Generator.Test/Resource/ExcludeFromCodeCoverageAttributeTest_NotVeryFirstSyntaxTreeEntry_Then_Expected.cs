@@ -3,24 +3,20 @@
 #nullable enable
 #endif
 using FluentAssertions;
-using Xunit.Sdk;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Integration.XUnit
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
-    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class AssertionNoExpectedVarTestStormPetrel
+    public class ExcludeFromCodeCoverageClassAttributeShouldBeAddedTestStormPetrel
     {
         [Fact]
-        public void ShouldDetectExpectedArgumentTestStormPetrel()
+        public void SomeTestStormPetrel()
         {
-            //Act
-            var actual = TestedClass.TestedMethod1();
             var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentTest",
+                ClassName = "ExcludeFromCodeCoverageClassAttributeShouldBeAddedTest",
+                MethodName = "SomeTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1
             };
@@ -29,7 +25,7 @@ namespace Test.Integration.XUnit
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
-                Actual = actual
+                Actual = 2
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable restore
 #endif
@@ -47,33 +43,34 @@ namespace Test.Integration.XUnit
                     Path = new[]
                     {
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentTest"
+                        "ExcludeFromCodeCoverageClassAttributeShouldBeAddedTest",
+                        "SomeTest"
                     },
                     MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
-                        StatementIndex = 1
+                        StatementIndex = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
             ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.Should().Be(1);
+            2.Should().Be(1);
         }
+    }
 
+    [ExcludeFromCodeCoverage]
+    public class ExcludeFromCodeCoverageClassAttributeExistsTestStormPetrel
+    {
         [Fact]
-        public void ShouldDetectExpectedArgumentWhenMultipleArgsTestStormPetrel()
+        public void SomeTestStormPetrel()
         {
-            //Act
-            var actual = TestedClass.TestedMethod1();
             var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentWhenMultipleArgsTest",
+                ClassName = "ExcludeFromCodeCoverageClassAttributeExistsTest",
+                MethodName = "SomeTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1
             };
@@ -82,169 +79,7 @@ namespace Test.Integration.XUnit
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
-                Actual = actual
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable restore
-#endif
-            ,
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable disable
-#endif
-                Expected = 123
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable restore
-#endif
-            ,
-                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
-                {
-                    Path = new[]
-                    {
-                        "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentWhenMultipleArgsTest"
-                    },
-                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
-                    {
-                        StatementNodeKind = 8638,
-                        StatementNodeIndex = 0,
-                        StatementIndex = 1
-                    }
-                },
-                MethodSharedContext = stormPetrelSharedContext
-            };
-            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.Should().Be(123, "some explanation");
-        }
-
-        [Fact]
-        public void ShouldDetectExpectedArgumentWhenMultipleNamedArgsTestStormPetrel()
-        {
-            //Act
-            var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentWhenMultipleNamedArgsTest",
-                VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
-            };
-            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
-            {
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable disable
-#endif
-                Actual = actual
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable restore
-#endif
-            ,
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable disable
-#endif
-                Expected = 123
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable restore
-#endif
-            ,
-                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
-                {
-                    Path = new[]
-                    {
-                        "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentWhenMultipleNamedArgsTest"
-                    },
-                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
-                    {
-                        StatementNodeKind = 8638,
-                        StatementNodeIndex = 1,
-                        StatementIndex = 1
-                    }
-                },
-                MethodSharedContext = stormPetrelSharedContext
-            };
-            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.Should().Be(because: "some explanation", expected: 123);
-        }
-
-        [Fact]
-        public void ShouldDetectExpectedArgumentWhenObjectCreationExpressionTestStormPetrel()
-        {
-            //Act
-            var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentWhenObjectCreationExpressionTest",
-                VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
-            };
-            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
-            {
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable disable
-#endif
-                Actual = actual
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable restore
-#endif
-            ,
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable disable
-#endif
-                Expected = new FooExpected
-                {
-                    BlaProperty = "123"
-                }
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable restore
-#endif
-            ,
-                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
-                {
-                    Path = new[]
-                    {
-                        "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentWhenObjectCreationExpressionTest"
-                    },
-                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
-                    {
-                        StatementNodeKind = 8638,
-                        StatementNodeIndex = 0,
-                        StatementIndex = 1
-                    }
-                },
-                MethodSharedContext = stormPetrelSharedContext
-            };
-            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.Should().BeEquivalentTo(new FooExpected { BlaProperty = "123" });
-        }
-
-        [Fact]
-        public void ShouldDetectExpectedArgumentAndActualWithPropertyTestStormPetrel()
-        {
-            //Act
-            var actual = TestedClass.TestedMethod1();
-            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
-            {
-                FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentAndActualWithPropertyTest",
-                VariablePairCurrentIndex = 0,
-                VariablePairsCount = 1
-            };
-            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
-            {
-#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
-#nullable disable
-#endif
-                Actual = actual.FooProperty
+                Actual = 2
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable restore
 #endif
@@ -262,33 +97,34 @@ namespace Test.Integration.XUnit
                     Path = new[]
                     {
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentAndActualWithPropertyTest"
+                        "ExcludeFromCodeCoverageClassAttributeExistsTest",
+                        "SomeTest"
                     },
                     MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
-                        StatementIndex = 1
+                        StatementIndex = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
             ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.FooProperty.Should().Be(1);
+            2.Should().Be(1);
         }
+    }
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public class ExcludeFromCodeCoverageFullNameTestStormPetrel
+    {
         [Fact]
-        public void ShouldDetectExpectedArgumentAndActualWithMethodTestStormPetrel()
+        public void SomeTestStormPetrel()
         {
-            //Act
-            var actual = TestedClass.TestedMethod1();
             var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentAndActualWithMethodTest",
+                ClassName = "ExcludeFromCodeCoverageFullNameTest",
+                MethodName = "SomeTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1
             };
@@ -297,7 +133,7 @@ namespace Test.Integration.XUnit
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
-                Actual = actual.FooMethod()
+                Actual = 2
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable restore
 #endif
@@ -315,33 +151,34 @@ namespace Test.Integration.XUnit
                     Path = new[]
                     {
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentAndActualWithMethodTest"
+                        "ExcludeFromCodeCoverageFullNameTest",
+                        "SomeTest"
                     },
                     MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
-                        StatementIndex = 1
+                        StatementIndex = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
             ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.FooMethod().Should().Be(1);
+            2.Should().Be(1);
         }
+    }
 
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public class ExcludeFromCodeCoverageFullNameMultilineTestStormPetrel
+    {
         [Fact]
-        public void ShouldDetectExpectedArgumentAndActualCouplePropertiesOrMethodsTestStormPetrel()
+        public void SomeTestStormPetrel()
         {
-            //Act
-            var actual = TestedClass.TestedMethod1();
             var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
             {
                 FilePath = "C:\\temp\\temp.cs",
-                ClassName = "AssertionNoExpectedVarTest",
-                MethodName = "ShouldDetectExpectedArgumentAndActualCouplePropertiesOrMethodsTest",
+                ClassName = "ExcludeFromCodeCoverageFullNameMultilineTest",
+                MethodName = "SomeTest",
                 VariablePairCurrentIndex = 0,
                 VariablePairsCount = 1
             };
@@ -350,7 +187,7 @@ namespace Test.Integration.XUnit
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable disable
 #endif
-                Actual = actual.FooMethod().BlaProperty.OneMoreFooMethod()
+                Actual = 2
 #if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
 #nullable restore
 #endif
@@ -368,21 +205,308 @@ namespace Test.Integration.XUnit
                     Path = new[]
                     {
                         "Test.Integration.XUnit",
-                        "AssertionNoExpectedVarTest",
-                        "ShouldDetectExpectedArgumentAndActualCouplePropertiesOrMethodsTest"
+                        "ExcludeFromCodeCoverageFullNameMultilineTest",
+                        "SomeTest"
                     },
                     MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
                     {
                         StatementNodeKind = 8638,
                         StatementNodeIndex = 0,
-                        StatementIndex = 1
+                        StatementIndex = 0
                     }
                 },
                 MethodSharedContext = stormPetrelSharedContext
             };
             ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
-            //Assert
-            actual.FooMethod().BlaProperty.OneMoreFooMethod().Should().Be(1);
+            2.Should().Be(1);
         }
+    }
+
+    [ExcludeFromCodeCoverage()]
+    public class ExcludeFromCodeCoverageWithRoundBracketsTestStormPetrel
+    {
+        [Fact]
+        public void SomeTestStormPetrel()
+        {
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ExcludeFromCodeCoverageWithRoundBracketsTest",
+                MethodName = "SomeTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Actual = 2
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Expected = 1
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                {
+                    Path = new[]
+                    {
+                        "Test.Integration.XUnit",
+                        "ExcludeFromCodeCoverageWithRoundBracketsTest",
+                        "SomeTest"
+                    },
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    {
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 0
+                    }
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            2.Should().Be(1);
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "a justification")]
+    public class ExcludeFromCodeCoverageWithArgumentsTestStormPetrel
+    {
+        [Fact]
+        public void SomeTestStormPetrel()
+        {
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ExcludeFromCodeCoverageWithArgumentsTest",
+                MethodName = "SomeTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Actual = 2
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Expected = 1
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                {
+                    Path = new[]
+                    {
+                        "Test.Integration.XUnit",
+                        "ExcludeFromCodeCoverageWithArgumentsTest",
+                        "SomeTest"
+                    },
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    {
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 0
+                    }
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            2.Should().Be(1);
+        }
+    }
+
+    [ExcludeFromCodeCoverage /*a comment injected*/(Justification = "a justification")]
+    public class ExcludeFromCodeCoverageWithCommentsTestStormPetrel
+    {
+        [Fact]
+        public void SomeTestStormPetrel()
+        {
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ExcludeFromCodeCoverageWithCommentsTest",
+                MethodName = "SomeTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Actual = 2
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Expected = 1
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                {
+                    Path = new[]
+                    {
+                        "Test.Integration.XUnit",
+                        "ExcludeFromCodeCoverageWithCommentsTest",
+                        "SomeTest"
+                    },
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    {
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 0
+                    }
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            2.Should().Be(1);
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "a justification")]
+    public class ExcludeFromCodeCoverageMultilineTestStormPetrel
+    {
+        [Fact]
+        public void SomeTestStormPetrel()
+        {
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ExcludeFromCodeCoverageMultilineTest",
+                MethodName = "SomeTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Actual = 2
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Expected = 1
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                {
+                    Path = new[]
+                    {
+                        "Test.Integration.XUnit",
+                        "ExcludeFromCodeCoverageMultilineTest",
+                        "SomeTest"
+                    },
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    {
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 0
+                    }
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            2.Should().Be(1);
+        }
+    }
+
+#pragma warning disable CA1041 // Multiple attributes with pragma
+
+    [Obsolete, ExcludeFromCodeCoverage
+#pragma warning restore CA1041 // Multiple attributes with pragma
+
+    (Justification = "a justification")]
+    public class ExcludeFromCodeCoverageMultipleAttributesTestStormPetrel
+    {
+        [Fact]
+        public void SomeTestStormPetrel()
+        {
+            var stormPetrelSharedContext = new global::Scand.StormPetrel.Generator.Abstraction.MethodContext()
+            {
+                FilePath = "C:\\temp\\temp.cs",
+                ClassName = "ExcludeFromCodeCoverageMultipleAttributesTest",
+                MethodName = "SomeTest",
+                VariablePairCurrentIndex = 0,
+                VariablePairsCount = 1
+            };
+            var stormPetrelContext = new global::Scand.StormPetrel.Generator.Abstraction.GenerationContext()
+            {
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Actual = 2
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable disable
+#endif
+                Expected = 1
+#if !NETFRAMEWORK || SCAND_STORM_PETREL_NULLABLE_ENABLE
+#nullable restore
+#endif
+            ,
+                ExtraContext = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.InvocationSourceContext()
+                {
+                    Path = new[]
+                    {
+                        "Test.Integration.XUnit",
+                        "ExcludeFromCodeCoverageMultipleAttributesTest",
+                        "SomeTest"
+                    },
+                    MethodInfo = new global::Scand.StormPetrel.Generator.Abstraction.ExtraContext.InvocationSource.MethodBodyStatementInfo()
+                    {
+                        StatementNodeKind = 8638,
+                        StatementNodeIndex = 0,
+                        StatementIndex = 0
+                    }
+                },
+                MethodSharedContext = stormPetrelSharedContext
+            };
+            ((global::Scand.StormPetrel.Generator.Abstraction.IGenerator)new global::Scand.StormPetrel.Generator.TargetProject.Generator()).GenerateBaseline(stormPetrelContext);
+            2.Should().Be(1);
+        }
+    }
+
+    public static class ExcludeFromCodeCoverageAttributeShouldBeAddedStormPetrel
+    {
+        public static int PotentialDataSource() => 1;
+        public static (int NodeKind, int NodeIndex) PotentialDataSourceStormPetrel() => (8917, 0);
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class ExcludeFromCodeCoverageClassAttributeExistsAndStaticMethodOnlyStormPetrel
+    {
+        public static int PotentialDataSource() => 1;
+        public static (int NodeKind, int NodeIndex) PotentialDataSourceStormPetrel() => (8917, 0);
     }
 }

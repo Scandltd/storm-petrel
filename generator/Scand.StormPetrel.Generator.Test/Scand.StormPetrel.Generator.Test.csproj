@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="..\Test.Integration.XUnit\ExcludeFromCodeCoverageAttributeTest.cs" Link="Resource\ExcludeFromCodeCoverageAttributeTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="..\Test.Integration.XUnit\AssertInvocationPathTest.cs" Link="Resource\AssertInvocationPathTest.cs" />
   </ItemGroup>
 
