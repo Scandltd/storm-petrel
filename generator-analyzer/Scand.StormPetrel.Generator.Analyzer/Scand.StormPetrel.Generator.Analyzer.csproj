@@ -46,7 +46,7 @@
           <Pack>True</Pack>
           <PackagePath>\</PackagePath>
         </None>
-        <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="2.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+        <PackageReference Include="Scand.StormPetrel.Generator.Abstraction" Version="3.0.0" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="System.IO.Pipelines" Version="10.0.7" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="System.Text.Encodings.Web" Version="10.0.7" PrivateAssets="all" GeneratePathProperty="true" />
         <PackageReference Include="System.Text.Json" Version="10.0.7" PrivateAssets="all" GeneratePathProperty="true" />
