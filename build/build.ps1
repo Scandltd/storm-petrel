@@ -5,7 +5,7 @@ param(
     [bool]$SkipGeneratorTestPerformance = $false,                   #To build and execute the package performance tests in context of the integration tests. Can be utilized for development purposes to speed up the build
     [bool]$SkipFileSnapshotInfrastructureBuild = $false,            #To build the package and execute its unit tests
     [bool]$SkipFileSnapshotInfrastructureTest = $false,             #To build and execute the package integration tests
-    [string]$FSIIntegrationTestGeneratorVersion = "2.7.0",          #To execute File Snapshot Infrastructure integration tests with specific version of the generator
+    [string]$FSIIntegrationTestGeneratorVersion = "3.0.0",          #To execute File Snapshot Infrastructure integration tests with specific version of the generator
     [bool]$SkipAnalyzerBuild = $false,                              #To build the package and execute its unit tests
     [bool]$SkipAnalyzerTest = $false,                               #To build and execute the package integration tests
     [string]$TestTargetFrameworkMap = ""                            #To:
@@ -280,8 +280,8 @@ if (-not $SkipGeneratorBuild) {
     RunUnitTest "generator"
     #Build package in Release mode after unit tests
     BuildPackage "generator" "Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj"
-    CopyTo "generator/bin/Scand.StormPetrel.Generator.2.*" "file-snapshot-infrastructure/bin"
-    CopyTo "generator/bin/Scand.StormPetrel.Generator.2.*" "generator-analyzer/bin"
+    CopyTo "generator/bin/Scand.StormPetrel.Generator.3.*" "file-snapshot-infrastructure/bin"
+    CopyTo "generator/bin/Scand.StormPetrel.Generator.3.*" "generator-analyzer/bin"
 }
 
 if (-not $SkipGeneratorTest) {

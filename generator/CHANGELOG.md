@@ -1,5 +1,28 @@
 # Change Log
 
+## [3.0.0] - 2026-05-08
+
+### Added
+- Expected variable properties/fields invocation support.
+- xUnit testing with Native AOT support.
+- **Breaking:** Enabled nullable reference types for `Scand.StormPetrel.Generator.Utils` API.
+
+    **Action required:** Update code that consumes this API accordingly.
+- Global namespace alias in generated code.
+- `ExcludeFromCodeCoverage` attribute to generated code.
+- Latest versions of referenced NuGet packages.
+
+### Documentation: added
+- `expected` complex types examples in context of `IXunitSerializable` and `InlineData`.
+
+### Fixed
+- **Breaking:** Experimental code: `InvocationSourceContext.Path` and `TestCaseSourceContext.Path` property experimental segments are no longer populated by `Scand.StormPetrel.Generator`. Consumed new classes and properties of [Scand.StormPetrel.Generator.Abstraction](../abstraction/README.md) v3.0.0 instead.
+
+    **Action required:** Update code that consumes these experimental APIs accordingly.
+- `Cannot detect appropriate test case source row to rewrite...` error message.
+- Rename constructor calls and other typical class tokens within `StormPetrel` class copies.
+- `StormPetrel` methods typical compilation failure: ignore return nodes in local functions and lambdas.
+
 ## [2.7.0] - 2026-02-11
 
 ### Added

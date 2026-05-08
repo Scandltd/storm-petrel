@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Scand.StormPetrel.Generator.Test.Resource
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
     [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     internal class MemberDataTestsStormPetrel
     {

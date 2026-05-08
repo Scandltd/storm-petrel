@@ -5,7 +5,7 @@
 using System.Text.Json;
 
 namespace Test.Integration.XUnit;
-[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 partial class UtilsStormPetrel
 {

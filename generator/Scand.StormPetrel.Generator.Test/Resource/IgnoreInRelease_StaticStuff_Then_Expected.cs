@@ -4,7 +4,7 @@
 #endif
 #if !DEBUG
 namespace Test.Integration.ObjectDumper.XUnit;
-[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "2.7.0")]
+[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public static partial class IgnoreInReleaseStormPetrel
 {
