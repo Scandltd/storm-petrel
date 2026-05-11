@@ -26,7 +26,7 @@
     <PackageReference Include="JunitXml.TestLogger" Version="8.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
     <PackageReference Include="Scand.StormPetrel.Generator" Version="3.0.0" />
-    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.3" />
+    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="3.0.0" />
     <PackageReference Include="SkiaSharp" Version="3.119.1" /><!-- Do NOT update the version. Reason: newer versions contain ~80 MB pdb what significantly affects build time and output. -->
     <PackageReference Include="System.Text.Json" Version="10.0.7" />
     <PackageReference Include="xunit" Version="2.9.3" />

@@ -1,4 +1,13 @@
 # Change Log
+
+## [3.0.0] - 2026-05-11
+
+### Updated
+- **Breaking:** [Scand.StormPetrel.Generator.Abstraction](../abstraction/README.md) dependency from v2.0.0 to v3.0.0.
+
+    **Action required:** Upgrade [Scand.StormPetrel.Generator](../generator/README.md) to v3.0.0 or later in any project that references this `Scand.StormPetrel.FileSnapshotInfrastructure` package.
+- **Breaking:** Enabled nullable reference types. Properties and return values have been annotated with appropriate nullability and default values. When upgrading, your projects may show new nullable warnings. See [Nullable reference migrations guide](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-migration-strategies) for resolution strategies.
+
 ## [2.0.3] - 2025-06-06
 
 ### Documentation: added

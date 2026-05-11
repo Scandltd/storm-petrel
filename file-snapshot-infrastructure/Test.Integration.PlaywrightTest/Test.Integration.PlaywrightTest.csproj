@@ -30,7 +30,7 @@
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="8.9.0" />
     <PackageReference Include="Scand.StormPetrel.Generator" Version="3.0.0" />
-    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="2.0.3" />
+    <PackageReference Include="Scand.StormPetrel.FileSnapshotInfrastructure" Version="3.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
     <PackageReference Include="Microsoft.Playwright.Xunit" Version="1.59.0" />
     <PackageReference Include="ObjectDumper.NET" Version="4.3.2" />
