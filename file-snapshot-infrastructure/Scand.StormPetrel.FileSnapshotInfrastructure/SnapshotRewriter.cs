@@ -13,10 +13,10 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
     public sealed class SnapshotRewriter : IGeneratorRewriter
     {
         private readonly SnapshotOptions _options;
-        private readonly Encoding _textFileEncoding;
+        private readonly Encoding? _textFileEncoding;
         private static readonly string UseCaseIdAttributeFullName = typeof(UseCaseIdAttribute).FullName
                                                                         .Substring(0, typeof(UseCaseIdAttribute).FullName.Length - "Attribute".Length);
-        public SnapshotRewriter(SnapshotOptions options = null, Encoding textFileEncoding = null)
+        public SnapshotRewriter(SnapshotOptions? options = null, Encoding? textFileEncoding = null)
         {
             _options = options ?? SnapshotOptions.Current;
             _textFileEncoding = textFileEncoding;
@@ -43,9 +43,10 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
                     var names = string.Join(", ", useCaseParameters.Select(x => x.Name));
                     throw new InvalidOperationException($"Multiple parameters match `Use Case Id` criteria: {names}");
                 }
-                if (useCaseParameters[0].Value != null)
+                var value = useCaseParameters[0].Value;
+                if (value != null)
                 {
-                    useCaseId = useCaseParameters[0].Value.ToString();
+                    useCaseId = value.ToString();
                 }
             }
             _ = SnapshotProvider.ExecuteFuncWithMissedDirectoryOrFileCreation(_options, useCaseId, context.MethodSharedContext.FilePath, context.MethodSharedContext.MethodName, snapshotFilePath =>

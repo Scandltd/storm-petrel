@@ -13,7 +13,7 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
     {
         private static readonly ConcurrentDictionary<string, object> FilePathToLockObject = new ConcurrentDictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         private readonly SnapshotOptions _options;
-        public SnapshotProvider(SnapshotOptions options = null)
+        public SnapshotProvider(SnapshotOptions? options = null)
         {
             _options = options ?? SnapshotOptions.Current;
         }
@@ -21,18 +21,18 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
         #region Instance, public
         public byte[] ReadAllBytes(string useCaseId = "", [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "") =>
             ReadAllBytes(useCaseId, callerFilePath, callerMemberName, _options);
-        public string ReadAllText(string useCaseId = "", Encoding encoding = null, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "") =>
+        public string ReadAllText(string useCaseId = "", Encoding? encoding = null, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "") =>
             ReadAllText(useCaseId, encoding, callerFilePath, callerMemberName, _options);
         public Stream OpenReadWithShareReadWrite(string useCaseId = "", [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "") =>
             OpenReadWithShareReadWrite(useCaseId, callerFilePath, callerMemberName, _options);
         #endregion
 
         #region Static, public
-        public static byte[] ReadAllBytes(string useCaseId = "", [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", SnapshotOptions options = null) =>
+        public static byte[] ReadAllBytes(string useCaseId = "", [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", SnapshotOptions? options = null) =>
             ExecuteFuncWithMissedDirectoryOrFileCreation(options ?? SnapshotOptions.Current, useCaseId, callerFilePath, callerMemberName, x => File.ReadAllBytes(x));
-        public static string ReadAllText(string useCaseId = "", Encoding encoding = null, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", SnapshotOptions options = null) =>
+        public static string ReadAllText(string useCaseId = "", Encoding? encoding = null, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", SnapshotOptions? options = null) =>
             ExecuteFuncWithMissedDirectoryOrFileCreation(options ?? SnapshotOptions.Current, useCaseId, callerFilePath, callerMemberName, x => FileReadAllText(x, encoding));
-        public static Stream OpenReadWithShareReadWrite(string useCaseId = "", [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", SnapshotOptions options = null) =>
+        public static Stream OpenReadWithShareReadWrite(string useCaseId = "", [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", SnapshotOptions? options = null) =>
             ExecuteFuncWithMissedDirectoryOrFileCreation(options ?? SnapshotOptions.Current, useCaseId, callerFilePath, callerMemberName, x => File.Open(x, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
         #endregion
 
@@ -102,7 +102,7 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
             }
         }
 
-        private static string FileReadAllText(string filePath, Encoding encoding) => encoding == null
+        private static string FileReadAllText(string filePath, Encoding? encoding) => encoding == null
                                                                                         ? File.ReadAllText(filePath)
                                                                                         : File.ReadAllText(filePath, encoding);
     }

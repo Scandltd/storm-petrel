@@ -21,6 +21,6 @@
         /// <param name="callerFilePath">Test file path or its Storm Petrel version.</param>
         /// <param name="callerMemberName">Test method name.</param>
         /// <returns></returns>
-        string GetFileExtension(string useCaseId, string callerFilePath, string callerMemberName);
+        string? GetFileExtension(string useCaseId, string callerFilePath, string callerMemberName);
     }
 }

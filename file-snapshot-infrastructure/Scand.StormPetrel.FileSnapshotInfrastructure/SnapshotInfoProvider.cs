@@ -15,11 +15,11 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
         public const string TokenForUseCaseId = "<UseCaseId>";
         private readonly string _extraPathPattern;
         private readonly string _fileNameWithoutExtensionPattern;
-        private readonly string _fileExtension;
+        private readonly string? _fileExtension;
         public SnapshotInfoProvider(
             string extraPathPattern = TokenForCallerFileNameWithoutExtension + ".Expected",
             string fileNameWithoutExtensionPattern = TokenForMemberName + "." + TokenForUseCaseId,
-            string fileExtension = null)
+            string? fileExtension = null)
         {
             _extraPathPattern = extraPathPattern;
             _fileNameWithoutExtensionPattern = fileNameWithoutExtensionPattern;
@@ -63,7 +63,7 @@ namespace Scand.StormPetrel.FileSnapshotInfrastructure
             return Path.Combine(dirPath, fileNameWithoutExtension);
         }
 
-        public string GetFileExtension(string useCaseId, string callerFilePath, string callerMemberName) => _fileExtension;
+        public string? GetFileExtension(string useCaseId, string callerFilePath, string callerMemberName) => _fileExtension;
 
         private static (string FilePathConverted, string MemberNameConverted) ConvertStormPetrelFilePathOrSelf(string callerFilePath, string callerMemberName)
         {
