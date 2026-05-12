@@ -14,7 +14,7 @@ namespace Scand.StormPetrel.Generator.TargetProject
         {
             if (options.DumpStyle != DumpStyle.CSharp)
             {
-                throw new ArgumentException("The only supported value is DumpStyle CSharp", nameof(options.DumpStyle));
+                throw new global::System.ArgumentException("The only supported value is DumpStyle CSharp", nameof(options.DumpStyle));
             }
             _options = options;
         }
