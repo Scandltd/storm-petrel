@@ -275,184 +275,189 @@ function FixTestProjectsTargetFramework {
     }
 }
 
-ClearPackageCache "scand.stormpetrel.generator.abstraction"
-if (-not $SkipAbstraction) {
-    BuildPackage "abstraction" "Scand.StormPetrel.Generator.Abstraction/Scand.StormPetrel.Generator.Abstraction.csproj"
-    CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "generator/bin"
-    CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "file-snapshot-infrastructure/bin"
-    CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "generator-analyzer/bin"
-}
-
-ClearPackageCache "scand.stormpetrel.generator"
-if (-not $SkipGeneratorBuild) {
-    RunUnitTest "generator"
-    #Build package in Release mode after unit tests
-    BuildPackage "generator" "Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj"
-    CopyTo "generator/bin/Scand.StormPetrel.Generator.3.*" "file-snapshot-infrastructure/bin"
-    CopyTo "generator/bin/Scand.StormPetrel.Generator.3.*" "generator-analyzer/bin"
-}
-
-if (-not $SkipGeneratorTest) {
-    $solutionFileName = "Scand.StormPetrel.Test.Integration.slnx"
-    if ($SkipGeneratorTestPerformance) {
-        #Create temporary slnx file where no performance integration tests project
-        $solutionFileName = "Scand.StormPetrel.Test.Integration.NoPerformance.Build.Temp.slnx"
-        $content = Get-Content -Path "generator/Scand.StormPetrel.Test.Integration.slnx" -Raw
-        $performanceProjectPattern = "<Project Path=`"Test.Integration.Performance.XUnit/Test.Integration.Performance.XUnit.csproj`" />"
-        $content = $content -replace $performanceProjectPattern, ""
-        Set-Content -Path "generator/$solutionFileName" -Value $content
-    } else {
-        #Enable StormPetrel tests in performance integration tests
-        $performanceTestSettingsFilePath = "generator/Test.Integration.Performance.XUnit/appsettings.StormPetrel.json"
-        $performanceTestSettings = Get-Content -Path $performanceTestSettingsFilePath
-        $updatedPerformanceTestSettings = $performanceTestSettings -replace '"IsDisabled": true,', '"IsDisabled": false,'
-        Set-Content -Path $performanceTestSettingsFilePath -Value $updatedPerformanceTestSettings
-    }
-    #Disable .NETFramework tests on OS other than Windows
-    if (!$isWin) {
-        $content = Get-Content -Path "generator/$solutionFileName" -Raw
-        $netFrameworkProjectPattern = "<Project Path=`"Test.Integration.NETFramework.NUnit/Test.Integration.NETFramework.NUnit.csproj`" />"
-        $content = $content -replace $netFrameworkProjectPattern, ""
-        Set-Content -Path "generator/$solutionFileName" -Value $content
+function Build {
+    ClearPackageCache "scand.stormpetrel.generator.abstraction"
+    if (-not $SkipAbstraction) {
+        BuildPackage "abstraction" "Scand.StormPetrel.Generator.Abstraction/Scand.StormPetrel.Generator.Abstraction.csproj"
+        CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "generator/bin"
+        CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "file-snapshot-infrastructure/bin"
+        CopyTo "abstraction/bin/Scand.StormPetrel.Generator.Abstraction.*" "generator-analyzer/bin"
     }
 
-    #Copy *.cs files to execute integration tests under next version of .NET
-    Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnit.NetNextVersion" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs"
-    #Copy *.cs files to execute integration tests under XUnit v3
-    Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnitV3" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs", "CustomInlineDataAttribute.cs", "CustomMemberDataAttribute.cs"
-    #Update the signature of MemberData attribute for XUnit v3
-    $testFileName = "generator/Test.Integration.XUnitV3/TestCaseSourceMemberDataTest.cs"
-    $testsContent = Get-Content -Path $testFileName -Raw
-    $testsContent = $testsContent -replace "parameters:", "arguments:"
-    Set-Content -Path $testFileName -Value $testsContent
+    ClearPackageCache "scand.stormpetrel.generator"
+    if (-not $SkipGeneratorBuild) {
+        RunUnitTest "generator"
+        #Build package in Release mode after unit tests
+        BuildPackage "generator" "Scand.StormPetrel.Generator/Scand.StormPetrel.Generator.csproj"
+        CopyTo "generator/bin/Scand.StormPetrel.Generator.3.*" "file-snapshot-infrastructure/bin"
+        CopyTo "generator/bin/Scand.StormPetrel.Generator.3.*" "generator-analyzer/bin"
+    }
 
-    CreateBinDirectoryIfNeed "generator"
-    if ($SkipGeneratorTestPerformance) {
-        Write-Output "Executing AOT tests without 'dotnet publish' to save build time"
-        RunAOTTests $false
-    } else {
-        $publishPath = "generator/Test.Integration.XUnitV3AOT/bin/Release/AOT/$runtimeIdentifier"
-        dotnet publish -c Release -r $runtimeIdentifier -o $publishPath generator/Test.Integration.XUnitV3AOT/Test.Integration.XUnitV3AOT.csproj -p:DebugSymbols=false -p:SatelliteResourceLanguages=en
-        if ($LASTEXITCODE -ne 0) {
-            Write-Error "AOT tests publishing fails"
-            exit 1
+    if (-not $SkipGeneratorTest) {
+        $solutionFileName = "Scand.StormPetrel.Test.Integration.slnx"
+        if ($SkipGeneratorTestPerformance) {
+            #Create temporary slnx file where no performance integration tests project
+            $solutionFileName = "Scand.StormPetrel.Test.Integration.NoPerformance.Build.Temp.slnx"
+            $content = Get-Content -Path "generator/Scand.StormPetrel.Test.Integration.slnx" -Raw
+            $performanceProjectPattern = "<Project Path=`"Test.Integration.Performance.XUnit/Test.Integration.Performance.XUnit.csproj`" />"
+            $content = $content -replace $performanceProjectPattern, ""
+            Set-Content -Path "generator/$solutionFileName" -Value $content
+        } else {
+            #Enable StormPetrel tests in performance integration tests
+            $performanceTestSettingsFilePath = "generator/Test.Integration.Performance.XUnit/appsettings.StormPetrel.json"
+            $performanceTestSettings = Get-Content -Path $performanceTestSettingsFilePath
+            $updatedPerformanceTestSettings = $performanceTestSettings -replace '"IsDisabled": true,', '"IsDisabled": false,'
+            Set-Content -Path $performanceTestSettingsFilePath -Value $updatedPerformanceTestSettings
         }
-        #Run AOT-published tests
-        & "$publishPath/Test.Integration.XUnitV3AOT"
-        if ($LASTEXITCODE -eq 0) {
-            Write-Error "AOT StormPetrel tests fail: unexpected zero exit code"
-            exit 1
+        #Disable .NETFramework tests on OS other than Windows
+        if (!$isWin) {
+            $content = Get-Content -Path "generator/$solutionFileName" -Raw
+            $netFrameworkProjectPattern = "<Project Path=`"Test.Integration.NETFramework.NUnit/Test.Integration.NETFramework.NUnit.csproj`" />"
+            $content = $content -replace $netFrameworkProjectPattern, ""
+            Set-Content -Path "generator/$solutionFileName" -Value $content
         }
-    }
-    Write-Output "Validating AOT tests result"
-    RunAOTTests $true
-    Write-Output "AOT tests have been executed successfully"
-    RunIntegrationTests "generator" $solutionFileName
-}
 
-ClearPackageCache "scand.stormpetrel.filesnapshotinfrastructure"
-if (-not $SkipFileSnapshotInfrastructureBuild) {
-    RunUnitTest "file-snapshot-infrastructure"
-    #Build package in Release mode after unit tests
-    BuildPackage "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure/Scand.StormPetrel.FileSnapshotInfrastructure.csproj"
-}
+        #Copy *.cs files to execute integration tests under next version of .NET
+        Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnit.NetNextVersion" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs"
+        #Copy *.cs files to execute integration tests under XUnit v3
+        Recursively-Copy-Cs-Files "generator/Test.Integration.XUnit" "generator/Test.Integration.XUnitV3" -IgnoreFileNames "Utils.cs", "Utils.IgnoredMembersMiddleware.cs", "CustomInlineDataAttribute.cs", "CustomMemberDataAttribute.cs"
+        #Update the signature of MemberData attribute for XUnit v3
+        $testFileName = "generator/Test.Integration.XUnitV3/TestCaseSourceMemberDataTest.cs"
+        $testsContent = Get-Content -Path $testFileName -Raw
+        $testsContent = $testsContent -replace "parameters:", "arguments:"
+        Set-Content -Path $testFileName -Value $testsContent
 
-if (-not $SkipFileSnapshotInfrastructureTest) {
-    #Change NETFramework TargetFramework for Custom Configuration on OS other than Windows
-    if (!$isWin) {
-         ChangeTargetFramework "file-snapshot-infrastructure/Test.Integration.CustomConfiguration/Test.Integration.CustomConfiguration.csproj"
-         $solutionFileName = "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.slnx"
-         $content = Get-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Raw
-         $winformsProjectPattern = "<Project Path=`"Test.Integration.WinFormsApp/Test.Integration.WinFormsApp.csproj`" />"
-         $testProjectPattern = "<Project Path=`"Test.Integration.WinFormsAppTest/Test.Integration.WinFormsAppTest.csproj`" />"
-         $wpfProjectPattern = "<Project Path=`"Test.Integration.WpfApp/Test.Integration.WpfApp.csproj`" />"
-         $testWpfProjectPattern = "<Project Path=`"Test.Integration.WpfAppTest/Test.Integration.WpfAppTest.csproj`" />"
-         $content = $content -replace $testProjectPattern, "" -replace $winformsProjectPattern, "" -replace $wpfProjectPattern, "" -replace $testWpfProjectPattern, ""
-         $dict = GetTestTargetFrameworkMapAsDictionary
-         if ($null -ne $dict -and $dict["net8.0"] -eq "net10.0") {
-             #Do not run Playwright tests under unix-like platforms for .NET 10 because:
-             # - Playwright team recommends .NET 8, see https://playwright.dev/dotnet/docs/intro#system-requirements.
-             # - Highly likely we will have issues with Playwright tests like "NewPageAsync hangs". TODO: investigate and fix the issue when .NET 10 is officially suggested.
-             $testPlaywrightProjectPattern = "<Project Path=`"Test.Integration.PlaywrightTest/Test.Integration.PlaywrightTest.csproj`" />"
-             $content = $content -replace $testPlaywrightProjectPattern, ""
-         }
-         Set-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Value $content
-    }
-    #Update Scand.StormPetrel.Generator package references in integration test projects
-    $testProjectFiles = Get-ChildItem -Path "file-snapshot-infrastructure" -Recurse -File | Where-Object { $_.Name -match "^Test\.Integration\..*\.csproj`$" }
-    foreach ($projectFile in $testProjectFiles) {
-        $content = Get-Content -Path $projectFile.FullName -Raw
-        $replacement = "`${1}$FSIIntegrationTestGeneratorVersion`$3"
-        $content = $content -replace "(<PackageReference Include=\""Scand.StormPetrel.Generator\"" Version=\"")([0-9\.]*)(\"")", $replacement
-        Set-Content -Path $projectFile.FullName -Value $content
-    }
-    RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.slnx"
-}
-
-ClearPackageCache "scand.stormpetrel.generator.analyzer"
-if (-not $SkipAnalyzerBuild) {
-    RunUnitTest "generator-analyzer"
-    #Build package in Release mode after unit tests
-    BuildPackage "generator-analyzer" "Scand.StormPetrel.Generator.Analyzer/Scand.StormPetrel.Generator.Analyzer.csproj"
-}
-
-if (-not $SkipAnalyzerTest) {
-    $matchToCount = @{
-        "warning SCANDSP1000" = 1
-        "SCANDSP1000" = 1                    #Total SCANDSP1000 matches
-        "SCANDSP1002" = 1                    #Total SCANDSP1002 matches
-        "warning SCANDSP1003: Regex is invalid: \(invalid regex 1" = 2
-        "warning SCANDSP1003: Regex is invalid: \(invalid regex 2" = 2
-        "SCANDSP1003" = 4                    #Total SCANDSP1003 matches
-        "warning SCANDSP2000: Storm Petrel cannot detect baselines to update in 'WhenTestIsNotSuitableForUpdatesThenWarningTest' test method" = 2
-        "warning SCANDSP2000: Storm Petrel cannot detect baselines to update in 'WhenTestWithVariablesIsNotSuitableForUpdatesThenWarningTest' test method" = 2
-        "SCANDSP2000" = 4                    #Total SCANDSP2000 matches
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'AttributeListDataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'DataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'TestCaseSourceClassDataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'TestDataSourceDataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'MsTestDataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'MsTestDataSourceDataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'NUnitDataMethod'" = 1
-        "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'NUnitDataSourceDataMethod'" = 1
-        "SCANDSP3000" = 8                    #Total SCANDSP3000 matches
-    }
-    
-
-    $analyzerIngetrationTestSlnPath = "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.slnx"
-    dotnet build $analyzerIngetrationTestSlnPath 2>&1 | Select-Object -Unique | ForEach-Object {
-        $line = $_
-        Write-Output $line
-        $matchToCount.Keys.Clone() | ForEach-Object {
-            $key = $_
-            if ($line -match $key) {
-                $matchToCount[$key]--
+        CreateBinDirectoryIfNeed "generator"
+        if ($SkipGeneratorTestPerformance) {
+            Write-Output "Executing AOT tests without 'dotnet publish' to save build time"
+            RunAOTTests $false
+        } else {
+            $publishPath = "generator/Test.Integration.XUnitV3AOT/bin/Release/AOT/$runtimeIdentifier"
+            dotnet publish -c Release -r $runtimeIdentifier -o $publishPath generator/Test.Integration.XUnitV3AOT/Test.Integration.XUnitV3AOT.csproj -p:DebugSymbols=false -p:SatelliteResourceLanguages=en
+            if ($LASTEXITCODE -ne 0) {
+                Write-Error "AOT tests publishing fails"
+                exit 1
+            }
+            #Run AOT-published tests
+            & "$publishPath/Test.Integration.XUnitV3AOT"
+            if ($LASTEXITCODE -eq 0) {
+                Write-Error "AOT StormPetrel tests fail: unexpected zero exit code"
+                exit 1
             }
         }
+        Write-Output "Validating AOT tests result"
+        RunAOTTests $true
+        Write-Output "AOT tests have been executed successfully"
+        RunIntegrationTests "generator" $solutionFileName
     }
-   
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error "Failed building $analyzerIngetrationTestSlnPath"
-        exit $LASTEXITCODE
+
+    ClearPackageCache "scand.stormpetrel.filesnapshotinfrastructure"
+    if (-not $SkipFileSnapshotInfrastructureBuild) {
+        RunUnitTest "file-snapshot-infrastructure"
+        #Build package in Release mode after unit tests
+        BuildPackage "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure/Scand.StormPetrel.FileSnapshotInfrastructure.csproj"
     }
-    
-    $hasError = $false
-    foreach ($key in $matchToCount.Keys) {
-        if ($matchToCount[$key] -ne 0) {
-            $hasError = $true
-            Write-Warning "Wrong match count left: (Key: $key, Value: $($matchToCount[$key]))"
+
+    if (-not $SkipFileSnapshotInfrastructureTest) {
+        #Change NETFramework TargetFramework for Custom Configuration on OS other than Windows
+        if (!$isWin) {
+             ChangeTargetFramework "file-snapshot-infrastructure/Test.Integration.CustomConfiguration/Test.Integration.CustomConfiguration.csproj"
+             $solutionFileName = "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.slnx"
+             $content = Get-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Raw
+             $winformsProjectPattern = "<Project Path=`"Test.Integration.WinFormsApp/Test.Integration.WinFormsApp.csproj`" />"
+             $testProjectPattern = "<Project Path=`"Test.Integration.WinFormsAppTest/Test.Integration.WinFormsAppTest.csproj`" />"
+             $wpfProjectPattern = "<Project Path=`"Test.Integration.WpfApp/Test.Integration.WpfApp.csproj`" />"
+             $testWpfProjectPattern = "<Project Path=`"Test.Integration.WpfAppTest/Test.Integration.WpfAppTest.csproj`" />"
+             $content = $content -replace $testProjectPattern, "" -replace $winformsProjectPattern, "" -replace $wpfProjectPattern, "" -replace $testWpfProjectPattern, ""
+             $dict = GetTestTargetFrameworkMapAsDictionary
+             if ($null -ne $dict -and $dict["net8.0"] -eq "net10.0") {
+                 #Do not run Playwright tests under unix-like platforms for .NET 10 because:
+                 # - Playwright team recommends .NET 8, see https://playwright.dev/dotnet/docs/intro#system-requirements.
+                 # - Highly likely we will have issues with Playwright tests like "NewPageAsync hangs". TODO: investigate and fix the issue when .NET 10 is officially suggested.
+                 $testPlaywrightProjectPattern = "<Project Path=`"Test.Integration.PlaywrightTest/Test.Integration.PlaywrightTest.csproj`" />"
+                 $content = $content -replace $testPlaywrightProjectPattern, ""
+             }
+             Set-Content -Path "file-snapshot-infrastructure/$solutionFileName" -Value $content
         }
+        #Update Scand.StormPetrel.Generator package references in integration test projects
+        $testProjectFiles = Get-ChildItem -Path "file-snapshot-infrastructure" -Recurse -File | Where-Object { $_.Name -match "^Test\.Integration\..*\.csproj`$" }
+        foreach ($projectFile in $testProjectFiles) {
+            $content = Get-Content -Path $projectFile.FullName -Raw
+            $replacement = "`${1}$FSIIntegrationTestGeneratorVersion`$3"
+            $content = $content -replace "(<PackageReference Include=\""Scand.StormPetrel.Generator\"" Version=\"")([0-9\.]*)(\"")", $replacement
+            Set-Content -Path $projectFile.FullName -Value $content
+        }
+        RunIntegrationTests "file-snapshot-infrastructure" "Scand.StormPetrel.FileSnapshotInfrastructure.Test.Integration.slnx"
     }
-    
-    if ($hasError) {
-        Write-Error "Some patterns do not match. See more details above."
-        exit 1
+
+    ClearPackageCache "scand.stormpetrel.generator.analyzer"
+    if (-not $SkipAnalyzerBuild) {
+        RunUnitTest "generator-analyzer"
+        #Build package in Release mode after unit tests
+        BuildPackage "generator-analyzer" "Scand.StormPetrel.Generator.Analyzer/Scand.StormPetrel.Generator.Analyzer.csproj"
     }
-    else {
-        Write-Output "All expected patterns were detected"
+
+    if (-not $SkipAnalyzerTest) {
+        $matchToCount = @{
+            "warning SCANDSP1000" = 1
+            "SCANDSP1000" = 1                    #Total SCANDSP1000 matches
+            "SCANDSP1002" = 1                    #Total SCANDSP1002 matches
+            "warning SCANDSP1003: Regex is invalid: \(invalid regex 1" = 2
+            "warning SCANDSP1003: Regex is invalid: \(invalid regex 2" = 2
+            "SCANDSP1003" = 4                    #Total SCANDSP1003 matches
+            "warning SCANDSP2000: Storm Petrel cannot detect baselines to update in 'WhenTestIsNotSuitableForUpdatesThenWarningTest' test method" = 2
+            "warning SCANDSP2000: Storm Petrel cannot detect baselines to update in 'WhenTestWithVariablesIsNotSuitableForUpdatesThenWarningTest' test method" = 2
+            "SCANDSP2000" = 4                    #Total SCANDSP2000 matches
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'AttributeListDataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'DataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'TestCaseSourceClassDataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'TestDataSourceDataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'MsTestDataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'MsTestDataSourceDataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'NUnitDataMethod'" = 1
+            "warning SCANDSP3000: Storm Petrel cannot detect baselines to update in 'NUnitDataSourceDataMethod'" = 1
+            "SCANDSP3000" = 8                    #Total SCANDSP3000 matches
+        }
+        
+
+        $analyzerIngetrationTestSlnPath = "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.slnx"
+        dotnet build $analyzerIngetrationTestSlnPath 2>&1 | Select-Object -Unique | ForEach-Object {
+            $line = $_
+            Write-Output $line
+            $matchToCount.Keys.Clone() | ForEach-Object {
+                $key = $_
+                if ($line -match $key) {
+                    $matchToCount[$key]--
+                }
+            }
+        }
+       
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Failed building $analyzerIngetrationTestSlnPath"
+            exit $LASTEXITCODE
+        }
+        
+        $hasError = $false
+        foreach ($key in $matchToCount.Keys) {
+            if ($matchToCount[$key] -ne 0) {
+                $hasError = $true
+                Write-Warning "Wrong match count left: (Key: $key, Value: $($matchToCount[$key]))"
+            }
+        }
+        
+        if ($hasError) {
+            Write-Error "Some patterns do not match. See more details above."
+            exit 1
+        }
+        else {
+            Write-Output "All expected patterns were detected"
+        }
     }
 }
 
-StopSpecialProcesses
-
+try {
+    Build
+} finally {
+    StopSpecialProcesses
+}
 Write-Output "Build script has been executed successfully."
