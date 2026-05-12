@@ -81,6 +81,17 @@ function RunUnitTest {
     }
 }
 
+function CreateBinDirectoryIfNeed {
+    param (
+        $PackageDirName
+    )
+    if (-not (Test-Path -Path "$PackageDirName/bin" -PathType Container)) {
+        #Create 'bin' directory if the package was not built and thus the directory was not created
+        Write-Output "Creating 'bin' directory"
+        New-Item -Path "$PackageDirName/bin" -ItemType Directory
+    }
+}
+
 function RunIntegrationTests {
     param (
         $PackageDirName,
@@ -90,10 +101,7 @@ function RunIntegrationTests {
     Write-Output "We use special individual $SolutionFileName with the only integration test projects to"
     Write-Output "- allow testing of NuGet packages downloaded directly from nuget.org;"
     Write-Output "- building/running the test projects in parallel by single `donet test` command."
-    if (-not (Test-Path -Path "$PackageDirName/bin" -PathType Container)) {
-        #Create 'bin' directory if the package was not built and thus the directory was not created
-        New-Item -Path "$PackageDirName/bin" -ItemType Directory
-    }
+    CreateBinDirectoryIfNeed $PackageDirName
     Write-Output "Executing StormPetrel integration tests"
     FixTestProjectsTargetFramework $PackageDirName
     dotnet test "$PackageDirName/$SolutionFileName" --logger:junit --filter "FullyQualifiedName~StormPetrel" --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
@@ -318,6 +326,7 @@ if (-not $SkipGeneratorTest) {
     $testsContent = $testsContent -replace "parameters:", "arguments:"
     Set-Content -Path $testFileName -Value $testsContent
 
+    CreateBinDirectoryIfNeed "generator"
     if ($SkipGeneratorTestPerformance) {
         Write-Output "Executing AOT tests without 'dotnet publish' to save build time"
         RunAOTTests $false
