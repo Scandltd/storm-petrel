@@ -3,7 +3,7 @@
 #nullable enable
 #endif
 namespace Test.Integration.MSTest;
-[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
 [TestClass]
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public class NoExpectedVarAssertTestStormPetrel

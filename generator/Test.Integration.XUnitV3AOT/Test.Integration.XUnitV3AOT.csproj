@@ -24,7 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="8.9.0" />
-    <PackageReference Include="Scand.StormPetrel.Generator" Version="3.0.0" />
+    <PackageReference Include="Scand.StormPetrel.Generator" Version="3.0.1" />
     <!-- Some test runners may require VSTest support what will become deprecated according to https://xunit.net/docs/getting-started/v3/microsoft-testing-platform#what-is-microsoft-testing-platform.
     Uncomment the packages below to allow VSTest for the runners:
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />

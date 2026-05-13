@@ -6,7 +6,7 @@ using FluentAssertions;
 using System.Globalization;
 
 namespace Test.Integration.XUnit;
-[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+[global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
 [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public static class ExtensionTestStormPetrel
 {

@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace Test.Integration.Performance.XUnit.ExpectedInMethod
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     internal static class ExpectedInMethodTest01DataStormPetrel
     {

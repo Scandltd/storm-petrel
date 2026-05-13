@@ -12,7 +12,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Copyright>© 2024–2026 Scand</Copyright>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <Company>Scand</Company>
     <Authors>Scand</Authors>
   </PropertyGroup>

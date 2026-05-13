@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Test.Integration.XUnit
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ExcludeFromCodeCoverageClassAttributeShouldBeAddedTestStormPetrel
     {
@@ -62,7 +62,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [ExcludeFromCodeCoverage]
     public class ExcludeFromCodeCoverageClassAttributeExistsTestStormPetrel
     {
@@ -117,7 +117,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ExcludeFromCodeCoverageFullNameTestStormPetrel
     {
@@ -172,7 +172,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ExcludeFromCodeCoverageFullNameMultilineTestStormPetrel
     {
@@ -227,7 +227,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [ExcludeFromCodeCoverage()]
     public class ExcludeFromCodeCoverageWithRoundBracketsTestStormPetrel
     {
@@ -282,7 +282,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [ExcludeFromCodeCoverage(Justification = "a justification")]
     public class ExcludeFromCodeCoverageWithArgumentsTestStormPetrel
     {
@@ -337,7 +337,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [ExcludeFromCodeCoverage /*a comment injected*/(Justification = "a justification")]
     public class ExcludeFromCodeCoverageWithCommentsTestStormPetrel
     {
@@ -392,7 +392,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [ExcludeFromCodeCoverage(Justification = "a justification")]
     public class ExcludeFromCodeCoverageMultilineTestStormPetrel
     {
@@ -447,7 +447,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
 #pragma warning disable CA1041 // Multiple attributes with pragma
 
     [Obsolete, ExcludeFromCodeCoverage
@@ -507,7 +507,7 @@ namespace Test.Integration.XUnit
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class ExcludeFromCodeCoverageAttributeShouldBeAddedStormPetrel
     {
@@ -515,7 +515,7 @@ namespace Test.Integration.XUnit
         public static (int NodeKind, int NodeIndex) PotentialDataSourceStormPetrel() => (8917, 0);
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("Scand.StormPetrel.Generator", "3.0.1")]
     [ExcludeFromCodeCoverage]
     public static class ExcludeFromCodeCoverageClassAttributeExistsAndStaticMethodOnlyStormPetrel
     {

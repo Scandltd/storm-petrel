@@ -1,5 +1,10 @@
 # Change Log
 
+## [3.0.1] - 2026-05-13
+
+### Fixed
+- Test project compilation error in the case of .NET Framework and ObjectDumper.NET.
+
 ## [3.0.0] - 2026-05-08
 
 ### Added
