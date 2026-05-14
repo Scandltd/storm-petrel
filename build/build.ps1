@@ -17,6 +17,11 @@ param(
 $isWin = [System.Environment]::OSVersion.Platform.ToString().StartsWith("Win")
 $runtimeIdentifier = if ($isWin) { "win-x64" } else { "linux-x64" }
 
+# Dotnet common argument sets to reduce overhead and I/O
+$DotNetBuildArgs = @("--configuration=Release", "--verbosity=minimal")
+$DotNetTestArgs = @("--configuration=Release", "--verbosity=minimal", "-p:SatelliteResourceLanguages=en")
+$DotNetPublishArgs = @("--configuration=Release", "--verbosity=minimal", "-p:DebugSymbols=false", "-p:SatelliteResourceLanguages=en")
+
 #Use XUNIT, TEST, MEMBERDATA upper-case values to ensure case-insensitivity of TestFrameworkKindName, KindName, XUnitTestCaseSourceKindName properties
 $env:SCAND_STORM_PETREL_GENERATOR_CONFIG = '{"CustomTestAttributes":[{"TestFrameworkKindName":"XUnit","FullName":"Xunit.UIFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.UITheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomTheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomInlineDataAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"XUnit","FullName":"AutoFixture.Xunit2.InlineAutoDataAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"XUnit","FullName":"Xunit.CustomMemberDataAttribute","KindName":"TestCaseSource","XUnitTestCaseSourceKindName":"MEMBERDATA"},{"TestFrameworkKindName":"XUNIT","FullName":"Xunit.CustomClassDataAttribute","KindName":"TestCaseSource","XUnitTestCaseSourceKindName":"ClassData"},{"TestFrameworkKindName":"Xunit","FullName":"xRetry.RetryFactAttribute","KindName":"Test"},{"TestFrameworkKindName":"Xunit","FullName":"xRetry.RetryTheoryAttribute","KindName":"Test"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestAttribute","KindName":"Test"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestCaseAttribute","KindName":"TestCase"},{"TestFrameworkKindName":"NUnit","FullName":"NUnit.CustomTestCaseSourceAttribute","KindName":"TestCaseSource"},{"TestFrameworkKindName":"MSTest","FullName":"MSTest.CustomTestMethodAttribute","KindName":"TEST"},{"TestFrameworkKindName":"MSTest","FullName":"MSTest.CustomDataRowAttribute","KindName":"TestCase"}]}'
 
@@ -45,7 +50,7 @@ function BuildPackage {
     )
 
     Write-Output "Build package: $PackageDirName/$PackageCsprojPath"
-    dotnet build "$PackageDirName/$PackageCsprojPath" --configuration Release
+    dotnet build "$PackageDirName/$PackageCsprojPath" $DotNetBuildArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Failed building $PackageDirName/$PackageCsprojPath"
         exit $LASTEXITCODE
@@ -71,12 +76,33 @@ function RunUnitTest {
 
     $unitTestDirectories = Get-ChildItem -Path $PackageDirName -Filter "Scand.StormPetrel.*.Test" -Directory
     foreach ($directory in $unitTestDirectories) {
-        Write-Output "Executing unit tests in directory: $($directory.Name)"
         FixTestProjectsTargetFramework $directory.FullName
-        dotnet test $directory.FullName --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
+    }
+    if ($PackageDirName -eq "generator") {
+        #Create temporary slnx file where we have unit tests and their references only. This single slnx file allows parallel execution of all unit test projects
+        $solutionFileName = "Scand.StormPetrel.Test.Unit.Build.Temp.slnx"
+        $content = Get-Content -Path "generator/Scand.StormPetrel.slnx" -Raw
+        [xml]$xml = $content
+        $xpath = "//Project[starts-with(@Path, 'Test.Integration')]"
+        $nodesToRemove = $xml.SelectNodes($xpath)
+        foreach ($node in $nodesToRemove) {
+            $node.ParentNode.RemoveChild($node) | Out-Null
+        }
+        $content = $xml.OuterXml
+        Set-Content -Path "generator/$solutionFileName" -Value $content
+        dotnet test "generator/$solutionFileName" --runtime=$runtimeIdentifier $DotNetTestArgs
         if ($LASTEXITCODE -ne 0) {
             Write-Error "$PackageDirName unit tests failed. Exiting with error."
             exit $LASTEXITCODE
+        }
+    } else {
+        foreach ($directory in $unitTestDirectories) {
+            Write-Output "Executing unit tests in directory: $($directory.Name)"
+            dotnet test $directory.FullName --runtime=$runtimeIdentifier $DotNetTestArgs
+            if ($LASTEXITCODE -ne 0) {
+                Write-Error "$PackageDirName unit tests failed. Exiting with error."
+                exit $LASTEXITCODE
+            }
         }
     }
 }
@@ -104,14 +130,18 @@ function RunIntegrationTests {
     CreateBinDirectoryIfNeed $PackageDirName
     Write-Output "Executing StormPetrel integration tests"
     FixTestProjectsTargetFramework $PackageDirName
-    dotnet test "$PackageDirName/$SolutionFileName" --logger:junit --filter "FullyQualifiedName~StormPetrel" --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
+    dotnet test "$PackageDirName/$SolutionFileName" --logger:junit --filter "FullyQualifiedName~StormPetrel" --runtime $runtimeIdentifier $DotNetTestArgs
 
     $failedItems = [System.Collections.ArrayList]::new()
-    foreach ($i in (get-childitem $PackageDirName -recurse | where {$_.name -eq "TestResults.xml"} | Select-Object -Property FullName).FullName) {
+    $hasSuccessItems = $false
+    foreach ($i in (get-childitem "$PackageDirName/Test.Integration.*/TestResults/TestResults.xml" | Select-Object -Property FullName).FullName) {
+        Write-Output "TestResults.xml detected: $i"
         $allFailures = Select-Xml -Path "$i" -XPath '//failure' | Select-Object -ExpandProperty Node | Select-Object -ExpandProperty message
         $stormPetrelFailures = $allFailures | Select-string -Pattern 'Scand.StormPetrel.Generator.Abstraction.Exceptions.BaselineUpdatedException'
         if ($allFailures.Count -ne $stormPetrelFailures.Count) {
             $failedItems.Add($i) | Out-Null
+        } else {
+            $hasSuccessItems = $true
         }
     }
     if ($failedItems.Count -ne 0) {
@@ -120,10 +150,13 @@ function RunIntegrationTests {
         $failedItems | ConvertTo-Json | Write-Warning
         Write-Error "Aborted due to the exception(s) above"
         exit 1
+    } elseif (-not $hasSuccessItems) {
+        Write-Error "No success TestResults.xml files detected"
+        exit 1
     }
 
     Write-Output "Executing all integration tests now, including StormPetrel tests which are executed second time"
-    dotnet test "$PackageDirName/$SolutionFileName" --runtime $runtimeIdentifier --configuration Release -p:SatelliteResourceLanguages=en
+    dotnet test "$PackageDirName/$SolutionFileName" --runtime $runtimeIdentifier $DotNetTestArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Aborted due to failed integration tests in $PackageDirName/$SolutionFileName"
         exit 1
@@ -137,7 +170,7 @@ function RunAOTTests {
     #Push the directory to apply its global.json
     Push-Location "generator/Test.Integration.XUnitV3AOT"
     try {
-        dotnet test --project "Test.Integration.XUnitV3AOT.csproj" -p:RuntimeIdentifier=$runtimeIdentifier --configuration Release
+        dotnet test --project "Test.Integration.XUnitV3AOT.csproj" -p:RuntimeIdentifier=$runtimeIdentifier $DotNetTestArgs
         if ($IsExitOnFailure -and $LASTEXITCODE -ne 0) {
             Write-Error "AOT tests fail"
             exit 1
@@ -333,7 +366,7 @@ function Build {
             RunAOTTests $false
         } else {
             $publishPath = "generator/Test.Integration.XUnitV3AOT/bin/Release/AOT/$runtimeIdentifier"
-            dotnet publish -c Release -r $runtimeIdentifier -o $publishPath generator/Test.Integration.XUnitV3AOT/Test.Integration.XUnitV3AOT.csproj -p:DebugSymbols=false -p:SatelliteResourceLanguages=en
+            dotnet publish -r $runtimeIdentifier -o $publishPath generator/Test.Integration.XUnitV3AOT/Test.Integration.XUnitV3AOT.csproj $DotNetPublishArgs
             if ($LASTEXITCODE -ne 0) {
                 Write-Error "AOT tests publishing fails"
                 exit 1
@@ -421,7 +454,7 @@ function Build {
         
 
         $analyzerIngetrationTestSlnPath = "generator-analyzer/Scand.StormPetrel.Generator.Analyzer.Test.Integration.slnx"
-        dotnet build $analyzerIngetrationTestSlnPath 2>&1 | Select-Object -Unique | ForEach-Object {
+        dotnet build $analyzerIngetrationTestSlnPath $DotNetBuildArgs 2>&1 | Select-Object -Unique | ForEach-Object {
             $line = $_
             Write-Output $line
             $matchToCount.Keys.Clone() | ForEach-Object {
